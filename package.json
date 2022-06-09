@@ -20,5 +20,9 @@
   "homepage": "https://github.com/nicolas772/DeskHabitum#readme",
   "devDependencies": {
     "electron": "^19.0.4"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.0-beta1",
+    "bootstrap-icons": "^1.8.3"
   }
 }
