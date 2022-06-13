@@ -26,6 +26,7 @@
 }
 
 * {
+
     margin:0;
     padding:0;
     outline: 0;
@@ -38,16 +39,20 @@
 
 html{
     font-size: 14px;
+
 }
 
 body{
+    /*Para tapar scroll tamaño ventana*/
+    overflow-y:hidden;
+    overflow-x:hidden ;
+
     width: 100vw;
-    heigth: 100vh;
+    height: 100vh;
     font-family: poppins,sans-serif;
     font-size:0.88rem;
     background:var(--color-background);
     user-select: none;
-    overflow-x: hidden;
     color: var(--color-dark);
 }
 
@@ -70,7 +75,7 @@ img{
 }
 
 h1 {
-    font-weith: 800;
+    font-weight: 800;
     font-size: 1.8rem;
 }
 
@@ -94,9 +99,18 @@ small{
     font-size: 0.75rem;
 }
 
+.profile{
+    display: flex;
+    justify-content: end;
+    margin-top:1rem;
+    gap: 2rem;
+    text-align:left;
+    margin-right: 2.6rem;
+}
+
 .profile-photo{
     width: 2.8rem;
-    heigth: 2.8rem;
+    height: 2.8rem;
     border-radius: 50%;
     overflow: hidden;
 }
@@ -128,15 +142,60 @@ b{
 
 aside{
     height: 100vh;
+    position:sticky;
 
 }
 
+aside::before{
+    content:"";
+    position:absolute;
+    width:2rem;
+    height: 100%;
+    top: 0;
+    left: 100%;
+}
+
+
 aside .top{
-    background: white;
+    /*background: white;*/
     display:flex;
     align-items:center;
     justify-content: space-between;
     margin-top:1.4rem;
+    /**/
+    position:relative;
+}
+
+.shrink-btn{
+    /**/
+    position:absolute;
+    top: 50%;
+    /*height:27px;*/
+    padding: 0 0.3rem;
+    background-color: var(--color-danger) ;
+    border-radius:6px;
+    cursor:pointer;
+    box-shadow:0 3px 10px -3px rgba(70,46,118,0.3);
+    right:-1.7rem;
+    transform: translateY(-50%) translateX(-8px);
+    opacity: 0;
+    pointer-events:none ;
+    transition:0.3s;
+
+}
+
+.shrink-btn i{
+    line-height: 27px
+}
+
+.shrink-btn:hover{
+    background-color: var(--color-danger);
+}
+
+aside:hover .shrink-btn{
+    transform: translateY(-50%) translateX(0px);
+    opacity: 1;
+    pointer-events: all;
 }
 
 aside .logo{
@@ -146,7 +205,7 @@ aside .logo{
 
 aside .logo img{
     width: 2rem;
-    heigth : 2rem;
+    height : 2rem;
 }
 
 aside .close{
@@ -156,6 +215,7 @@ aside .close{
 /* ==SIDEBAR==*/
 
 aside .sidebar{
+
     display: flex;
     flex-direction: column;
     height: 86vh;
@@ -183,13 +243,13 @@ aside .sidebar a span{
     transition: all 300ms ease;
 }
 
-/*
+
 aside .sidebar a:last-child{
     position: absolute;
-    bottom: 2rem;
+    bottom: 3rem;
     width: 100%;
 }
-*/
+
 aside .sidebar a.active{
     background: var(--color-light);
     color: var(--color-primary);
@@ -229,6 +289,7 @@ aside .sidebar .message-count{
 
 main {
     margin-top:1.4rem;
+    margin-left:1.2rem;
 }
 
 main .date{
