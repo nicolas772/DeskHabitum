@@ -62,6 +62,10 @@ body{
     margin: 0 auto;
     gap: 1.8rem;
     /*grid-template-columns: 14rem auto 23rem;*/
+    /*
+    grid-template-columns: 5.4rem auto;
+
+     */
     grid-template-columns: 14rem auto;
 }
 
@@ -101,9 +105,9 @@ small{
 
 .profile{
     display: flex;
-    justify-content: end;
+    justify-content: end; /*corrido derecha*/
     margin-top:1rem;
-    gap: 2rem;
+    gap: 1.5rem;
     text-align:left;
     margin-right: 2.6rem;
 }
@@ -143,6 +147,8 @@ b{
 aside{
     height: 100vh;
     position:sticky;
+    /*No funciona, a futuro arreglar detalle para fluidez*/
+    transition: width 5s ease-in-out;
 
 }
 
@@ -221,6 +227,7 @@ aside .sidebar{
     height: 86vh;
     position: relative;
     top: 0.5rem;
+
 }
 
 aside h3{
@@ -331,3 +338,47 @@ main .insights > div span{
     color: var(--color-white);
     font-size: 2rem;
 }
+
+
+/*Si se achica sidebar*/
+
+
+body.shrink aside {
+    width: 5.4rem;
+}
+
+body.shrink container{
+    grid-template-columns: 14rem auto;
+}
+/*
+body.shrink aside .profile .profile-photo{
+    margin-left:1rem;
+}
+*/
+
+body.shrink .logo{
+    margin-left:2rem;
+}
+body.shrink .profile{
+    margin:1rem;
+}
+
+body.shrink .logo h2{
+    display:none;
+}
+
+body.shrink aside .profile .info {
+    display:none;
+}
+
+
+body.shrink h3{
+    display:none;
+}
+
+body.shrink .message-count{
+    display:none;
+}
+
+
+
