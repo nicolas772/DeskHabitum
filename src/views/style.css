@@ -228,6 +228,7 @@ aside .sidebar{
     position: relative;
     top: 0.5rem;
 
+
 }
 
 aside h3{
@@ -344,17 +345,13 @@ main .insights > div span{
 
 
 body.shrink aside {
+
     width: 5.4rem;
 }
 
-body.shrink container{
-    grid-template-columns: 14rem auto;
+body.shrink .container{
+    grid-template-columns: 5.4rem auto;
 }
-/*
-body.shrink aside .profile .profile-photo{
-    margin-left:1rem;
-}
-*/
 
 body.shrink .logo{
     margin-left:2rem;
@@ -379,6 +376,8 @@ body.shrink h3{
 body.shrink .message-count{
     display:none;
 }
+
+
 
 
 
