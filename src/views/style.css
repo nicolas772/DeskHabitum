@@ -66,7 +66,7 @@ body{
     grid-template-columns: 5.4rem auto;
 
      */
-    grid-template-columns: 14rem auto;
+    grid-template-columns: 5.4rem auto;
 }
 
 a {
@@ -145,10 +145,12 @@ b{
 }
 
 aside{
+    background: white;
+    width: 14rem;
     height: 100vh;
     position:sticky;
     /*No funciona, a futuro arreglar detalle para fluidez*/
-    transition: width 5s ease-in-out;
+    transition: width 0.5s ease-in-out;
 
 }
 
@@ -191,18 +193,21 @@ aside .top{
 }
 
 .shrink-btn i{
-    line-height: 27px
+    line-height: 27px;
+    transition: 0.3s;
 }
 
 .shrink-btn:hover{
     background-color: var(--color-danger);
 }
 
-aside:hover .shrink-btn{
+aside:hover .shrink-btn,shrink-btn.hovered{
     transform: translateY(-50%) translateX(0px);
     opacity: 1;
     pointer-events: all;
 }
+
+
 
 aside .logo{
     display: flex;
@@ -348,6 +353,11 @@ body.shrink aside {
 
     width: 5.4rem;
 }
+
+body.shrink .shrink-btn i{
+    transform: rotate(-180deg);
+}
+
 
 body.shrink .container{
     grid-template-columns: 5.4rem auto;
