@@ -10,6 +10,9 @@ let cooldown = false;
 let corriendo = true;
 const RECHARGE_TIME = 5000; //ms
 
+let tiempo_corriendo = false;
+let tiempo_inicio = new Date;
+
 // Load the image model and setup the webcam
 function startCooldown() {
     cooldown = true;
@@ -32,6 +35,7 @@ function doNotify(){
 function stop_cam(){
     corriendo = false;
 }
+
 
 
 async function init() {
@@ -67,6 +71,7 @@ async function loop() {
     webcam.update(); // update the webcam frame
     await predict();
     if (!corriendo){
+        webcam.stop()
         document.getElementById("webcam-container").innerHTML = '';
         return
     }
@@ -82,9 +87,16 @@ async function predict() {
     // predict can take in an image, video or canvas html element
     let prediction;
     prediction = await model.predict(webcam.canvas)
-    if (prediction[0].probability.toFixed(2) >= 0.98 && !cooldown){
+    if (prediction[0].probability.toFixed(2) >= 0.98 && !cooldown && !tiempo_corriendo){
+        tiempo_corriendo = true;
+        tiempo_inicio = new Date;
         doNotify();
         startCooldown();
 
+    }
+    if (prediction[0].probability.toFixed(2) < 0.50 && tiempo_corriendo){
+        let tiempo_final = new Date();
+        console.log([tiempo_final - tiempo_inicio, tiempo_inicio, tiempo_final]);
+        tiempo_corriendo = false;
     }
 }
