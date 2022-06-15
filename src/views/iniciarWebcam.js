@@ -6,16 +6,38 @@
 const URL = 'https://teachablemachine.withgoogle.com/models/s7xlg6qW7/';
 
 let model, webcam, labelContainer, maxPredictions;
+let cooldown = false;
+let corriendo = true;
+const RECHARGE_TIME = 5000; //ms
 
-let isIos = false; 
-// fix when running demo in ios, video will be frozen;
-if (window.navigator.userAgent.indexOf('iPhone') > -1 || window.navigator.userAgent.indexOf('iPad') > -1) {
-  isIos = true;
-}
 // Load the image model and setup the webcam
+function startCooldown() {
+    cooldown = true;
+    setTimeout (function(){ cooldown = false}, RECHARGE_TIME);
+}
+
+const NOTIFICATION_TITLE = 'Desk Habitum'
+const NOTIFICATION_BODY = 'Morderte las uñas es malo para tu salud. Seria bueno que dejaras de hacerlo :)'
+const CLICK_MESSAGE = 'Notification clicked!'
+
+function doNotify(){
+    Notification.requestPermission().then(function (result){
+        new Notification(NOTIFICATION_TITLE, { 
+            body: NOTIFICATION_BODY, icon: 'http://placekitten.com/g/300/300'
+        })
+        .onclick = () => document.getElementById("output").innerText = CLICK_MESSAGE
+    })
+}
+
+function stop_cam(){
+    corriendo = false;
+}
+
+
 async function init() {
     const modelURL = URL + 'model.json';
     const metadataURL = URL + 'metadata.json';
+    corriendo = true;
 
     // load the model and metadata
     // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
@@ -30,17 +52,8 @@ async function init() {
     webcam = new tmImage.Webcam(width, height, flip);
     await webcam.setup(); // request access to the webcam
 
-    if (isIos) {
-        document.getElementById('webcam-container').appendChild(webcam.webcam); // webcam object needs to be added in any case to make this work on iOS
-        // grab video-object in any way you want and set the attributes
-        const webCamVideo = document.getElementsByTagName('video')[0];
-        webCamVideo.setAttribute("playsinline", true); // written with "setAttribute" bc. iOS buggs otherwise
-        webCamVideo.muted = "true";
-        webCamVideo.style.width = width + 'px';
-        webCamVideo.style.height = height + 'px';
-    } else {
-        document.getElementById("webcam-container").appendChild(webcam.canvas);
-    }
+    document.getElementById("webcam-container").appendChild(webcam.canvas);
+
     // append elements to the DOM
     labelContainer = document.getElementById('label-container');
     for (let i = 0; i < maxPredictions; i++) { // and class labels
@@ -53,7 +66,10 @@ async function init() {
 async function loop() {
     webcam.update(); // update the webcam frame
     await predict();
-
+    if (!corriendo){
+        document.getElementById("webcam-container").innerHTML = '';
+        return
+    }
     // PROBAR AQUÍ LO DEL SEGUNDO PLANO
     //https://stackoverflow.com/questions/60550376/tensorflowjs-perform-inference-in-an-inactive-tab
 
@@ -65,24 +81,10 @@ async function loop() {
 async function predict() {
     // predict can take in an image, video or canvas html element
     let prediction;
-    if (isIos) {
-        prediction = await model.predict(webcam.webcam);
-    } else {
-        prediction = await model.predict(webcam.canvas);
-    }
-    for (let i = 0; i < maxPredictions; i++) {
-        const classPrediction =
-            prediction[i].className + ': ' + prediction[i].probability.toFixed(2);
+    prediction = await model.predict(webcam.canvas)
+    if (prediction[0].probability.toFixed(2) >= 0.98 && !cooldown){
+        doNotify();
+        startCooldown();
 
-
-            //Acá va la parte de conectar la predicción con la notificación
-            if(i == 0){
-                if (prediction[i].probability.toFixed(2) >= 0.98){
-                    doNotify();
-                }
-            }
-
-
-        labelContainer.childNodes[i].innerHTML = classPrediction;
     }
 }
