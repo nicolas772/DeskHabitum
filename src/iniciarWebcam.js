@@ -3,7 +3,7 @@
 // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
 // the link to your model provided by Teachable Machine export panel
-const URL = 'https://teachablemachine.withgoogle.com/models/s7xlg6qW7/';
+const URL = 'https://teachablemachine.withgoogle.com/models/QCfFnAVYW/';
 
 let model, webcam, labelContainer, maxPredictions;
 let cooldown = false;
@@ -87,7 +87,7 @@ async function predict() {
     // predict can take in an image, video or canvas html element
     let prediction;
     prediction = await model.predict(webcam.canvas)
-    if (prediction[0].probability.toFixed(2) >= 0.98 && !cooldown && !tiempo_corriendo){
+    if (prediction[0].probability.toFixed(2) >= 0.85 && !cooldown && !tiempo_corriendo){
         tiempo_corriendo = true;
         tiempo_inicio = new Date;
         doNotify();
