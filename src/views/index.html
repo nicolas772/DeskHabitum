@@ -66,19 +66,32 @@
     </aside>
     <!----END ASIDE---->
     <main>
-        <nav>
-
-        </nav>
-
         <div class="col py-3">
             <div class="container">
-                <h1>Desk Habitum</h1>
-                <hr style="margin:10;padding:10;border:10" />
+                <h1>Notificación</h1>
+                <hr style="margin:10px;padding:10px;border:10px" />
                 <p id="output">Click en la notificación para ver el efecto en la interface.</p>
                 <button class="btn btn-success" id="countbtn" onclick="doNotify()">Notificame!</button>
                 <script src="renderer.js"></script>
             </div>
         </div>
+
+        <div class="col py-3">
+            <div class="container">
+                <h1>Monitoreo</h1>
+                <hr style="margin:10px;padding:10px;border:10px" />
+                <div>Monitoreo de mal habito por webcam</div>
+                <script type = "text/javascript" src="iniciarWebcam.js"></script>
+                <button type='button' class="btn btn-success" onclick='init()'>Comenzar</button>
+                <button type='button' class="btn btn-success" onclick='stop_cam()'>Parar</button>
+                <div id='webcam-container'></div>
+                <div id='label-container'></div>
+                <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js"></script>
+            </div>
+        </div>
+
+
 
     </main>
 </div>

@@ -1,4 +1,8 @@
 const { app, BrowserWindow } = require('electron')
+const { getUsuarios, getSesiones, getUnhas } = require('./database')
+const crud = require('./crud')
+
+
 
 const createWindow = () => {
     const win = new BrowserWindow({
@@ -24,3 +28,4 @@ app.on('activate', () => {
     createWindow()
   }
 })
+

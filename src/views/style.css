@@ -2,7 +2,9 @@
 
 :root {
     --color-primary: #7380ec;
-    --color-danger: #ff7782;
+
+    --color-danger2: #ff7782;
+    --color-danger: #AAB952;
     --color-success:#41f1b6;
     --color-warning: #ffbb55;
     --color-white: #fff;
