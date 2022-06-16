@@ -73,6 +73,7 @@ body{
 
 a {
     color: var(--color-dark);
+    text-decoration: none;
 }
 
 img{
