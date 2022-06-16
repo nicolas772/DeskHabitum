@@ -1,75 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Desk Habitum</title>
-    <!--<link href="{% node_modules 'css/bootstrap.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href=".../node_modules/bootstrap/dist/css/bootstrap.css" /><-->
+    <meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+    <meta name="viewport" content="width=devide=width", initial-scale="1.0">
+    <title>Tutorial 1</title>
+    <!-- Material CDN --->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel='stylesheet'>
+    <!-- STYLESHEET -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href = "./style.css">
+
 </head>
-<body>
-  <div class="container-fluid">
-    <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark text-white">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
-                <a href="#" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span class="fs-5 d-none d-sm-inline">Menu</span>
-                </a>
-                <hr style="width:100%">
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0 text-white">
-                          <i class="bi bi-house-door-fill"></i><span class="ms-1 d-none d-sm-inline">Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
-                          <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
-                        <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="#" class="nav-link px-0 text-white"> <span class="d-none d-sm-inline">Item</span> 1</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0 text-white"> <span class="d-none d-sm-inline">Item</span> 2</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <hr>
-                <div class="dropdown pb-4">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                        <span class="d-none d-sm-inline mx-1">Alvarito ortiz</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li>
-                    </ul>
-                </div>
+<body class="shrink">
+<div class = "container" >
+    <aside>
+        <div class = "top">
+                <span class = "shrink-btn">
+                    <i class = 'bx bx-chevron-left'></i>
+                </span>
+            <div class = "logo">
+                <img src = "../images/logo1.png">
+                <h2>Desk<span class= "danger">Habitum</span></h2>
+            </div>
+
+        </div>
+
+        <div class="sidebar">
+
+            <a href = "#" class="active">
+                <span class="material-icons-sharp">grid_view</span>
+                <h3>Home</h3>
+            </a>
+            <a href = "Profile.html" >
+                <span class="material-icons-sharp">person_outline</span>
+                <h3>Profile</h3>
+            </a>
+            <a href = "Tips.html">
+                <span class="material-icons-sharp">receipt_long</span>
+                <h3>Tips</h3>
+            </a>
+            <a href = "Dashboard.html" >
+                <span class="material-icons-sharp">insights</span>
+                <h3>Dashboards</h3>
+            </a>
+            <a href = "Notifications.html">
+                <span class="material-icons-sharp">mail_outline</span>
+                <h3>Notifications</h3>
+                <span class="message-count"> 26</span>
+            </a>
+
+
+            <a href = "Settings.html">
+                <span class="material-icons-sharp">settings</span>
+                <h3>Settings</h3>
+            </a>
+
+
+            <a href = "#">
+                <span class="material-icons-sharp">logout</span>
+                <h3>Cerrar Sesión</h3>
+            </a>
+        </div>
+    </aside>
+    <!----END ASIDE---->
+    <main>
+        <div class="col py-3">
+            <div class="container">
+                <h2>Notificación</h2>
+                <hr style="margin:10px;padding:10px;border:10px" />
+                <p id="output">Click en la notificación para ver el efecto en la interface.</p>
+                <button class="btn btn-success" id="countbtn" onclick="doNotify()">Notificame!</button>
+                <script src="renderer.js"></script>
             </div>
         </div>
+
         <div class="col py-3">
-          <div class="container">
-            <h1>Desk Habitum</h1>
-            <hr style="margin:10;padding:10;border:10" />
-            <div>Monitoreo de mal habito por webcam</div>
-            <script type = "text/javascript" src="iniciarWebcam.js"></script>
-            <button type='button' class="btn btn-success" onclick='init()'>Comenzar</button>
-            <button type='button' class="btn btn-success" onclick='stop_cam()'>Parar</button>
-            <div id='webcam-container'></div>
-            <div id='label-container'></div>
-            <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js"></script>
-          </div>
+            <div class="container">
+                <h2>Monitoreo</h2>
+                <hr style="margin:10px;padding:10px;border:10px" />
+                <div>Monitoreo de mal habito por webcam</div>
+                <script type = "text/javascript" src="iniciarWebcam.js"></script>
+                <button type='button' class="btn btn-success" onclick='init()'>Comenzar</button>
+                <button type='button' class="btn btn-success" onclick='stop_cam()'>Parar</button>
+                <div id='webcam-container'></div>
+                <div id='label-container'></div>
+                <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js"></script>
+            </div>
         </div>
-    </div>
+
+
+
+    </main>
 </div>
-    
+<script src="app.js"></script>
 </body>
 </html>
