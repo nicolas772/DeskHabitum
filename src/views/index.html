@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv = "X-UA-Compatible" content = "IE=edge">
     <meta name="viewport" content="width=devide=width", initial-scale="1.0">
-    <title>Tutorial 1</title>
+    <title>Desk Habitum</title>
     <!-- Material CDN --->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
@@ -14,7 +14,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
     <link rel="stylesheet" href = "./style.css">
 
 </head>
@@ -34,7 +33,7 @@
 
         <div class="sidebar">
 
-            <a href = "#" class="active">
+            <a style= "text-decoration: none" href = "#" class="active">
                 <span class="material-icons-sharp">grid_view</span>
                 <h3>Home</h3>
             </a>
@@ -70,21 +69,19 @@
         </div>
     </aside>
     <!----END ASIDE---->
+
     <main>
         <div class="col py-3">
-            <div class="container">
                 <h2>Notificación</h2>
-                <hr style="margin:10px;padding:10px;border:10px" />
                 <p id="output">Click en la notificación para ver el efecto en la interface.</p>
                 <button class="btn btn-success" id="countbtn" onclick="doNotify()">Notificame!</button>
                 <script src="renderer.js"></script>
-            </div>
+            
         </div>
 
         <div class="col py-3">
-            <div class="container">
+            
                 <h2>Monitoreo</h2>
-                <hr style="margin:10px;padding:10px;border:10px" />
                 <div>Monitoreo de mal habito por webcam</div>
                 <script type = "text/javascript" src="iniciarWebcam.js"></script>
                 <button type='button' class="btn btn-success" onclick='init()'>Comenzar</button>
@@ -93,7 +90,7 @@
                 <div id='label-container'></div>
                 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js"></script>
-            </div>
+            
         </div>
 
 
