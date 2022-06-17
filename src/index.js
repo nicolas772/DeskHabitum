@@ -29,5 +29,3 @@ app.on('activate', () => {
   }
 })
 
-
-
