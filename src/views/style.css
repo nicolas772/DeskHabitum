@@ -63,6 +63,7 @@ body{
 .container{
     display:grid;
     width: 96%;
+   
     margin: 0 auto;
     gap: 1.8rem;
     /*grid-template-columns: 14rem auto 23rem;*/
@@ -237,7 +238,7 @@ aside .sidebar{
     height: 86vh;
     position: relative;
     top: 0.5rem;
-
+    
 
 }
 
