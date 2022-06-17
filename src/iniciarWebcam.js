@@ -1,19 +1,27 @@
 const URL = 'https://teachablemachine.withgoogle.com/models/QCfFnAVYW/';
-let model, webcam, labelContainer, maxPredictions;
+//Variables para la ejecución de la webcam y modelo
+let model, webcam;
+//Variable para emplear un cooldown entre notificaciones
 let cooldown = false;
-let corriendo = true;
-const RECHARGE_TIME = 5000; //ms
-
-let tiempo_corriendo = false;
+let habito_cooldown = false;
 let tiempo_inicio = new Date;
-let fin_sesion 
-let inicio_sesion
+//Variable para controlar la ejecución de la webcam
+let corriendo = false;
+//Tiempo del cooldown
+const RECHARGE_TIME = 5000; //ms
+//Variable para monitorear el tiempo de comida de uña 
+let tiempo_corriendo = false;
 
-// Load the image model and setup the webcam
 function startCooldown() {
     cooldown = true;
     setTimeout (function(){ cooldown = false}, RECHARGE_TIME);
 }
+
+function habitoCooldown() {
+    habito_cooldown = false;
+    setTimeout (function(){ habito_cooldown = true}, 1000);
+}
+
 
 const NOTIFICATION_TITLE = 'Desk Habitum'
 const NOTIFICATION_BODY = 'Morderte las uñas es malo para tu salud. Seria bueno que dejaras de hacerlo :)'
@@ -29,34 +37,33 @@ function doNotify(){
 }
 
 async function init() {
-    inicio_sesion = new Date();
-    console.log("INICIO" + inicio_sesion.toISOString())
-    const modelURL = URL + 'model.json';
-    const metadataURL = URL + 'metadata.json';
-    corriendo = true;
+    if (!corriendo){
+        var img = document.createElement("img");
+        img.src = 'https://c.tenor.com/On7kvXhzml4AAAAi/loading-gif.gif';
+        img.style.height = '80px';
+        img.style.width = '80px';
+        document.getElementById("webcam-container").appendChild(img)
+        const modelURL = URL + 'model.json';
+        const metadataURL = URL + 'metadata.json';
+        corriendo = true;
 
-    // load the model and metadata
-    // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-    // or files from your local hard drive
-    model = await tmImage.load(modelURL, metadataURL);
-    maxPredictions = model.getTotalClasses();
+        // load the model and metadata
+        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+        // or files from your local hard drive
+        model = await tmImage.load(modelURL, metadataURL);
 
-    // Convenience function to setup a webcam
-    const flip = true; // whether to flip the webcam
-    const width = 200;
-    const height = 200;
-    webcam = new tmImage.Webcam(width, height, flip);
-    await webcam.setup(); // request access to the webcam
+        // Convenience function to setup a webcam
+        const flip = true; // whether to flip the webcam
+        const width = 200;
+        const height = 200;
+        webcam = new tmImage.Webcam(width, height, flip);
+        await webcam.setup(); // request access to the webcam
+        document.getElementById("webcam-container").innerHTML = ''
+        document.getElementById("webcam-container").appendChild(webcam.canvas);
 
-    document.getElementById("webcam-container").appendChild(webcam.canvas);
-
-    // append elements to the DOM
-    labelContainer = document.getElementById('label-container');
-    for (let i = 0; i < maxPredictions; i++) { // and class labels
-        labelContainer.appendChild(document.createElement('div'));
+        webcam.play();
+        window.requestAnimationFrame(loop);
     }
-    webcam.play();
-    window.requestAnimationFrame(loop);
 }
 
 
@@ -89,14 +96,20 @@ async function predict() {
     // predict can take in an image, video or canvas html element
     let prediction;
     prediction = await model.predict(webcam.canvas)
-    if (prediction[0].probability.toFixed(2) >= 0.85 && !cooldown && !tiempo_corriendo){
+    if (prediction[0].probability.toFixed(2) >= 0.85  && !cooldown && !tiempo_corriendo){
         tiempo_corriendo = true;
         tiempo_inicio = new Date;
-        doNotify();
         startCooldown();
-
+        habitoCooldown();
     }
-    if (prediction[0].probability.toFixed(2) < 0.50 && tiempo_corriendo){
+
+    if (prediction[0].probability.toFixed(2) > 0.50 && habito_cooldown){
+        doNotify();
+        habito_cooldown = false;
+    }
+
+
+    if (prediction[0].probability.toFixed(2) < 0.50 && tiempo_corriendo && !habito_cooldown){
         let tiempo_final = new Date();
         //console.log([tiempo_final - tiempo_inicio, tiempo_inicio, tiempo_final]);
         tiempo_corriendo = false;
