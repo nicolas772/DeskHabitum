@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require('electron')
+const modelo = require("./model");
 //const { getUsuarios, getSesiones, getUnhas } = require('./database.js')
 //const { createSesion } = require('./crud.js')
 
@@ -9,6 +10,13 @@ const { app, BrowserWindow } = require('electron')
 /*createSesion(1, '2022-06-15 20:52:40', '2022-06-15 20:59:40').then(() => {
   console.log('BUENARDO');
 })*/
+
+modelo.obtenerUsuario().then(usuarios => {
+  console.log(usuarios)
+}).catch(err => {
+  console.log(err);
+  return res.status(500).send("Error obteniendo usuarios");
+})
 
 const createWindow = () => {
     const win = new BrowserWindow({

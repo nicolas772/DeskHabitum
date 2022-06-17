@@ -1,4 +1,6 @@
 const URL = 'https://teachablemachine.withgoogle.com/models/QCfFnAVYW/';
+import { obtenerUsuario } from "./model";
+//import { obtenerUsuario } from "./model"
 //Variables para la ejecución de la webcam y modelo
 let model, webcam;
 //Variable para emplear un cooldown entre notificaciones
@@ -11,6 +13,8 @@ let corriendo = false;
 const RECHARGE_TIME = 5000; //ms
 //Variable para monitorear el tiempo de comida de uña 
 let tiempo_corriendo = false;
+
+
 
 function startCooldown() {
     cooldown = true;
@@ -37,6 +41,12 @@ function doNotify(){
 }
 
 async function init() {
+    obtenerUsuario().then(usuarios => {
+        console.log(usuarios)
+      }).catch(err => {
+        console.log(err);
+        return res.status(500).send("Error obteniendo usuarios");
+    });
     if (!corriendo){
         var img = document.createElement("img");
         img.src = 'https://c.tenor.com/On7kvXhzml4AAAAi/loading-gif.gif';
