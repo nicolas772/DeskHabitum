@@ -9,8 +9,8 @@ const createWindow = () => {
       width: 800,
       height: 600
     })
-  
-    win.loadFile('src/views/index.html')
+    win.webContents.openDevTools();
+    win.loadFile('src/views/index.html');
 }
 
 app.whenReady().then(() => {
