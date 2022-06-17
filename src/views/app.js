@@ -14,72 +14,79 @@ shrink_btn.addEventListener("click",()=>{
 
 
 var options = {
-    series: [{
-    name: 'series1',
-    data: [31, 40, 28, 51, 42, 109, 100]
-  }, {
-    name: 'series2',
-    data: [11, 32, 45, 32, 34, 52, 41]
-  }],
-    chart: {
-    height: 350,
-    type: 'area'
-  },
-  dataLabels: {
-    enabled: false
-  },
-  stroke: {
-    curve: 'smooth'
-  },
-  xaxis: {
-    type: 'datetime',
-    categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-  },
-  tooltip: {
-    x: {
-      format: 'dd/MM/yy HH:mm'
-    },
-  },
-  };
-
-  const chart = new ApexCharts(document.querySelector("#chart"), options);
-  chart.render();
-
-
+  series: [{
+  name: 'Porcentaje de tiempo',
+  data: [30,25]
   
+}],
+  chart: {
+  type: 'bar',
+  height: 200
+},
+plotOptions: {
+  bar: {
+    borderRadius: 4,
+    horizontal: true,
+  }
+},
+dataLabels: {
+  enabled: false
+},
+xaxis: {
+  categories: ['Semana 1', 'Semana 2'
+  ],
+}
+};
+
+var chart = new ApexCharts(document.querySelector("#chart"), options);
+chart.render();
 
 var options2 = {
-    series: [{
-    name: 'series1',
-    data: [31, 40, 28, 51, 42, 109, 100]
-  }, {
-    name: 'series2',
-    data: [11, 32, 45, 32, 34, 52, 41]
-  }],
+  series: [44, 55, 13, 43],
+  chart: {
+  width: 380,
+  type: 'pie',
+},
+labels: ['Morderse las uñas', 'Fatiga visual', 'Mala postura', 'tricotilomanía'],
+responsive: [{
+  breakpoint: 480,
+  options: {
     chart: {
-    height: 350,
-    type: 'area'
-  },
-  dataLabels: {
-    enabled: false
-  },
-  stroke: {
-    curve: 'smooth'
-  },
-  xaxis: {
-    type: 'datetime',
-    categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-  },
-  tooltip: {
-    x: {
-      format: 'dd/MM/yy HH:mm'
+      width: 200
     },
-  },
-  };
+    legend: {
+      position: 'bottom'
+    }
+  }
+}]
+};
 
-  const chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
-  chart2.render();
+var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+chart2.render();
 
-  
+var options3 = {
+  series: [{
+  name: 'Cantidad de detecciones',
+  data: [400, 430, 448, 470]
+}],
+  chart: {
+  type: 'bar',
+  height: 350
+},
+plotOptions: {
+  bar: {
+    borderRadius: 4,
+    horizontal: true,
+  }
+},
+dataLabels: {
+  enabled: false
+},
+xaxis: {
+  categories: ['Morderse las uñas', 'Fatiga visual', 'Mala postura', 'tricotilomanía'
+  ],
+}
+};
 
-  
+var chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
+chart3.render();
