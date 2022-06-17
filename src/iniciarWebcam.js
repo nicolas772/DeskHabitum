@@ -1,10 +1,4 @@
-
-// More API functions here:
-// https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
-
-// the link to your model provided by Teachable Machine export panel
 const URL = 'https://teachablemachine.withgoogle.com/models/QCfFnAVYW/';
-
 let model, webcam, labelContainer, maxPredictions;
 let cooldown = false;
 let corriendo = true;
@@ -12,6 +6,8 @@ const RECHARGE_TIME = 5000; //ms
 
 let tiempo_corriendo = false;
 let tiempo_inicio = new Date;
+let fin_sesion 
+let inicio_sesion
 
 // Load the image model and setup the webcam
 function startCooldown() {
@@ -32,13 +28,9 @@ function doNotify(){
     })
 }
 
-function stop_cam(){
-    corriendo = false;
-}
-
-
-
 async function init() {
+    inicio_sesion = new Date();
+    console.log("INICIO" + inicio_sesion.toISOString())
     const modelURL = URL + 'model.json';
     const metadataURL = URL + 'metadata.json';
     corriendo = true;
@@ -65,6 +57,16 @@ async function init() {
     }
     webcam.play();
     window.requestAnimationFrame(loop);
+}
+
+
+function stop_cam(){
+    fin_sesion = new Date();
+    let fini = fin_sesion.toISOString()
+    let ini = inicio_sesion.toISOString()
+    console.log("FIN: " + fin_sesion.toISOString())
+    console.log("INICIO " + inicio_sesion.toISOString())
+    corriendo = false;
 }
 
 async function loop() {
@@ -96,7 +98,7 @@ async function predict() {
     }
     if (prediction[0].probability.toFixed(2) < 0.50 && tiempo_corriendo){
         let tiempo_final = new Date();
-        console.log([tiempo_final - tiempo_inicio, tiempo_inicio, tiempo_final]);
+        //console.log([tiempo_final - tiempo_inicio, tiempo_inicio, tiempo_final]);
         tiempo_corriendo = false;
     }
 }
