@@ -9,7 +9,7 @@ const createWindow = () => {
       width: 800,
       height: 600
     })
-    win.webContents.openDevTools();
+    //win.webContents.openDevTools();
     win.loadFile('src/views/index.html');
 }
 
