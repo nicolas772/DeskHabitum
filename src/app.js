@@ -12,6 +12,20 @@ shrink_btn.addEventListener("click",()=>{
 
 });
 
+//const sub_menu =document.querySelection(".sub-menu");
+
+
+/*
+cont sub_menu = document.querySelecton(".sub-menu")
+<script type="text/javascript">
+        $(document).ready(function(){
+            $('.sub-btn').click(function(){
+                $(this).next('.sub-menu').slideToggle();
+            });
+        });
+    </script>
+*/
+
 
 var options = {
   series: [{
