@@ -15,4 +15,10 @@ const createUser = async (nombre, apellido, mail) => {
     const res = await conexion.query(query)
 }
 
-module.exports = { getUsuarios , createUser}
+const createSesion = async (id_usuario, inicio, final) => {
+    let query = `INSERT INTO sesiones (id_usuario, inicio, final) VALUES (${id_usuario}, '${inicio}', '${final}')`;
+    console.log(query)
+    const res = await conexion.query(query)
+}
+
+module.exports = { getUsuarios , createUser, createSesion}

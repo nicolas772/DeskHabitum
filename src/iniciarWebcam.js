@@ -12,6 +12,10 @@ const RECHARGE_TIME = 5000; //ms
 //Variable para monitorear el tiempo de comida de uña 
 let tiempo_corriendo = false;
 
+//variables para crear sesion
+let inicio_sesion;
+let fin_sesion;
+
 function startCooldown() {
     cooldown = true;
     setTimeout (function(){ cooldown = false}, RECHARGE_TIME);
@@ -36,7 +40,7 @@ function doNotify(){
 }
 
 async function init() {
-    window.api.getUsuarios();
+    inicio_sesion = new Date()
     if (!corriendo){
         var img = document.createElement("img");
         img.src = 'https://c.tenor.com/On7kvXhzml4AAAAi/loading-gif.gif';
@@ -66,6 +70,10 @@ async function init() {
     }
 }
 function stop_cam(){
+    fin_sesion = new Date();
+    let ini = inicio_sesion.toISOString()
+    let fini = fin_sesion.toISOString()
+    window.api.createSesion(1, ini, fini);
     corriendo = false;
 }
 
