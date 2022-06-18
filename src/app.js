@@ -104,3 +104,48 @@ xaxis: {
 
 var chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
 chart3.render();
+
+var options4 = {
+  series: [{
+  name: 'Semana 1',
+  data: [44, 55, 41, 64]
+}, {
+  name: 'Semana 2',
+  data: [53, 32, 33, 52]
+}],
+  chart: {
+  type: 'bar',
+  height: 430
+},
+plotOptions: {
+  bar: {
+    horizontal: true,
+    dataLabels: {
+      position: 'top',
+    },
+  }
+},
+dataLabels: {
+  enabled: true,
+  offsetX: -6,
+  style: {
+    fontSize: '12px',
+    colors: ['#fff']
+  }
+},
+stroke: {
+  show: true,
+  width: 1,
+  colors: ['#fff']
+},
+tooltip: {
+  shared: true,
+  intersect: false
+},
+xaxis: {
+  categories: ['Morderse las uñas', 'Fatiga visual', 'Mala postura', 'Tricotilomanía'],
+},
+};
+
+var chart4 = new ApexCharts(document.querySelector("#chart4"), options4);
+chart4.render();
