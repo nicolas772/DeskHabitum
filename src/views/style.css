@@ -63,6 +63,7 @@ body{
 .container{
     display:grid;
     width: 100%;
+    
    
     margin: 0 auto;
     gap: 1.8rem;
