@@ -36,6 +36,7 @@ function doNotify(){
 }
 
 async function init() {
+    window.api.getUsuarios();
     if (!corriendo){
         var img = document.createElement("img");
         img.src = 'https://c.tenor.com/On7kvXhzml4AAAAi/loading-gif.gif';
