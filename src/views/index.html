@@ -24,7 +24,7 @@
 </head>
 <body class="shrink">
 <div class = "container" style="margin:0" >
-    <aside>
+    <aside style="z-index:2">
         <div class = "top">
                 <span class = "shrink-btn">
                     <i class = 'bx bx-chevron-left'></i>
@@ -104,13 +104,13 @@
     </aside>
     <!----END ASIDE---->
 
-    <main>
+    <main style="z-index:1">
         <div class="col py-3">
 
             <h2>Monitoreo</h2>
             <div>Monitoreo de mal habito por webcam</div>
             <script src="../iniciarWebcam.js"></script>
-            <div role="group" aria-label="Basic example">
+            <div  role="group" aria-label="Basic example">
                 <button type='button' class="btn btn-outline-primary" onclick='init()'>Comenzar</button>
                 <button type='button' class="btn btn-outline-primary" onclick='stop_cam()'>Parar</button>
                 <button id="botoncito" type='button' class="btn btn-outline-primary" onclick='prueba()'>prueba</button>
