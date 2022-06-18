@@ -1,8 +1,3 @@
-
-// More API functions here:
-// https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
-
-// the link to your model provided by Teachable Machine export panel
 const URL = 'https://teachablemachine.withgoogle.com/models/QCfFnAVYW/';
 //Variables para la ejecución de la webcam y modelo
 let model, webcam;
@@ -17,6 +12,10 @@ const RECHARGE_TIME = 5000; //ms
 //Variable para monitorear el tiempo de comida de uña 
 let tiempo_corriendo = false;
 
+//variables para crear sesion
+let inicio_sesion;
+let fin_sesion;
+
 function startCooldown() {
     cooldown = true;
     setTimeout (function(){ cooldown = false}, RECHARGE_TIME);
@@ -26,7 +25,6 @@ function habitoCooldown() {
     habito_cooldown = false;
     setTimeout (function(){ habito_cooldown = true}, 1000);
 }
-
 
 const NOTIFICATION_TITLE = 'Desk Habitum'
 const NOTIFICATION_BODY = 'Morderte las uñas es malo para tu salud. Seria bueno que dejaras de hacerlo :)'
@@ -41,13 +39,8 @@ function doNotify(){
     })
 }
 
-function stop_cam(){
-    corriendo = false;
-}
-
-
-
 async function init() {
+    inicio_sesion = new Date()
     if (!corriendo){
         var img = document.createElement("img");
         img.src = 'https://c.tenor.com/On7kvXhzml4AAAAi/loading-gif.gif';
@@ -75,6 +68,13 @@ async function init() {
         webcam.play();
         window.requestAnimationFrame(loop);
     }
+}
+function stop_cam(){
+    fin_sesion = new Date();
+    let ini = inicio_sesion.toISOString()
+    let fini = fin_sesion.toISOString()
+    window.api.createSesion(1, ini, fini);
+    corriendo = false;
 }
 
 async function loop() {
@@ -112,7 +112,7 @@ async function predict() {
 
     if (prediction[0].probability.toFixed(2) < 0.50 && tiempo_corriendo && !habito_cooldown){
         let tiempo_final = new Date();
-        console.log([tiempo_final - tiempo_inicio, tiempo_inicio, tiempo_final]);
+        //console.log([tiempo_final - tiempo_inicio, tiempo_inicio, tiempo_final]);
         tiempo_corriendo = false;
     }
 }
