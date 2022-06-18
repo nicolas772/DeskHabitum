@@ -4,7 +4,8 @@ let model, webcam;
 //Variable para emplear un cooldown entre notificaciones
 let cooldown = false;
 let habito_cooldown = false;
-let tiempo_inicio = new Date;
+let tiempo_inicio;
+let tiempo_final;
 //Variable para controlar la ejecución de la webcam
 let corriendo = false;
 //Tiempo del cooldown
@@ -111,8 +112,11 @@ async function predict() {
 
 
     if (prediction[0].probability.toFixed(2) < 0.50 && tiempo_corriendo && !habito_cooldown){
-        let tiempo_final = new Date();
-        //console.log([tiempo_final - tiempo_inicio, tiempo_inicio, tiempo_final]);
+        tiempo_final = new Date();
+        
+        let ini = tiempo_inicio.toISOString()
+        let fini = tiempo_final.toISOString()   
+        window.api.actSesion().then(res => window.api.createUnhas(res[0]['id'],ini,fini))     
         tiempo_corriendo = false;
     }
 }

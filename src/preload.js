@@ -1,6 +1,5 @@
-const model = require('./model.js')
+const model = require('./model/model.js')
 const { contextBridge } = require("electron");
-const { getSesion } = require('./model/model.js');
 
 const getUsuarios = () => {
     return model.getUsuarios();
@@ -22,12 +21,18 @@ const getSesion = (id) => {
     return model.getSesion(id);
 }
 
+const actSesion = () => {
+    return model.actSesion()
+}
+
 const createUnhas = (id_ses, inicio, final) => {
     return model.createUnhas(id_ses, inicio, final);
 }
 const getUnhas = (id) => {
     return model.getUnhas(id);
 }
+
+
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -36,8 +41,10 @@ contextBridge.exposeInMainWorld("api", {
     delUser: delUser,
     createSesion: createSesion,
     getSesion: getSesion,
+    actSesion: actSesion,
     createUnhas: createUnhas,
     getUnhas: getUnhas
+    
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros") 

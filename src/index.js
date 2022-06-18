@@ -1,13 +1,5 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
-/*const { getUsuarios } = require('./model.js')
-
-getUsuarios().then(usuarios => {
-  console.log(usuarios)
-}).catch(err => {
-  console.log(err);
-  return res.status(500).send("Error obteniendo usuarios");
-})*/
 
 const createWindow = () => {
     const win = new BrowserWindow({

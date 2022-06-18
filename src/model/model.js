@@ -7,7 +7,6 @@ const getUsuarios = async () => {
     let query = 'SELECT * FROM usuarios'
     const res = await conexion.query(query)
     const result = res.rows
-    console.log(result)
     return result
 }
 const createUser = async (nombre, apellido, mail) => {
@@ -34,27 +33,32 @@ const delUser = async (id) => {
 
 const createSesion = async (id_usuario, inicio, final) => {
     let query = `INSERT INTO sesiones (id_usuario, inicio, final) VALUES (${id_usuario}, '${inicio}', '${final}')`;
-    console.log(query)
     const res = await conexion.query(query)
 }
 const getSesion = async (id) => {
     let query = `SELECT * FROM sesiones WHERE id = ${id}`;
-    console.log(query)
     const res = await conexion.query(query)
     const result = res.rows
     return result
+}
+
+const actSesion = async () => {
+
+    let query = `SELECT id FROM sesiones WHERE ID = (SELECT MAX(ID) FROM sesiones)`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result
+
 }
 
 //TABLA UNHAS
 
 const createUnhas = async (id_ses, inicio, final) => {
     let query = `INSERT INTO unhas (id_sesion, inicio_mania, fin_mania) VALUES (${id_ses}, '${inicio}', '${final}')`;
-    console.log(query)
     const res = await conexion.query(query)
 }
 const getUnhas = async (id) => {
     let query = `SELECT * FROM unhas WHERE id = ${id}`;
-    console.log(query)
     const res = await conexion.query(query)
     const result = res.rows
     return result
@@ -62,4 +66,4 @@ const getUnhas = async (id) => {
 
 module.exports = { getUsuarios , createUser, getUserData, delUser,
                     createSesion, getSesion,
-                    createUnhas, getUnhas}
+                    createUnhas, getUnhas, actSesion}
