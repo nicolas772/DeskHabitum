@@ -1,6 +1,4 @@
 const URL = 'https://teachablemachine.withgoogle.com/models/QCfFnAVYW/';
-import { obtenerUsuario } from "./model";
-//import { obtenerUsuario } from "./model"
 //Variables para la ejecución de la webcam y modelo
 let model, webcam;
 //Variable para emplear un cooldown entre notificaciones
@@ -14,8 +12,6 @@ const RECHARGE_TIME = 5000; //ms
 //Variable para monitorear el tiempo de comida de uña 
 let tiempo_corriendo = false;
 
-
-
 function startCooldown() {
     cooldown = true;
     setTimeout (function(){ cooldown = false}, RECHARGE_TIME);
@@ -25,7 +21,6 @@ function habitoCooldown() {
     habito_cooldown = false;
     setTimeout (function(){ habito_cooldown = true}, 1000);
 }
-
 
 const NOTIFICATION_TITLE = 'Desk Habitum'
 const NOTIFICATION_BODY = 'Morderte las uñas es malo para tu salud. Seria bueno que dejaras de hacerlo :)'
@@ -41,12 +36,6 @@ function doNotify(){
 }
 
 async function init() {
-    obtenerUsuario().then(usuarios => {
-        console.log(usuarios)
-      }).catch(err => {
-        console.log(err);
-        return res.status(500).send("Error obteniendo usuarios");
-    });
     if (!corriendo){
         var img = document.createElement("img");
         img.src = 'https://c.tenor.com/On7kvXhzml4AAAAi/loading-gif.gif';
@@ -75,14 +64,7 @@ async function init() {
         window.requestAnimationFrame(loop);
     }
 }
-
-
 function stop_cam(){
-    fin_sesion = new Date();
-    let fini = fin_sesion.toISOString()
-    let ini = inicio_sesion.toISOString()
-    console.log("FIN: " + fin_sesion.toISOString())
-    console.log("INICIO " + inicio_sesion.toISOString())
     corriendo = false;
 }
 

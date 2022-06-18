@@ -1,10 +1,18 @@
-const conexion = require("./database")
+const conexion = require("./database.js")
 conexion.connect()
 
-async function obtenerUsuario(){
-    const res = await conexion.query('SELECT * from usuarios')
+const getUsuarios = async () => {
+    let query = 'SELECT * FROM usuarios'
+    const res = await conexion.query(query)
     const result = res.rows
+    console.log(result)
     return result
 }
 
-module.exports.obtenerUsuario = obtenerUsuario;
+const createUser = async (nombre, apellido, mail) => {
+    let query = `INSERT INTO usuarios (nombre, apellido, mail) VALUES ('${nombre}', '${apellido}', '${mail}')`;
+    console.log(query)
+    const res = await conexion.query(query)
+}
+
+module.exports = { getUsuarios , createUser}

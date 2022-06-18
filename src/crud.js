@@ -4,23 +4,6 @@ var conString = "Ipostgres://bfrgouab:1G3nqhUwUmzEqg-_zHM8Pk36iX6lRrml@kesavan.d
 var client = new pg.Client(conString);
 client.connect()
 
-
-const getUsuarios = async () => {
-    const res = await client.query('SELECT * from usuarios')
-
-    const result = res.rows
-    //await client.end()
-    return result
-}
-
-const getSesiones = async () => {
-    const res = await client.query('SELECT * from sesiones')
-
-    const result = res.rows
-    //await client.end()
-    return result
-}
-
 //TABLA USUARIOS
 const createUser = async (nombre, apellido, mail) => {
     let query = `INSERT INTO usuarios (nombre, apellido, mail) VALUES ('${nombre}', '${apellido}', '${mail}')`;
