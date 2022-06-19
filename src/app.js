@@ -149,3 +149,26 @@ xaxis: {
 
 var chart4 = new ApexCharts(document.querySelector("#chart4"), options4);
 chart4.render();
+
+var options5 = {
+  series: [24, 35, 13],
+  chart: {
+  width: 380,
+  type: 'pie',
+},
+labels: ['Tricotilomanía', 'Morderse las uñas', 'Morder objetos'],
+responsive: [{
+  breakpoint: 480,
+  options: {
+    chart: {
+      width: 200
+    },
+    legend: {
+      position: 'bottom'
+    }
+  }
+}]
+};
+
+var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
+chart5.render();
