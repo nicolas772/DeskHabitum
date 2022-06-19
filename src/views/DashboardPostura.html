@@ -18,6 +18,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
 
+
+
+
 </head>
 <body class="shrink">
     <div class = "container" style="margin:0"  >
@@ -30,15 +33,13 @@
                     <img src = "../images/logo1.png">
                     <h2>Desk<span class= "danger">Habitum</span></h2>
                 </div>
-                <div class = "close" id="close-btn">
-                    <span class="material-icons-sharp">close</span>
-                </div>
+
             </div>
 
             <div class="sidebar">
                 <div class="menu">
                     <div class="item">
-                        <a style= "text-decoration: none" href = "index.html" >
+                        <a href = "index.html" >
                             <span class="material-icons-sharp">grid_view</span>
                             <h3>Home</h3>
                         </a>
@@ -56,7 +57,7 @@
                     </a>
                     </div>
                     <div class="item">
-                        <a class ="sub-btn">
+                        <a class ="sub-btn active">
                             <span class="material-icons-sharp">insights<i class="fas fa-angle-right dropdown fa-sm"></i></span>
                             <h3>Dashboards</h3>
                         </a>
@@ -66,7 +67,7 @@
                                 <h3>Manías Compulsivas</h3>
                             </a>
                             
-                            <a href = "DashboardPostura.html" class="sub-item">
+                            <a href = "#" class="sub-item">
                                 <span class="material-icons-sharp">airline_seat_recline_normal</span>
                                 <h3>Postura</h3>
                             </a>
@@ -78,7 +79,7 @@
                     </div>
                     
                     <div class="item">
-                    <a href = "Notifications.html" class ="active">
+                    <a href = "Notifications.html">
                         <span class="material-icons-sharp">mail_outline</span>
                         <h3>Notifications</h3>
                         <span class="message-count"> 26</span>
@@ -103,15 +104,13 @@
         </aside>
         <!----END ASIDE---->
         <main style="z-index:1">
-            <nav>
-
-            </nav>
-            <h1>Notificaciones</h1>
+            <h1>Dashboard Postura</h1>
             
 
 
         </main>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../app.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -124,5 +123,6 @@
             
         });
     </script>
+    
 </body>
 </html>

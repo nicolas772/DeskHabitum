@@ -24,7 +24,7 @@
 </head>
 <body class="shrink">
     <div class = "container" style="margin:0"  >
-        <aside>
+        <aside style="z-index:2">
             <div class = "top">
                 <span class = "shrink-btn">
                     <i class = 'bx bx-chevron-left'></i>
@@ -67,11 +67,11 @@
                                 <h3>Manías Compulsivas</h3>
                             </a>
                             
-                            <a href = "#" class="sub-item">
+                            <a href = "DashboardPostura.html" class="sub-item">
                                 <span class="material-icons-sharp">airline_seat_recline_normal</span>
                                 <h3>Postura</h3>
                             </a>
-                            <a href = "#" class="sub-item">
+                            <a href = "DashboardVista.html" class="sub-item">
                                 <span class="material-icons-sharp">visibility</span>
                                 <h3>Descanso Visual</h3>
                             </a>
@@ -103,18 +103,18 @@
             </div>
         </aside>
         <!----END ASIDE---->
-        <main>
-                   
+        <main style="z-index:1">
 
+            <div class="spacer">
             <h1>Dashboard</h1>   
             
-            <div class="row" style="max-width: 40rem;">
+            <div class="row" >
                 <div class="col-sm-6">
-                  <div class="card" style="width: 18rem;">
+                  <div class="card" >
                     <div class="card-body">
                       <h5 class="card-title">Cantidad de detecciones última sesión</h5>
                       <h1>6</h1>
-                      
+
                     </div>
                   </div>
                 </div>
@@ -132,7 +132,7 @@
             <div id="chart"></div>          
             
             
-
+            </div>
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
