@@ -1,5 +1,14 @@
 const model = require('./model/model.js')
+const camera = require('./mainWebcam.js')
 const { contextBridge } = require("electron");
+
+const init_model = () => {
+    return camera.init_model();
+}
+
+const stop_monitoring = () => {
+    return camera.stop_monitoring();
+}
 
 const getUsuarios = () => {
     return model.getUsuarios();
@@ -21,18 +30,12 @@ const getSesion = (id) => {
     return model.getSesion(id);
 }
 
-const actSesion = () => {
-    return model.actSesion()
-}
-
 const createUnhas = (id_ses, inicio, final) => {
     return model.createUnhas(id_ses, inicio, final);
 }
 const getUnhas = (id) => {
     return model.getUnhas(id);
 }
-
-
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -41,10 +44,10 @@ contextBridge.exposeInMainWorld("api", {
     delUser: delUser,
     createSesion: createSesion,
     getSesion: getSesion,
-    actSesion: actSesion,
     createUnhas: createUnhas,
-    getUnhas: getUnhas
-    
+    getUnhas: getUnhas,
+    init_model: init_model,
+    stop_monitoring: stop_monitoring
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros") 

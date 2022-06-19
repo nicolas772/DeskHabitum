@@ -1,3 +1,11 @@
+const tmImage = require('@teachablemachine/image');
+const tf = require('@tensorflow/tfjs')
+const crud = require('./model/model.js')
+
+const { getUsuarios , createUser, getUserData, delUser,
+    createSesion, getSesion,
+    createUnhas, getUnhas} = require('./model/model.js')
+
 const URL = 'https://teachablemachine.withgoogle.com/models/QCfFnAVYW/';
 //Variables para la ejecución de la webcam y modelo
 let model, webcam;
@@ -39,14 +47,9 @@ function doNotify(){
     })
 }
 
-async function init() {
+async function init_model() {
     inicio_sesion = new Date()
     if (!corriendo){
-        var img = document.createElement("img");
-        img.src = 'https://c.tenor.com/On7kvXhzml4AAAAi/loading-gif.gif';
-        img.style.height = '80px';
-        img.style.width = '80px';
-        document.getElementById("webcam-container").appendChild(img)
         const modelURL = URL + 'model.json';
         const metadataURL = URL + 'metadata.json';
         corriendo = true;
@@ -62,18 +65,16 @@ async function init() {
         const height = 200;
         webcam = new tmImage.Webcam(width, height, flip);
         await webcam.setup(); // request access to the webcam
-        document.getElementById("webcam-container").innerHTML = ''
-        document.getElementById("webcam-container").appendChild(webcam.canvas);
 
         webcam.play();
         window.requestAnimationFrame(loop);
     }
 }
-function stop_cam(){
+function stop_monitoring(){
     fin_sesion = new Date();
     let ini = inicio_sesion.toISOString()
     let fini = fin_sesion.toISOString()
-    window.api.createSesion(1, ini, fini);
+    crud.createSesion(1, ini, fini);
     corriendo = false;
 }
 
@@ -82,7 +83,6 @@ async function loop() {
     await predict();
     if (!corriendo){
         webcam.stop()
-        document.getElementById("webcam-container").innerHTML = '';
         return
     }
     // PROBAR AQUÍ LO DEL SEGUNDO PLANO
@@ -116,3 +116,7 @@ async function predict() {
         tiempo_corriendo = false;
     }
 }
+
+
+
+module.exports = {init_model, stop_monitoring}
