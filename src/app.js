@@ -56,12 +56,12 @@ var chart = new ApexCharts(document.querySelector("#chart"), options);
 chart.render();
 
 var options2 = {
-  series: [44, 55, 13, 43],
+  series: [44, 55, 13],
   chart: {
   width: 380,
   type: 'pie',
 },
-labels: ['Morderse las uñas', 'Fatiga visual', 'Mala postura', 'tricotilomanía'],
+labels: ['Manías compulsivas', 'Fatiga visual', 'Mala postura'],
 responsive: [{
   breakpoint: 480,
   options: {
@@ -108,10 +108,10 @@ chart3.render();
 var options4 = {
   series: [{
   name: 'Semana 1',
-  data: [44, 55, 41, 64]
+  data: [44, 55, 41]
 }, {
   name: 'Semana 2',
-  data: [53, 32, 33, 52]
+  data: [53, 32, 33]
 }],
   chart: {
   type: 'bar',
@@ -143,7 +143,7 @@ tooltip: {
   intersect: false
 },
 xaxis: {
-  categories: ['Morderse las uñas', 'Fatiga visual', 'Mala postura', 'Tricotilomanía'],
+  categories: ['Manías compulsivas', 'Fatiga visual', 'Mala postura'],
 },
 };
 
