@@ -77,9 +77,10 @@ function stop_cam(){
     fin_sesion = new Date();
     let ini_sesion = inicio_sesion.toISOString()
     let fini_sesion = fin_sesion.toISOString()
-    window.api.createSesion(1, ini_sesion, fini_sesion); //1 hardcodeado por el id_usuario
+    window.api.createSesion(2, ini_sesion, fini_sesion); //2 hardcodeado por el id_usuario
     lista_unhas.map(u => {
-        window.api.actSesion().then(res => window.api.createUnhas(res[0]['id'],u.inicio,u.final)) 
+        //2 hardcodeado por el id_usuario
+        window.api.lastSesion(2).then(res => window.api.createUnhas(res,u.inicio,u.final)) 
     })
     lista_unhas=[]
     //window.api.actSesion().then(res => window.api.createUnhas(res[0]['id'],ini,fini)) 

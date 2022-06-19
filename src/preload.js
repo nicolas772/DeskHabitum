@@ -21,8 +21,12 @@ const getSesion = (id) => {
     return model.getSesion(id);
 }
 
-const actSesion = () => {
-    return model.actSesion()
+const lastSesion = (userId) => {
+    return model.lastSesion(userId)
+}
+
+const getAllSesionesId = (userId) => {
+    return model.getAllSesionesId(userId)
 }
 
 const createUnhas = (id_ses, inicio, final) => {
@@ -30,6 +34,14 @@ const createUnhas = (id_ses, inicio, final) => {
 }
 const getUnhas = (id) => {
     return model.getUnhas(id);
+}
+
+const countUnhasSesion = (numSesion) => {
+    return model.countUnhasSesion(numSesion)
+}
+
+const countAllUnhas = (userId) => {
+    return model.countAllUnhas(userId)
 }
 
 
@@ -41,9 +53,12 @@ contextBridge.exposeInMainWorld("api", {
     delUser: delUser,
     createSesion: createSesion,
     getSesion: getSesion,
-    actSesion: actSesion,
+    lastSesion: lastSesion,
+    getAllSesionesId: getAllSesionesId,
     createUnhas: createUnhas,
-    getUnhas: getUnhas
+    getUnhas: getUnhas,
+    countUnhasSesion: countUnhasSesion,
+    countAllUnhas: countAllUnhas
     
 })
 
