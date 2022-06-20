@@ -74,7 +74,7 @@ function stop_monitoring(){
         crud.createSesion(2, ini_sesion, fini_sesion); //2 hardcodeado por el id_usuario
         lista_unhas.map(u => {
             //2 hardcodeado por el id_usuario
-            window.api.lastSesion(2).then(res => window.api.createUnhas(res,u.inicio,u.final)) 
+            crud.lastSesion(2).then(res => crud.createUnhas(res,u.inicio,u.final)) 
         })
         lista_unhas=[]
         //window.api.actSesion().then(res => window.api.createUnhas(res[0]['id'],ini,fini)) 
