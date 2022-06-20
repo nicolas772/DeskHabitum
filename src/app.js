@@ -172,3 +172,29 @@ responsive: [{
 
 var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
 chart5.render();
+
+
+/*Intento timeline*/
+
+/*Llamando api*/
+
+/*
+* crud.lastSesion(2).then(res => crud.createUnhas(res,u.inicio,u.final))
+* */
+
+var conteounhas1 =window.api.countAllUnhas(1).then(result => {
+  document.getElementById("h1totunhas").innerHTML=result;
+  console.log(result);
+});
+
+
+var conteounhas2 =window.api.countUnhasSesion(1).then(result => {
+  document.getElementById("h1unhassesion").innerHTML=result;
+  console.log(result);
+});
+
+
+
+//document.getElementById("h1totunhas").innerHTML=window.api.countAllUnhas(1);
+
+
