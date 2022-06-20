@@ -65,7 +65,7 @@ body{
     width: 100%;
     max-width: fit-content;
     padding-right: 2rem;
-   
+    --bs-gutter-x: 0;
     margin: 0 auto;
     gap: 1.8rem;
     /*grid-template-columns: 14rem auto 23rem;*/
