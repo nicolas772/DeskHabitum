@@ -105,34 +105,79 @@
         <!----END ASIDE---->
         <main style="z-index:1">
 
-            <div class="spacer">
-            <h1>Dashboard</h1>   
-            
-            <div class="row" >
-                <div class="col-sm-6">
-                  <div class="card" >
-                    <div class="card-body">
-                      <h5 class="card-title">Cantidad de detecciones última sesión</h5>
-                      <h1>6</h1>
+            <div class="mytabs">
+                <input type="radio" id="tabfree" name="mytabs" checked="checked">
+                <label for="tabfree">General</label>
+                <div class="tab">
+                    <h1>Reportes Generales</h1>
 
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                      <h5 class="card-title">Cantidad de detecciones totales</h5>
-                      <h1>36</h1>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                    <div class="row" >
+                        <div class="col-sm-6">
+                            <div class="card" >
+                                <div class="card-body">
+                                    <h5 class="card-title">Cantidad de detecciones última sesión</h5>
+                                    <h1>6</h1>
 
-            <div id="chart5"></div>  
-            <div id="chart"></div>          
-            
-            
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Cantidad de detecciones totales</h5>
+                                    <h1>36</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="chart5"></div>
+                    <div id="chart"></div>
+                </div>
+
+                <input type="radio" id="tabsilver" name="mytabs">
+                <label for="tabsilver">Onicofagia</label>
+                <div class="tab">
+                        <h1>Reportes Onicofagia</h1>
+
+                        <div class="row" >
+                            <div class="col-sm-6">
+                                <div class="card" >
+                                    <div class="card-body">
+                                        <h5 class="card-title">Cantidad de detecciones última sesión</h5>
+                                        <h1>3</h1>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Cantidad de detecciones totales</h5>
+                                        <h1>10</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+
+                <input type="radio" id="tabgold" name="mytabs">
+                <label for="tabgold">Tricotilomanía</label>
+                <div class="tab">
+                    <h1>Reportes Tricotilomanía</h1>
+                </div>
+                <input type="radio" id="tablast" name="mytabs">
+                <label for="tablast">Manía Morder objetos</label>
+                <div class="tab">
+                    <h1>Reportes Manía de Morder objetos</h1>
+                </div>
+
             </div>
+
+
+            
+
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
