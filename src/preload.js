@@ -1,5 +1,21 @@
 const model = require('./model/model.js')
-const { contextBridge } = require("electron");
+const camera = require('./processWebcam.js')
+const {contextBridge, ipcRenderer} = require("electron");
+
+const check_session = (data) => {
+    const sesion = ipcRenderer.sendSync('Check-Session', data)
+    return sesion
+}
+
+const init_session = (sesion) => {
+    return camera.init_model(sesion);
+}
+
+const stop_session= () => {
+    return camera.stop_monitoring();
+}
+
+
 
 const getUsuarios = () => {
     return model.getUsuarios();
@@ -58,7 +74,10 @@ contextBridge.exposeInMainWorld("api", {
     createUnhas: createUnhas,
     getUnhas: getUnhas,
     countUnhasSesion: countUnhasSesion,
-    countAllUnhas: countAllUnhas
+    countAllUnhas: countAllUnhas,
+    init_session: init_session,
+    stop_session: stop_session,
+    check_session: check_session
     
 })
 

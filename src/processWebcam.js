@@ -1,3 +1,7 @@
+const tmImage = require('@teachablemachine/image');
+const tf = require('@tensorflow/tfjs')
+const crud = require('./model/model.js')
+
 const URL = 'https://teachablemachine.withgoogle.com/models/QCfFnAVYW/';
 //Variables para la ejecución de la webcam y modelo
 let model, webcam;
@@ -43,48 +47,40 @@ function doNotify(){
     })
 }
 
-async function init() {
-    inicio_sesion = new Date()
+async function init_model(sesion) {
     if (!corriendo){
-        var img = document.createElement("img");
-        img.src = 'https://c.tenor.com/On7kvXhzml4AAAAi/loading-gif.gif';
-        img.style.height = '80px';
-        img.style.width = '80px';
-        document.getElementById("webcam-container").appendChild(img)
-        const modelURL = URL + 'model.json';
-        const metadataURL = URL + 'metadata.json';
+        inicio_sesion = sesion;
         corriendo = true;
 
-        // load the model and metadata
-        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-        // or files from your local hard drive
+        const modelURL = URL + 'model.json';
+        const metadataURL = URL + 'metadata.json';
         model = await tmImage.load(modelURL, metadataURL);
-
-        // Convenience function to setup a webcam
-        const flip = true; // whether to flip the webcam
+        const flip = true;
         const width = 200;
         const height = 200;
         webcam = new tmImage.Webcam(width, height, flip);
-        await webcam.setup(); // request access to the webcam
-        document.getElementById("webcam-container").innerHTML = ''
-        document.getElementById("webcam-container").appendChild(webcam.canvas);
 
+        await webcam.setup(); // request access to the webcam
         webcam.play();
         window.requestAnimationFrame(loop);
     }
 }
-function stop_cam(){
-    fin_sesion = new Date();
-    let ini_sesion = inicio_sesion.toISOString()
-    let fini_sesion = fin_sesion.toISOString()
-    window.api.createSesion(2, ini_sesion, fini_sesion); //2 hardcodeado por el id_usuario
-    lista_unhas.map(u => {
-        //2 hardcodeado por el id_usuario
-        window.api.lastSesion(2).then(res => window.api.createUnhas(res,u.inicio,u.final)) 
-    })
-    lista_unhas=[]
-    //window.api.actSesion().then(res => window.api.createUnhas(res[0]['id'],ini,fini)) 
-    corriendo = false;
+
+function stop_monitoring(){
+    if (corriendo == true){
+        fin_sesion = new Date();
+        let ini_sesion = inicio_sesion.toISOString()
+        let fini_sesion = fin_sesion.toISOString()
+        crud.createSesion(2, ini_sesion, fini_sesion); //2 hardcodeado por el id_usuario
+        lista_unhas.map(u => {
+            //2 hardcodeado por el id_usuario
+            window.api.lastSesion(2).then(res => window.api.createUnhas(res,u.inicio,u.final)) 
+        })
+        lista_unhas=[]
+        //window.api.actSesion().then(res => window.api.createUnhas(res[0]['id'],ini,fini)) 
+        corriendo = false;
+    }
+    
 }
 
 async function loop() {
@@ -92,7 +88,6 @@ async function loop() {
     await predict();
     if (!corriendo){
         webcam.stop()
-        document.getElementById("webcam-container").innerHTML = '';
         return
     }
     // PROBAR AQUÍ LO DEL SEGUNDO PLANO
@@ -134,3 +129,7 @@ async function predict() {
         tiempo_corriendo = false;
     }
 }
+
+
+
+module.exports = { init_model , stop_monitoring}
