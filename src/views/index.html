@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel='stylesheet'>
     <!-- STYLESHEET -->
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -105,16 +106,51 @@
     <!----END ASIDE---->
 
     <main style="z-index:1">
-        <div class="col py-3">
-
-            <h2>Monitoreo</h2>
-            <div>Monitoreo de mal habito por webcam</div>
-            <script src="../iniciarWebcam.js"></script>
+        <div class="spacer">
+            <h1>Monitoreo</h1> 
+            <div>Selecciona los malos hábitos que deseas monitorear por webcam</div>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Manías compulsivas
+                  <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Fatiga visual
+                  <input type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-size="small">
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Mala postura
+                  <input type="checkbox" checked data-toggle="toggle" data-onstyle="info" data-size="small">
+                </li>
+            </ul>
             <div  role="group" aria-label="Basic example">
                 <button type='button' class="btn btn-outline-primary" onclick='init()'>Comenzar</button>
                 <button type='button' class="btn btn-outline-primary" onclick='stop_cam()'>Parar</button>
-                <button id="botoncito" type='button' class="btn btn-outline-primary" onclick='prueba()'>prueba</button>
             </div>
+
+            <h1>Resumen de tu última sesión</h1>   
+            
+            <div class="row" >
+                <div class="col-sm-6">
+                  <div class="card" >
+                    <div class="card-body">
+                      <h5 class="card-title">Cantidad de detecciones última sesión</h5>
+                      <h1>6</h1>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Duración última sesión</h5>
+                      <h1>1.5 horas</h1>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div id="chart6"></div>
+
             <div id='webcam-container'></div>
             <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js"></script>
@@ -123,6 +159,8 @@
         </div>
     </main>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script src="../app.js"></script>
 <<<<<<< HEAD
 <script type="text/javascript">

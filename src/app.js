@@ -172,3 +172,26 @@ responsive: [{
 
 var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
 chart5.render();
+
+var options6 = {
+  series: [10, 35],
+  chart: {
+  width: 380,
+  type: 'pie',
+},
+labels: ['Malos hábitos', 'Comportamiento óptimo'],
+responsive: [{
+  breakpoint: 480,
+  options: {
+    chart: {
+      width: 200
+    },
+    legend: {
+      position: 'bottom'
+    }
+  }
+}]
+};
+
+var chart6 = new ApexCharts(document.querySelector("#chart6"), options6);
+chart6.render();
