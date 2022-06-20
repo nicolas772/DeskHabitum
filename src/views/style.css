@@ -282,6 +282,11 @@ aside .sidebar .sub-menu a{
 
 }
 
+.rotate{
+    transform:rotate(90deg);
+}
+
+
 /**/
 
 aside .sidebar a span{
