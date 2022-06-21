@@ -350,3 +350,25 @@ chart62.render();
 
 
 /*-----------------Fin graficos onicofagia*/
+
+var optionsdona = {
+  series: [15, 6, 9, 45],
+  chart: {
+  type: 'donut',
+},
+labels: ['Onicofagia', 'Tricotilomanía', 'Morder objetos', 'Tiempo óptimo'],
+responsive: [{
+  breakpoint: 480,
+  options: {
+    chart: {
+      width: 200
+    },
+    legend: {
+      position: 'bottom'
+    }
+  }
+}]
+};
+
+var chartdona = new ApexCharts(document.querySelector("#chartdona"), optionsdona);
+chartdona.render();
