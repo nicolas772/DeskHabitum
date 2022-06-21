@@ -60,7 +60,29 @@ const countAllUnhas = (userId) => {
     return model.countAllUnhas(userId)
 }
 
+const durationSesion = (sesionId) => {
+    return model.durationSesion(userId)
+}
 
+const timeSesionAll  = (userId) => {
+    return model.timeSesionAll(userId)
+}
+
+const percentageTenSesion = (userId) => {
+    return model.percentageTenSesion(userId)
+}
+
+const totalDurationUnhas = (sesionId) => {
+    return model.totalDurationUnhas(sesionId)
+}
+
+const timeUnhasAll = (userId) => {
+    return model.timeUnhasAll(userId)
+}
+
+const unhasPercentage = (sesionId) => {
+    return model.unhasPercentage(sesionId)
+}
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -77,7 +99,13 @@ contextBridge.exposeInMainWorld("api", {
     countAllUnhas: countAllUnhas,
     init_session: init_session,
     stop_session: stop_session,
-    check_session: check_session
+    check_session: check_session,
+    durationSesion: durationSesion,
+    timeSesionAll: timeSesionAll,
+    percentageTenSesion: percentageTenSesion,
+    totalDurationUnhas: totalDurationUnhas,
+    timeUnhasAll: timeUnhasAll,
+    unhasPercentage: unhasPercentage
     
 })
 
