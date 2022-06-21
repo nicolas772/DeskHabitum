@@ -405,7 +405,7 @@ var optionsdona = {
     width:500,
   type: 'donut',
 },
-labels: ['Onicofagia', 'Tricotilomanía', 'Morder objetos', 'Tiempo óptimo'],
+labels: ['Onicofagia', 'Tricotilomanía', 'Morder objetos', 'Sin detección de manía'],
 responsive: [{
   breakpoint: 480,
   options: {
