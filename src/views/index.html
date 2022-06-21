@@ -129,12 +129,16 @@
                             <input type="checkbox" checked data-toggle="toggle" data-onstyle="info" data-size="small">
                         </li>
                     </ul>
+
                     <script src="../RenderWebcam.js"></script>
-                    <div  role="group" aria-label="Basic example" style="margin-left:9rem;margin-top:0.2rem;">
+                    <div  role="group" aria-label="Basic example">
                         <button type='button' class="btn btn-outline-primary" onclick='init_cam()'>Comenzar</button>
-                        <button type='button' class="btn btn-outline-primary" onclick='stop_cam()'>Parar</button>
+                        <button id='btnstop' type='button' class="btn btn-outline-primary" onclick='stop_cam()'>Parar</button>
                     </div>
                     <div id='loading-webcam'></div>
+                    <div id="names"></div>
+
+
 
 
                 </div>
@@ -181,6 +185,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <div class="row" >

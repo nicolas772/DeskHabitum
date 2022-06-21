@@ -3,7 +3,7 @@
 //Función para comprobar si hay una sesión en curso y así abrir la camara en una nueva vista.
 function check_cam(){
     sesion = window.api.check_session("");
-    console.log(sesion);
+    //console.log(sesion);
     //No hay sesión en curso, por ende no se abre la cámara
     if (sesion == "No-Session")
         return
@@ -59,7 +59,6 @@ function stop_cam(){
         window.api.stop_session();
         document.getElementById("loading-webcam").innerHTML = '';
     }
-    
 }
 
 
