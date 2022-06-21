@@ -131,9 +131,7 @@ async function predict() {
         //console.log(lista_unhas)
         let rawdata = fs.readFileSync('./src/data/unhasSesion.json');
         let lista_unhas = JSON.parse(rawdata);
-        console.log(lista_unhas)
         lista_unhas.push(unha)
-        console.log("paso push")
         let data_unha = JSON.stringify(lista_unhas);
         fs.writeFileSync("./src/data/unhasSesion.json", data_unha)
         tiempo_corriendo = false;

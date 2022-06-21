@@ -61,7 +61,7 @@ const countAllUnhas = (userId) => {
 }
 
 const durationSesion = (sesionId) => {
-    return model.durationSesion(userId)
+    return model.durationSesion(sesionId)
 }
 
 const timeSesionAll  = (userId) => {
@@ -109,5 +109,5 @@ contextBridge.exposeInMainWorld("api", {
     
 })
 
-//SE UTILIZA con la linea window.api.funcion("parametros") 
+//SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
 //desde cualquier .js
