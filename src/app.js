@@ -423,7 +423,7 @@ responsive: [{
 };
 
 var chartdona = new ApexCharts(document.querySelector("#chartdona"), optionsdona);
-chartdona.render();
+//chartdona.render();
 
 //const sub_menu =document.querySelection(".sub-menu");
 
