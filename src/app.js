@@ -173,25 +173,92 @@ responsive: [{
 var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
 chart5.render();
 
-var options6 = {
-  series: [10, 35],
+
+/*Intento timeline*/
+
+/*Llamando api*/
+
+/*
+* crud.lastSesion(2).then(res => crud.createUnhas(res,u.inicio,u.final))
+* */
+
+var conteounhas1 =window.api.countAllUnhas(1).then(result => {
+  document.getElementById("h1totunhas").innerHTML=result;
+  console.log(result);
+});
+
+
+var conteounhas2 =window.api.countUnhasSesion(1).then(result => {
+  document.getElementById("h1unhassesion").innerHTML=result;
+  console.log(result);
+});
+
+
+
+//document.getElementById("h1totunhas").innerHTML=window.api.countAllUnhas(1);
+
+/*-------------------------Graficos onicofagia*/
+
+
+var options61 = {
+  series: [24, 35],
   chart: {
-  width: 380,
-  type: 'pie',
-},
-labels: ['Malos hábitos', 'Comportamiento óptimo'],
-responsive: [{
-  breakpoint: 480,
-  options: {
-    chart: {
-      width: 200
-    },
-    legend: {
-      position: 'bottom'
+    width: 380,
+    type: 'pie',
+  },
+  labels: ['Tiempo Onicofagia', 'Tiempo Óptimo'],
+  responsive: [{
+    breakpoint: 480,
+    options: {
+      chart: {
+        width: 300
+      },
+      legend: {
+        position: 'bottom'
+      }
     }
-  }
-}]
+  }]
 };
 
-var chart6 = new ApexCharts(document.querySelector("#chart6"), options6);
-chart6.render();
+var chart61 = new ApexCharts(document.querySelector("#chart61"), options61);
+chart61.render();
+
+var options62 = {
+  series: [{
+    name: "% mordiendo uñas",
+    data: [13, 10, 41, 35, 51, 49, 62, 69, 75, 51]
+  }],
+  chart: {
+    height: 240,
+    type: 'line',
+    zoom: {
+      enabled: false
+    }
+  },
+  dataLabels: {
+    enabled: false
+  },
+  stroke: {
+    curve: 'straight'
+  },
+  title: {
+    text: '% onicofagia últimas 10 sesiones.',
+    align: 'left'
+  },
+  grid: {
+    row: {
+      colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+      opacity: 0.5
+    },
+  },
+  xaxis: {
+    categories: ['1','2', '3', '4', '5', '6', '7', '8', '9', '10'],
+  }
+};
+
+var chart62 = new ApexCharts(document.querySelector("#chart62"), options62);
+chart62.render();
+
+
+
+/*-----------------Fin graficos onicofagia*/

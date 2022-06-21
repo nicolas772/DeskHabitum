@@ -4,7 +4,8 @@ let model, webcam;
 //Variable para emplear un cooldown entre notificaciones
 let cooldown = false;
 let habito_cooldown = false;
-let tiempo_inicio = new Date;
+let tiempo_inicio;
+let tiempo_final;
 //Variable para controlar la ejecución de la webcam
 let corriendo = false;
 //Tiempo del cooldown
@@ -15,6 +16,9 @@ let tiempo_corriendo = false;
 //variables para crear sesion
 let inicio_sesion;
 let fin_sesion;
+
+//lista que guarda el inicio y final del mal habito de comerse uñas en la sesion actual
+let lista_unhas = [];
 
 function startCooldown() {
     cooldown = true;
@@ -71,9 +75,15 @@ async function init() {
 }
 function stop_cam(){
     fin_sesion = new Date();
-    let ini = inicio_sesion.toISOString()
-    let fini = fin_sesion.toISOString()
-    window.api.createSesion(1, ini, fini);
+    let ini_sesion = inicio_sesion.toISOString()
+    let fini_sesion = fin_sesion.toISOString()
+    window.api.createSesion(2, ini_sesion, fini_sesion); //2 hardcodeado por el id_usuario
+    lista_unhas.map(u => {
+        //2 hardcodeado por el id_usuario
+        window.api.lastSesion(2).then(res => window.api.createUnhas(res,u.inicio,u.final)) 
+    })
+    lista_unhas=[]
+    //window.api.actSesion().then(res => window.api.createUnhas(res[0]['id'],ini,fini)) 
     corriendo = false;
 }
 
@@ -111,8 +121,16 @@ async function predict() {
 
 
     if (prediction[0].probability.toFixed(2) < 0.50 && tiempo_corriendo && !habito_cooldown){
-        let tiempo_final = new Date();
-        //console.log([tiempo_final - tiempo_inicio, tiempo_inicio, tiempo_final]);
+        tiempo_final = new Date();
+        
+        let ini = tiempo_inicio.toISOString()
+        let fini = tiempo_final.toISOString()
+        let unha = {
+            "inicio": ini,
+            "final": fini
+        }
+        lista_unhas.push(unha)
+        console.log(lista_unhas)   
         tiempo_corriendo = false;
     }
 }
