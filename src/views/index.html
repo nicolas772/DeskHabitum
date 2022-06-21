@@ -105,19 +105,54 @@
     <!----END ASIDE---->
 
     <main style="z-index:1">
-        <div class="col py-3">
+        <h1 style="font-size:1.5rem">Monitoreo y Resumen última sesión</h1>
 
-            <h2>Monitoreo</h2>
-            <div>Monitoreo de mal habito por webcam</div>
-            <script src="../RenderWebcam.js"></script>
-            <div  role="group" aria-label="Basic example">
-                <button type='button' class="btn btn-outline-primary" onclick='init_cam()'>Comenzar</button>
-                <button type='button' class="btn btn-outline-primary" onclick='stop_cam()'>Parar</button>
+        <div class="row" >
+
+            <div style="width:50%; float:left">
+                <div class="col py-3">
+
+                    <h2>Monitoreo</h2>
+                    <div>Monitoreo de mal habito por webcam</div>
+                    <script src="../RenderWebcam.js"></script>
+                    <div  role="group" aria-label="Basic example">
+                        <button type='button' class="btn btn-outline-primary" onclick='init_cam()'>Comenzar</button>
+                        <button type='button' class="btn btn-outline-primary" onclick='stop_cam()'>Parar</button>
+                    </div>
+                    <div id='loading-webcam'></div>
+
+
+                </div>
+
             </div>
-            <div id='loading-webcam'></div>
+            <div style="width: 50%;float:right">
+                <div class="col-sm-6">
+                    <div class="card"  style="width: 18rem; margin:1.5rem;">
+                        <div class="card-body" style="padding:0.4rem">
+                            <h5 class="card-title" style="text-align:center; text-decoration:underline">Duración última sesión</h5>
+                            <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;">60 minutos</h1>
 
-        
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card" style="width: 18rem; margin:1.5rem;">
+                        <div class="card-body" style="padding:0.4rem">
+                            <h5 class="card-title" style="text-align:center; text-decoration:underline">Detecciones de manías compulsivas</h5>
+                            <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">13</h1>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
+
+
+
+
     </main>
 </div>
 <script src="../app.js"></script>
