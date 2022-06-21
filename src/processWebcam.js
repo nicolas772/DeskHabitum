@@ -1,6 +1,7 @@
 const tmImage = require('@teachablemachine/image');
 const tf = require('@tensorflow/tfjs')
 const crud = require('./model/model.js')
+const fs = require('fs');
 
 const URL = 'https://teachablemachine.withgoogle.com/models/QCfFnAVYW/';
 //Variables para la ejecución de la webcam y modelo
@@ -22,7 +23,7 @@ let inicio_sesion;
 let fin_sesion;
 
 //lista que guarda el inicio y final del mal habito de comerse uñas en la sesion actual
-let lista_unhas = [];
+//let lista_unhas = [];
 
 function startCooldown() {
     cooldown = true;
@@ -72,12 +73,14 @@ function stop_monitoring(){
         let ini_sesion = inicio_sesion.toISOString()
         let fini_sesion = fin_sesion.toISOString()
         crud.createSesion(2, ini_sesion, fini_sesion); //2 hardcodeado por el id_usuario
+        let rawdata = fs.readFileSync('data/unhasSesion.json');
+        let lista_unhas = JSON.parse(rawdata);
         lista_unhas.map(u => {
             //2 hardcodeado por el id_usuario
             crud.lastSesion(2).then(res => crud.createUnhas(res,u.inicio,u.final)) 
         })
-        lista_unhas=[]
-        //window.api.actSesion().then(res => window.api.createUnhas(res[0]['id'],ini,fini)) 
+        fs.writeFileSync('./data/unhasSesion.json', {})
+
         corriendo = false;
     }
     
@@ -124,8 +127,10 @@ async function predict() {
             "inicio": ini,
             "final": fini
         }
-        lista_unhas.push(unha)
-        console.log(lista_unhas)   
+        //lista_unhas.push(unha)
+        //console.log(lista_unhas)   
+        let data_unha = JSON.stringify(unha);
+        fs.appendFileSync('./data/unhasSesion.json', data_unha)
         tiempo_corriendo = false;
     }
 }
