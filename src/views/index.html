@@ -106,57 +106,91 @@
     <!----END ASIDE---->
 
     <main style="z-index:1">
-        <div class="spacer">
-            <h1>Monitoreo</h1> 
-            <div>Selecciona los malos hábitos que deseas monitorear por webcam</div>
-            <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  Manías compulsivas
-                  <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  Fatiga visual
-                  <input type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-size="small">
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  Mala postura
-                  <input type="checkbox" checked data-toggle="toggle" data-onstyle="info" data-size="small">
-                </li>
-            </ul>
-            <div  role="group" aria-label="Basic example">
-                <button type='button' class="btn btn-outline-primary" onclick='init()'>Comenzar</button>
-                <button type='button' class="btn btn-outline-primary" onclick='stop_cam()'>Parar</button>
-            </div>
+        <h1 style="font-size:1.5rem">Monitoreo y Resumen última sesión</h1>
 
-            <h1>Resumen de tu última sesión</h1>   
-            
-            <div class="row" >
-                <div class="col-sm-6">
-                  <div class="card" >
-                    <div class="card-body">
-                      <h5 class="card-title">Cantidad de detecciones última sesión</h5>
-                      <h1>6</h1>
+        <div class="row" >
 
+            <div style="width:40%; float:left">
+
+                <div class="col py-3">
+
+                    <div>Selecciona los malos hábitos que deseas monitorear por webcam</div>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Manías compulsivas
+                            <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Fatiga visual
+                            <input type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-size="small">
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Mala postura
+                            <input type="checkbox" checked data-toggle="toggle" data-onstyle="info" data-size="small">
+                        </li>
+                    </ul>
+                    <script src="../RenderWebcam.js"></script>
+                    <div  role="group" aria-label="Basic example" style="margin-left:9rem;margin-top:0.2rem;">
+                        <button type='button' class="btn btn-outline-primary" onclick='init_cam()'>Comenzar</button>
+                        <button type='button' class="btn btn-outline-primary" onclick='stop_cam()'>Parar</button>
                     </div>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                      <h5 class="card-title">Duración última sesión</h5>
-                      <h1>1.5 horas</h1>
-                    </div>
-                  </div>
+                    <div id='loading-webcam'></div>
+
+
                 </div>
             </div>
-            <div id="chart6"></div>
 
-            <div id='webcam-container'></div>
-            <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js"></script>
+            <div style="width: 60%;float:right">
 
-        
+                <h1 style="font-size:1rem; margin-top:0.3rem;">Datos sesión</h1>
+
+                <div class="row" style="padding-bottom:1rem;padding-top:2rem">
+                    <div class="col-sm-6">
+                        <div class="card"  style="width: 15rem;  height: 4rem;">
+                            <div class="card-body" style="padding:0.4rem">
+                                <h5 class="card-title" style="text-align:center; text-decoration:underline">Duración Última Sesión</h5>
+                                <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;">60 minutos</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card" style="width: 15rem; height: 4rem;">
+                            <div class="card-body" style="padding:0.4rem">
+                                <h5 class="card-title" style="text-align:center; text-decoration:underline"># Detecciones Manías Compulsivas</h5>
+                                <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">13 veces</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="padding-top:1rem;">
+                    <div class="col-sm-6">
+                        <div class="card"  style="width: 15rem;  height: 4rem;">
+                            <div class="card-body" style="padding:0.4rem">
+                                <h5 class="card-title" style="text-align:center; text-decoration:underline">#Detecciones mala postura</h5>
+                                <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;">10 veces</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card" style="width: 15rem; height: 4rem;">
+                            <div class="card-body" style="padding:0.4rem">
+                                <h5 class="card-title" style="text-align:center; text-decoration:underline">Detección fatiga visual</h5>
+                                <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">Si</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <div class="row" >
+            <h1 style="font-size:1rem; margin-top:0.3rem;">Porcentajes hábitos última sesión</h1>
+            <div id="chart00"></div>
+        </div>
+
+
+
+
     </main>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

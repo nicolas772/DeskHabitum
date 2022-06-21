@@ -1,5 +1,21 @@
 const model = require('./model/model.js')
-const { contextBridge } = require("electron");
+const camera = require('./processWebcam.js')
+const {contextBridge, ipcRenderer} = require("electron");
+
+const check_session = (data) => {
+    const sesion = ipcRenderer.sendSync('Check-Session', data)
+    return sesion
+}
+
+const init_session = (sesion) => {
+    return camera.init_model(sesion);
+}
+
+const stop_session= () => {
+    return camera.stop_monitoring();
+}
+
+
 
 const getUsuarios = () => {
     return model.getUsuarios();
@@ -44,7 +60,29 @@ const countAllUnhas = (userId) => {
     return model.countAllUnhas(userId)
 }
 
+const durationSesion = (sesionId) => {
+    return model.durationSesion(userId)
+}
 
+const timeSesionAll  = (userId) => {
+    return model.timeSesionAll(userId)
+}
+
+const percentageTenSesion = (userId) => {
+    return model.percentageTenSesion(userId)
+}
+
+const totalDurationUnhas = (sesionId) => {
+    return model.totalDurationUnhas(sesionId)
+}
+
+const timeUnhasAll = (userId) => {
+    return model.timeUnhasAll(userId)
+}
+
+const unhasPercentage = (sesionId) => {
+    return model.unhasPercentage(sesionId)
+}
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -58,7 +96,16 @@ contextBridge.exposeInMainWorld("api", {
     createUnhas: createUnhas,
     getUnhas: getUnhas,
     countUnhasSesion: countUnhasSesion,
-    countAllUnhas: countAllUnhas
+    countAllUnhas: countAllUnhas,
+    init_session: init_session,
+    stop_session: stop_session,
+    check_session: check_session,
+    durationSesion: durationSesion,
+    timeSesionAll: timeSesionAll,
+    percentageTenSesion: percentageTenSesion,
+    totalDurationUnhas: totalDurationUnhas,
+    timeUnhasAll: timeUnhasAll,
+    unhasPercentage: unhasPercentage
     
 })
 
