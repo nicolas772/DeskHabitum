@@ -406,6 +406,8 @@ chart00.render();
 var optionsdona = {
   series: [15, 6, 9, 45],
   chart: {
+    height:300,
+    width:500,
   type: 'donut',
 },
 labels: ['Onicofagia', 'Tricotilomanía', 'Morder objetos', 'Tiempo óptimo'],
@@ -413,10 +415,13 @@ responsive: [{
   breakpoint: 480,
   options: {
     chart: {
-      width: 200
+      height:200,
+
     },
     legend: {
-      position: 'bottom'
+      position: 'bottom',
+      verticalAlign: 'bottom',
+      align:'left'
     }
   }
 }]
