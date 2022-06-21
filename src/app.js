@@ -350,3 +350,55 @@ chart62.render();
 
 
 /*-----------------Fin graficos onicofagia*/
+
+
+/*-------GRAFICO GENERAL % CADA MAL HABITO---*/
+var options00 = {
+  series: [75,44, 55, 67],
+  chart: {
+    height: 350,
+    type: 'radialBar',
+  },
+  plotOptions: {
+    radialBar: {
+      dataLabels: {
+        name: {
+          fontSize: '22px',
+        },
+        value: {
+          fontSize: '16px',
+        },
+        total: {
+          show: false,
+          label: 'Óptimo',
+          formatter: function (w) {
+            // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
+            return '75%'
+          }
+        }
+      }
+    }
+  },
+  labels: ['Óptimo','Manías Compulsivas', 'Mala Postura', 'Estimación fatiga visual'],
+  legend:{
+    show:true,
+    position: 'bottom',
+    horizontalAlign: 'center'
+  },
+  responsive: [{
+    breakpoint: 480,
+    options: {
+      chart: {
+        width: 500
+      },
+      legend: {
+        position: 'right'
+      }
+    }
+  }]
+};
+
+var chart00 = new ApexCharts(document.querySelector("#chart00"), options00);
+chart00.render();
+
+/*fin grafico general de cada mal hábito*/
