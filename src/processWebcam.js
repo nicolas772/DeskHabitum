@@ -73,13 +73,13 @@ function stop_monitoring(){
         let ini_sesion = inicio_sesion.toISOString()
         let fini_sesion = fin_sesion.toISOString()
         crud.createSesion(2, ini_sesion, fini_sesion); //2 hardcodeado por el id_usuario
-        let rawdata = fs.readFileSync('data/unhasSesion.json');
+        let rawdata = fs.readFileSync('./src/data/unhasSesion.json');
         let lista_unhas = JSON.parse(rawdata);
         lista_unhas.map(u => {
             //2 hardcodeado por el id_usuario
             crud.lastSesion(2).then(res => crud.createUnhas(res,u.inicio,u.final)) 
         })
-        fs.writeFileSync('./data/unhasSesion.json', {})
+        fs.writeFileSync('./src/data/unhasSesion.json', '[]')//vaciar archivo
 
         corriendo = false;
     }
@@ -128,9 +128,14 @@ async function predict() {
             "final": fini
         }
         //lista_unhas.push(unha)
-        //console.log(lista_unhas)   
-        let data_unha = JSON.stringify(unha);
-        fs.appendFileSync('./data/unhasSesion.json', data_unha)
+        //console.log(lista_unhas)
+        let rawdata = fs.readFileSync('./src/data/unhasSesion.json');
+        let lista_unhas = JSON.parse(rawdata);
+        console.log(lista_unhas)
+        lista_unhas.push(unha)
+        console.log("paso push")
+        let data_unha = JSON.stringify(lista_unhas);
+        fs.writeFileSync("./src/data/unhasSesion.json", data_unha)
         tiempo_corriendo = false;
     }
 }
