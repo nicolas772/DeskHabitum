@@ -11,16 +11,6 @@ shrink_btn.addEventListener("click",()=>{
 
 });
 
-document.addEventListener('DOMContentLoaded', async () => {
-  window.api.getUsuarios().then(result => {
-    let divNames = document.getElementById("names");
-    let nameString = result.map((elem) => {
-      return elem.nombre;
-    }).join("<br />");
-    //divNames.innerHTML = nameString;
-  });
-})
-
 var options = {
   series: [{
   name: 'Porcentaje de tiempo',
