@@ -112,16 +112,14 @@
             <script src="../RenderWebcam.js"></script>
             <div  role="group" aria-label="Basic example">
                 <button type='button' class="btn btn-outline-primary" onclick='init_cam()'>Comenzar</button>
-                <button type='button' class="btn btn-outline-primary" onclick='stop_cam()'>Parar</button>
+                <button id='btnstop' type='button' class="btn btn-outline-primary" onclick='stop_cam()'>Parar</button>
             </div>
-            <div id='loading-webcam'></div>
-
-        
+            <div id='loading-webcam'></div> 
+            <div id="names"></div>
         </div>
     </main>
 </div>
 <script src="../app.js"></script>
-<<<<<<< HEAD
 <script type="text/javascript">
     $(document).ready(function(){
         $('.sub-btn').click(function(){

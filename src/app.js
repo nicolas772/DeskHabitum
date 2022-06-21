@@ -1,6 +1,5 @@
 const shrink_btn = document.querySelector(".shrink-btn");
 
-
 shrink_btn.addEventListener("click",()=>{
     document.body.classList.toggle("shrink");
     shrink_btn.classList.add("hovered");
@@ -12,20 +11,15 @@ shrink_btn.addEventListener("click",()=>{
 
 });
 
-//const sub_menu =document.querySelection(".sub-menu");
-
-
-/*
-cont sub_menu = document.querySelecton(".sub-menu")
-<script type="text/javascript">
-        $(document).ready(function(){
-            $('.sub-btn').click(function(){
-                $(this).next('.sub-menu').slideToggle();
-            });
-        });
-    </script>
-*/
-
+document.addEventListener('DOMContentLoaded', async () => {
+  window.api.getUsuarios().then(result => {
+    let divNames = document.getElementById("names");
+    let nameString = result.map((elem) => {
+      return elem.nombre;
+    }).join("<br />");
+    //divNames.innerHTML = nameString;
+  });
+})
 
 var options = {
   series: [{
@@ -172,3 +166,17 @@ responsive: [{
 
 var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
 chart5.render();
+
+//const sub_menu =document.querySelection(".sub-menu");
+
+
+/*
+cont sub_menu = document.querySelecton(".sub-menu")
+<script type="text/javascript">
+        $(document).ready(function(){
+            $('.sub-btn').click(function(){
+                $(this).next('.sub-menu').slideToggle();
+            });
+        });
+    </script>
+*/
