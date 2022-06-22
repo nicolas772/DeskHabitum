@@ -95,7 +95,7 @@ const percentageTenSesion = async (userId) => {
         let sesion = await durationSesion(idResult[i]['id'])
         let p = mania/sesion
         p = p*100
-        percentages.push(p)        
+        percentages.push(p.toFixed(0))        
     }
     percentages.reverse()
     return percentages
