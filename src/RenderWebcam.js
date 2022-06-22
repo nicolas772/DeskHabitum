@@ -52,6 +52,7 @@ function init_cam(){
 
 //Función para parar la sesión apretando el botón "parar"
 function stop_cam(){
+    
     sesion = window.api.check_session("");
     if (sesion != "No-Session"){
         //Se para la sesión comunicando con index.js
@@ -59,7 +60,83 @@ function stop_cam(){
         window.api.stop_session();
         document.getElementById("loading-webcam").innerHTML = '';
     }
+
+    update_home();
 }
 
 
+async function update_home(){
+
+    let id_Usuario = 2;
+    var id_Sesion, duracion, manias, duraciontotal, duracionunas, duracionpelo, duracionobjetos;
+    var postura = "10 veces";
+    var visual = "Sí"
+
+    
+    await window.api.lastSesion(id_Usuario).then(result => {
+        id_Sesion = result;
+    });
+    
+    await window.api.durationSesion(id_Sesion).then(result => {
+        duraciontotal = result;
+        var minutes = Math.floor(result / 60);
+        var seconds = (result - minutes * 60).toFixed(0);
+        if (minutes == 0)
+            duracion = String(seconds) + " segundos";
+        else
+            duracion = String(minutes) + " minutos " + String(seconds) + " segundos";
+    });
+
+    await window.api.countUnhasSesion(id_Sesion).then(result => {
+        manias = result;
+    });
+
+    await window.api.totalDurationUnhas(id_Sesion).then(result => {
+        duracionunas = result;
+    });
+
+    duraciontotal = duraciontotal - duracionunas;
+    duracionpelo = duraciontotal*0.02;
+    duraciontotal = duraciontotal - duracionpelo;
+    duracionobjetos = duraciontotal*0.02;
+    duraciontotal = duraciontotal - duracionobjetos;
+
+    var optionsdona = {
+        series: [duracionunas,duracionpelo,duracionobjetos,duraciontotal],
+        chart: {
+          height:300,
+          width:500,
+        type: 'donut',
+      },
+      labels: ['Onicofagia', 'Tricotilomanía', 'Morder objetos', 'Tiempo óptimo'],
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            height:200,
+      
+          },
+          legend: {
+            position: 'bottom',
+            verticalAlign: 'bottom',
+            align:'left'
+          }
+        }
+      }]
+      };
+
+    document.getElementById("chartdona").innerHTML = ''
+    var chartdona = new ApexCharts(document.querySelector("#chartdona"), optionsdona);
+    chartdona.render();
+    document.getElementById("Card-Sesion").innerHTML = duracion
+    document.getElementById("Card-Manias").innerHTML = manias
+    document.getElementById("Card-Postura").innerHTML = postura
+    document.getElementById("Card-Visual").innerHTML = visual
+
+}
+
+
+
+
 window.onload = check_cam;
+window.onload = update_home;
