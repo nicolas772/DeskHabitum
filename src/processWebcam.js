@@ -97,7 +97,7 @@ async function loop() {
     //https://stackoverflow.com/questions/60550376/tensorflowjs-perform-inference-in-an-inactive-tab
 
     //window.requestAnimationFrame(loop);
-    window.setTimeout(loop, 1)
+    window.setTimeout(loop)
 }
 
 // run the webcam image through the image model
