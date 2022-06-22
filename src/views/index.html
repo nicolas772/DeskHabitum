@@ -112,26 +112,13 @@
 
             <div style="width:40%; float:left">
 
-                <div class="col py-3">
+                <div class="col py-3" style="padding-left:1rem">
+                    <h1 style="font-size:1rem; ">Monitoreo hábitos</h1>
+                    <div style="text-align:justify;text-justify:inter-character;justify-content: center;">Seleccione "Comenzar" para iniciar el monitoreo de hábitos con la cámara de su computador. Se le notificará cuando se detecte algún mal hábito.</div>
 
-                    <div>Selecciona los malos hábitos que deseas monitorear por webcam</div>
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Manías compulsivas
-                            <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Fatiga visual
-                            <input type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-size="small">
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Mala postura
-                            <input type="checkbox" checked data-toggle="toggle" data-onstyle="info" data-size="small">
-                        </li>
-                    </ul>
 
                     <script src="../RenderWebcam.js"></script>
-                    <div  role="group" aria-label="Basic example">
+                    <div  role="group" aria-label="Basic example" style="padding-left:8.3rem;padding-top:0.85rem;">
                         <button type='button' class="btn btn-outline-primary" onclick='init_cam()'>Comenzar</button>
                         <button id='btnstop' type='button' class="btn btn-outline-primary" onclick='stop_cam()'>Parar</button>
                     </div>
@@ -145,44 +132,45 @@
             </div>
 
             <div style="width: 60%;float:right">
+                <div class="col py-3" style="padding-left:1.5rem">
+                    <h1 style="font-size:1rem; ">Datos última sesión</h1>
 
-                <h1 style="font-size:1rem; margin-top:0.3rem;">Datos sesión</h1>
-
-                <div class="row" style="padding-bottom:1rem;padding-top:2rem">
-                    <div class="col-sm-6">
-                        <div class="card"  style="width: 15rem;  height: 4rem;">
-                            <div class="card-body" style="padding:0.4rem">
-                                <h5 class="card-title" style="text-align:center; text-decoration:underline">Duración Última Sesión</h5>
-                                <h1 id= "Card-Sesion" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1>
+                    <div class="row" style="padding-bottom:0.5rem; padding-left:0.5rem">
+                        <div class="col-sm-6" >
+                            <div class="card"  style="width: 15rem;  height: 4rem; ">
+                                <div class="card-body" style="padding:0.4rem">
+                                    <h5 class="card-title" style="text-align:center; text-decoration:underline">Duración Última Sesión</h5>
+                                    <h1 id= "Card-Sesion" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card" style="width: 15rem; height: 4rem;">
+                                <div class="card-body" style="padding:0.4rem">
+                                    <h5 class="card-title" style="text-align:center; text-decoration:underline"># Detecciones Manías Compulsivas</h5>
+                                    <h1 id= "Card-Manias" style="font-size:1rem; text-align:center; margin-bottom: 0;"></h1>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="width: 15rem; height: 4rem;">
-                            <div class="card-body" style="padding:0.4rem">
-                                <h5 class="card-title" style="text-align:center; text-decoration:underline"># Detecciones Manías Compulsivas</h5>
-                                <h1 id= "Card-Manias" style="font-size:1rem; text-align:center; margin-bottom: 0;"></h1>
+                    <div class="row" style="padding-top:0.1rem;padding-left:0.5rem;">
+                        <div class="col-sm-6" >
+                            <div class="card"  style="width: 15rem;  height: 4rem;">
+                                <div class="card-body" style="padding:0.4rem">
+                                    <h5 class="card-title" style="text-align:center; text-decoration:underline">#Detecciones mala postura</h5>
+                                    <h1 id= "Card-Postura" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row" style="padding-top:1rem;">
-                    <div class="col-sm-6">
-                        <div class="card"  style="width: 15rem;  height: 4rem;">
-                            <div class="card-body" style="padding:0.4rem">
-                                <h5 class="card-title" style="text-align:center; text-decoration:underline">#Detecciones mala postura</h5>
-                                <h1 id= "Card-Postura" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="width: 15rem; height: 4rem;">
-                            <div class="card-body" style="padding:0.4rem">
-                                <h5 class="card-title" style="text-align:center; text-decoration:underline">Detección fatiga visual</h5>
+                        <div class="col-sm-6">
+                            <div class="card" style="width: 15rem; height: 4rem;">
+                                <div class="card-body" style="padding:0.4rem">
+                                    <h5 class="card-title" style="text-align:center; text-decoration:underline">Detección fatiga visual</h5>
 
-                                <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">Si <i class="bi bi-check-square" style="color:green;"></i></h1>
-                               <!-- <h1 id= "Card-Visual" style="font-size:1rem; text-align:center; margin-bottom: 0;"></h1>-->
+                                    <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">Si <i class="bi bi-check-square" style="color:green;"></i></h1>
+                                   <!-- <h1 id= "Card-Visual" style="font-size:1rem; text-align:center; margin-bottom: 0;"></h1>-->
 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -191,9 +179,9 @@
 
         </div>
 
-        <div class="row" >
-            <h1 style="font-size:1rem; margin-top:0.3rem;">Porcentajes hábitos última sesión</h1>
-            <div style="margin-left: 11rem" id="chartdona"></div>
+        <div class="row"  style="padding-left:1rem">
+            <h1 style="font-size:1rem; margin-top:0.3rem;padding-top:1rem;">Porcentajes hábitos última sesión</h1>
+            <div style="margin-left: 11rem;padding-top:1rem;" id="chartdona"></div>
         </div>
 
 
