@@ -254,6 +254,20 @@ shrink_btn.addEventListener("click",()=>{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////// FUNCIONES RenderWebcam /////////////////////////////////
+
 //Para esta función https://stackoverflow.com/questions/4842590/how-to-run-a-function-when-the-page-is-loaded
 
 //Función para comprobar si hay una sesión en curso y así abrir la camara en una nueva vista.
