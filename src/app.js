@@ -1,5 +1,5 @@
 const shrink_btn = document.querySelector(".shrink-btn");
-
+const userId = 2;
 shrink_btn.addEventListener("click",()=>{
     document.body.classList.toggle("shrink");
     shrink_btn.classList.add("hovered");
@@ -134,28 +134,35 @@ xaxis: {
 var chart4 = new ApexCharts(document.querySelector("#chart4"), options4);
 chart4.render();
 
-var options5 = {
-  series: [24, 35, 13],
-  chart: {
-  width: 380,
-  type: 'pie',
-},
-labels: ['Tricotilomanía', 'Morderse las uñas', 'Morder objetos'],
-responsive: [{
-  breakpoint: 480,
-  options: {
-    chart: {
-      width: 200
-    },
-    legend: {
-      position: 'bottom'
-    }
-  }
-}]
-};
+var total_pelo = 20;
+var total_morder = 15;
 
-var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
-chart5.render();
+var conteounhas1 =window.api.countAllUnhas(userId).then(result => {
+  document.getElementById("h1totunhas").innerHTML=result + total_pelo + total_morder;
+  var options5 = {
+    series: [total_pelo, result, total_morder],
+    chart: {
+    width: 380,
+    type: 'pie',
+  },
+  labels: ['Tricotilomanía', 'Morderse las uñas', 'Morder objetos'],
+  responsive: [{
+    breakpoint: 480,
+    options: {
+      chart: {
+        width: 200
+      },
+      legend: {
+        position: 'bottom'
+      }
+    }
+  }]
+  };
+  
+  var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
+  chart5.render();
+  
+});
 
 
 
@@ -166,17 +173,22 @@ chart5.render();
 /*
 * crud.lastSesion(2).then(res => crud.createUnhas(res,u.inicio,u.final))
 * */
-
-var conteounhas1 =window.api.countAllUnhas(1).then(result => {
-  document.getElementById("h1totunhas").innerHTML=result;
+let last_sesion
+let pelo_ultima_sesion = 2
+let morder_ultima_sesion = 3
+var l_sesion = window.api.lastSesion(userId).then(result => {
+  last_sesion=result
   console.log(result);
+  window.api.countUnhasSesion(last_sesion).then(result => {
+    document.getElementById("h1unhassesion").innerHTML=result + pelo_ultima_sesion + morder_ultima_sesion;
+    console.log(result);
+  });
 });
 
-
-var conteounhas2 =window.api.countUnhasSesion(1).then(result => {
+/*var conteounhas2 =window.api.countUnhasSesion(last_sesion).then(result => {
   document.getElementById("h1unhassesion").innerHTML=result;
   console.log(result);
-});
+});*/
 
 
 
