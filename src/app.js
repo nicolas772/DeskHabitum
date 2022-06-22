@@ -127,9 +127,7 @@ async function Update_Dashboard(){
       }
     },
     xaxis: {
-      categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9',
-        '10'
-      ],
+      categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
     },
     tooltip: {
       y: [
@@ -219,7 +217,7 @@ async function Update_Dashboard(){
       },
     },
     xaxis: {
-      categories: ['1','2', '3', '4', '5', '6', '7', '8', '9', '10'],
+      categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
     }
   };
   
