@@ -3,7 +3,7 @@ const tf = require('@tensorflow/tfjs')
 const crud = require('./model/model.js')
 const fs = require('fs');
 
-const URL = 'https://teachablemachine.withgoogle.com/models/QCfFnAVYW/';
+const URL = 'https://teachablemachine.withgoogle.com/models/a03OU8p7y/';
 //Variables para la ejecución de la webcam y modelo
 let model, webcam;
 //Variable para emplear un cooldown entre notificaciones
@@ -97,7 +97,7 @@ async function loop() {
     //https://stackoverflow.com/questions/60550376/tensorflowjs-perform-inference-in-an-inactive-tab
 
     //window.requestAnimationFrame(loop);
-    window.setTimeout(loop)
+    window.setTimeout(loop, 0.1)
 }
 
 // run the webcam image through the image model
@@ -117,8 +117,8 @@ async function predict() {
         habito_cooldown = false;
     }
 
-
     if (prediction[0].probability.toFixed(2) < 0.50 && tiempo_corriendo && !habito_cooldown){
+        console.log("entra a predict")
         tiempo_final = new Date();
         
         let ini = tiempo_inicio.toISOString()
