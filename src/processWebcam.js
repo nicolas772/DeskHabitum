@@ -3,7 +3,11 @@ const tf = require('@tensorflow/tfjs')
 const crud = require('./model/model.js')
 const fs = require('fs');
 
+<<<<<<< HEAD
 const URL = 'https://teachablemachine.withgoogle.com/models/a03OU8p7y/';
+=======
+const URL = 'https://teachablemachine.withgoogle.com/models/83c4Qg0Gu/';
+>>>>>>> main
 //Variables para la ejecución de la webcam y modelo
 let model, webcam;
 //Variable para emplear un cooldown entre notificaciones
@@ -11,6 +15,7 @@ let cooldown = false;
 let habito_cooldown = false;
 let tiempo_inicio;
 let tiempo_final;
+let se_notifico = false;
 //Variable para controlar la ejecución de la webcam
 let corriendo = false;
 //Tiempo del cooldown
@@ -32,7 +37,7 @@ function startCooldown() {
 
 function habitoCooldown() {
     habito_cooldown = false;
-    setTimeout (function(){ habito_cooldown = true}, 1000);
+    setTimeout (function(){ habito_cooldown = true}, 5000);
 }
 
 const NOTIFICATION_TITLE = 'Desk Habitum'
@@ -115,10 +120,16 @@ async function predict() {
     if (prediction[0].probability.toFixed(2) > 0.50 && habito_cooldown){
         doNotify();
         habito_cooldown = false;
+        se_notifico = true;
     }
 
+<<<<<<< HEAD
     if (prediction[0].probability.toFixed(2) < 0.50 && tiempo_corriendo && !habito_cooldown){
         console.log("entra a predict")
+=======
+
+    if (prediction[0].probability.toFixed(2) < 0.50 && tiempo_corriendo && !habito_cooldown && se_notifico){
+>>>>>>> main
         tiempo_final = new Date();
         
         let ini = tiempo_inicio.toISOString()
@@ -135,6 +146,7 @@ async function predict() {
         let data_unha = JSON.stringify(lista_unhas);
         fs.writeFileSync("./src/data/unhasSesion.json", data_unha)
         tiempo_corriendo = false;
+        se_notifico = false;
     }
 }
 

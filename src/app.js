@@ -57,8 +57,16 @@ async function Update_Dashboard(){
   //Cantidad de detecciones totales
   document.getElementById("h1unhassesion").innerHTML= unha_ultima_sesion + pelo_ultima_sesion + morder_ultima_sesion;
 
+  //ARREGLAR EN EL FUTURO
+  for (var i = 0; i < 10; i++) {
+    if (unhas_10_sesiones[i] > 100){
+      unhas_10_sesiones[i] = 100;
+    }
+ }
+  
+
   var options5 = {
-    series: [total_pelo, total_unha, total_morder],
+    series: [total_unha, total_pelo, total_morder],
     chart: {
     width: 380,
     type: 'pie',
@@ -134,21 +142,21 @@ async function Update_Dashboard(){
         {
           title: {
             formatter: function (val) {
-              return val + " (mins)"
+              return val + "%"
             }
           }
         },
         {
           title: {
             formatter: function (val) {
-              return val + " per session"
+              return val + "%"
             }
           }
         },
         {
           title: {
             formatter: function (val) {
-              return val;
+              return val + "%";
             }
           }
         }
@@ -366,11 +374,17 @@ async function update_home(){
       duracionunas = result;
   });
 
+  //ARREGLAR EN EL FUTURO
+  if (duracionunas > duraciontotal){
+    duracionunas = duraciontotal
+  }
+
   duraciontotal = duraciontotal - duracionunas;
   duracionpelo = duraciontotal*0.02;
   duraciontotal = duraciontotal - duracionpelo;
   duracionobjetos = duraciontotal*0.02;
   duraciontotal = duraciontotal - duracionobjetos;
+
 
   var optionsdona = {
       series: [duracionunas,duracionpelo,duracionobjetos,duraciontotal],
@@ -379,7 +393,7 @@ async function update_home(){
         width:500,
       type: 'donut',
     },
-    labels: ['Onicofagia', 'Tricotilomanía', 'Morder objetos', 'Tiempo óptimo'],
+    labels: ['Tiempo Onicofagia', 'Tiempo Tricotilomanía', 'Tiempo Morder objetos', 'Tiempo Óptimo'],
     responsive: [{
       breakpoint: 480,
       options: {
