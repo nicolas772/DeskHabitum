@@ -28,6 +28,7 @@
     "apexcharts": "^3.35.3",
     "bootstrap": "^5.2.0-beta1",
     "bootstrap-icons": "^1.8.3",
+    "bootstrap-toggle": "^2.2.2",
     "pg": "^8.7.3"
   }
 }
