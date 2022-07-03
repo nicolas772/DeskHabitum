@@ -586,3 +586,57 @@ body.shrink .message-count{
 .mytabs input[type="radio"]:checked + label {
     background: #fff;
 }
+
+/* DESDE AQUI PARTE PARA NOTIFICACION DE EXITO DE TAREA - EXPERIMENTAL PARA TESTING*/
+
+.alerta{
+    background: #B2FF88;
+    padding: 15px 30px;
+    min-width: 420px;
+    position: absolute;
+    right:0px;
+    left: 65%;
+    top:10px;
+    border-radius: 4px;
+    border-left: 4px solid #4C9A21
+
+}
+
+.alerta.mostrar{
+    animation: show_slide 2s ease forwards;
+
+}
+@keyframes show_slide{
+    0%{
+        transform:translateX(100%);
+    }
+
+}
+
+.alerta.esconder{
+    display:none;
+}
+.exito{
+    padding: 0 20px;
+    font-size: 16px;
+}
+
+.alerta .close-btn{
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    left: 65%;
+    transform: translateY(-50%);
+    background: #8BEE56;
+    padding: 16px 16px;
+    cursor: pointer;
+}
+
+.close-btn:hover{
+
+    background:#8BEE56;
+
+}
+
+
+/* HASTA AQUI */
