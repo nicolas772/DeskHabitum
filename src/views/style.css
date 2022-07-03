@@ -590,7 +590,7 @@ body.shrink .message-count{
 /* DESDE AQUI PARTE PARA NOTIFICACION DE EXITO DE TAREA - EXPERIMENTAL PARA TESTING*/
 
 .alerta{
-    background: #B2FF88;
+    background: #99c8f9;
     padding: 15px 30px;
     min-width: 360px;
     position: absolute;
@@ -598,7 +598,7 @@ body.shrink .message-count{
     left: 65%;
     top:2%;
     border-radius: 4px;
-    border-left: 4px solid #4C9A21
+    border-left: 4px solid #0F6ACC
 
 }
 
@@ -627,14 +627,14 @@ body.shrink .message-count{
     top: 50%;
     left: 72%;
     transform: translateY(-50%);
-    background: #8BEE56;
+    background: #0F6ACC;
     padding: 16px 16px;
     cursor: pointer;
 }
 
 .close-btn:hover{
 
-    background:#8BEE56;
+    background:#0F6ACC;
 }
 
 .div-boton-cambios{
@@ -645,16 +645,16 @@ body.shrink .message-count{
 }
 .boton-cambios{
     padding: 4px 8px;
-    font-size: 20px;
+    font-size: 14px;
     background: #0F6ACC;
     border: none;
     outline: none;
     color:white;
-    font-weight: 500;
+    font-weight: 400;
     letter-spacing: 1px;
     border-radius: 5px;
     cursor: pointer;
-
+    float: right;
 }
 
 /* HASTA AQUI */
