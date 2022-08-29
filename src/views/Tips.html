@@ -23,10 +23,10 @@
 </head>
 <body class="shrink">
     <div class = "container" style="margin:0" >
-        <aside style="z-index:2">
+        <aside style="z-index:2" class="aside1">
             <div class = "top">
                 <span class = "shrink-btn">
-                    <i class = 'bx bx-chevron-left'></i>
+                    <!--<i class = 'bx bx-chevron-left'></i>-->
                 </span>
                 <div class = "logo">
                     <img src = "../images/logo1.png">
@@ -40,25 +40,25 @@
                     <div class="item">
                         <a style= "text-decoration: none" href = "index.html" >
                             <span class="material-icons-sharp">grid_view</span>
-                            <h3>Home</h3>
+                            <h3>Inicio</h3>
                         </a>
                     </div>
                     <div class="item">
                     <a href = "Profile.html" >
                         <span class="material-icons-sharp">person_outline</span>
-                        <h3>Profile</h3>
+                        <h3>Perfil</h3>
                     </a>
                     </div>
                     <div class="item">
                     <a href = "Tips.html" class="active">
                         <span class="material-icons-sharp">receipt_long</span>
-                        <h3>Tips</h3>
+                        <h3>Consejos</h3>
                     </a>
                     </div>
                     <div class="item">
                         <a class ="sub-btn">
                             <span class="material-icons-sharp">insights<i class="fas fa-angle-right dropdown fa-sm"></i></span>
-                            <h3>Dashboards</h3>
+                            <h3>Reportes</h3>
                         </a>
                         <div class = "sub-menu">
                             <a href = "Dashboard.html" class="sub-item" >
@@ -80,7 +80,7 @@
                     <div class="item">
                     <a href = "Notifications.html">
                         <span class="material-icons-sharp">mail_outline</span>
-                        <h3>Notifications</h3>
+                        <h3>Notificaciones</h3>
                         <span class="message-count"> 26</span>
                     </a>
                     </div>
@@ -88,7 +88,7 @@
                     <div class="item">
                     <a href = "Settings.html">
                         <span class="material-icons-sharp">settings</span>
-                        <h3>Settings</h3>
+                        <h3>Configuraciones</h3>
                     </a>
                     </div>
     
@@ -108,7 +108,7 @@
             </nav>
             <h1>Consejos</h1>
 
-            <div id="chart2"></div>      
+            <!--<div id="chart2"></div> -->
             
             <div class="col-sm-6">
                 <div class="card" style="width: 18rem;">
@@ -131,6 +131,7 @@
         $(document).ready(function(){
             $('.sub-btn').click(function(){
             $(this).next('.sub-menu').slideToggle();
+            $(this).find('.dropdown').toggleClass('rotate');
         });
         $('.sub-btn .sub-item').click(function(e){
             e.stopPropagation();

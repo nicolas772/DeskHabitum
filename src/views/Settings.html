@@ -15,16 +15,18 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href = "./style.css">
-
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
     <script src="../RenderWebcam.js"></script>
+    
 </head>
 <body class="shrink">
     <div class = "container"  style="margin:0" >
-        <aside style="z-index:2">
+        <aside style="z-index:2" class="aside1">
             <div class = "top">
                 <span class = "shrink-btn">
-                    <i class = 'bx bx-chevron-left'></i>
+                    <!--<i class = 'bx bx-chevron-left'></i>-->
                 </span>
                 <div class = "logo">
                     <img src = "../images/logo1.png">
@@ -38,25 +40,25 @@
                     <div class="item">
                         <a style= "text-decoration: none" href = "index.html" >
                             <span class="material-icons-sharp">grid_view</span>
-                            <h3>Home</h3>
+                            <h3>Inicio</h3>
                         </a>
                     </div>
                     <div class="item">
                     <a href = "Profile.html" >
                         <span class="material-icons-sharp">person_outline</span>
-                        <h3>Profile</h3>
+                        <h3>Perfil</h3>
                     </a>
                     </div>
                     <div class="item">
                     <a href = "Tips.html">
                         <span class="material-icons-sharp">receipt_long</span>
-                        <h3>Tips</h3>
+                        <h3>Consejos</h3>
                     </a>
                     </div>
                     <div class="item">
                         <a class ="sub-btn">
                             <span class="material-icons-sharp">insights<i class="fas fa-angle-right dropdown fa-sm"></i></span>
-                            <h3>Dashboards</h3>
+                            <h3>Reportes</h3>
                         </a>
                         <div class = "sub-menu">
                             <a href = "Dashboard.html" class="sub-item" >
@@ -78,7 +80,7 @@
                     <div class="item">
                     <a href = "Notifications.html">
                         <span class="material-icons-sharp">mail_outline</span>
-                        <h3>Notifications</h3>
+                        <h3>Notificaciones</h3>
                         <span class="message-count"> 26</span>
                     </a>
                     </div>
@@ -86,7 +88,7 @@
                     <div class="item">
                     <a href = "Settings.html" class="active">
                         <span class="material-icons-sharp">settings</span>
-                        <h3>Settings</h3>
+                        <h3>Configuraciones</h3>
                     </a>
                     </div>
     
@@ -100,29 +102,129 @@
             </div>
         </aside>
         <!----END ASIDE---->
-        <main style="z-index:1">
+        <main>
             <nav>
 
             </nav>
-            <h1>Configuraciones</h1>
-            <div class = "date">
-                <input type="date">
+            <div class = "alerta esconder">
+                <span class = "exito">¡Cambios guardados!</span>
+                <span class = "close-btn">
+                    <span class = "fas fa-times"></span>
+                </span>
             </div>
-
+            
+            <label><h1>Configuraciones</h1>
+                <br/>
+                <h2> Detección automática</h2>
+                <br/>
+                <p> Aquí podrás configurar que hábitos quieres que se detecten.</p>
+                <div class="row">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Morderse las uñas (onicofagia)
+                            <div class ="botoncito">
+                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Morder objetos
+                            <div class ="botoncito">
+                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Jalarse el pelo (tricotilomanía)
+                            <div class ="botoncito">
+                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Fatiga visual
+                            <div class ="botoncito">
+                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Mala postura
+                            <div class ="botoncito">
+                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                            </div>
+                        </li>
+                    
+                    </ul>
+                    
+                </div>
+            </label>
+            <label style="visibility: hidden"><div class="col py-1">........</div> </label>
+            <label>
+                <h2> Notificaciones</h2>
+                <br/>
+                <p> Aquí podrás personalizar la forma en que se te notifica.</p>
+                <div class="row">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Alerta visual
+                            <div class ="botoncito">
+                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Alerta sonora
+                            <div class ="botoncito">
+                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Intervalo de notificación
+                            <select class="form-control">
+                                <option>Siempre</option>
+                                <option>Cada 2 reconocimientos</option>
+                                <option>Cada 4 reconocimientos</option>
+                                <option>Cada 6 reconocimientos</option>
+                                <option>Cada 8 reconocimientos</option>
+                            </select>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </label>
+            
+            
+            
+            <br/>
+            <div class = "div-boton-cambios">
+                <button type='button' class="btn btn-outline-primary" style="float: right;">Guardar Cambios</button>
+            </div>
 
 
         </main>
     </div>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script src="../app.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('.sub-btn').click(function(){
             $(this).next('.sub-menu').slideToggle();
+            $(this).find('.dropdown').toggleClass('rotate');
         });
         $('.sub-btn .sub-item').click(function(e){
             e.stopPropagation();
         });
             
+        });
+    </script>
+
+    <script type = "text/javascript">
+        $('.btn').click(function(){
+            $('.alerta').removeClass("esconder");
+            $('.alerta').addClass("mostrar");
+        });
+
+        $('.close-btn').click(function(){
+            $('.alerta').addClass("esconder");
+            $('.alerta').removeClass("mostrar");
+
+
         });
     </script>
 </body>

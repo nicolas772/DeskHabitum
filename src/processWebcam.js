@@ -1,8 +1,9 @@
 const tmImage = require('@teachablemachine/image');
 const tf = require('@tensorflow/tfjs')
 const crud = require('./model/model.js')
+const fs = require('fs');
 
-const URL = 'https://teachablemachine.withgoogle.com/models/QCfFnAVYW/';
+const URL = 'https://teachablemachine.withgoogle.com/models/83c4Qg0Gu/';
 //Variables para la ejecución de la webcam y modelo
 let model, webcam;
 //Variable para emplear un cooldown entre notificaciones
@@ -10,6 +11,7 @@ let cooldown = false;
 let habito_cooldown = false;
 let tiempo_inicio;
 let tiempo_final;
+let se_notifico = false;
 //Variable para controlar la ejecución de la webcam
 let corriendo = false;
 //Tiempo del cooldown
@@ -22,7 +24,7 @@ let inicio_sesion;
 let fin_sesion;
 
 //lista que guarda el inicio y final del mal habito de comerse uñas en la sesion actual
-let lista_unhas = [];
+//let lista_unhas = [];
 
 function startCooldown() {
     cooldown = true;
@@ -31,7 +33,7 @@ function startCooldown() {
 
 function habitoCooldown() {
     habito_cooldown = false;
-    setTimeout (function(){ habito_cooldown = true}, 1000);
+    setTimeout (function(){ habito_cooldown = true}, 5000);
 }
 
 const NOTIFICATION_TITLE = 'Desk Habitum'
@@ -72,12 +74,14 @@ function stop_monitoring(){
         let ini_sesion = inicio_sesion.toISOString()
         let fini_sesion = fin_sesion.toISOString()
         crud.createSesion(2, ini_sesion, fini_sesion); //2 hardcodeado por el id_usuario
+        let rawdata = fs.readFileSync('./src/data/unhasSesion.json');
+        let lista_unhas = JSON.parse(rawdata);
         lista_unhas.map(u => {
             //2 hardcodeado por el id_usuario
             crud.lastSesion(2).then(res => crud.createUnhas(res,u.inicio,u.final)) 
         })
-        lista_unhas=[]
-        //window.api.actSesion().then(res => window.api.createUnhas(res[0]['id'],ini,fini)) 
+        fs.writeFileSync('./src/data/unhasSesion.json', '[]')//vaciar archivo
+
         corriendo = false;
     }
     
@@ -94,7 +98,7 @@ async function loop() {
     //https://stackoverflow.com/questions/60550376/tensorflowjs-perform-inference-in-an-inactive-tab
 
     //window.requestAnimationFrame(loop);
-    window.setTimeout(loop, 1)
+    window.setTimeout(loop, 0.1)
 }
 
 // run the webcam image through the image model
@@ -112,10 +116,11 @@ async function predict() {
     if (prediction[0].probability.toFixed(2) > 0.50 && habito_cooldown){
         doNotify();
         habito_cooldown = false;
+        se_notifico = true;
     }
 
 
-    if (prediction[0].probability.toFixed(2) < 0.50 && tiempo_corriendo && !habito_cooldown){
+    if (prediction[0].probability.toFixed(2) < 0.50 && tiempo_corriendo && !habito_cooldown && se_notifico){
         tiempo_final = new Date();
         
         let ini = tiempo_inicio.toISOString()
@@ -124,9 +129,15 @@ async function predict() {
             "inicio": ini,
             "final": fini
         }
+        //lista_unhas.push(unha)
+        //console.log(lista_unhas)
+        let rawdata = fs.readFileSync('./src/data/unhasSesion.json');
+        let lista_unhas = JSON.parse(rawdata);
         lista_unhas.push(unha)
-        console.log(lista_unhas)   
+        let data_unha = JSON.stringify(lista_unhas);
+        fs.writeFileSync("./src/data/unhasSesion.json", data_unha)
         tiempo_corriendo = false;
+        se_notifico = false;
     }
 }
 
