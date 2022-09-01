@@ -17,9 +17,7 @@
     <link rel="stylesheet" href = "./style.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
-    <script src="../RenderWebcam.js">
-        window.onload = check_cam;
-    </script>
+
 </head>
 <body class="shrink">
     <div class = "container" style="margin:0" >
@@ -118,6 +116,17 @@
                   </div>
                 </div>
               </div>
+            <!-- TESTEOS 
+            <div>
+                <button type='button' class="btn btn-outline-primary" onclick='init_model()'>Comenzar</button>
+                <button type='button' class="btn btn-outline-primary" onclick='stop_model()'>Parar</button>
+            </div>-->
+            <div>
+                <button type='button' class="btn btn-outline-primary" onclick='init_model_hand()'>Comenzar</button>
+                <button type='button' class="btn btn-outline-primary" onclick='stop_monitoring_hand()'>Parar</button>
+            </div>
+            <div id="HOLA"></div>
+
 
                     
 
@@ -125,8 +134,10 @@
 
         </main>
     </div>
+    <!--
+    <script src="../app_test.js"></script>-->
+    <script src = "../app_testHP.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="../app.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('.sub-btn').click(function(){

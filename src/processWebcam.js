@@ -40,6 +40,8 @@ const NOTIFICATION_TITLE = 'Desk Habitum'
 const NOTIFICATION_BODY = 'Morderte las uñas es malo para tu salud. Seria bueno que dejaras de hacerlo :)'
 const CLICK_MESSAGE = 'Notification clicked!'
 
+console.log("HOLA")
+
 function doNotify(){
     Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 

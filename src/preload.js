@@ -1,5 +1,7 @@
 const model = require('./model/model.js')
 const camera = require('./processWebcam.js')
+//const pose_camera = require('./test.js')
+const hand_camera = require('./testHP.js')
 const {contextBridge, ipcRenderer} = require("electron");
 
 const check_session = (data) => {
@@ -14,9 +16,17 @@ const init_session = (sesion) => {
 const stop_session= () => {
     return camera.stop_monitoring();
 }
+//DE ACÁ ES TEST
 
 
+const init_session_hand = () => {
+    return hand_camera.init_model_hand();
+}
 
+const stop_session_hand = () => {
+    return hand_camera.stop_monitoring_hand();
+}
+//HASTA ACÁ ES TEST
 const getUsuarios = () => {
     return model.getUsuarios();
 }
@@ -105,7 +115,9 @@ contextBridge.exposeInMainWorld("api", {
     percentageTenSesion: percentageTenSesion,
     totalDurationUnhas: totalDurationUnhas,
     timeUnhasAll: timeUnhasAll,
-    unhasPercentage: unhasPercentage
+    unhasPercentage: unhasPercentage,
+    init_session_hand : init_session_hand,
+    stop_session_hand : stop_session_hand
     
 })
 
