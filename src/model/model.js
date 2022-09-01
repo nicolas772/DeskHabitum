@@ -21,6 +21,7 @@ const getUserData = async (id) => {
     const result = res.rows
     return result
 }
+
 const delUser = async (id) => {
     let query = `DELETE FROM usuarios WHERE id = ${id}`;
     console.log(query)
