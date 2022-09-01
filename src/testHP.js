@@ -56,16 +56,21 @@ async function loop() {
 // run the webcam image through the image model
 async function predict() {
     // predict can take in an image, video or canvas html element
-    let posesHand, posesBlaze, centroX;
+    let posesHand, posesBlaze, centroX, centroY, radio;
     posesHand = await detectorHand.estimateHands(webcam.canvas);
     posesBlaze = await detectorBlaze.estimatePoses(webcam.canvas);
-    console.log(posesHand[0])
-    boca1 = posesBlaze[0].keypoints[9]
-    boca2 = posesBlaze[0].keypoints[10]
+    
+    if (posesBlaze.length != 0){
+        boca1 = posesBlaze[0].keypoints[9]
+        boca2 = posesBlaze[0].keypoints[10]
+    
+        centroX = (boca1.x + boca2.x) / 2.0
+        centroY = (boca1.y + boca2.y) / 2.0
+        radio = 10
+    }
 
-    centroX = (boca1.x + boca2.x) / 2.0
-    centroY = (boca1.y + boca2.y) / 2.0
-    radio = 10
+
+    
     
     //Solo se detecta una mano
     if (posesHand.length == 1){
@@ -90,6 +95,7 @@ async function predict() {
             }
             
         }
+
     //Falta implementar lo mismo de antes pero para ambos casos
     }else if (posesHand.length == 2){
         console.log("2 manos");
@@ -100,7 +106,7 @@ async function predict() {
         console.log("no hay manos");
 
     }
-    //console.log(poses[0]);
+
 }
 
 
