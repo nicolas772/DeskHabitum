@@ -37,6 +37,9 @@ async function Update_Dashboard(){
     unhas_10_sesiones = result;
   });
 
+  await window.api.percentageTenSesion(id_Usuario).then(result => {
+    unhas_10_sesiones = result;
+  });
 
   await window.api.timeSesionAll(id_Usuario).then(result => {
     tiempo_optimo = result;
