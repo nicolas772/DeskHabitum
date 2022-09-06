@@ -54,57 +54,8 @@ const totalTimeSesions = async (userId) => {
     return result[0]['sum']
 }
 
-<<<<<<< HEAD
 const countUnhasSesion = async (sesionId) => {
     let query = `select * from unnas where id_ses = ${sesionId}`;
-=======
-//retorna el tiempo total entre todas las sesiones
-const timeSesionAll = async (userId) => {   
-    var ids = await getAllSesionesId(userId)
-    time = 0
-    for (let i = 0; i < ids.length; i++) {
-        let duracion = await durationSesion(ids[i])
-        time = time + duracion        
-    }
-    return time
-
-}
-
-//retorna un array con los porcentages de tiempo perdido debido a manias en las ultimas 10 sesiones
-const percentageTenSesion = async (userId) => { 
-    var percentages = []  
-    let query = `select id from sesiones where id_usuario= ${userId} order by id desc limit 10`;
-    const tenId = await conexion.query(query)
-    const idResult = tenId.rows
-    for (let i = 0; i < idResult.length; i++) {        
-        let mania = await totalDurationUnhas(idResult[i]['id'])
-        let sesion = await durationSesion(idResult[i]['id'])
-        let p = mania/sesion
-        p = p*100
-        percentages.push(p.toFixed(0))        
-    }
-    percentages.reverse()
-    return percentages
-}
-
-
-//TABLA UNHAS
-const createUnhas = async (id_ses, inicio, final) => {
-    let query = `INSERT INTO unhas (id_sesion, inicio_mania, fin_mania) VALUES (${id_ses}, '${inicio}', '${final}')`;
-    const res = await conexion.query(query)
-}
-
-const getUnhas = async (id) => {
-    let query = `SELECT * FROM unhas WHERE id = ${id}`;
-    const res = await conexion.query(query)
-    const result = res.rows
-    return result
-}
-
-//retorna el numero de manias tipo unha para dado (id) sesion
-const countUnhasSesion = async (numSesion) => {
-    let query = `select * from unhas where id_sesion = ${numSesion}`;
->>>>>>> main
     const res = await conexion.query(query)
     const result = res.rowCount
     return result    
