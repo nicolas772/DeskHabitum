@@ -27,6 +27,7 @@ async function Update_Dashboard(){
 
   await window.api.countAllUnhas(id_Usuario).then(result => {
     total_unha = result;
+    console.log('total unhas: ', total_unha);
   });
 
   await window.api.countUnhasSesion(id_Sesion).then(result => {
@@ -84,8 +85,9 @@ async function Update_Dashboard(){
     }
   }]
   };
-  
+  console.log('total unhas antes de renderizar: ', total_unha);
   var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
+  console.log('despues de renderizar');
   chart5.render();
 
 
@@ -387,6 +389,8 @@ async function update_home(){
           duracion = String(seconds) + " segundos";
       else
           duracion = String(minutes) + " minutos " + String(seconds) + " segundos";
+
+      console.log('duracion xd:', duracion)
   });
 
   await window.api.countUnhasSesion(id_Sesion).then(result => {
