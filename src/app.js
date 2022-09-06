@@ -260,7 +260,7 @@ shrink_btn.addEventListener("click",()=>{
 
 });
 
-
+/*
 const aside = document.querySelector(".aside1");
 aside.addEventListener("mouseenter",()=>{
     document.body.classList.toggle("shrink");
@@ -284,7 +284,7 @@ aside.addEventListener("mouseleave",()=>{
 
 });
 
-
+*/
 
 
 

@@ -20,18 +20,15 @@ const stop_session= () => {
 const getUsuarios = () => {
     return model.getUsuarios();
 }
-const createUser = (nombre, apellido, mail) => {
-    return model.createUser(nombre, apellido, mail);
+const createUser = (nombre, apellido, mail, pass) => {
+    return model.createUser(nombre, apellido, mail, pass);
 }
 const getUserData = (id) => {
     return model.getUserData(id);
 }
-const delUser = (id) => {
-    return model.delUser(id);
-}
 
-const createSesion = (id_usuario, inicio, final) => {
-    return model.createSesion(id_usuario, inicio, final)
+const createSesion = (id_usuario, inicio, final, total) => {
+    return model.createSesion(id_usuario, inicio, final, total)
 }
 const getSesion = (id) => {
     return model.getSesion(id);
@@ -41,72 +38,62 @@ const lastSesion = (userId) => {
     return model.lastSesion(userId)
 }
 
-const getAllSesionesId = (userId) => {
-    return model.getAllSesionesId(userId)
-}
-
+/*
 const createUnhas = (id_ses, inicio, final) => {
     return model.createUnhas(id_ses, inicio, final);
 }
 const getUnhas = (id) => {
     return model.getUnhas(id);
+}*/
+
+const countUnhasSesion = (sesionId) => {
+    return model.countUnhasSesion(sesionId)
 }
 
-const countUnhasSesion = (numSesion) => {
-    return model.countUnhasSesion(numSesion)
-}
-
-const countAllUnhas = (userId) => {
-    return model.countAllUnhas(userId)
+const allSesionUnhas = (userId) => {
+    return model.allSesionsUnhas(userId)
 }
 
 const durationSesion = (sesionId) => {
     return model.durationSesion(sesionId)
 }
 
-const timeSesionAll  = (userId) => {
-    return model.timeSesionAll(userId)
+const totalTimeSesions  = (userId) => {
+    return model.totalTimeSesions(userId)
 }
 
 const percentageTenSesion = (userId) => {
     return model.percentageTenSesion(userId)
 }
 
-const totalDurationUnhas = (sesionId) => {
-    return model.totalDurationUnhas(sesionId)
+const totalTimeUnhas = (sesionId) => {
+    return model.totalTimeUnhas(sesionId)
 }
-
+/*
 const timeUnhasAll = (userId) => {
     return model.timeUnhasAll(userId)
 }
 
 const unhasPercentage = (sesionId) => {
     return model.unhasPercentage(sesionId)
-}
+}*/
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
     createUser: createUser,
     getUserData: getUserData,
-    delUser: delUser,
     createSesion: createSesion,
     getSesion: getSesion,
     lastSesion: lastSesion,
-    getAllSesionesId: getAllSesionesId,
-    createUnhas: createUnhas,
-    getUnhas: getUnhas,
     countUnhasSesion: countUnhasSesion,
-    countAllUnhas: countAllUnhas,
     init_session: init_session,
     stop_session: stop_session,
     check_session: check_session,
-    durationSesion: durationSesion,
-    timeSesionAll: timeSesionAll,
     percentageTenSesion: percentageTenSesion,
-    totalDurationUnhas: totalDurationUnhas,
-    timeUnhasAll: timeUnhasAll,
-    unhasPercentage: unhasPercentage
-    
+    allSesionUnhas: allSesionUnhas,
+    totalTimeSesions: totalTimeSesions,
+    totalTimeUnhas: totalTimeUnhas,
+    durationSesion: durationSesion   
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
