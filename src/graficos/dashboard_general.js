@@ -12,7 +12,7 @@ var total_morder = 15;
 var total_unha = 0;
 
 var pelos_10_sesiones = [45, 52, 38, 24, 33, 26, 21, 20, 6, 8];
-var unhas_10_sesiones = [45, 52, 38, 20, 6, 8, 24, 33, 26, 21];
+var unhas_10_sesiones = [];
 var objetos_10_sesiones = [87, 57, 74, 99, 75, 38, 62, 47, 82, 56];
 
 
@@ -37,6 +37,7 @@ async function update_dash_general() {
     await window.api.allSesionUnhas(id_Usuario).then(result => {
         total_unha = result;
       });
+
 
     //agregar pelo y morder
 
@@ -64,8 +65,8 @@ async function update_dash_general() {
       }]
       };
 
-      var chartDistraccionTotal = new ApexCharts(document.querySelector("chartDistraccionTotal"), dataDistraccionTotal);
-      chartDistraccionTotal.render();
+      var chartDistraccion = new ApexCharts(document.getElementById("chartDistraccionTotal"), dataDistraccionTotal);
+      chartDistraccion.render();
 
 
       //html: dashboard, dato: Porcentaje distracción últimas 10 sesiones
@@ -153,16 +154,9 @@ async function update_dash_general() {
         }
       };
       
-      var chart10Sesiones = new ApexCharts(document.querySelector("chart10Sesiones"), data10Sesiones);
+      var chart10Sesiones = new ApexCharts(document.getElementById("chart10Sesiones"), data10Sesiones);
       chart10Sesiones.render();
 
 }
 
 window.onload = update_dash_general;
-/*
-function carga_dashboard_general(){
-    update_dash_general();
-}
-
-window.onload = carga_dashboard_general;
-*/
