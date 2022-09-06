@@ -2,6 +2,17 @@ const conexion = require("./database.js")
 conexion.connect()
 
 //QUERYS USER
+const validateUser = async (email, pass) => {
+    let query = `SELECT id FROM users where email = '${email}' and pass = '${pass}'`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    if (result.length > 0) {
+        return result[0]['id']
+    } else {
+        return -1
+    }
+}
+
 const getUsuarios = async () => {
     let query = 'SELECT * FROM users'
     const res = await conexion.query(query)
@@ -94,4 +105,5 @@ const totalTimeUnhas = async (sesionId) => {
     return result[0]['sum']    
 }
 
-module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion, totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesion, totalTimeUnhas, durationSesion}
+module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion, totalTimeSesions, countUnhasSesion, 
+    allSesionsUnhas, percentageTenSesion, totalTimeUnhas, durationSesion, validateUser}

@@ -78,6 +78,10 @@ const unhasPercentage = (sesionId) => {
     return model.unhasPercentage(sesionId)
 }*/
 
+const validateUser = (email, pass) => {
+    return model.validateUser(email, pass)
+}
+
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
     createUser: createUser,
@@ -93,7 +97,8 @@ contextBridge.exposeInMainWorld("api", {
     allSesionUnhas: allSesionUnhas,
     totalTimeSesions: totalTimeSesions,
     totalTimeUnhas: totalTimeUnhas,
-    durationSesion: durationSesion   
+    durationSesion: durationSesion,   
+    validateUser: validateUser
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})

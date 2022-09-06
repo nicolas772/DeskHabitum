@@ -1,8 +1,10 @@
-const { app, BrowserWindow, ipcMain} = require('electron')
+const { app, BrowserWindow, ipcMain, Notification} = require('electron')
 const path = require('path')
 const model = require('./model/model.js')
 
-model.percentageTenSesion(1).then(r=> console.log(r))
+model.validateUser("aaaaa","bbbb").then(r=>console.log(r))
+
+let winlogin;
 
 const createWindow = () => {
     const win = new BrowserWindow({
@@ -29,10 +31,6 @@ const createWindow = () => {
     win.loadFile('src/views/index.html');
 }
 
-app.whenReady().then(() => {
-    createWindow()
-})
-
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
@@ -43,4 +41,52 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow()
   }
+})
+
+
+function loginWindow () {
+  winlogin = new BrowserWindow({
+   width: 900,
+   height: 700,
+   webPreferences: {
+    // nodeIntegration: true,
+    // contextIsolation:true,
+    // devTools:false,
+     preload:path.join(__dirname, 'login.js')
+     
+   }
+ })
+
+ winlogin.loadFile('src/views/login.html')
+}
+
+ipcMain.handle('login', (event, obj) => {
+  validatelogin(obj)
+});
+
+
+
+
+function validatelogin(obj) {
+  const { email, password } = obj 
+  model.validateUser(email, password).then(
+    results => {
+      if(results > 0){
+        winlogin.close()
+        createWindow();
+      }else{
+        new Notification({
+          title:"login",
+          body: 'email o password equivocado'
+        }).show()
+      }
+    }    
+  )
+  
+
+ }
+
+
+ app.whenReady().then(() => {
+  loginWindow();
 })

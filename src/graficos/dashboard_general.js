@@ -159,4 +159,28 @@ async function update_dash_general() {
 
 }
 
+//Navbar responsive
+const aside = document.querySelector(".aside1");
+aside.addEventListener("mouseenter",()=>{
+    document.body.classList.toggle("shrink");
+    shrink_btn.classList.add("hovered");
+
+    setTimeout(
+        ()=>{
+            shrink_btn.classList.remove("hovered");
+        },500);
+
+});
+
+aside.addEventListener("mouseleave",()=>{
+    document.body.classList.toggle("shrink");
+    shrink_btn.classList.add("hovered");
+
+    setTimeout(
+        ()=>{
+            shrink_btn.classList.remove("hovered");
+        },500);
+
+});
+
 window.onload = update_dash_general;
