@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
 const model = require('./model/model.js')
 
-
+model.percentageTenSesion(1).then(r=> console.log(r))
 
 const createWindow = () => {
     const win = new BrowserWindow({

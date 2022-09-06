@@ -11,13 +11,11 @@ const getUsuarios = async () => {
 
 const createUser = async (nombre, apellido, mail, pass) => {
     let query = `INSERT INTO users (nombre, apellido, email, pass) VALUES ('${nombre}', '${apellido}', '${mail}', '${pass}')`;
-    console.log(query)
     const res = await conexion.query(query)
 }
 
 const getUserData = async (id) => {
     let query = `SELECT * FROM users WHERE id = ${id}`;
-    console.log(query)
     const res = await conexion.query(query)
     const result = res.rows
     return result
@@ -39,7 +37,6 @@ const lastSesion = async (userId) => {
     let query = `SELECT id FROM sesions WHERE ID = (SELECT MAX(ID) FROM sesions WHERE id_user = ${userId})`;
     const res = await conexion.query(query)
     const result = res.rows
-    console.log(result)
     return result[0]['id']
 }
 
