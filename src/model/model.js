@@ -87,11 +87,18 @@ const percentageTenSesion = async (userId) => {
 }
 
 //QUERYS UNNAS
-const totalTimeUnhas = async (sesionId) => {
+const totalSesionTimeUnhas = async (sesionId) => {
     let query = `select sum(total_time) from unnas where id_ses = ${sesionId}`;
     const res = await conexion.query(query)
     const result = res.rows
     return result[0]['sum']    
 }
 
-module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion, totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesion, totalTimeUnhas, durationSesion}
+const totalTimeUnhas = async (userId) => {
+    let query = `select sum(total_time) from unnas where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['sum']    
+}
+
+module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion, totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesion, totalSesionTimeUnhas, durationSesion, totalTimeUnhas}

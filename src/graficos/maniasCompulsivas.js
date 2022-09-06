@@ -1,5 +1,3 @@
-
-
 let id_Usuario = 1;
 let id_Sesion;
 
@@ -15,6 +13,8 @@ var pelos_10_sesiones = [45, 52, 38, 24, 33, 26, 21, 20, 6, 8];
 var unhas_10_sesiones = [];
 var objetos_10_sesiones = [87, 57, 74, 99, 75, 38, 62, 47, 82, 56];
 
+var tiempo_unha = 0
+var tiempo_optimo = 0
 
 async function update_dash_general() {
 
@@ -73,8 +73,14 @@ async function update_dash_general() {
       
       await window.api.percentageTenSesion(id_Usuario).then(result => {
         unhas_10_sesiones = result;
-        console.log("result 10 sesion", result)
       });
+
+      //ARREGLAR EN EL FUTURO
+      for (var i = 0; i < 10; i++) {
+        if (unhas_10_sesiones[i] > 100){
+          unhas_10_sesiones[i] = 100;
+        }
+      }
 
       var data10Sesiones = {
         series: [{
@@ -154,8 +160,90 @@ async function update_dash_general() {
         }
       };
       
-      var chart10Sesiones = new ApexCharts(document.getElementById("chart10Sesiones"), data10Sesiones);
-      chart10Sesiones.render();
+    var chart10Sesiones = new ApexCharts(document.getElementById("chart10Sesiones"), data10Sesiones);
+    chart10Sesiones.render();
+
+    //----------------------------------------Pestaña ONICOFAGIA------------------------------------------------
+
+    //Html: dashboard, pestana: Onicofagia, dato: Cantidad detecciones ultima sesion
+    document.getElementById("ultima-sesion-unhas").innerHTML = unha_ultima_sesion;
+
+    //Html: dashboard, pestana: Onicofagia, dato: Cantidad detecciones totales
+    document.getElementById("total-detecciones-unhas").innerHTML = total_unha;
+
+    //Html: dashboard, pestana: Onicofagia, dato: porcentaje distracción total
+    await window.api.totalTimeUnhas(id_Usuario).then(result => {
+      tiempo_unha = result;
+    });
+    await window.api.totalTimeSesions(id_Usuario).then(result => {
+        tiempo_optimo = result;
+      });
+    
+
+    var datatDistraccionTotalUnhas = {
+        series: [tiempo_unha, tiempo_optimo],
+        chart: {
+          width: 380,
+          type: 'pie',
+        },
+        labels: ['Tiempo Onicofagia', 'Tiempo Óptimo'],
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 300
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+      };
+      
+    var chartDistraccionTotalUnhas = new ApexCharts(document.getElementById("chartDistraccionTotalUnhas"), datatDistraccionTotalUnhas);
+    chartDistraccionTotalUnhas.render();
+
+    //Html: dashboard, pestana: Onicofagia, dato: porcentaje distracción íltimas 10 sesiones
+    var data10SesionesUnhas = {
+        series: [{
+          name: "% mordiendo uñas",
+          data: unhas_10_sesiones
+        }],
+        chart: {
+          height: 240,
+          type: 'line',
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'straight'
+        },
+        title: {
+          text: '% onicofagia últimas 10 sesiones.',
+          align: 'left'
+        },
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+          },
+        },
+        xaxis: {
+          categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+        }
+      };
+    
+    var chart10SesionesUnhas = new ApexCharts(document.getElementById("chart10SesionesUnhas"), data10SesionesUnhas);
+    chart10SesionesUnhas.render();
+
+    //----------------------------------------Pestaña TRICOTILOMANIA------------------------------------------------
+
+
+    //----------------------------------------Pestaña MANIA MORDER OBJETOS------------------------------------------------
 
 }
 
