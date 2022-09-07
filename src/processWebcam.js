@@ -2,7 +2,7 @@ const tmImage = require('@teachablemachine/image');
 const tf = require('@tensorflow/tfjs')
 const crud = require('./model/model.js')
 const fs = require('fs');
-
+let id_User = 2;
 const URL = 'https://teachablemachine.withgoogle.com/models/83c4Qg0Gu/';
 //Variables para la ejecución de la webcam y modelo
 let model, webcam;
@@ -73,12 +73,12 @@ function stop_monitoring(){
         fin_sesion = new Date();
         let ini_sesion = inicio_sesion.toISOString()
         let fini_sesion = fin_sesion.toISOString()
-        crud.createSesion(2, ini_sesion, fini_sesion); //2 hardcodeado por el id_usuario
+        crud.createSesion(id_User, ini_sesion, fini_sesion); //falta ultimo parametro "total"
         let rawdata = fs.readFileSync('./src/data/unhasSesion.json');
         let lista_unhas = JSON.parse(rawdata);
         lista_unhas.map(u => {
             //2 hardcodeado por el id_usuario
-            crud.lastSesion(2).then(res => crud.createUnhas(res,u.inicio,u.final)) 
+            crud.lastSesion(id_User).then(res => crud.createUnhas(res,u.inicio,u.final)) //falta funcion createUnhas en model.js
         })
         fs.writeFileSync('./src/data/unhasSesion.json', '[]')//vaciar archivo
 
