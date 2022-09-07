@@ -72,6 +72,9 @@ const totalSesionTimeUnhas = (sesionId) => {
 const totalTimeUnhas = (userId) => {
     return model.totalTimeUnhas(userId)
 }
+const createUnhas = (id_usuario, id_sesion, inicio, final, total_time) => {
+    return model.createUnhas(id_usuario, id_sesion, inicio, final, total_time);
+}
 /*
 const timeUnhasAll = (userId) => {
     return model.timeUnhasAll(userId)
@@ -97,6 +100,7 @@ contextBridge.exposeInMainWorld("api", {
     totalTimeSesions: totalTimeSesions,
     totalTimeUnhas: totalTimeUnhas,
     totalSesionTimeUnhas: totalSesionTimeUnhas,
+    createUnhas: createUnhas,
     durationSesion: durationSesion   
 })
 

@@ -23,7 +23,7 @@ const getUserData = async (id) => {
 
 //QUERYS SESIONES
 const createSesion = async (id_usuario, inicio, final, total) => {
-    let query = `INSERT INTO sesions (id_user, inicio, fin) VALUES (${id_usuario}, '${inicio}', '${final}', , '${total}')`;
+    let query = `INSERT INTO sesions (id_user, inicio, fin, total_time) VALUES (${id_usuario}, '${inicio}', '${final}', '${total}')`;
     const res = await conexion.query(query)
 }
 const getSesion = async (id) => {
@@ -87,6 +87,10 @@ const percentageTenSesion = async (userId) => {
 }
 
 //QUERYS UNNAS
+const createUnhas = async (id_usuario, id_sesion, inicio, final, total_time) => {
+    let query = `INSERT INTO unnas (id_user, id_ses, inicio, fin, total_time) VALUES (${id_usuario}, '${id_sesion}','${inicio}', '${final}', '${total_time}')`;
+    const res = await conexion.query(query)
+}
 const totalSesionTimeUnhas = async (sesionId) => {
     let query = `select sum(total_time) from unnas where id_ses = ${sesionId}`;
     const res = await conexion.query(query)
@@ -101,4 +105,4 @@ const totalTimeUnhas = async (userId) => {
     return result[0]['sum']    
 }
 
-module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion, totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesion, totalSesionTimeUnhas, durationSesion, totalTimeUnhas}
+module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion, totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesion, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas}

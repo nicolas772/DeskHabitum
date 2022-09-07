@@ -1,4 +1,4 @@
-let id_Usuario = 1;
+let id_Usuario = 2;
 let id_Sesion;
 
 var unha_ultima_sesion = 0;
@@ -176,12 +176,12 @@ async function update_dash_general() {
       tiempo_unha = result;
     });
     await window.api.totalTimeSesions(id_Usuario).then(result => {
-        tiempo_optimo = result;
-      });
-    
-
-    var datatDistraccionTotalUnhas = {
-        series: [tiempo_unha, tiempo_optimo],
+      tiempo_optimo = result;
+    });
+    console.log("tiempo_unha: ", typeof(tiempo_unha))
+    console.log("tiempo_optimo: ", typeof(tiempo_optimo))
+    var dataDistraccionTotalUnhas = {
+        series: [parseInt(tiempo_unha), parseInt(tiempo_optimo)],
         chart: {
           width: 380,
           type: 'pie',
@@ -191,7 +191,7 @@ async function update_dash_general() {
           breakpoint: 480,
           options: {
             chart: {
-              width: 300
+              width: 400
             },
             legend: {
               position: 'bottom'
@@ -200,7 +200,7 @@ async function update_dash_general() {
         }]
       };
       
-    var chartDistraccionTotalUnhas = new ApexCharts(document.getElementById("chartDistraccionTotalUnhas"), datatDistraccionTotalUnhas);
+    var chartDistraccionTotalUnhas = new ApexCharts(document.getElementById("chartDistraccionTotalUnhas"), dataDistraccionTotalUnhas);
     chartDistraccionTotalUnhas.render();
 
     //Html: dashboard, pestana: Onicofagia, dato: porcentaje distracción íltimas 10 sesiones

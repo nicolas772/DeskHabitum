@@ -1,5 +1,5 @@
-let id_Usuario = 1
-var id_Sesion, duracion, manias, duraciontotal, duracionunas, duracionpelo, duracionobjetos;
+let id_Usuario = 2
+var id_Sesion, duracion, manias, duraciontotal, duracionunas, duracionpelo, duracionobjetos, id_lastSesion;
 var postura = "10 veces";
 var visual = "Sí"
 async function update_dash_ultima_sesion() {
@@ -9,7 +9,7 @@ async function update_dash_ultima_sesion() {
         id_lastSesion = result;
     });
     await window.api.durationSesion(id_lastSesion).then(result => {
-        duraciontotal = result;
+        duraciontotal = parseInt(result);
         var minutes = Math.floor(result / 60);
         var seconds = (result - minutes * 60).toFixed(0);
         if (minutes == 0)
@@ -37,18 +37,18 @@ async function update_dash_ultima_sesion() {
 
     //HTML: index , indicador: porcentajes hábitos ultima sesion
     await window.api.totalSesionTimeUnhas(id_lastSesion).then(result => {
-        duracionunas = result;
+        duracionunas = parseInt(result);
     });
     
     if (duracionunas > duraciontotal){ //ARREGLAR EN EL FUTURO (error del reconocimiento automatico)
         duracionunas = duraciontotal
     }
     //hardcodeado
-    duraciontotal = duraciontotal - duracionunas;
-    duracionpelo = duraciontotal*0.02;
-    duraciontotal = duraciontotal - duracionpelo;
-    duracionobjetos = duraciontotal*0.02;
-    duraciontotal = duraciontotal - duracionobjetos;
+
+    
+    duracionpelo = 2;
+    duracionobjetos = 2;
+    duraciontotal = duraciontotal - duracionobjetos - duracionpelo - duracionunas
 
     var dataHabitosUltimaSesion = {
         series: [duracionunas,duracionpelo,duracionobjetos,duraciontotal],
