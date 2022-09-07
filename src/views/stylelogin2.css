@@ -119,7 +119,8 @@
     top: 0;
     left: 0;
     display: block;
-    background: rgba(255, 255, 255, 0.8);
+    /*background-image: url("https://deskhabitum.feriadesoftware.cl/images/banner-light1-1.jpg");*/
+    background: #89e5ba;
     width: 100%;
     height: 100%;
   }
