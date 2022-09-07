@@ -46,7 +46,7 @@ form .grupo{
     position: relative;
     margin: 45px ;
 }
-
+/*
 .form .message {
    
     color: #b3b3b3;
@@ -55,6 +55,16 @@ form .grupo{
   }
 .form .message a {
     color: #4CAF50;
+    text-decoration: none;
+  }*/
+
+  .form .message {
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
+  }
+  .form .message a {
+    color: #EF3B3A;
     text-decoration: none;
   }
 
