@@ -1,6 +1,6 @@
 
 
-let id_Usuario = 1;
+let id_Usuario = 2;
 let id_Sesion;
 
 var unha_ultima_sesion = 0;

@@ -2,8 +2,6 @@ const { app, BrowserWindow, ipcMain, Notification} = require('electron')
 const path = require('path')
 const model = require('./model/model.js')
 
-model.validateUser("aaaaa","bbbb").then(r=>console.log(r))
-
 let winlogin;
 
 const createWindow = () => {

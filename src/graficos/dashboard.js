@@ -1,4 +1,4 @@
-let id_Usuario = 1;
+let id_Usuario = 2;
 
 
 var total_pelo = 20;
@@ -6,7 +6,7 @@ var total_morder = 15;
 var total_unha = 0;
 
 
-var id_Sesion
+var id_Sesion;
 var pelo_ultima_sesion = 2
 var morder_ultima_sesion = 3
 var unha_ultima_sesion = 0 ;
