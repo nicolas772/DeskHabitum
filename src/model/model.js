@@ -1,7 +1,24 @@
 const conexion = require("./database.js")
+const bcrypt = require('bcrypt')
 conexion.connect()
 
 //QUERYS USER
+const validateUser = async (email, pass) => {
+
+    let query = `SELECT id, pass FROM users where email = '${email}' `;
+    const res = await conexion.query(query)
+    const result = res.rows
+
+    //pass result[0]['pass']
+    if (result.length > 0) {
+        if(await bcrypt.compare(pass, result[0]['pass'])){
+            return result[0]['id']
+        }
+    } else {
+        return -1
+    }
+}
+
 const getUsuarios = async () => {
     let query = 'SELECT * FROM users'
     const res = await conexion.query(query)
@@ -10,7 +27,9 @@ const getUsuarios = async () => {
 }
 
 const createUser = async (nombre, apellido, mail, pass) => {
-    let query = `INSERT INTO users (nombre, apellido, email, pass) VALUES ('${nombre}', '${apellido}', '${mail}', '${pass}')`;
+    
+    const hashedPassword = await bcrypt.hash(pass, 10)
+    let query = `INSERT INTO users (nombre, apellido, email, pass) VALUES ('${nombre}', '${apellido}', '${mail}', '${hashedPassword}')`;
     const res = await conexion.query(query)
 }
 
@@ -94,4 +113,5 @@ const totalTimeUnhas = async (sesionId) => {
     return result[0]['sum']    
 }
 
-module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion, totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesion, totalTimeUnhas, durationSesion}
+module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion, totalTimeSesions, countUnhasSesion, 
+    allSesionsUnhas, percentageTenSesion, totalTimeUnhas, durationSesion, validateUser}
