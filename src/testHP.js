@@ -4,9 +4,15 @@ const handPoseDetection = require('@tensorflow-models/hand-pose-detection');
 const poseDetection = require('@tensorflow-models/pose-detection');
 
 //Variables para la ejecución de la webcam y modelo
-let modeloHand,modeloBlaze, webcam,webcam2,detectorHand ,detectorBlaze;
+let modeloHand, modeloBlaze, webcam, detectorHand, detectorBlaze;
 //Variable para emplear un cooldown entre notificaciones
 let corriendo = false;
+
+//Variables que determinan si la detección del mal habito está encendida.
+let onicofagia = True;//comer uñas
+let tricotilomania = True;//arrancar pelos
+
+
 
 async function init_model_hand() {
     if (!corriendo){
@@ -52,9 +58,9 @@ async function loop() {
     window.setTimeout(loop, 0.1)
 }
 
-// run the webcam image through the image model
+
 async function predict() {
-    // predict can take in an image, video or canvas html element
+
     let posesHand, posesBlaze, centroX, centroY;
     //https://github.com/tensorflow/tfjs-models/tree/master/hand-pose-detection
     posesHand = await detectorHand.estimateHands(webcam.canvas);
@@ -62,7 +68,6 @@ async function predict() {
     posesBlaze = await detectorBlaze.estimatePoses(webcam.canvas);
 
     
-    //Los modelos estiman articulaciones
     if (posesBlaze.length != 0 && posesHand.length != 0 && (posesBlaze[0].keypoints3D[19].score >= 0.8 || posesBlaze[0].keypoints3D[20].score >= 0.8)){
 
         //Se consideran los puntos, del estimador BlazePose, que serán de utilidad. En este caso los dos puntos de la boca, en coordenadas (x,y) y (x,y,z). Y los puntos de los indices de la manos en 3d.
@@ -107,68 +112,78 @@ async function predict() {
 
         tipMenique = posesHand[0].keypoints[20]
         tipMenique3D = posesHand[0].keypoints3D[20]
-        
-
-        if (tipPulgar.y > dipPulgar.y && tipPulgar.x <= radioXUp && tipPulgar.x >= radioXLow && tipPulgar.y >= radioYUp && tipPulgar.y <= radioYLow && tipPulgar3D.z > 0){
-            console.log("Comiendo uña pulgar");
-        }
-        else if (tipIndice.y > dipIndice.y && tipIndice.x <= radioXUp && tipIndice.x >= radioXLow && tipIndice.y >= radioYUp && tipIndice.y <= radioYLow && tipIndice3D.z > 0){
-            console.log("Comiendo uña indice");
-        }
-        else if (tipMedio.y > dipMedio.y && tipMedio.x <= radioXUp && tipMedio.x >= radioXLow && tipMedio.y >= radioYUp && tipMedio.y <= radioYLow && tipMedio3D.z > 0){
-            console.log("Comiendo uña medio");
-        }
-
-        else if (tipAnular.y > dipAnular.y && tipAnular.x <= radioXUp && tipAnular.x >= radioXLow && tipAnular.y >= radioYUp && tipAnular.y <= radioYLow && tipAnular3D.z > 0){
-            console.log("Comiendo uña anular");
-        }
-
-        else if (tipMenique.y > dipMenique.y && tipMenique.x <= radioXUp && tipMenique.x >= radioXLow && tipMenique.y >= radioYUp && tipMenique.y <= radioYLow && tipMenique3D.z > 0 ){
-            console.log("Comiendo uña meñique");
-        }
-
-        if (posesHand.length == 2){
-
-            dipPulgar2 = posesHand[0].keypoints[3]
-            dipIndice2 = posesHand[0].keypoints[7]
-            dipMedio2 = posesHand[0].keypoints[11]
-            dipAnular2 = posesHand[0].keypoints[15]
-            dipMenique2 = posesHand[0].keypoints[19]
-
-            //Tambien las puntas de los dedos
-            tipPulgar2 = posesHand[0].keypoints[4]
-            tipPulgar2_3D = posesHand[0].keypoints3D[4]
-
-            tipIndice2 = posesHand[0].keypoints[8]
-            tipIndice2_3D = posesHand[0].keypoints3D[8]
-
-            tipMedio2 = posesHand[0].keypoints[12]
-            tipMedio2_3D = posesHand[0].keypoints3D[12]
-
-            tipAnular2 = posesHand[0].keypoints[16]
-            tipAnular2_3D = posesHand[0].keypoints3D[16]
-
-            tipMenique2 = posesHand[0].keypoints[20]
-            tipMenique2_3D = posesHand[0].keypoints3D[20]
 
 
-            if (tipPulgar2.y > dipPulgar2.y && tipPulgar2.x <= radioXUp && tipPulgar2.x >= radioXLow && tipPulgar2.y >= radioYUp && tipPulgar2.y <= radioYLow && tipPulgar2_3D.z > 0){
+/*-----------------------------------------------SECCIÓN DE ONICOFAGÍA-----------------------------------------------*/
+        if (onicofagia){
+            if (tipPulgar.y > dipPulgar.y && tipPulgar.x <= radioXUp && tipPulgar.x >= radioXLow && tipPulgar.y >= radioYUp && tipPulgar.y <= radioYLow && tipPulgar3D.z > 0){
                 console.log("Comiendo uña pulgar");
             }
-            else if (tipIndice2.y > dipIndice2.y && tipIndice2.x <= radioXUp && tipIndice2.x >= radioXLow && tipIndice2.y >= radioYUp && tipIndice2.y <= radioYLow && tipIndice2_3D.z > 0){
+
+            else if (tipIndice.y > dipIndice.y && tipIndice.x <= radioXUp && tipIndice.x >= radioXLow && tipIndice.y >= radioYUp && tipIndice.y <= radioYLow && tipIndice3D.z > 0){
                 console.log("Comiendo uña indice");
             }
-            else if (tipMedio2.y > dipMedio2.y && tipMedio2.x <= radioXUp && tipMedio2.x >= radioXLow && tipMedio2.y >= radioYUp && tipMedio2.y <= radioYLow && tipMedio2_3D.z > 0){
+
+            else if (tipMedio.y > dipMedio.y && tipMedio.x <= radioXUp && tipMedio.x >= radioXLow && tipMedio.y >= radioYUp && tipMedio.y <= radioYLow && tipMedio3D.z > 0){
                 console.log("Comiendo uña medio");
             }
 
-            else if (tipAnular2.y > dipAnular2.y && tipAnular2.x <= radioXUp && tipAnular2.x >= radioXLow && tipAnular2.y >= radioYUp && tipAnular2.y <= radioYLow && tipAnular2_3D.z > 0){
+            else if (tipAnular.y > dipAnular.y && tipAnular.x <= radioXUp && tipAnular.x >= radioXLow && tipAnular.y >= radioYUp && tipAnular.y <= radioYLow && tipAnular3D.z > 0){
                 console.log("Comiendo uña anular");
             }
 
-            else if (tipMenique2.y > dipMenique2.y && tipMenique2.x <= radioXUp && tipMenique2.x >= radioXLow && tipMenique2.y >= radioYUp && tipMenique2.y <= radioYLow && tipMenique2_3D.z > 0 ){
+            else if (tipMenique.y > dipMenique.y && tipMenique.x <= radioXUp && tipMenique.x >= radioXLow && tipMenique.y >= radioYUp && tipMenique.y <= radioYLow && tipMenique3D.z > 0){
                 console.log("Comiendo uña meñique");
             }
+
+            if (posesHand.length == 2){
+
+                dipPulgar2 = posesHand[1].keypoints[3]
+                dipIndice2 = posesHand[1].keypoints[7]
+                dipMedio2 = posesHand[1].keypoints[11]
+                dipAnular2 = posesHand[1].keypoints[15]
+                dipMenique2 = posesHand[1].keypoints[19]
+
+                //Tambien las puntas de los dedos
+                tipPulgar2 = posesHand[1].keypoints[4]
+                tipPulgar2_3D = posesHand[1].keypoints3D[4]
+
+                tipIndice2 = posesHand[1].keypoints[8]
+                tipIndice2_3D = posesHand[1].keypoints3D[8]
+
+                tipMedio2 = posesHand[1].keypoints[12]
+                tipMedio2_3D = posesHand[1].keypoints3D[12]
+
+                tipAnular2 = posesHand[1].keypoints[16]
+                tipAnular2_3D = posesHand[1].keypoints3D[16]
+
+                tipMenique2 = posesHand[1].keypoints[20]
+                tipMenique2_3D = posesHand[1].keypoints3D[20]
+
+
+                if (tipPulgar2.y > dipPulgar2.y && tipPulgar2.x <= radioXUp && tipPulgar2.x >= radioXLow && tipPulgar2.y >= radioYUp && tipPulgar2.y <= radioYLow && tipPulgar2_3D.z > 0){
+                    console.log("Comiendo uña pulgar");
+                }
+
+                else if (tipIndice2.y > dipIndice2.y && tipIndice2.x <= radioXUp && tipIndice2.x >= radioXLow && tipIndice2.y >= radioYUp && tipIndice2.y <= radioYLow && tipIndice2_3D.z > 0){
+                    console.log("Comiendo uña indice");
+                }
+
+                else if (tipMedio2.y > dipMedio2.y && tipMedio2.x <= radioXUp && tipMedio2.x >= radioXLow && tipMedio2.y >= radioYUp && tipMedio2.y <= radioYLow && tipMedio2_3D.z > 0){
+                    console.log("Comiendo uña medio");
+                }
+
+                else if (tipAnular2.y > dipAnular2.y && tipAnular2.x <= radioXUp && tipAnular2.x >= radioXLow && tipAnular2.y >= radioYUp && tipAnular2.y <= radioYLow && tipAnular2_3D.z > 0){
+                    console.log("Comiendo uña anular");
+                }
+
+                else if (tipMenique2.y > dipMenique2.y && tipMenique2.x <= radioXUp && tipMenique2.x >= radioXLow && tipMenique2.y >= radioYUp && tipMenique2.y <= radioYLow && tipMenique2_3D.z > 0 ){
+                    console.log("Comiendo uña meñique");
+                }
+            }
+        }
+/*-----------------------------------------------SECCIÓN DE TRICOTILOMANÍA----------------------------------------------*/
+        if (tricotilomania){
 
         }
     }
@@ -176,4 +191,4 @@ async function predict() {
 
 
 
-module.exports = { init_model_hand , stop_monitoring_hand}
+module.exports = {init_model_hand , stop_monitoring_hand}
