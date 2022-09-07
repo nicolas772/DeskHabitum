@@ -28,7 +28,7 @@ const createWindow = () => {
 
     //win.webContents.openDevTools();
     //win.loadFile('src/views/index.html');
-    win.loadFile('src/views/register.html');
+    win.loadFile('src/views/index.html');
 }
 
 app.whenReady().then(() => {
