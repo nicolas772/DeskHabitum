@@ -88,6 +88,10 @@ const validateUser = (email, pass) => {
     return model.validateUser(email, pass)
 }
 
+const postConfig = (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion) => {
+    return model.postConfig(id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion)
+}
+
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
     createUser: createUser,
@@ -105,7 +109,9 @@ contextBridge.exposeInMainWorld("api", {
     totalTimeUnhas: totalTimeUnhas,
     totalSesionTimeUnhas: totalSesionTimeUnhas,
     createUnhas: createUnhas,
-    durationSesion: durationSesion   
+    durationSesion: durationSesion,   
+    validateUser: validateUser,
+    postConfig: postConfig
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})

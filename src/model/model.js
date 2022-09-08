@@ -124,4 +124,13 @@ const totalTimeUnhas = async (userId) => {
     return result[0]['sum']    
 }
 
-module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion, totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesion, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas, validateUser}
+
+//QUERYS CONFIG
+
+const postConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion) => {
+    let query = `INSERT INTO config (id_user, morderunha, morderobjetos, jalarpelo, fatigavisual, malapostura, alertavisual, alertasonora, intervalonotificacion) VALUES 
+    (${id_usuario}, '${morderUnha}', '${morderObjetos}', '${jalarPelo}', '${fatigaVisual}', '${malaPostura}', '${alertaVisual}', '${alertaSonora}', '${intervaloNotificacion}')`;
+    const res = await conexion.query(query)
+}
+
+module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion, totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesion, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas, validateUser, postConfig}

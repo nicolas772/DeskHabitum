@@ -42,7 +42,7 @@ app.on('activate', () => {
 })
 
 
-function loginWindow () {
+/*function loginWindow () {
   winlogin = new BrowserWindow({
    width: 900,
    height: 700,
@@ -56,6 +56,22 @@ function loginWindow () {
  })
 
  winlogin.loadFile('src/views/login.html')
+}*/
+
+function loginWindow () {
+  winlogin = new BrowserWindow({
+   width: 900,
+   height: 700,
+   webPreferences: {
+    // nodeIntegration: true,
+    // contextIsolation:true,
+    // devTools:false,
+     preload:path.join(__dirname, 'preload.js')
+     
+   }
+ })
+
+ winlogin.loadFile('src/views/index.html')
 }
 
 ipcMain.handle('login', (event, obj) => {
