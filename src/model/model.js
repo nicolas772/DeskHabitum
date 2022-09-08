@@ -133,4 +133,25 @@ const postConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fati
     const res = await conexion.query(query)
 }
 
-module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion, totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesion, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas, validateUser, postConfig}
+const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion) => {
+    let query = `UPDATE config SET 
+    morderunha='${morderUnha}', 
+    morderobjetos='${morderObjetos}', 
+    jalarpelo='${jalarPelo}', 
+    fatigavisual='${fatigaVisual}', 
+    malapostura='${malaPostura}', 
+    alertavisual='${alertaVisual}', 
+    alertasonora='${alertaSonora}', 
+    intervalonotificacion='${intervaloNotificacion}'
+    WHERE id_user = ${id_usuario}` ;
+    const res = await conexion.query(query)
+}
+
+const getConfig = async (id_usuario) => {
+    let query = `SELECT * FROM config WHERE id_user = ${id_usuario}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result
+}
+
+module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion, totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesion, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas, validateUser, postConfig, getConfig, updateConfig}

@@ -7,9 +7,9 @@ const malaPostura = document.getElementById("malaPostura")
 const alertaVisual = document.getElementById("alertaVisual")
 const alertaSonora = document.getElementById("alertaSonora")
 const intervaloNotificacion = document.getElementById("intervaloNotificacion")
+var user_config 
 
-
-function saveSettings(){
+async function saveSettings(){
     let configList = [
         id_User, 
         morderUnha.checked, 
@@ -37,7 +37,7 @@ function saveSettings(){
     })
     console.log(configList)
     console.log(CONF)
-    window.api.postConfig(
+    await window.api.updateConfig(
         CONF[0],
         CONF[1],
         CONF[2],
@@ -47,13 +47,39 @@ function saveSettings(){
         CONF[6],
         CONF[7],
         CONF[8]
-    )
+    ).then(result => {
+        let resultado=result
+    })
 }
 
-function actualizarSettings(){
-    $('#morderObjetos').bootstrapToggle('off') 
-    console.log(morderObjetos.checked)
+async function actualizarSettings(){
     
+    await window.api.getConfig(id_User).then(result => {
+        config = result[0];
+    });
+    console.log(config)
+    $('#morderUnha').bootstrapToggle(config.morderunha)
+    $('#morderObjetos').bootstrapToggle(config.morderobjetos) 
+    $('#jalarPelo').bootstrapToggle(config.jalarpelo) 
+    $('#fatigaVisual').bootstrapToggle(config.fatigavisual) 
+    $('#malaPostura').bootstrapToggle(config.malapostura) 
+    $('#alertaVisual').bootstrapToggle(config.alertavisual) 
+    $('#alertaSonora').bootstrapToggle(config.alertasonora)
+    $('#intervaloNotificacion').val(config.intervalonotificacion)
 }
 
-//window.onload = actualizarSettings;
+window.onload = actualizarSettings;
+
+/*codigo para notificacion
+$('.btn').click(function(){
+            $('.alerta').removeClass("esconder");
+            $('.alerta').addClass("mostrar");
+        });
+
+        $('.close-btn').click(function(){
+            $('.alerta').addClass("esconder");
+            $('.alerta').removeClass("mostrar");
+
+
+        });
+*/ 

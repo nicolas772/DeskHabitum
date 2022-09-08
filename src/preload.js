@@ -92,6 +92,15 @@ const postConfig = (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisu
     return model.postConfig(id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion)
 }
 
+const updateConfig = (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion) => {
+    return model.updateConfig(id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion)
+}
+    
+
+const getConfig = (id_usuario) => {
+    return model.getConfig(id_usuario)
+}
+
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
     createUser: createUser,
@@ -111,7 +120,9 @@ contextBridge.exposeInMainWorld("api", {
     createUnhas: createUnhas,
     durationSesion: durationSesion,   
     validateUser: validateUser,
-    postConfig: postConfig
+    postConfig: postConfig,
+    getConfig: getConfig,
+    updateConfig: updateConfig
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
