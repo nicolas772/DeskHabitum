@@ -9,9 +9,16 @@ let modeloHand, modeloBlaze, webcam, detectorHand, detectorBlaze;
 let corriendo = false;
 
 //Variables que determinan si la detección del mal habito está encendida.
-let onicofagia = True;//comer uñas
-let tricotilomania = True;//arrancar pelos
+let onicofagia = false;//comer uñas
+let tricotilomania = true;//arrancar pelos
 
+function distancia_puntos(x1, y1, x2, y2){
+    return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+}
+
+function distancia_puntos3D(x1, y1, z1, x2, y2, z2){
+    return ((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2) ** 0.5
+}
 
 
 async function init_model_hand() {
@@ -24,14 +31,13 @@ async function init_model_hand() {
         modeloBlaze = poseDetection.SupportedModels.BlazePose;
         detectorBlaze = await poseDetection.createDetector(modeloBlaze, {runtime : 'tfjs', modelType : 'full'});
 
-        const flip = true;
+        const flip = false;
         const width = 200;
         const height = 200;
         webcam = new tmImage.Webcam(width, height, flip);
 
         await webcam.setup(); // request access to the webcam
         webcam.play();
-        console.log("SE INICIO LA CAMARA")
         document.getElementById("HOLA").appendChild(webcam.canvas);
 
         window.requestAnimationFrame(loop);
@@ -61,7 +67,7 @@ async function loop() {
 
 async function predict() {
 
-    let posesHand, posesBlaze, centroX, centroY;
+    let posesHand, posesBlaze, bocaCenter_x, bocaCenter_y;
     //https://github.com/tensorflow/tfjs-models/tree/master/hand-pose-detection
     posesHand = await detectorHand.estimateHands(webcam.canvas);
     //https://github.com/tensorflow/tfjs-models/tree/master/pose-detection
@@ -70,25 +76,39 @@ async function predict() {
     
     if (posesBlaze.length != 0 && posesHand.length != 0 && (posesBlaze[0].keypoints3D[19].score >= 0.8 || posesBlaze[0].keypoints3D[20].score >= 0.8)){
 
-        //Se consideran los puntos, del estimador BlazePose, que serán de utilidad. En este caso los dos puntos de la boca, en coordenadas (x,y) y (x,y,z). Y los puntos de los indices de la manos en 3d.
+        //Se consideran los puntos, del estimador BlazePose, que serán de utilidad. En este caso los dos puntos de la boca, en coordenadas (x,y) y (x,y,z), los puntos de los indices de la manos, los puntos de los ojos, de los hombros y nariz.
         bocaLeft = posesBlaze[0].keypoints[9]
         bocaRight = posesBlaze[0].keypoints[10]
 
         bocaLeft3D = posesBlaze[0].keypoints3D[9]
         bocaRight3D = posesBlaze[0].keypoints3D[10]
 
+        ojoLeft3D = posesBlaze[0].keypoints3D[2]
+        ojoRight3D = posesBlaze[0].keypoints3D[5]
+        //Distancia entre ojos mirando de frente
+        distancia_ojos = 0.030
+
+        hombroLeft3D = posesBlaze[0].keypoints3D[11]
+        hombroRight3D = posesBlaze[0].keypoints3D[12]
+
+        nariz = posesBlaze[0].keypoints[0]
+        nariz3D = posesBlaze[0].keypoints3D[0]
+
+        orejaLeft3D = posesBlaze[0].keypoints3D[7]
+        orejaRight3D = posesBlaze[0].keypoints3D[8]
+
         //Se define el centro de la boca en base a las coordenadas estimadas
-        centroX = (bocaLeft.x + bocaRight.x) / 2.0
-        centroY = (bocaLeft.y + bocaRight.y) / 2.0
+        bocaCenter_x = (bocaLeft.x + bocaRight.x) / 2.0
+        bocaCenter_y = (bocaLeft.y + bocaRight.y) / 2.0
 
         //Se define un radio de detección desde el centro de la boca hasta el coef definido 
         coef = 10;
 
-        radioXUp = centroX + coef
-        radioXLow = centroX - coef
+        radioXUp = bocaCenter_x + coef
+        radioXLow = bocaCenter_x - coef
 
-        radioYUp = centroY - coef
-        radioYLow = centroY + coef
+        radioYUp = bocaCenter_y - coef
+        radioYLow = bocaCenter_y + coef
 
         //Se consideran las articulaciones interfalángicas distales de la mano detectada
         dipPulgar = posesHand[0].keypoints[3]
@@ -185,6 +205,31 @@ async function predict() {
 /*-----------------------------------------------SECCIÓN DE TRICOTILOMANÍA----------------------------------------------*/
         if (tricotilomania){
 
+            /*
+            bocaCenter3D_x = (bocaRight3D.x + bocaLeft3D.x) / 2;
+            bocaCenter3D_y = (bocaRight3D.y + bocaLeft3D.y) / 2;
+            bocaCenter3D_z = (bocaRight3D.z + bocaLeft3D.z) / 2; */
+
+            dist_nariz_bocaLeft = distancia_puntos(nariz.x, nariz.y, bocaLeft.x, bocaLeft.y);
+            dist_nariz_bocaRight = distancia_puntos(nariz.x, nariz.y, bocaRight.x, bocaRight.y);
+            dist_nariz_bocaCentro = distancia_puntos(nariz.x, nariz.y, bocaCenter_x, bocaCenter_y);
+
+            calibracion_perfil = 1
+
+            //Se plantean 3 casos
+
+            //Mirando de frente
+            if (dist_nariz_bocaCentro < dist_nariz_bocaLeft && dist_nariz_bocaCentro < dist_nariz_bocaRight){
+                console.log("Mirando de frente")
+ ;           }
+            //Mirando hacia la izquierda
+            else if (dist_nariz_bocaCentro - calibracion_perfil > dist_nariz_bocaLeft && dist_nariz_bocaCentro < dist_nariz_bocaRight){
+                console.log("Mirando hacia la izquierda")
+            }
+            //Mirando hacia la derecha
+            else if (dist_nariz_bocaCentro < dist_nariz_bocaLeft && dist_nariz_bocaCentro - calibracion_perfil > dist_nariz_bocaRight){
+                console.log("Mirando hacia la derecha")
+            }
         }
     }
 }
