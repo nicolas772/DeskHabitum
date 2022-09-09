@@ -20,6 +20,11 @@ const iniciar_camara = (data) => {
     return respuesta
 }
 
+const cerrar_sesion = (data) => {
+    const respuesta = ipcRenderer.sendSync('cerrar-sesion', data)
+    return respuesta
+}
+
 
 const getUsuarios = () => {
     return model.getUsuarios();
@@ -127,7 +132,8 @@ contextBridge.exposeInMainWorld("api", {
     postConfig: postConfig,
     getConfig: getConfig,
     updateConfig: updateConfig,
-    iniciar_camara: iniciar_camara
+    iniciar_camara: iniciar_camara,
+    cerrar_sesion: cerrar_sesion
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})

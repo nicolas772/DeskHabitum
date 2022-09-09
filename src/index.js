@@ -3,9 +3,9 @@ const path = require('path')
 const model = require('./model/model.js')
 
 let winlogin;
-
+let win;
 const createWindow = () => {
-    const win = new BrowserWindow({
+      win = new BrowserWindow({
       width: 900,
       height: 700,
       webPreferences: {
@@ -42,7 +42,7 @@ app.on('activate', () => {
 })
 
 
-/*function loginWindow () {
+function loginWindow () {
   winlogin = new BrowserWindow({
    width: 900,
    height: 700,
@@ -56,9 +56,9 @@ app.on('activate', () => {
  })
 
  winlogin.loadFile('src/views/login.html')
-}*/
+}
 
-function loginWindow () {
+/*function loginWindow () {
   winlogin = new BrowserWindow({
    width: 900,
    height: 700,
@@ -72,19 +72,16 @@ function loginWindow () {
  })
 
  winlogin.loadFile('src/views/index.html')
-}
+}*/
 
 ipcMain.handle('login', (event, obj) => {
   validatelogin(obj)
 });
 
-
-
-
 function validatelogin(obj) {
   const { email, password } = obj 
   model.validateUser(email, password).then(
-    results => {
+    results => { //results es el id del usuario loggeado
       if(results > 0){
         winlogin.close()
         createWindow();
@@ -96,16 +93,14 @@ function validatelogin(obj) {
       }
     }    
   )
-  
-
- }
+}
 
 
 //Funcion para crear nueva camara desde boton "comenzar"
 ipcMain.on('iniciar-camara', (event, data) => {
   camera_win = new BrowserWindow({
-        width: 900,
-        height: 700,
+        width: 200,
+        height: 200,
         webPreferences: {
             // nodeIntegration: true,
             // contextIsolation:true,
@@ -118,6 +113,12 @@ ipcMain.on('iniciar-camara', (event, data) => {
   camera_win.loadFile('src/views/camera.html')
   let respuesta = "llego proceso a main"
   event.returnValue = respuesta;
+})
+
+//Funcion para cerrar sesión y cambiar a vista de login
+ipcMain.on('cerrar-sesion', (event, data) => {
+  loginWindow()
+  win.close()
 })
 
 

@@ -1,6 +1,5 @@
 /*codigo para que navbar lateral se despliegue automaticamente
 al acercar mouse*/
-
 const shrink_btn = document.querySelector(".shrink-btn");
 shrink_btn.addEventListener("click",()=>{
     document.body.classList.toggle("shrink");
@@ -36,3 +35,13 @@ aside.addEventListener("mouseleave",()=>{
         },500);
 
 });
+
+//codigo para cerrar sesion
+
+let logoutBtn = document.getElementById("cerrar-sesion")
+logoutBtn.onclick = function(){
+    console.log("prueba boton cerrar sesion")
+    window.api.cerrar_sesion("")
+}
+
+

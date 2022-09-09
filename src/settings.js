@@ -8,6 +8,9 @@ const alertaVisual = document.getElementById("alertaVisual")
 const alertaSonora = document.getElementById("alertaSonora")
 const intervaloNotificacion = document.getElementById("intervaloNotificacion")
 var user_config 
+const NOTIFICATION_TITLE = 'Desk Habitum'
+const NOTIFICATION_BODY = 'Configuración Guardada'
+const CLICK_MESSAGE = 'Notification clicked!'
 
 async function saveSettings(){
     let configList = [
@@ -50,6 +53,7 @@ async function saveSettings(){
     ).then(result => {
         let resultado=result
     })
+    doNotify();
 }
 
 async function actualizarSettings(){
@@ -69,6 +73,15 @@ async function actualizarSettings(){
 }
 
 window.onload = actualizarSettings;
+
+function doNotify(){
+    Notification.requestPermission().then(function (result){
+        new Notification(NOTIFICATION_TITLE, { 
+            body: NOTIFICATION_BODY, icon: 'http://placekitten.com/g/300/300'
+        })
+        .onclick = () => document.getElementById("output").innerText = CLICK_MESSAGE
+    })
+}
 
 /*codigo para notificacion
 $('.btn').click(function(){
