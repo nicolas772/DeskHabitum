@@ -1,8 +1,4 @@
-/*const electron = require('electron');
-const dialog = electron.remote.dialog;
-const fs = require('fs');
-let photoData;
-let video;*/
+const electron = require('electron');
 
 function initialize () {
     let btn = document.getElementById("prueba")
@@ -11,17 +7,6 @@ function initialize () {
         console.log("prueba boton")
     }
 
-    //camara
-    /*video = window.document.querySelector('video');
-    let errorCallback = (error) => {
-        console.log(`There was an error connecting to the video stream: ${error.message}`);
-    };
-
-    window.navigator.webkitGetUserMedia({video: true}, (localMediaStream) => {
-        video.src = window.URL.createObjectURL(localMediaStream);
-    }, errorCallback);*/
-
 }
-
 
 window.onload = initialize;
