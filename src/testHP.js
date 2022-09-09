@@ -10,7 +10,7 @@ let corriendo = false;
 
 //Variables que determinan si la detección del mal habito está encendida.
 let onicofagia = false;//comer uñas
-let tricotilomania = true;//arrancar pelos
+let tricotilomania = false;//arrancar pelos
 
 function distancia_puntos(x1, y1, x2, y2){
     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
@@ -19,7 +19,26 @@ function distancia_puntos(x1, y1, x2, y2){
 function distancia_puntos3D(x1, y1, z1, x2, y2, z2){
     return ((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2) ** 0.5
 }
+//Determinar si la mano está en modo pinza. Para ello las distancia entre el dedo pulgar, indice y medio debe ser menos a 0.55 y la distancia entre
+function mano_pinza(pulgar, indice, medio, muñeca){
 
+    avg_distancia_entre_dedos = 0.055
+    distancia_muñeca = 0.1
+
+    pulgar_indice = distancia_puntos3D(pulgar.x, pulgar.y, pulgar.z, indice.x, indice.y, indice.z)
+    pulgar_medio = distancia_puntos3D(pulgar.x, pulgar.y, pulgar.z, medio.x, medio.y, medio.z)
+    indice_medio = distancia_puntos3D(indice.x, indice.y, indice.z, medio.x, medio.y, medio.z)
+
+    indice_muñeca = distancia_puntos3D(indice.x, indice.y, indice.z, muñeca.x, muñeca.y, muñeca.z)
+
+    avg_pinza = (pulgar_indice + pulgar_medio + indice_medio) / 3
+
+    if (indice_muñeca > 0.1 && avg_pinza < avg_distancia_entre_dedos){
+        return true
+    }
+
+    return false
+}
 
 async function init_model_hand() {
     if (!corriendo){
@@ -74,7 +93,7 @@ async function predict() {
     posesBlaze = await detectorBlaze.estimatePoses(webcam.canvas);
 
     
-    if (posesBlaze.length != 0 && posesHand.length != 0 && (posesBlaze[0].keypoints3D[19].score >= 0.8 || posesBlaze[0].keypoints3D[20].score >= 0.8)){
+    if (posesBlaze.length != 0 && posesHand.length != 0 /* && (posesBlaze[0].keypoints3D[19].score >= 0.8 || posesBlaze[0].keypoints3D[20].score >= 0.8)*/){
 
         //Se consideran los puntos, del estimador BlazePose, que serán de utilidad. En este caso los dos puntos de la boca, en coordenadas (x,y) y (x,y,z), los puntos de los indices de la manos, los puntos de los ojos, de los hombros y nariz.
         bocaLeft = posesBlaze[0].keypoints[9]
@@ -93,6 +112,9 @@ async function predict() {
 
         nariz = posesBlaze[0].keypoints[0]
         nariz3D = posesBlaze[0].keypoints3D[0]
+
+        orejaLeft = posesBlaze[0].keypoints[7]
+        orejaRight = posesBlaze[0].keypoints[8]
 
         orejaLeft3D = posesBlaze[0].keypoints3D[7]
         orejaRight3D = posesBlaze[0].keypoints3D[8]
@@ -133,10 +155,12 @@ async function predict() {
         tipMenique = posesHand[0].keypoints[20]
         tipMenique3D = posesHand[0].keypoints3D[20]
 
+        muñeca3D = posesHand[0].keypoints3D[0]
+
 
 /*-----------------------------------------------SECCIÓN DE ONICOFAGÍA-----------------------------------------------*/
         if (onicofagia){
-            if (tipPulgar.y > dipPulgar.y && tipPulgar.x <= radioXUp && tipPulgar.x >= radioXLow && tipPulgar.y >= radioYUp && tipPulgar.y <= radioYLow && tipPulgar3D.z > 0){
+            if (tipPulgar.y >= dipPulgar.y - 8 && tipPulgar.x <= radioXUp && tipPulgar.x >= radioXLow && tipPulgar.y >= radioYUp && tipPulgar.y <= radioYLow && tipPulgar3D.z > 0){
                 console.log("Comiendo uña pulgar");
             }
 
@@ -181,7 +205,7 @@ async function predict() {
                 tipMenique2_3D = posesHand[1].keypoints3D[20]
 
 
-                if (tipPulgar2.y > dipPulgar2.y && tipPulgar2.x <= radioXUp && tipPulgar2.x >= radioXLow && tipPulgar2.y >= radioYUp && tipPulgar2.y <= radioYLow && tipPulgar2_3D.z > 0){
+                if (tipPulgar2.y >= dipPulgar2.y - 8 && tipPulgar2.x <= radioXUp && tipPulgar2.x >= radioXLow && tipPulgar2.y >= radioYUp && tipPulgar2.y <= radioYLow && tipPulgar2_3D.z > 0){
                     console.log("Comiendo uña pulgar");
                 }
 
@@ -215,21 +239,39 @@ async function predict() {
             dist_nariz_bocaCentro = distancia_puntos(nariz.x, nariz.y, bocaCenter_x, bocaCenter_y);
 
             calibracion_perfil = 1
+            
+            altura = 23/14
 
             //Se plantean 3 casos
 
             //Mirando de frente
             if (dist_nariz_bocaCentro < dist_nariz_bocaLeft && dist_nariz_bocaCentro < dist_nariz_bocaRight){
                 console.log("Mirando de frente")
- ;           }
+            
+            }
             //Mirando hacia la izquierda
             else if (dist_nariz_bocaCentro - calibracion_perfil > dist_nariz_bocaLeft && dist_nariz_bocaCentro < dist_nariz_bocaRight){
-                console.log("Mirando hacia la izquierda")
+                console.log("Mirando hacia la izquierda");
+
+                unidad = distancia_puntos(nariz.x, nariz.y, orejaRight.x, orejaRight.y);
+                
+                areaDown_y = orejaRight.y - altura * unidad
+                areaUp_y = orejaRight.y
+                
+                areaUp_x = orejaRight.x + unidad
+
             }
             //Mirando hacia la derecha
             else if (dist_nariz_bocaCentro < dist_nariz_bocaLeft && dist_nariz_bocaCentro - calibracion_perfil > dist_nariz_bocaRight){
-                console.log("Mirando hacia la derecha")
+                console.log("Mirando hacia la derecha");
+
+                unidad = distancia_puntos(nariz.x, nariz.y, orejaLeft.x, orejaLeft.y);
+                
             }
+        }
+
+        if(mano_pinza(tipPulgar3D, tipIndice3D, tipMedio3D, muñeca3D)){
+            console.log("modo pinza")
         }
     }
 }
