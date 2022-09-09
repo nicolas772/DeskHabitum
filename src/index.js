@@ -6,10 +6,11 @@ const path = require('path')
 
 const createWindow = () => {
     const win = new BrowserWindow({
-      width: 900,
+      width: 900, 
       height: 700,
       webPreferences: {
         nodeIntegration: true,
+       // contextIsolation:false, //se agrego esto
         preload: path.join(__dirname, './preload.js')
       }
     })
@@ -26,7 +27,8 @@ const createWindow = () => {
 
 
     //win.webContents.openDevTools();
-    win.loadFile('src/views/index.html');
+    //win.loadFile('src/views/index.html');
+    win.loadFile('src/views/login2.html');
 }
 
 app.whenReady().then(() => {
