@@ -101,6 +101,26 @@ function validatelogin(obj) {
  }
 
 
+//Funcion para crear nueva camara desde boton "comenzar"
+ipcMain.on('iniciar-camara', (event, data) => {
+  camera_win = new BrowserWindow({
+        width: 900,
+        height: 700,
+        webPreferences: {
+            // nodeIntegration: true,
+            // contextIsolation:true,
+            // devTools:false,
+            preload:path.join(__dirname, 'test_processWebcam.js')
+            
+        }
+    })
+
+  camera_win.loadFile('src/views/camera.html')
+  let respuesta = "llego proceso a main"
+  event.returnValue = respuesta;
+})
+
+
  app.whenReady().then(() => {
   loginWindow();
 })

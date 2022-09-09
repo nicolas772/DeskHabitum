@@ -15,6 +15,10 @@ const stop_session= () => {
     return camera.stop_monitoring();
 }
 
+const iniciar_camara = (data) => {
+    const respuesta = ipcRenderer.sendSync('iniciar-camara', data)
+    return respuesta
+}
 
 
 const getUsuarios = () => {
@@ -122,7 +126,8 @@ contextBridge.exposeInMainWorld("api", {
     validateUser: validateUser,
     postConfig: postConfig,
     getConfig: getConfig,
-    updateConfig: updateConfig
+    updateConfig: updateConfig,
+    iniciar_camara: iniciar_camara
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
