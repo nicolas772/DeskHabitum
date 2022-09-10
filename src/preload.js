@@ -1,31 +1,16 @@
 const model = require('./model/model.js')
-const camera = require('./processWebcam.js')
 const {contextBridge, ipcRenderer} = require("electron");
 
-const check_session = (data) => {
-    const sesion = ipcRenderer.sendSync('Check-Session', data)
-    return sesion
-}
-
-const init_session = (sesion) => {
-    return camera.init_model(sesion);
-}
-
-const stop_session= () => {
-    return camera.stop_monitoring();
-}
 
 const iniciar_camara = (data) => {
     const respuesta = ipcRenderer.sendSync('iniciar-camara', data)
     return respuesta
 }
 
-
 const cerrar_camara = (data) => {
     const respuesta = ipcRenderer.sendSync('cerrar-camara', data)
     return respuesta
 }
-
 
 const cerrar_sesion = (data) => {
     const respuesta = ipcRenderer.sendSync('cerrar-sesion', data)
@@ -46,6 +31,7 @@ const getUserData = (id) => {
 const createSesion = (id_usuario, inicio, final, total) => {
     return model.createSesion(id_usuario, inicio, final, total)
 }
+
 const getSesion = (id) => {
     return model.getSesion(id);
 }
@@ -125,9 +111,6 @@ contextBridge.exposeInMainWorld("api", {
     getSesion: getSesion,
     lastSesion: lastSesion,
     countUnhasSesion: countUnhasSesion,
-    init_session: init_session,
-    stop_session: stop_session,
-    check_session: check_session,
     percentageTenSesion: percentageTenSesion,
     allSesionUnhas: allSesionUnhas,
     totalTimeSesions: totalTimeSesions,

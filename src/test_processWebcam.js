@@ -116,7 +116,7 @@ async function predict() {
         let total = tiempo_final - tiempo_inicio
         let totali = total.toString()
 
-
+        /*
         let unha = {
             "inicio": ini,
             "final": fini,
@@ -130,7 +130,7 @@ async function predict() {
         let data_unha = JSON.stringify(lista_unhas);
         fs.writeFileSync("./src/data/unhasSesion.json", data_unha)
         tiempo_corriendo = false;
-        se_notifico = false;
+        se_notifico = false;*/
     }
 }
 

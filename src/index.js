@@ -3,7 +3,7 @@ const path = require('path')
 const model = require('./model/model.js')
 
 let winlogin;
-let win;
+let win, camera_win;
 
 
 
@@ -16,18 +16,6 @@ const createWindow = () => {
         preload: path.join(__dirname, './preload.js')
       }
     })
-
-    //Variable que almacena el timestamp del inicio de la sesión, si no hay sesión en curso almacena "No-Session"
-    let sesion = 'No-Session';
-    ipcMain.on('Check-Session', (event, data) => {
-      if (data == "Init")
-        sesion = new Date();
-      else if (data == "Stop")
-        sesion = 'No-Session';
-      event.returnValue = sesion;
-    })
-
-
     //win.webContents.openDevTools();
     win.loadFile('src/views/index.html');
 }
@@ -87,8 +75,8 @@ function validatelogin(obj) {
   model.validateUser(email, password).then(
     results => { //results es el id del usuario loggeado
       if(results > 0){
-        winlogin.close()
         createWindow();
+        winlogin.close();
       }else{
         new Notification({
           title:"login",
