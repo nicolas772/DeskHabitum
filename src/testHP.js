@@ -10,7 +10,7 @@ let corriendo = false;
 
 //Variables que determinan si la detección del mal habito está encendida.
 let onicofagia = false;//comer uñas
-let tricotilomania = false;//arrancar pelos
+let tricotilomania = true;//arrancar pelos
 
 function distancia_puntos(x1, y1, x2, y2){
     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
@@ -227,7 +227,7 @@ async function predict() {
             }
         }
 /*-----------------------------------------------SECCIÓN DE TRICOTILOMANÍA----------------------------------------------*/
-        if (tricotilomania){
+        if (tricotilomania && mano_pinza(tipPulgar3D, tipIndice3D, tipMedio3D, muñeca3D)){
 
             /*
             bocaCenter3D_x = (bocaRight3D.x + bocaLeft3D.x) / 2;
@@ -242,16 +242,26 @@ async function predict() {
             
             altura = 23/14
 
+            segmento = 2
+
             //Se plantean 3 casos
 
             //Mirando de frente
             if (dist_nariz_bocaCentro < dist_nariz_bocaLeft && dist_nariz_bocaCentro < dist_nariz_bocaRight){
-                console.log("Mirando de frente")
+
+                areaDown_x = orejaRight.x - segmento
+                areaUp_x = orejaLeft.x + segmento
+
+                areaUp_y = (orejaRight.y + orejaLeft.y) / 2
+                areaDown_y = areaUp_y - (areaUp_x - areaDown_x)
+
+                if (tipPulgar.x >= areaDown_x && tipPulgar.x <= areaUp_x && tipPulgar.y >= areaDown_y && tipPulgar.y <= areaUp_y){
+                    console.log("Mirando de frente","Tirando el pelo!");
+                }
             
             }
             //Mirando hacia la izquierda
             else if (dist_nariz_bocaCentro - calibracion_perfil > dist_nariz_bocaLeft && dist_nariz_bocaCentro < dist_nariz_bocaRight){
-                console.log("Mirando hacia la izquierda");
 
                 unidad = distancia_puntos(nariz.x, nariz.y, orejaRight.x, orejaRight.y);
                 
@@ -260,19 +270,35 @@ async function predict() {
                 
                 areaUp_x = orejaRight.x + unidad
 
+                if (tipPulgar.y <= areaUp_y && tipPulgar.y >= areaDown_y){
+
+                    areaDown_x = orejaRight.x - (orejaRight.y - tipPulgar.y) / altura
+
+                    if (tipPulgar.x <= areaUp_x && tipPulgar.x >= areaDown_x ){
+                        console.log("Mirando hacia la izquierda","Tirando el pelo!");
+                    }
+                }
             }
             //Mirando hacia la derecha
             else if (dist_nariz_bocaCentro < dist_nariz_bocaLeft && dist_nariz_bocaCentro - calibracion_perfil > dist_nariz_bocaRight){
-                console.log("Mirando hacia la derecha");
 
                 unidad = distancia_puntos(nariz.x, nariz.y, orejaLeft.x, orejaLeft.y);
-                
-            }
-        }
 
-        if(mano_pinza(tipPulgar3D, tipIndice3D, tipMedio3D, muñeca3D)){
-            console.log("modo pinza")
-        }
+                areaDown_y = orejaLeft.y - altura * unidad
+                areaUp_y = orejaLeft.y
+
+                areaDown_x = orejaLeft.x - unidad
+
+                if (tipPulgar.y <= areaUp_y && tipPulgar.y >= areaDown_y){
+
+                    areaUp_x = orejaLeft.x + (orejaLeft.y - tipPulgar.y) / altura
+
+                    if (tipPulgar.x <= areaUp_x && tipPulgar.x >= areaDown_x ){
+                        console.log("Mirando hacia la derecha","Tirando el pelo!");
+                    }
+                }
+            }
+        }       
     }
 }
 
