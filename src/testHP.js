@@ -95,6 +95,8 @@ async function predict() {
     
     if (posesBlaze.length != 0 && posesHand.length != 0 /* && (posesBlaze[0].keypoints3D[19].score >= 0.8 || posesBlaze[0].keypoints3D[20].score >= 0.8)*/){
 
+        //BLAZE POSE
+
         //Se consideran los puntos, del estimador BlazePose, que serán de utilidad. En este caso los dos puntos de la boca, en coordenadas (x,y) y (x,y,z), los puntos de los indices de la manos, los puntos de los ojos, de los hombros y nariz.
         bocaLeft = posesBlaze[0].keypoints[9]
         bocaRight = posesBlaze[0].keypoints[10]
@@ -132,6 +134,8 @@ async function predict() {
         radioYUp = bocaCenter_y - coef
         radioYLow = bocaCenter_y + coef
 
+        //HAND POSE
+
         //Se consideran las articulaciones interfalángicas distales de la mano detectada
         dipPulgar = posesHand[0].keypoints[3]
         dipIndice = posesHand[0].keypoints[7]
@@ -158,6 +162,33 @@ async function predict() {
         muñeca3D = posesHand[0].keypoints3D[0]
 
 
+        if (posesHand.length == 2){
+
+            dipPulgar2 = posesHand[1].keypoints[3]
+            dipIndice2 = posesHand[1].keypoints[7]
+            dipMedio2 = posesHand[1].keypoints[11]
+            dipAnular2 = posesHand[1].keypoints[15]
+            dipMenique2 = posesHand[1].keypoints[19]
+
+            //Tambien las puntas de los dedos
+            tipPulgar2 = posesHand[1].keypoints[4]
+            tipPulgar2_3D = posesHand[1].keypoints3D[4]
+
+            tipIndice2 = posesHand[1].keypoints[8]
+            tipIndice2_3D = posesHand[1].keypoints3D[8]
+
+            tipMedio2 = posesHand[1].keypoints[12]
+            tipMedio2_3D = posesHand[1].keypoints3D[12]
+
+            tipAnular2 = posesHand[1].keypoints[16]
+            tipAnular2_3D = posesHand[1].keypoints3D[16]
+
+            tipMenique2 = posesHand[1].keypoints[20]
+            tipMenique2_3D = posesHand[1].keypoints3D[20]
+        }
+
+
+
 /*-----------------------------------------------SECCIÓN DE ONICOFAGÍA-----------------------------------------------*/
         if (onicofagia){
             if (tipPulgar.y >= dipPulgar.y - 8 && tipPulgar.x <= radioXUp && tipPulgar.x >= radioXLow && tipPulgar.y >= radioYUp && tipPulgar.y <= radioYLow && tipPulgar3D.z > 0){
@@ -182,29 +213,6 @@ async function predict() {
 
             if (posesHand.length == 2){
 
-                dipPulgar2 = posesHand[1].keypoints[3]
-                dipIndice2 = posesHand[1].keypoints[7]
-                dipMedio2 = posesHand[1].keypoints[11]
-                dipAnular2 = posesHand[1].keypoints[15]
-                dipMenique2 = posesHand[1].keypoints[19]
-
-                //Tambien las puntas de los dedos
-                tipPulgar2 = posesHand[1].keypoints[4]
-                tipPulgar2_3D = posesHand[1].keypoints3D[4]
-
-                tipIndice2 = posesHand[1].keypoints[8]
-                tipIndice2_3D = posesHand[1].keypoints3D[8]
-
-                tipMedio2 = posesHand[1].keypoints[12]
-                tipMedio2_3D = posesHand[1].keypoints3D[12]
-
-                tipAnular2 = posesHand[1].keypoints[16]
-                tipAnular2_3D = posesHand[1].keypoints3D[16]
-
-                tipMenique2 = posesHand[1].keypoints[20]
-                tipMenique2_3D = posesHand[1].keypoints3D[20]
-
-
                 if (tipPulgar2.y >= dipPulgar2.y - 8 && tipPulgar2.x <= radioXUp && tipPulgar2.x >= radioXLow && tipPulgar2.y >= radioYUp && tipPulgar2.y <= radioYLow && tipPulgar2_3D.z > 0){
                     console.log("Comiendo uña pulgar");
                 }
@@ -227,12 +235,7 @@ async function predict() {
             }
         }
 /*-----------------------------------------------SECCIÓN DE TRICOTILOMANÍA----------------------------------------------*/
-        if (tricotilomania && mano_pinza(tipPulgar3D, tipIndice3D, tipMedio3D, muñeca3D)){
-
-            /*
-            bocaCenter3D_x = (bocaRight3D.x + bocaLeft3D.x) / 2;
-            bocaCenter3D_y = (bocaRight3D.y + bocaLeft3D.y) / 2;
-            bocaCenter3D_z = (bocaRight3D.z + bocaLeft3D.z) / 2; */
+        if (tricotilomania){
 
             dist_nariz_bocaLeft = distancia_puntos(nariz.x, nariz.y, bocaLeft.x, bocaLeft.y);
             dist_nariz_bocaRight = distancia_puntos(nariz.x, nariz.y, bocaRight.x, bocaRight.y);
@@ -244,61 +247,90 @@ async function predict() {
 
             segmento = 2
 
-            //Se plantean 3 casos
+            pinza = false;
 
-            //Mirando de frente
-            if (dist_nariz_bocaCentro < dist_nariz_bocaLeft && dist_nariz_bocaCentro < dist_nariz_bocaRight){
+            if(mano_pinza(tipPulgar3D, tipIndice3D, tipMedio3D, muñeca3D) || (posesHand.length == 2 && mano_pinza(tipPulgar2_3D, tipIndice2_3D, tipMedio2_3D, muñeca3D))){
 
-                areaDown_x = orejaRight.x - segmento
-                areaUp_x = orejaLeft.x + segmento
+                //Se plantean 3 casos:
+                //Mirando de frente
+                if (dist_nariz_bocaCentro < dist_nariz_bocaLeft && dist_nariz_bocaCentro < dist_nariz_bocaRight){
 
-                areaUp_y = (orejaRight.y + orejaLeft.y) / 2
-                areaDown_y = areaUp_y - (areaUp_x - areaDown_x)
+                    areaDown_x = orejaRight.x - segmento
+                    areaUp_x = orejaLeft.x + segmento
+    
+                    areaUp_y = (orejaRight.y + orejaLeft.y) / 2
+                    areaDown_y = areaUp_y - (areaUp_x - areaDown_x)
+    
+                    if (tipPulgar.x >= areaDown_x && tipPulgar.x <= areaUp_x && tipPulgar.y >= areaDown_y && tipPulgar.y <= areaUp_y){
+                        console.log("Mirando de frente","Tirando el pelo!");
+                    }
 
-                if (tipPulgar.x >= areaDown_x && tipPulgar.x <= areaUp_x && tipPulgar.y >= areaDown_y && tipPulgar.y <= areaUp_y){
-                    console.log("Mirando de frente","Tirando el pelo!");
+                    if (posesHand.length == 2 && tipPulgar2.x >= areaDown_x && tipPulgar2.x <= areaUp_x && tipPulgar2.y >= areaDown_y && tipPulgar2.y <= areaUp_y){
+                        console.log("Mirando de frente","Tirando el pelo!");
+                    }
+                
                 }
-            
-            }
-            //Mirando hacia la izquierda
-            else if (dist_nariz_bocaCentro - calibracion_perfil > dist_nariz_bocaLeft && dist_nariz_bocaCentro < dist_nariz_bocaRight){
+                //Mirando hacia la izquierda
+                else if (dist_nariz_bocaCentro - calibracion_perfil > dist_nariz_bocaLeft && dist_nariz_bocaCentro < dist_nariz_bocaRight){
+    
+                    unidad = distancia_puntos(nariz.x, nariz.y, orejaRight.x, orejaRight.y);
+                    
+                    areaDown_y = orejaRight.y - altura * unidad
+                    areaUp_y = orejaRight.y
+                    
+                    areaUp_x = orejaRight.x + unidad
+    
+                    if (tipPulgar.y <= areaUp_y && tipPulgar.y >= areaDown_y){
+    
+                        areaDown_x = orejaRight.x - (orejaRight.y - tipPulgar.y) / altura
+    
+                        if (tipPulgar.x <= areaUp_x && tipPulgar.x >= areaDown_x ){
+                            console.log("Mirando hacia la izquierda","Tirando el pelo!");
+                        }
+                    }
 
-                unidad = distancia_puntos(nariz.x, nariz.y, orejaRight.x, orejaRight.y);
-                
-                areaDown_y = orejaRight.y - altura * unidad
-                areaUp_y = orejaRight.y
-                
-                areaUp_x = orejaRight.x + unidad
+                    if (posesHand.length == 2 && tipPulgar2.y <= areaUp_y && tipPulgar2.y >= areaDown_y){
+    
+                        areaDown_x = orejaRight.x - (orejaRight.y - tipPulgar2.y) / altura
+    
+                        if (tipPulgar2.x <= areaUp_x && tipPulgar2.x >= areaDown_x ){
+                            console.log("Mirando hacia la izquierda","Tirando el pelo!");
+                        }
+                    }
 
-                if (tipPulgar.y <= areaUp_y && tipPulgar.y >= areaDown_y){
 
-                    areaDown_x = orejaRight.x - (orejaRight.y - tipPulgar.y) / altura
+                }
+                //Mirando hacia la derecha
+                else if (dist_nariz_bocaCentro < dist_nariz_bocaLeft && dist_nariz_bocaCentro - calibracion_perfil > dist_nariz_bocaRight){
+    
+                    unidad = distancia_puntos(nariz.x, nariz.y, orejaLeft.x, orejaLeft.y);
+    
+                    areaDown_y = orejaLeft.y - altura * unidad
+                    areaUp_y = orejaLeft.y
+    
+                    areaDown_x = orejaLeft.x - unidad
+    
+                    if (tipPulgar.y <= areaUp_y && tipPulgar.y >= areaDown_y){
+    
+                        areaUp_x = orejaLeft.x + (orejaLeft.y - tipPulgar.y) / altura
+    
+                        if (tipPulgar.x <= areaUp_x && tipPulgar.x >= areaDown_x ){
+                            console.log("Mirando hacia la derecha","Tirando el pelo!");
+                        }
+                    }
 
-                    if (tipPulgar.x <= areaUp_x && tipPulgar.x >= areaDown_x ){
-                        console.log("Mirando hacia la izquierda","Tirando el pelo!");
+                    if (posesHand.length == 2 && tipPulgar2.y <= areaUp_y && tipPulgar2.y >= areaDown_y){
+    
+                        areaUp_x = orejaLeft.x + (orejaLeft.y - tipPulgar2.y) / altura
+    
+                        if (tipPulgar2.x <= areaUp_x && tipPulgar2.x >= areaDown_x ){
+                            console.log("Mirando hacia la derecha","Tirando el pelo!");
+                        }
                     }
                 }
             }
-            //Mirando hacia la derecha
-            else if (dist_nariz_bocaCentro < dist_nariz_bocaLeft && dist_nariz_bocaCentro - calibracion_perfil > dist_nariz_bocaRight){
-
-                unidad = distancia_puntos(nariz.x, nariz.y, orejaLeft.x, orejaLeft.y);
-
-                areaDown_y = orejaLeft.y - altura * unidad
-                areaUp_y = orejaLeft.y
-
-                areaDown_x = orejaLeft.x - unidad
-
-                if (tipPulgar.y <= areaUp_y && tipPulgar.y >= areaDown_y){
-
-                    areaUp_x = orejaLeft.x + (orejaLeft.y - tipPulgar.y) / altura
-
-                    if (tipPulgar.x <= areaUp_x && tipPulgar.x >= areaDown_x ){
-                        console.log("Mirando hacia la derecha","Tirando el pelo!");
-                    }
-                }
-            }
-        }       
+        }
+        
     }
 }
 
