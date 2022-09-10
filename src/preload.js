@@ -1,19 +1,40 @@
 const model = require('./model/model.js')
 const {contextBridge, ipcRenderer} = require("electron");
 
+ipcRenderer.on('port', e => {
+    // port received, make it globally available.
+    window.electronMessagePort = e.ports[0]
+  
+    window.electronMessagePort.onmessage = messageEvent => {
+      // handle message
+      console.log("message event preload: ",messageEvent.data)
+    }
+})
+
+
 
 const iniciar_camara = (data) => {
-    const respuesta = ipcRenderer.sendSync('iniciar-camara', data)
+    let respuesta = ipcRenderer.sendSync('iniciar-camara', data)
     return respuesta
 }
 
-const cerrar_camara = (data) => {
-    const respuesta = ipcRenderer.sendSync('cerrar-camara', data)
+/*const cerrar_camara = (data) => {
+    //let respuesta = ipcRenderer.sendSync('cerrar-camara', data)
+    //return respuesta
+    let respuesta = ipcRenderer.on('port', e => {
+        // port received, make it globally available.
+        window.electronMessagePort = e.ports[0]
+      
+        window.electronMessagePort.onmessage = messageEvent => {
+          // handle message
+          console.log("message event preload: ",messageEvent.data)
+        }
+    })
     return respuesta
-}
+}*/
 
 const cerrar_sesion = (data) => {
-    const respuesta = ipcRenderer.sendSync('cerrar-sesion', data)
+    let respuesta = ipcRenderer.sendSync('cerrar-sesion', data)
     return respuesta
 }
 
@@ -124,7 +145,6 @@ contextBridge.exposeInMainWorld("api", {
     updateConfig: updateConfig,
     iniciar_camara: iniciar_camara,
     cerrar_sesion: cerrar_sesion,
-    cerrar_camara: cerrar_camara
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})

@@ -1,8 +1,10 @@
+
 function init_cam(){
-    let respuesta = window.api.iniciar_camara("información")
+    window.api.iniciar_camara("")
       
 }
 
 function stop_cam(){
-    let respuesta = window.api.cerrar_camara("información")
+    //window.api.cerrar_camara("")
+    window.electronMessagePort.postmessage('ping nicooooo')
 }

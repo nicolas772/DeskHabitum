@@ -2,6 +2,7 @@ const tmImage = require('@teachablemachine/image');
 const tf = require('@tensorflow/tfjs')
 const crud = require('./model/model.js')
 const fs = require('fs');
+const {contextBridge, ipcRenderer} = require("electron");
 let id_User = 2;
 const URL = 'https://teachablemachine.withgoogle.com/models/83c4Qg0Gu/';
 //Variables para la ejecución de la webcam y modelo
@@ -22,9 +23,20 @@ let tiempo_corriendo = false;
 //variables para crear sesion
 let inicio_sesion;
 let fin_sesion;
-
+let respuesta
 //lista que guarda el inicio y final del mal habito de comerse uñas en la sesion actual
 //let lista_unhas = [];
+
+//para paso de mensajes entre handlebuttons y processWebcam
+ipcRenderer.on('port', e => {
+    // port received, make it globally available.
+    window.electronMessagePort = e.ports[0]
+  
+    window.electronMessagePort.onmessage = messageEvent => {
+      // handle message
+      console.log("message event process webcam: ", messageEvent.data)
+    }
+})
 
 function startCooldown() {
     cooldown = true;
@@ -49,12 +61,12 @@ function doNotify(){
     })
 }
 
-async function init_model(sesion) {
+async function init_model() {
     if (!corriendo){
 
         doNotify();
 
-        inicio_sesion = sesion;
+        //inicio_sesion = sesion;
         corriendo = true;
 
         const modelURL = URL + 'model.json';
@@ -69,8 +81,6 @@ async function init_model(sesion) {
         webcam.play();
         document.getElementById("HOLA").appendChild(webcam.canvas);
         window.requestAnimationFrame(loop);
-
-
     }
 }
 
@@ -87,6 +97,14 @@ async function loop() {
 
     //window.requestAnimationFrame(loop);
     window.setTimeout(loop, 0.1)
+    /*try{
+        console.log("entro a try")
+        window.api2.cerrar_camara_2((_event, value)=>{
+            console.log("ESTE ES DE LOOP: ", value)
+        })
+    }catch (e){
+        console.log("entro a catch")
+    }*/
 }
 
 // run the webcam image through the image model
@@ -133,5 +151,7 @@ async function predict() {
         se_notifico = false;*/
     }
 }
+
+
 
 window.onload = init_model;
