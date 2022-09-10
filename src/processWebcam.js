@@ -70,6 +70,7 @@ async function init_model(sesion) {
 
 function stop_monitoring(){
     if (corriendo == true){
+        
         fin_sesion = new Date();
         let ini_sesion = inicio_sesion.toISOString()
         let fini_sesion = fin_sesion.toISOString()
@@ -148,6 +149,6 @@ async function predict() {
     }
 }
 
-
+init_model();
 
 module.exports = { init_model , stop_monitoring}

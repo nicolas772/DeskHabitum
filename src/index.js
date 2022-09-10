@@ -4,6 +4,9 @@ const model = require('./model/model.js')
 
 let winlogin;
 let win;
+
+
+
 const createWindow = () => {
       win = new BrowserWindow({
       width: 900,
@@ -41,7 +44,7 @@ app.on('activate', () => {
   }
 })
 
-
+/*
 function loginWindow () {
   winlogin = new BrowserWindow({
    width: 900,
@@ -57,8 +60,9 @@ function loginWindow () {
 
  winlogin.loadFile('src/views/login.html')
 }
+*/
 
-/*function loginWindow () {
+function loginWindow () {
   winlogin = new BrowserWindow({
    width: 900,
    height: 700,
@@ -72,7 +76,7 @@ function loginWindow () {
  })
 
  winlogin.loadFile('src/views/index.html')
-}*/
+}
 
 ipcMain.handle('login', (event, obj) => {
   validatelogin(obj)
@@ -98,6 +102,7 @@ function validatelogin(obj) {
 
 //Funcion para crear nueva camara desde boton "comenzar"
 ipcMain.on('iniciar-camara', (event, data) => {
+
   camera_win = new BrowserWindow({
         width: 200,
         height: 200,
@@ -114,6 +119,12 @@ ipcMain.on('iniciar-camara', (event, data) => {
   let respuesta = "llego proceso a main"
   event.returnValue = respuesta;
 })
+
+ipcMain.on('cerrar-camara', (event, data) => {
+
+  camera_win.close()
+})
+
 
 //Funcion para cerrar sesión y cambiar a vista de login
 ipcMain.on('cerrar-sesion', (event, data) => {

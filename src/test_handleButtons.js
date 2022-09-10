@@ -4,5 +4,5 @@ function init_cam(){
 }
 
 function stop_cam(){
-    console.log("apagar camara")
+    let respuesta = window.api.cerrar_camara("información")
 }
