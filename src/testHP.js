@@ -5,13 +5,16 @@ const poseDetection = require('@tensorflow-models/pose-detection');
 
 //Variables para la ejecución de la webcam y modelo
 let modeloHand, modeloBlaze, webcam, detectorHand, detectorBlaze;
+
 //Variable para emplear un cooldown entre notificaciones
 let corriendo = false;
 
 //Variables que determinan si la detección del mal habito está encendida.
 let onicofagia = false;//comer uñas
 let tricotilomania = true;//arrancar pelos
+let morder_objetos = false;
 
+//Funciones para calcular la distancia entre dos puntos
 function distancia_puntos(x1, y1, x2, y2){
     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
 }
@@ -19,6 +22,7 @@ function distancia_puntos(x1, y1, x2, y2){
 function distancia_puntos3D(x1, y1, z1, x2, y2, z2){
     return ((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2) ** 0.5
 }
+
 //Determinar si la mano está en modo pinza. Para ello las distancia entre el dedo pulgar, indice y medio debe ser menos a 0.55 y la distancia entre
 function mano_pinza(pulgar, indice, medio, muñeca){
 
@@ -33,7 +37,7 @@ function mano_pinza(pulgar, indice, medio, muñeca){
 
     avg_pinza = (pulgar_indice + pulgar_medio + indice_medio) / 3
 
-    if (indice_muñeca > 0.1 && avg_pinza < avg_distancia_entre_dedos){
+    if (indice_muñeca > distancia_muñeca && avg_pinza < avg_distancia_entre_dedos){
         return true
     }
 
@@ -43,16 +47,22 @@ function mano_pinza(pulgar, indice, medio, muñeca){
 async function init_model_hand() {
     if (!corriendo){
         corriendo = true;
-        
-        modeloHand = handPoseDetection.SupportedModels.MediaPipeHands;
-        detectorHand = await handPoseDetection.createDetector(modeloHand, {runtime : 'tfjs', solutionPath: "https://cdn.jsdelivr.net/npm/@mediapipe/hands",  modelType : 'full'});
 
-        modeloBlaze = poseDetection.SupportedModels.BlazePose;
-        detectorBlaze = await poseDetection.createDetector(modeloBlaze, {runtime : 'tfjs', modelType : 'full'});
+        if (onicofagia || tricotilomania){
+            modeloHand = handPoseDetection.SupportedModels.MediaPipeHands;
+            detectorHand = await handPoseDetection.createDetector(modeloHand, {runtime : 'tfjs', solutionPath: "https://cdn.jsdelivr.net/npm/@mediapipe/hands",  modelType : 'full'});
+
+            modeloBlaze = poseDetection.SupportedModels.BlazePose;
+            detectorBlaze = await poseDetection.createDetector(modeloBlaze, {runtime : 'tfjs', modelType : 'full'});
+        }
+
+        if (morder_objetos){
+            console.log("Carga del modelo")
+        }
 
         const flip = false;
-        const width = 200;
-        const height = 200;
+        const width = 224;
+        const height = 224;
         webcam = new tmImage.Webcam(width, height, flip);
 
         await webcam.setup(); // request access to the webcam
@@ -93,7 +103,7 @@ async function predict() {
     posesBlaze = await detectorBlaze.estimatePoses(webcam.canvas);
 
     
-    if (posesBlaze.length != 0 && posesHand.length != 0 /* && (posesBlaze[0].keypoints3D[19].score >= 0.8 || posesBlaze[0].keypoints3D[20].score >= 0.8)*/){
+    if ( (onicofagia || tricotilomania) && posesBlaze.length != 0 && posesHand.length != 0 /* && (posesBlaze[0].keypoints3D[19].score >= 0.8 || posesBlaze[0].keypoints3D[20].score >= 0.8)*/){
 
         //BLAZE POSE
 
@@ -188,7 +198,6 @@ async function predict() {
         }
 
 
-
 /*-----------------------------------------------SECCIÓN DE ONICOFAGÍA-----------------------------------------------*/
         if (onicofagia){
             if (tipPulgar.y >= dipPulgar.y - 8 && tipPulgar.x <= radioXUp && tipPulgar.x >= radioXLow && tipPulgar.y >= radioYUp && tipPulgar.y <= radioYLow && tipPulgar3D.z > 0){
@@ -245,8 +254,6 @@ async function predict() {
             
             altura = 23/14
 
-            segmento = 2
-
             pinza = false;
 
             if(mano_pinza(tipPulgar3D, tipIndice3D, tipMedio3D, muñeca3D) || (posesHand.length == 2 && mano_pinza(tipPulgar2_3D, tipIndice2_3D, tipMedio2_3D, muñeca3D))){
@@ -255,21 +262,55 @@ async function predict() {
                 //Mirando de frente
                 if (dist_nariz_bocaCentro < dist_nariz_bocaLeft && dist_nariz_bocaCentro < dist_nariz_bocaRight){
 
+                    segmento = (orejaLeft.x - orejaRight.x) / 4
+
                     areaDown_x = orejaRight.x - segmento
                     areaUp_x = orejaLeft.x + segmento
     
                     areaUp_y = (orejaRight.y + orejaLeft.y) / 2
                     areaDown_y = areaUp_y - (areaUp_x - areaDown_x)
-    
-                    if (tipPulgar.x >= areaDown_x && tipPulgar.x <= areaUp_x && tipPulgar.y >= areaDown_y && tipPulgar.y <= areaUp_y){
-                        console.log("Mirando de frente","Tirando el pelo!");
+
+                    frente = areaDown_y + 2*segmento
+
+                    // ZONA DE LA FRENTE HACIA ARRIBA
+                    if (tipPulgar.y <= frente && tipPulgar.y >= areaDown_y){
+
+                        if (tipPulgar.x >= areaDown_x && tipPulgar.x <= areaUp_x && tipPulgar.y >= areaDown_y && tipPulgar.y <= areaUp_y){
+                            console.log("Mirando de frente","Tirando el pelo por arriba");
+                        }
                     }
 
-                    if (posesHand.length == 2 && tipPulgar2.x >= areaDown_x && tipPulgar2.x <= areaUp_x && tipPulgar2.y >= areaDown_y && tipPulgar2.y <= areaUp_y){
-                        console.log("Mirando de frente","Tirando el pelo!");
+                    else if (posesHand.length == 2 && tipPulgar2.y <= frente && tipPulgar2.y >= areaDown_y){
+
+                        if (tipPulgar2.x >= areaDown_x && tipPulgar2.x <= areaUp_x && tipPulgar2.y >= areaDown_y && tipPulgar2.y <= areaUp_y){
+                            console.log("Mirando de frente","Tirando el pelo por arriba");
+                        }
                     }
-                
+
+                    // ZONA A LOS COSTADOS DE LA CABEZA
+                    else if (tipPulgar.y > frente && tipPulgar.y <= areaUp_y){
+
+                        if (tipPulgar.x >= areaDown_x && tipPulgar.x <= orejaRight.x){
+                            console.log("Mirando de frente","Tirando el pelo por el costado derecho");
+                        }
+
+                        else if (tipPulgar.x >= orejaLeft.x && tipPulgar.x <= areaUp_x){
+                            console.log("Mirando de frente","Tirando el pelo por el costado izquierdo");
+                        }
+                    }
+
+                    else if (posesHand.length == 2 && tipPulgar2.y > frente && tipPulgar2.y <= areaUp_y){
+
+                        if (tipPulgar2.x >= areaDown_x && tipPulgar2.x <= orejaRight.x){
+                            console.log("Mirando de frente","Tirando el pelo por el costado derecho");
+                        }
+
+                        else if (tipPulgar2.x >= orejaLeft.x && tipPulgar2.x <= areaUp_x){
+                            console.log("Mirando de frente","Tirando el pelo por el costado izquierdo");
+                        }
+                    }
                 }
+
                 //Mirando hacia la izquierda
                 else if (dist_nariz_bocaCentro - calibracion_perfil > dist_nariz_bocaLeft && dist_nariz_bocaCentro < dist_nariz_bocaRight){
     
@@ -289,7 +330,7 @@ async function predict() {
                         }
                     }
 
-                    if (posesHand.length == 2 && tipPulgar2.y <= areaUp_y && tipPulgar2.y >= areaDown_y){
+                    else if (posesHand.length == 2 && tipPulgar2.y <= areaUp_y && tipPulgar2.y >= areaDown_y){
     
                         areaDown_x = orejaRight.x - (orejaRight.y - tipPulgar2.y) / altura
     
@@ -297,8 +338,6 @@ async function predict() {
                             console.log("Mirando hacia la izquierda","Tirando el pelo!");
                         }
                     }
-
-
                 }
                 //Mirando hacia la derecha
                 else if (dist_nariz_bocaCentro < dist_nariz_bocaLeft && dist_nariz_bocaCentro - calibracion_perfil > dist_nariz_bocaRight){
@@ -319,7 +358,7 @@ async function predict() {
                         }
                     }
 
-                    if (posesHand.length == 2 && tipPulgar2.y <= areaUp_y && tipPulgar2.y >= areaDown_y){
+                    else if (posesHand.length == 2 && tipPulgar2.y <= areaUp_y && tipPulgar2.y >= areaDown_y){
     
                         areaUp_x = orejaLeft.x + (orejaLeft.y - tipPulgar2.y) / altura
     
@@ -330,7 +369,10 @@ async function predict() {
                 }
             }
         }
-        
+    }
+
+    if(morder_objetos){
+        console.log("CODIGO DE DETECCION")
     }
 }
 
