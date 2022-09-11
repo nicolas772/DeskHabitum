@@ -28,7 +28,11 @@ const createWindow = () => {
 
     //win.webContents.openDevTools();
     //win.loadFile('src/views/index.html');
+<<<<<<< HEAD
     win.loadFile('src/views/index.html');
+=======
+    win.loadFile('src/views/dashboard3.html');
+>>>>>>> fabian
 }
 
 app.whenReady().then(() => {
@@ -46,3 +50,9 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+
+
+
+
+

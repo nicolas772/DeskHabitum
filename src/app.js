@@ -454,3 +454,61 @@ function carga_home(){
 
 window.onload = carga_home;
 
+
+
+
+/*mas graficos */
+const checktricorec = document.getElementById('checktricorec');
+const tricorec = document.getElementById('tricorec');
+
+
+
+const tricomes = document.getElementById('tricomes');
+const tricoanio = document.getElementById('tricoanio');
+
+const checktricomes = document.getElementById('checktricomes');
+const checktricoanio = document.getElementById('checktricoanio');
+
+checktricorec.addEventListener('click', function handleClick() {
+  if (checktricorec.checked) {
+    tricorec.style.display = 'block';
+    tricomes.style.display = 'none';
+    tricoanio.style.display = 'none';
+    tricorec.style.visibility = 'visible';
+    tricomes.style.visibility = 'hidden';
+    tricoanio.style.visibility = 'hidden';
+    
+  } else {
+    tricorec.style.display = 'none';
+    tricorec.style.visibility = 'hidden';
+  }
+});
+
+checktricomes.addEventListener('click', function handleClick() {
+  if (checktricomes.checked) {
+    tricorec.style.display = 'none';
+    tricomes.style.display = 'block';
+    tricoanio.style.display = 'none';
+    tricorec.style.visibility = 'hidden';
+    tricomes.style.visibility = 'visible';
+    tricoanio.style.visibility = 'hidden';
+  } else {
+    tricomes.style.display = 'none';
+    tricomes.style.visibility = 'hidden';
+  }
+});
+
+checktricoanio.addEventListener('click', function handleClick() {
+  if (checktricoanio.checked) {
+    tricorec.style.display = 'none';
+    tricomes.style.display = 'none';
+    tricoanio.style.display = 'block';
+    tricorec.style.visibility = 'hidden';
+    tricomes.style.visibility = 'hidden';
+    tricoanio.style.visibility = 'visible';
+    
+  } else {
+    tricoanio.style.display = 'none';
+    tricoanio.style.visibility = 'hidden';
+  }
+});
