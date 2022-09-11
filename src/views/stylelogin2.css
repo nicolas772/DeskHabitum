@@ -1,3 +1,13 @@
+h1 {
+  margin: 0 0 20px;
+  padding: 0;
+  font-size: 20px;
+  font-weight: 300;
+  color: #005b62;
+  
+}
+
+
 /* Form */
 .form {
     position: relative;
@@ -87,11 +97,12 @@
     text-align: center;
   }
   .container .info h1 {
-    margin: 0 0 15px;
+    margin: 0 0 20px;
     padding: 0;
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 300;
-    color: #1a1a1a;
+    color: #005b62;
+    
   }
   .container .info span {
     color: #4d4d4d;
@@ -135,4 +146,19 @@
     width: auto;
     height: auto;
     transform: translateX(-50%) translateY(-50%);
+  }
+
+  
+  .checkbox {
+    display: flex;
+    left:1;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.2em;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    padding-right: 210px;
   }
