@@ -27,17 +27,6 @@ let respuesta
 //lista que guarda el inicio y final del mal habito de comerse uñas en la sesion actual
 //let lista_unhas = [];
 
-//para paso de mensajes entre handlebuttons y processWebcam
-ipcRenderer.on('port', e => {
-    // port received, make it globally available.
-    window.electronMessagePort = e.ports[0]
-  
-    window.electronMessagePort.onmessage = messageEvent => {
-      // handle message
-      console.log("message event process webcam: ", messageEvent.data)
-    }
-})
-
 function startCooldown() {
     cooldown = true;
     setTimeout (function(){ cooldown = false}, RECHARGE_TIME);
@@ -61,8 +50,17 @@ function doNotify(){
     })
 }
 
+async function camara_on(){
+    let flag = true
+    while(true){
+        //run = rescatar numero del archivo
+        //run == 1 and flag -> corriendo == true y init_model() flag = false
+        //run == 0 -> corriendo == false flag = true
+    }
+}
+
 async function init_model() {
-    if (!corriendo){
+    //if (!corriendo){
 
         doNotify();
 
@@ -81,7 +79,7 @@ async function init_model() {
         webcam.play();
         document.getElementById("HOLA").appendChild(webcam.canvas);
         window.requestAnimationFrame(loop);
-    }
+    //}
 }
 
 
@@ -97,14 +95,6 @@ async function loop() {
 
     //window.requestAnimationFrame(loop);
     window.setTimeout(loop, 0.1)
-    /*try{
-        console.log("entro a try")
-        window.api2.cerrar_camara_2((_event, value)=>{
-            console.log("ESTE ES DE LOOP: ", value)
-        })
-    }catch (e){
-        console.log("entro a catch")
-    }*/
 }
 
 // run the webcam image through the image model
@@ -153,5 +143,5 @@ async function predict() {
 }
 
 
-
-window.onload = init_model;
+window.onload = camara_on;
+//window.onload = init_model;

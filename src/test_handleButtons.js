@@ -5,6 +5,5 @@ function init_cam(){
 }
 
 function stop_cam(){
-    //window.api.cerrar_camara("")
-    window.electronMessagePort.postmessage('ping nicooooo')
+    window.api.cerrar_camara("")
 }

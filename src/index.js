@@ -30,18 +30,7 @@ const createWindow = () => {
           
       }
     })
-    camera_win.loadFile('src/views/camera.html')
-    // set up the channel.
-    const { port1, port2 } = new MessageChannelMain()
-
-    // once the webContents are ready, send a port to each webContents with postMessage.
-    win.once('ready-to-show', () => {
-      win.webContents.postMessage('port', null, [port1])
-    })
-
-    camera_win.once('ready-to-show', () => {
-      camera_win.webContents.postMessage('port', null, [port2])
-    })
+    camera_win.loadFile('src/views/camera.html');
 }
 
 app.on('window-all-closed', () => {
@@ -57,7 +46,7 @@ app.on('activate', () => {
 })
 
 
-function loginWindow () {
+/*function loginWindow () {
   winlogin = new BrowserWindow({
    width: 900,
    height: 700,
@@ -71,24 +60,12 @@ function loginWindow () {
  })
 
  winlogin.loadFile('src/views/login.html')
-}
-
-
-/*function loginWindow () {
-  winlogin = new BrowserWindow({
-   width: 900,
-   height: 700,
-   webPreferences: {
-    // nodeIntegration: true,
-    // contextIsolation:true,
-    // devTools:false,
-     preload:path.join(__dirname, 'preload.js')
-     
-   }
- })
-
- winlogin.loadFile('src/views/index.html')
 }*/
+
+
+function loginWindow () {
+  createWindow()
+}
 
 ipcMain.handle('login', (event, obj) => {
   validatelogin(obj)
@@ -113,40 +90,13 @@ function validatelogin(obj) {
 
 
 //Funcion para crear nueva camara desde boton "comenzar"
-ipcMain.on('iniciar-camara', (event, data) => {
-
-  /*camera_win = new BrowserWindow({
-        width: 900,
-        height: 700,
-        webPreferences: {
-            // nodeIntegration: true,
-            // contextIsolation:true,
-            //devTools:true,
-            preload:path.join(__dirname, 'test_processWebcam.js')
-            
-        }
-    })
-
-  // set up the channel.
-  const { port1, port2 } = new MessageChannelMain()
-
-  // once the webContents are ready, send a port to each webContents with postMessage.
-  win.once('ready-to-show', () => {
-    win.webContents.postMessage('port', null, [port1])
-  })
-
-  camera_win.once('ready-to-show', () => {
-    camera_win.webContents.postMessage('port', null, [port2])
-  })
-  camera_win.loadFile('src/views/camera.html')
-  */
-
+/*ipcMain.on('iniciar-camara', (event, data) => {
   corriendo = "true"
   let respuesta = "llego proceso a main"
   event.returnValue = respuesta;
 })
 
-/*ipcMain.on('cerrar-camara', (event, data) => {
+ipcMain.on('cerrar-camara', (event, data) => {
   //camera_win.close()
   corriendo = "false"
 })*/

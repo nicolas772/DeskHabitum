@@ -1,37 +1,28 @@
 const model = require('./model/model.js')
 const {contextBridge, ipcRenderer} = require("electron");
+var fs = require('fs');
 
-ipcRenderer.on('port', e => {
-    // port received, make it globally available.
-    window.electronMessagePort = e.ports[0]
-  
-    window.electronMessagePort.onmessage = messageEvent => {
-      // handle message
-      console.log("message event preload: ",messageEvent.data)
-    }
-})
-
-
-
-const iniciar_camara = (data) => {
-    let respuesta = ipcRenderer.sendSync('iniciar-camara', data)
-    return respuesta
+const iniciar_camara = (d) => {
+    fs.writeFileSync("./data/cameraHandle.txt", "1", function(err) {
+        if (err) {
+          return console.log(err);
+        }
+      
+        console.log("El archivo fue creado correctamente");
+    });
 }
 
-/*const cerrar_camara = (data) => {
-    //let respuesta = ipcRenderer.sendSync('cerrar-camara', data)
-    //return respuesta
-    let respuesta = ipcRenderer.on('port', e => {
-        // port received, make it globally available.
-        window.electronMessagePort = e.ports[0]
-      
-        window.electronMessagePort.onmessage = messageEvent => {
-          // handle message
-          console.log("message event preload: ",messageEvent.data)
+const cerrar_camara = (data) => {
+    fs.writeFileSync("./data/cameraHandle.txt", "0", function(err) {
+        if (err) {
+          return console.log(err);
         }
-    })
-    return respuesta
-}*/
+      
+        console.log("El archivo fue creado correctamente");
+    });
+}
+
+
 
 const cerrar_sesion = (data) => {
     let respuesta = ipcRenderer.sendSync('cerrar-sesion', data)
@@ -145,6 +136,7 @@ contextBridge.exposeInMainWorld("api", {
     updateConfig: updateConfig,
     iniciar_camara: iniciar_camara,
     cerrar_sesion: cerrar_sesion,
+    cerrar_camara: cerrar_camara
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
