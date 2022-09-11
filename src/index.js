@@ -7,6 +7,7 @@ let win, camera_win;
 
 
 
+
 const createWindow = () => {
       win = new BrowserWindow({
       width: 900,
@@ -76,7 +77,7 @@ function validatelogin(obj) {
   )
 }
 
-
+//Funcionalidades registrarse
 function regWindow () {
   winreg = new BrowserWindow({
    width: 900,
@@ -99,10 +100,30 @@ ipcMain.handle('registrar', (event, obj) => {
 });
 
 function regUser(obj) {
+  const {nombre, apellido, email, password } = obj
+  model.confirmMail(email).then( existe =>
+    {
+      if (existe>0) {
+        new Notification({
+          title:"registro",
+          body: 'Email ya registrado'
+        }).show()
+      } else {
+        model.createUser(nombre, apellido, email, password)
+        new Notification({
+          title:"registro",
+          body: 'Usuario registrado correctamente'
+        }).show()
+      }
+    }
+
+
+
+  )
 
 }
 
-
+//Movimiento entre vistas login/registro
 ipcMain.handle('moveToReg', (event, obj) => {
   toReg();
 });
