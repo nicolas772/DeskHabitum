@@ -4,7 +4,6 @@ const model = require('./model/model.js')
 
 let winlogin;
 let win, camera_win;
-let corriendo;
 
 
 const createWindow = () => {
@@ -20,8 +19,8 @@ const createWindow = () => {
     win.loadFile('src/views/index.html');
     
     camera_win = new BrowserWindow({
-      width: 900,
-      height: 700,
+      width: 600,
+      height: 600,
       webPreferences: {
           // nodeIntegration: true,
           // contextIsolation:true,
@@ -31,6 +30,7 @@ const createWindow = () => {
       }
     })
     camera_win.loadFile('src/views/camera.html');
+    camera_win.webContents.openDevTools();
 }
 
 app.on('window-all-closed', () => {

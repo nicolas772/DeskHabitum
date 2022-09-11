@@ -24,8 +24,12 @@ let tiempo_corriendo = false;
 let inicio_sesion;
 let fin_sesion;
 let respuesta
+let run
 //lista que guarda el inicio y final del mal habito de comerse uñas en la sesion actual
 //let lista_unhas = [];
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 function startCooldown() {
     cooldown = true;
@@ -50,20 +54,34 @@ function doNotify(){
     })
 }
 
-async function camara_on(){
+async function camaraHandle(){ //funcion que va leyendo el archivo cameraHandle infinitamente.
     let flag = true
+    fs.writeFileSync('./src/data/cameraHandle.txt', "0", function(err) {
+        if (err) {
+          return console.log(err);
+        }
+    });//esto es para que siempre inicie apagado
     while(true){
-        //run = rescatar numero del archivo
-        //run == 1 and flag -> corriendo == true y init_model() flag = false
-        //run == 0 -> corriendo == false flag = true
+        await sleep(100);
+        fs.readFile('./src/data/cameraHandle.txt', 'utf8', function(err, data) {
+            if (err) {
+              return console.log(err);
+            }
+            run=data
+        });
+        if (run=='1' && flag){
+            corriendo=true
+            flag=false
+            init_model()
+        }else if (run =='0' && !flag){
+            corriendo = false
+            flag=true
+        }
     }
 }
 
 async function init_model() {
-    //if (!corriendo){
-
         doNotify();
-
         //inicio_sesion = sesion;
         corriendo = true;
 
@@ -79,7 +97,6 @@ async function init_model() {
         webcam.play();
         document.getElementById("HOLA").appendChild(webcam.canvas);
         window.requestAnimationFrame(loop);
-    //}
 }
 
 
@@ -143,5 +160,4 @@ async function predict() {
 }
 
 
-window.onload = camara_on;
-//window.onload = init_model;
+window.onload = camaraHandle;
