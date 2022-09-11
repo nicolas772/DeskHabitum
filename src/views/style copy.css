@@ -597,15 +597,17 @@ body.shrink .message-count{
     overflow: hidden;
     border-radius:15px;
     box-shadow:0 0 5px rgba(0,0,0,0.25);
+
     
 }
+
 
 .radio2 .radio__input{
-    display:none;
+   display:none;
 }
 .radio2 .radio__label{
+    color: #ffffff;
     
-
     background:#3ac68f ;
     cursor: pointer;
     transition:background 0.1s;
@@ -616,27 +618,33 @@ body.shrink .message-count{
     border-right: 1px solid #005b52;
 }
 
-.radio2 .radio__input:checked +  .radio__label{
+.radio2 .radio__input:checked + .radio__label{
     background:  #005b52;
 }
 
 
-
-/*- INICIO MOSTRAR REPORTES POR FECHA--*/
-#tricorec {
-    visibility: visible;
+.radio2 .tab {
+    width: 100%;
+    padding: 10px;
+    background: #fff;
+    order: 1;
+    display: none;
 }
-#tricomes{
-    visibility: hidden;
-}
-
-#tricoanio{
-    visibility: hidden;
+.radio2 .tab h2 {
+    font-size: 3em;
 }
 
+.radio2 input[type='radio']:checked + label + .tab {
+    display: block;
+}
+
+.radio2 input[type="radio"]:checked + label {
+    background: #fff;
+}
 
 
-/*-FIN MOSTRAR REPORTES POR FECHA-*/
+
+
 /*---FIN TABS ELECCION RECIENTES MES ANIO---*/
 /* DESDE AQUI PARTE PARA NOTIFICACION DE EXITO DE TAREA - EXPERIMENTAL PARA TESTING*/
 

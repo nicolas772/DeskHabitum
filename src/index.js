@@ -28,7 +28,7 @@ const createWindow = () => {
 
     //win.webContents.openDevTools();
     //win.loadFile('src/views/index.html');
-    win.loadFile('src/views/dashboard2.html');
+    win.loadFile('src/views/dashboard3.html');
 }
 
 app.whenReady().then(() => {
@@ -46,3 +46,9 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+
+
+
+
+
