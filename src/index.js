@@ -13,11 +13,14 @@ const createWindow = () => {
       height: 700,
       webPreferences: {
         nodeIntegration: true,
-        preload: path.join(__dirname, './preload.js')
+        preload: path.join(__dirname, './preload.js'),
+        enableRemoteModule: true
+        
       }
     })
     //win.webContents.openDevTools();
     win.loadFile('src/views/index.html');
+
 }
 
 app.on('window-all-closed', () => {
@@ -109,8 +112,15 @@ ipcMain.on('iniciar-camara', (event, data) => {
 })
 
 ipcMain.on('cerrar-camara', (event, data) => {
-
   camera_win.close()
+  try{
+    winlogin.close()
+  }
+  catch{
+    win.close()
+  }
+  createWindow()
+
 })
 
 

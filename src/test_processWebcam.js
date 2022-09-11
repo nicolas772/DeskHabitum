@@ -49,12 +49,11 @@ function doNotify(){
     })
 }
 
-async function init_model(sesion) {
+async function init_model() {
     if (!corriendo){
 
         doNotify();
 
-        inicio_sesion = sesion;
         corriendo = true;
 
         const modelURL = URL + 'model.json';
