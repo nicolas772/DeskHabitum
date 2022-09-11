@@ -4,7 +4,7 @@ const model = require('./model/model.js')
 
 let winlogin;
 let win, camera_win;
-
+let ID_USER;
 
 const createWindow = () => {
       win = new BrowserWindow({
@@ -23,7 +23,7 @@ const createWindow = () => {
     camera_win = new BrowserWindow({
       width: 600,
       height: 600,
-      show: false,
+      //show: false,
       webPreferences: {
           // nodeIntegration: true,
           // contextIsolation:true,
@@ -33,7 +33,7 @@ const createWindow = () => {
       }
     })
     camera_win.loadFile('src/views/camera.html');
-    //camera_win.webContents.openDevTools();
+    camera_win.webContents.openDevTools();
 }
 
 app.on('window-all-closed', () => {
@@ -79,6 +79,7 @@ function validatelogin(obj) {
   model.validateUser(email, password).then(
     results => { //results es el id del usuario loggeado
       if(results > 0){
+        ID_USER = results
         createWindow();
         winlogin.close();
       }else{
@@ -158,21 +159,15 @@ function toLogin(){
 
 
 //Funcion para crear nueva camara desde boton "comenzar"
-/*ipcMain.on('iniciar-camara', (event, data) => {
-  corriendo = "true"
-  let respuesta = "llego proceso a main"
-  event.returnValue = respuesta;
+ipcMain.on('get-user-id', (event, data) => {
+  event.returnValue = ID_USER;
 })
-
-ipcMain.on('cerrar-camara', (event, data) => {
-  //camera_win.close()
-  corriendo = "false"
-})*/
 
 //Funcion para cerrar sesión y cambiar a vista de login
 ipcMain.on('cerrar-sesion', (event, data) => {
   loginWindow()
   win.close()
+  camera_win.close()
 })
 
 

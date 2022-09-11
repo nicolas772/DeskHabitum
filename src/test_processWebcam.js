@@ -3,7 +3,8 @@ const tf = require('@tensorflow/tfjs')
 const crud = require('./model/model.js')
 const fs = require('fs');
 const {contextBridge, ipcRenderer} = require("electron");
-let id_User = 2;
+let ID_USER = get_user_id()
+let config_user
 const URL = 'https://teachablemachine.withgoogle.com/models/83c4Qg0Gu/';
 //Variables para la ejecución de la webcam y modelo
 let model, webcam;
@@ -25,11 +26,28 @@ let inicio_sesion;
 let fin_sesion;
 let respuesta
 let run
+const NOTIFICATION_TITLE = 'Desk Habitum'
+const NOTIFICATION_BODY = 'Morderte las uñas es malo para tu salud. Seria bueno que dejaras de hacerlo :)'
+const CLICK_MESSAGE = 'Notification clicked!'
 //lista que guarda el inicio y final del mal habito de comerse uñas en la sesion actual
 //let lista_unhas = [];
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+function get_user_id(){
+    let respuesta = ipcRenderer.sendSync('get-user-id', "")
+    return respuesta   
+}
+
+async function getConfig(id_usuario){
+    await crud.getConfig(id_usuario).then(result => {
+        config_user = result[0];
+    });  
+}
+  //aqui debiera ser ID_USER, pero no hay datos aun en la BD
+
 
 function startCooldown() {
     cooldown = true;
@@ -41,10 +59,6 @@ function habitoCooldown() {
     setTimeout (function(){ habito_cooldown = true}, 5000);
 }
 
-const NOTIFICATION_TITLE = 'Desk Habitum'
-const NOTIFICATION_BODY = 'Morderte las uñas es malo para tu salud. Seria bueno que dejaras de hacerlo :)'
-const CLICK_MESSAGE = 'Notification clicked!'
-
 function doNotify(){
     Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
@@ -55,6 +69,9 @@ function doNotify(){
 }
 
 async function camaraHandle(){ //funcion que va leyendo el archivo cameraHandle infinitamente.
+    await getConfig(2)
+    console.log("usuario logeado:", ID_USER)
+    console.log("config: ", config_user)
     let flag = true
     fs.writeFileSync('./src/data/cameraHandle.txt', "0", function(err) {
         if (err) {
