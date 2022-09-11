@@ -32,7 +32,7 @@ const createWindow = () => {
       }
     })
     camera_win.loadFile('src/views/camera.html');
-    camera_win.webContents.openDevTools();
+    //camera_win.webContents.openDevTools();
 }
 
 app.on('window-all-closed', () => {

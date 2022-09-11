@@ -54,10 +54,6 @@ function doNotify(){
     })
 }
 
-<<<<<<< HEAD
-async function init_model() {
-    if (!corriendo){
-=======
 async function camaraHandle(){ //funcion que va leyendo el archivo cameraHandle infinitamente.
     let flag = true
     fs.writeFileSync('./src/data/cameraHandle.txt', "0", function(err) {
@@ -83,15 +79,10 @@ async function camaraHandle(){ //funcion que va leyendo el archivo cameraHandle 
         }
     }
 }
->>>>>>> nico
 
 async function init_model() {
         doNotify();
-<<<<<<< HEAD
-
-=======
         //inicio_sesion = sesion;
->>>>>>> nico
         corriendo = true;
 
         const modelURL = URL + 'model.json';
