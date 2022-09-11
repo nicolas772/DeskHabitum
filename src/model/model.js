@@ -40,6 +40,13 @@ const getUserData = async (id) => {
     return result
 }
 
+const confirmMail = async (email) => {
+    let query = `SELECT * FROM users WHERE email = '${email}'`;
+    const res = await conexion.query(query)
+    const result = res.rowCount
+    return result
+}
+
 //QUERYS SESIONES
 const createSesion = async (id_usuario, inicio, final, total) => {
     let query = `INSERT INTO sesions (id_user, inicio, fin, total_time) VALUES (${id_usuario}, '${inicio}', '${final}', '${total}')`;
@@ -154,4 +161,4 @@ const getConfig = async (id_usuario) => {
     return result
 }
 
-module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion, totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesion, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas, validateUser, postConfig, getConfig, updateConfig}
+module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion, totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesion, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas, validateUser, postConfig, getConfig, updateConfig, confirmMail}

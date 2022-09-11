@@ -7,17 +7,21 @@ let win, camera_win;
 
 
 
+
 const createWindow = () => {
       win = new BrowserWindow({
       width: 900,
       height: 700,
       webPreferences: {
         nodeIntegration: true,
-        preload: path.join(__dirname, './preload.js')
+        preload: path.join(__dirname, './preload.js'),
+        enableRemoteModule: true
+        
       }
     })
     //win.webContents.openDevTools();
     win.loadFile('src/views/index.html');
+
 }
 
 app.on('window-all-closed', () => {
@@ -32,14 +36,14 @@ app.on('activate', () => {
   }
 })
 
-/*
+
 function loginWindow () {
   winlogin = new BrowserWindow({
    width: 900,
    height: 700,
    webPreferences: {
-    // nodeIntegration: true,
-    // contextIsolation:true,
+    nodeIntegration: true,
+    contextIsolation:true,
     // devTools:false,
      preload:path.join(__dirname, 'login.js')
      
@@ -48,23 +52,9 @@ function loginWindow () {
 
  winlogin.loadFile('src/views/login.html')
 }
-*/
 
-function loginWindow () {
-  winlogin = new BrowserWindow({
-   width: 900,
-   height: 700,
-   webPreferences: {
-    // nodeIntegration: true,
-    // contextIsolation:true,
-    // devTools:false,
-     preload:path.join(__dirname, 'preload.js')
-     
-   }
- })
 
- winlogin.loadFile('src/views/index.html')
-}
+
 
 ipcMain.handle('login', (event, obj) => {
   validatelogin(obj)
@@ -85,6 +75,71 @@ function validatelogin(obj) {
       }
     }    
   )
+}
+
+//Funcionalidades registrarse
+function regWindow () {
+  winreg = new BrowserWindow({
+   width: 900,
+   height: 700,
+   webPreferences: {
+    // nodeIntegration: true,
+    // contextIsolation:true,
+    // devTools:false,
+     preload:path.join(__dirname, 'registro.js')
+     
+   }
+ })
+
+ winreg.loadFile('src/views/registro.html')
+}
+
+
+ipcMain.handle('registrar', (event, obj) => {
+  regUser(obj)
+});
+
+function regUser(obj) {
+  const {nombre, apellido, email, password } = obj
+  model.confirmMail(email).then( existe =>
+    {
+      if (existe>0) {
+        new Notification({
+          title:"registro",
+          body: 'Email ya registrado'
+        }).show()
+      } else {
+        model.createUser(nombre, apellido, email, password)
+        new Notification({
+          title:"registro",
+          body: 'Usuario registrado correctamente'
+        }).show()
+      }
+    }
+
+
+
+  )
+
+}
+
+//Movimiento entre vistas login/registro
+ipcMain.handle('moveToReg', (event, obj) => {
+  toReg();
+});
+
+function toReg(){
+  regWindow();
+  winlogin.close();
+}
+
+ipcMain.handle('moveToLogin', (event, obj) => {
+  toLogin();
+});
+
+function toLogin(){
+  loginWindow();
+  winreg.close();
 }
 
 
@@ -109,8 +164,15 @@ ipcMain.on('iniciar-camara', (event, data) => {
 })
 
 ipcMain.on('cerrar-camara', (event, data) => {
-
   camera_win.close()
+  try{
+    winlogin.close()
+  }
+  catch{
+    win.close()
+  }
+  createWindow()
+
 })
 
 

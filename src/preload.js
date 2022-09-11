@@ -28,6 +28,10 @@ const getUserData = (id) => {
     return model.getUserData(id);
 }
 
+
+const confirmMail = (email) => {
+    return model.confirmMail(email);
+}
 const createSesion = (id_usuario, inicio, final, total) => {
     return model.createSesion(id_usuario, inicio, final, total)
 }
@@ -124,7 +128,8 @@ contextBridge.exposeInMainWorld("api", {
     updateConfig: updateConfig,
     iniciar_camara: iniciar_camara,
     cerrar_sesion: cerrar_sesion,
-    cerrar_camara: cerrar_camara
+    cerrar_camara: cerrar_camara,
+    confirmMail: confirmMail
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
