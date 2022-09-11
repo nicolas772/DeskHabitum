@@ -10,9 +10,9 @@ let modeloHand, modeloBlaze, webcam, detectorHand, detectorBlaze;
 let corriendo = false;
 
 //Variables que determinan si la detección del mal habito está encendida.
-let onicofagia = false;//comer uñas
-let tricotilomania = true;//arrancar pelos
-let morder_objetos = false;
+let onicofagia = true; //comer uñas
+let tricotilomania = true; //arrancar pelos
+let morder_objetos = true; //detectar mordidas
 
 //Funciones para calcular la distancia entre dos puntos
 function distancia_puntos(x1, y1, x2, y2){
@@ -44,20 +44,57 @@ function mano_pinza(pulgar, indice, medio, muñeca){
     return false
 }
 
+function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_l){
+
+    //En caso de que la mordida se detecte en la punta superior del objeto
+    if(b_x1 < x_i && x_i < b_x2 && b_y2 > y_u && y_u > b_y1){
+        console.log("MORDIENDO ARRIBA ")
+    }
+    else if(b_x1 < x_d && x_d < b_x2 && b_y2 > y_u && y_u > b_y1){
+        console.log("MORDIENDO ARRIBA ")
+
+    }else if(b_x1 < x_m && x_m < b_x2 && b_y2 > y_u && y_u > b_y1){
+        console.log("MORDIENDO ARRIBA ")
+
+    }
+    //En caso de que la mordida se detecte en la punta inferior del objeto
+    else if(b_x1 < x_i && x_i < b_x2 && b_y2 > y_l && y_l > b_y1){
+        console.log("MORDIENDO ABAJO ")
+    }
+    else if(b_x1 < x_d && x_d < b_x2 && b_y2 > y_l && y_l > b_y1){
+        console.log("MORDIENDO ABAJO ")
+    }
+    else if(b_x1 < x_m && x_m < b_x2 && b_y2 > y_l && y_l > b_y1){
+        console.log("MORDIENDO ABAJO ")
+    }
+    //En caso de que la mordida se detecte en el medio del objeto
+    else if(b_x1 < x_i && x_i < b_x2 && b_y2 > y_m && y_m > b_y1){
+        console.log("MORDIENDO MEDIO")
+    }
+    else if(b_x1 < x_d && x_d < b_x2 && b_y2 > y_m && y_m > b_y1){
+        console.log("MORDIENDO MEDIO")
+    }
+    else if(b_x1 < x_m && x_m < b_x2 && b_y2 > y_m && y_m > b_y1){
+        console.log("MORDIENDO MEDIO")
+    }
+
+}
+
 async function init_model_hand() {
     if (!corriendo){
         corriendo = true;
+
+        modeloBlaze = poseDetection.SupportedModels.BlazePose;
+        detectorBlaze = await poseDetection.createDetector(modeloBlaze, {runtime : 'tfjs', modelType : 'full'});
 
         if (onicofagia || tricotilomania){
             modeloHand = handPoseDetection.SupportedModels.MediaPipeHands;
             detectorHand = await handPoseDetection.createDetector(modeloHand, {runtime : 'tfjs', solutionPath: "https://cdn.jsdelivr.net/npm/@mediapipe/hands",  modelType : 'full'});
 
-            modeloBlaze = poseDetection.SupportedModels.BlazePose;
-            detectorBlaze = await poseDetection.createDetector(modeloBlaze, {runtime : 'tfjs', modelType : 'full'});
         }
 
         if (morder_objetos){
-            console.log("Carga del modelo")
+            model = await tf.loadGraphModel('../modelo_objetos/model.json');
         }
 
         const flip = false;
@@ -372,7 +409,284 @@ async function predict() {
     }
 
     if(morder_objetos){
-        console.log("CODIGO DE DETECCION")
+        tf.engine().startScope()   // Liberar tensores que no se ocupan
+        tensor = tf.image.resizeBilinear(tf.browser.fromPixels(webcam.canvas), [224, 224]).div(255.0).expandDims(0);
+        modelo = await model.executeAsync(tensor).then(predictions=> { 
+            const data = predictions;
+            const [boxes, scores, classes, valid_detections] = predictions;
+            const boxes_data = boxes.dataSync();
+            const scores_data = scores.dataSync();
+            const classes_data = classes.dataSync();
+            const valid_detections_data = valid_detections.dataSync()[0];
+    
+    
+            let [clase1_x1,clase1_y1,clase1_x2,clase1_y2] = boxes_data.slice(0,4);
+            let [clase2_x1,clase2_y1,clase2_x2,clase2_y2] = boxes_data.slice(4,8);
+            let [clase3_x1,clase3_y1,clase3_x2,clase3_y2] = boxes_data.slice(8,12);
+            let [clase4_x1,clase4_y1,clase4_x2,clase4_y2] = boxes_data.slice(12,16);
+            let [clase5_x1,clase5_y1,clase5_x2,clase5_y2] = boxes_data.slice(16,20);
+            let [clase6_x1,clase6_y1,clase6_x2,clase6_y2] = boxes_data.slice(20,24);
+            
+            //if( manoIzquierda.x )
+
+            clase1 = classes_data[0];
+            clase2 = classes_data[1];
+            clase3 = classes_data[2];
+            clase4 = classes_data[3];
+            clase5 = classes_data[4];
+            clase6 = classes_data[5];
+            
+            //Si se detecta al menos una clase, entrar aquí
+            if (clase1 != -1){
+                
+                //Si lo primero que se detecta es la boca
+                // Si la boca está en la primera posición del arreglo
+                if(clase1 == 0){
+    
+                    boca_x1 = clase1_x1
+                    boca_x2 = clase1_x2
+                    boca_y1 = clase1_y1
+                    boca_y2 = clase1_y2
+    
+                    //Si detecta un objeto fino o grande
+                    if(clase2 == 1 || clase2 == 2){
+        
+                        x_izq = clase2_x1
+                        x_der = clase2_x2
+                        x_med = (clase2_x1 + clase2_x2) / 2.0
+                        y_up = clase2_y1
+                        y_med = Math.abs(clase2_y2 - clase2_y1) / 2.0
+                        y_low = clase2_y2
+                        
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                    }if(clase3 == 1 || clase3 == 2){
+                        x_izq = clase3_x1
+                        x_der = clase3_x2
+                        x_med = (clase3_x1 + clase3_x2) / 2.0
+                        y_up = clase3_y1
+                        y_med = Math.abs(clase3_y2 - clase3_y1) / 2.0
+                        y_low = clase3_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                    }if(clase4 == 1 || clase4 == 2){
+                        x_izq = clase4_x1
+                        x_der = clase4_x2
+                        x_med = (clase4_x1 + clase4_x2) / 2.0
+                        y_up = clase4_y1
+                        y_med = Math.abs(clase4_y2 - clase4_y1) / 2.0
+                        y_low = clase4_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+    
+                    }if(clase5 == 1 || clase5 == 2){
+                        x_izq = clase5_x1
+                        x_der = clase5_x2
+                        x_med = (clase5_x1 + clase5_x2) / 2.0
+                        y_up = clase5_y1
+                        y_med = Math.abs(clase5_y2 - clase5_y1) / 2.0
+                        y_low = clase5_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                    }
+        
+                }
+                
+                // Si la boca está en la segunda posición del arreglo
+                else if(clase2 == 0){
+    
+                    boca_x1 = clase2_x1
+                    boca_x2 = clase2_x2
+                    boca_y1 = clase2_y1
+                    boca_y2 = clase2_y2
+    
+                    //Si detecta un objeto fino o grande
+                    if(clase1 == 1 || clase1 == 2){
+        
+                        x_izq = clase1_x1
+                        x_der = clase1_x2
+                        x_med = (clase1_x1 + clase1_x2) / 2.0
+                        y_up = clase1_y1
+                        y_med = Math.abs(clase1_y2 - clase1_y1) / 2.0
+                        y_low = clase1_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+        
+                    }if(clase3 == 1 || clase3 == 2){
+                        x_izq = clase3_x1
+                        x_der = clase3_x2
+                        x_med = (clase3_x1 + clase3_x2) / 2.0
+                        y_up = clase3_y1
+                        y_med = Math.abs(clase3_y2 - clase3_y1) / 2.0
+                        y_low = clase3_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                    }if(clase4 == 1 || clase4 == 2){
+                        x_izq = clase4_x1
+                        x_der = clase4_x2
+                        x_med = (clase4_x1 + clase4_x2) / 2.0
+                        y_up = clase4_y1
+                        y_med = Math.abs(clase4_y2 - clase4_y1) / 2.0
+                        y_low = clase4_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+    
+                    }if(clase5 == 1 || clase5 == 2){
+                        x_izq = clase5_x1
+                        x_der = clase5_x2
+                        x_med = (clase5_x1 + clase5_x2) / 2.0
+                        y_up = clase5_y1
+                        y_med = Math.abs(clase5_y2 - clase5_y1) / 2.0
+                        y_low = clase5_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                    
+    
+                    }
+                }
+                // Si la boca está en la tercera posición del arreglo
+                else if(clase3 == 0){
+    
+                    boca_x1 = clase3_x1
+                    boca_x2 = clase3_x2
+                    boca_y1 = clase3_y1
+                    boca_y2 = clase3_y2
+    
+                    //Si detecta un objeto fino o grande
+                    if(clase1 == 1 || clase1 == 2){
+        
+                        x_izq = clase1_x1
+                        x_der = clase1_x2
+                        x_med = (clase1_x1 + clase1_x2) / 2.0
+                        y_up = clase1_y1
+                        y_med = Math.abs(clase1_y2 - clase1_y1) / 2.0
+                        y_low = clase1_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+        
+                    }if(clase2 == 1 || clase2 == 2){
+                        x_izq = clase2_x1
+                        x_der = clase2_x2
+                        x_med = (clase2_x1 + clase2_x2) / 2.0
+                        y_up = clase2_y1
+                        y_med = Math.abs(clase2_y2 - clase2_y1) / 2.0
+                        y_low = clase2_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+    
+                    }if(clase4 == 1 || clase4 == 2){
+                        x_izq = clase4_x1
+                        x_der = clase4_x2
+                        x_med = (clase4_x1 + clase4_x2) / 2.0
+                        y_up = clase4_y1
+                        y_med = Math.abs(clase4_y2 - clase4_y1) / 2.0
+                        y_low = clase4_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+    
+                    }if(clase5 == 1 || clase5 == 2){
+                        x_izq = clase5_x1
+                        x_der = clase5_x2
+                        x_med = (clase5_x1 + clase5_x2) / 2.0
+                        y_up = clase5_y1
+                        y_med = Math.abs(clase5_y2 - clase5_y1) / 2.0
+                        y_low = clase5_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+    
+                    }
+                    
+                }
+                
+    
+    
+                // Si la boca está en la cuarta posición del arreglo
+                else if(clase4 == 0){
+    
+                    boca_x1 = clase4_x1
+                    boca_x2 = clase4_x2
+                    boca_y1 = clase4_y1
+                    boca_y2 = clase4_y2
+    
+                    //Si detecta un objeto fino o grande
+                    if(clase1 == 1 || clase1 == 2){
+        
+                        x_izq = clase1_x1
+                        x_der = clase1_x2
+                        x_med = (clase1_x1 + clase1_x2) / 2.0
+                        y_up = clase1_y1
+                        y_med = Math.abs(clase1_y2 - clase1_y1) / 2.0
+                        y_low = clase1_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+    
+                    }if(clase2 == 1 || clase2 == 2){
+                        x_izq = clase2_x1
+                        x_der = clase2_x2
+                        x_med = (clase2_x1 + clase2_x2) / 2.0
+                        y_up = clase2_y1
+                        y_med = Math.abs(clase2_y2 - clase2_y1) / 2.0
+                        y_low = clase2_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+    
+                    }if(clase3 == 1 || clase3 == 2){
+                        x_izq = clase3_x1
+                        x_der = clase3_x2
+                        x_med = (clase3_x1 + clase3_x2) / 2.0
+                        y_up = clase3_y1
+                        y_med = Math.abs(clase3_y2 - clase3_y1) / 2.0
+                        y_low = clase3_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+    
+                    }if(clase5 == 1 || clase5 == 2){
+                        x_izq = clase5_x1
+                        x_der = clase5_x2
+                        x_med = (clase5_x1 + clase5_x2) / 2.0
+                        y_up = clase5_y1
+                        y_med = Math.abs(clase5_y2 - clase5_y1) / 2.0
+                        y_low = clase5_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                    }    
+                }
+                
+                // Si la boca está en la quinta posición del arreglo
+                else if(clase5 == 0){
+    
+                    boca_x1 = clase5_x1
+                    boca_x2 = clase5_x2
+                    boca_y1 = clase5_y1
+                    boca_y2 = clase5_y2
+    
+                    //Si detecta un objeto fino o grande
+                    if(clase1 == 1 || clase1 == 2){
+        
+                        x_izq = clase1_x1
+                        x_der = clase1_x2
+                        x_med = (clase1_x1 + clase1_x2) / 2.0
+                        y_up = clase1_y1
+                        y_med = Math.abs(clase1_y2 - clase1_y1) / 2.0
+                        y_low = clase1_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+    
+                    }if(clase2 == 1 || clase2 == 2){
+                        x_izq = clase2_x1
+                        x_der = clase2_x2
+                        x_med = (clase2_x1 + clase2_x2) / 2.0
+                        y_up = clase2_y1
+                        y_med = Math.abs(clase2_y2 - clase2_y1) / 2.0
+                        y_low = clase2_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+    
+                    }if(clase3 == 1 || clase3 == 2){
+                        x_izq = clase3_x1
+                        x_der = clase3_x2
+                        x_med = (clase3_x1 + clase3_x2) / 2.0
+                        y_up = clase3_y1
+                        y_med = Math.abs(clase3_y2 - clase3_y1) / 2.0
+                        y_low = clase3_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+    
+                    }if(clase4 == 1 || clase4 == 2){
+                        x_izq = clase4_x1
+                        x_der = clase4_x2
+                        x_med = (clase4_x1 + clase4_x2) / 2.0
+                        y_up = clase4_y1
+                        y_med = Math.abs(clase4_y2 - clase4_y1) / 2.0
+                        y_low = clase4_y2
+                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                    }
+        
+                }    
+            }
+          });
+          tf.engine().endScope() // Liberar tensores que no se ocupan
     }
 }
 
