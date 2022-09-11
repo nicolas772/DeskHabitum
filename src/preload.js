@@ -1,19 +1,29 @@
 const model = require('./model/model.js')
 const {contextBridge, ipcRenderer} = require("electron");
+var fs = require('fs');
 
-
-const iniciar_camara = (data) => {
-    const respuesta = ipcRenderer.sendSync('iniciar-camara', data)
-    return respuesta
+const iniciar_camara = (d) => { //esta funcion es para manejar boton iniciar detección general
+    fs.writeFileSync('./src/data/cameraHandle.txt', "1", function(err) {
+        if (err) {
+          return console.log(err);
+        }
+      
+        console.log("El archivo fue creado correctamente");
+    });
 }
 
-const cerrar_camara = (data) => {
-    const respuesta = ipcRenderer.sendSync('cerrar-camara', data)
-    return respuesta
+const cerrar_camara = (data) => {//esta funcion es para manejar boton detener detección general
+    fs.writeFileSync('./src/data/cameraHandle.txt', "0", function(err) {
+        if (err) {
+          return console.log(err);
+        }
+      
+        console.log("El archivo fue creado correctamente");
+    });
 }
 
 const cerrar_sesion = (data) => {
-    const respuesta = ipcRenderer.sendSync('cerrar-sesion', data)
+    let respuesta = ipcRenderer.sendSync('cerrar-sesion', data)
     return respuesta
 }
 

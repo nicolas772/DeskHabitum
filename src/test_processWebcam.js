@@ -2,6 +2,7 @@ const tmImage = require('@teachablemachine/image');
 const tf = require('@tensorflow/tfjs')
 const crud = require('./model/model.js')
 const fs = require('fs');
+const {contextBridge, ipcRenderer} = require("electron");
 let id_User = 2;
 const URL = 'https://teachablemachine.withgoogle.com/models/83c4Qg0Gu/';
 //Variables para la ejecución de la webcam y modelo
@@ -22,9 +23,13 @@ let tiempo_corriendo = false;
 //variables para crear sesion
 let inicio_sesion;
 let fin_sesion;
-
+let respuesta
+let run
 //lista que guarda el inicio y final del mal habito de comerse uñas en la sesion actual
 //let lista_unhas = [];
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 function startCooldown() {
     cooldown = true;
@@ -49,11 +54,44 @@ function doNotify(){
     })
 }
 
+<<<<<<< HEAD
 async function init_model() {
     if (!corriendo){
+=======
+async function camaraHandle(){ //funcion que va leyendo el archivo cameraHandle infinitamente.
+    let flag = true
+    fs.writeFileSync('./src/data/cameraHandle.txt', "0", function(err) {
+        if (err) {
+          return console.log(err);
+        }
+    });//esto es para que siempre inicie apagado
+    while(true){
+        await sleep(100);
+        fs.readFile('./src/data/cameraHandle.txt', 'utf8', function(err, data) {
+            if (err) {
+              return console.log(err);
+            }
+            run=data
+        });
+        if (run=='1' && flag){
+            corriendo=true
+            flag=false
+            init_model()
+        }else if (run =='0' && !flag){
+            corriendo = false
+            flag=true
+        }
+    }
+}
+>>>>>>> nico
 
+async function init_model() {
         doNotify();
+<<<<<<< HEAD
 
+=======
+        //inicio_sesion = sesion;
+>>>>>>> nico
         corriendo = true;
 
         const modelURL = URL + 'model.json';
@@ -68,9 +106,6 @@ async function init_model() {
         webcam.play();
         document.getElementById("HOLA").appendChild(webcam.canvas);
         window.requestAnimationFrame(loop);
-
-
-    }
 }
 
 
@@ -133,4 +168,5 @@ async function predict() {
     }
 }
 
-window.onload = init_model;
+
+window.onload = camaraHandle;
