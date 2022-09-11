@@ -28,7 +28,7 @@ const createWindow = () => {
 
     //win.webContents.openDevTools();
     //win.loadFile('src/views/index.html');
-    win.loadFile('src/views/formulario.html');
+    win.loadFile('src/views/login2.html');
 }
 
 app.whenReady().then(() => {
