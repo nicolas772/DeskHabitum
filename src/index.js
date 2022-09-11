@@ -23,6 +23,7 @@ const createWindow = () => {
     camera_win = new BrowserWindow({
       width: 600,
       height: 600,
+      show: false,
       webPreferences: {
           // nodeIntegration: true,
           // contextIsolation:true,
@@ -48,7 +49,7 @@ app.on('activate', () => {
 })
 
 
-/*function loginWindow () {
+function loginWindow () {
   winlogin = new BrowserWindow({
    width: 900,
    height: 700,
@@ -62,12 +63,12 @@ app.on('activate', () => {
  })
 
  winlogin.loadFile('src/views/login.html')
-}*/
-
-
-function loginWindow () {
-  createWindow()
 }
+
+
+/*function loginWindow () {
+  createWindow()
+}*/
 
 ipcMain.handle('login', (event, obj) => {
   validatelogin(obj)
