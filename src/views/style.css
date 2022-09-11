@@ -604,7 +604,10 @@ body.shrink .message-count{
     display:none;
 }
 .radio2 .radio__label{
-    
+    color:#ffffff;
+    padding:8px 14px;
+    font-size:14px;
+    font-family: sans-serif;
 
     background:#3ac68f ;
     cursor: pointer;
