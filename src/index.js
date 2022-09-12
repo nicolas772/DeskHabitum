@@ -126,6 +126,7 @@ function regUser(obj) {
         }).show()
       } else {
         model.createUser(nombre, apellido, email, password)
+        //luego de instertar usuario, se dispara trigger en BD para config por default
         new Notification({
           title:"registro",
           body: 'Usuario registrado correctamente'

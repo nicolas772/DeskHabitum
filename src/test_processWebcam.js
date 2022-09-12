@@ -99,8 +99,8 @@ function habitoCooldown() {
 }
 
 async function camaraHandle(){ //funcion que va leyendo el archivo cameraHandle infinitamente.
-    console.log("usuario logeado:", ID_USER)
-    console.log("config: ", config_user)
+    //console.log("usuario logeado:", ID_USER)
+    //console.log("config: ", config_user)
     let flag = true
     fs.writeFileSync('./src/data/cameraHandle.txt', "0", function(err) {
         if (err) {

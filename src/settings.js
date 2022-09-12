@@ -1,4 +1,4 @@
-const id_User = 2
+let ID_USER = window.api.get_user_id("")
 const morderUnha = document.getElementById("morderUnha")
 const morderObjetos = document.getElementById("morderObjetos")
 const jalarPelo = document.getElementById("jalarPelo")
@@ -7,14 +7,13 @@ const malaPostura = document.getElementById("malaPostura")
 const alertaVisual = document.getElementById("alertaVisual")
 const alertaSonora = document.getElementById("alertaSonora")
 const intervaloNotificacion = document.getElementById("intervaloNotificacion")
-var user_config 
 const NOTIFICATION_TITLE = 'Desk Habitum'
 const NOTIFICATION_BODY = 'Configuración Guardada'
 const CLICK_MESSAGE = 'Notification clicked!'
 
 async function saveSettings(){
     let configList = [
-        id_User, 
+        ID_USER, 
         morderUnha.checked, 
         morderObjetos.checked,
         jalarPelo.checked,
@@ -58,7 +57,7 @@ async function saveSettings(){
 
 async function actualizarSettings(){
     
-    await window.api.getConfig(id_User).then(result => {
+    await window.api.getConfig(ID_USER).then(result => {
         config = result[0];
     });
     console.log(config)
