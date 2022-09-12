@@ -568,3 +568,137 @@ checkobjanio.addEventListener('click', function handleClick() {
     objanio.style.visibility = 'hidden';
   }
 });
+
+
+
+/*--GRAFICO 3 MESES PARA ANUAL DE TRICOTILOMANIA-- */
+
+var options_meses3_trico = {
+  series: [{
+  name: 'Julio',
+  data: [5, 5, 10, 8, 7, 5, 4, null, null, null, 10, 10, 7, 8, 6, 9]
+}, {
+  name: 'Agosto',
+  data: [10, 15, null, 12, null, 10, 12, 15, null, null, 12, null, 14, null, null, null]
+}, {
+  name: 'Septiembre',
+  data: [null, null, null, null, 3, 4, 1, 3, 4,  6,  7,  9, 5, null, null, null]
+}],
+  chart: {
+  height: 350,
+  type: 'line',
+  zoom: {
+    enabled: false
+  },
+  animations: {
+    enabled: false
+  }
+},
+stroke: {
+  width: [5,5,4],
+  curve: 'straight'
+},
+labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+title: {
+  text: 'Missing data (null values)'
+},
+xaxis: {
+},
+};
+
+var chart_meses3_trico = new ApexCharts(document.querySelector("#chart_meses3_trico"), options_meses3_trico);
+chart_meses3_trico.render();
+
+
+/*--GRAFICO 3 MESES PARA ANUAL DE OBJETOS-- */
+
+var options_meses3_obj = {
+  series: [{
+  name: 'Julio',
+  data: [5, 5, 10, 8, 7, 5, 4, null, null, null, 10, 10, 7, 8, 6, 9]
+}, {
+  name: 'Agosto',
+  data: [10, 15, null, 12, null, 10, 12, 15, null, null, 12, null, 14, null, null, null]
+}, {
+  name: 'Septiembre',
+  data: [null, null, null, null, 3, 4, 1, 3, 4,  6,  7,  9, 5, null, null, null]
+}],
+  chart: {
+  height: 350,
+  type: 'line',
+  zoom: {
+    enabled: false
+  },
+  animations: {
+    enabled: false
+  }
+},
+stroke: {
+  width: [5,5,4],
+  curve: 'straight'
+},
+labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+title: {
+  text: 'Missing data (null values)'
+},
+xaxis: {
+},
+};
+
+var chart_meses3_obj = new ApexCharts(document.querySelector("#chart_meses3_obj"), options_meses3_obj);
+chart_meses3_obj.render();
+
+
+/* GRAFICO CENTRAL TRICO PARA ANUAL */
+var option_anual_trico = {
+  series: [{
+  name: 'Tricotilomanía',
+  data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+}, {
+  name: 'Total',
+  data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+}, {
+  name: 'Sin Tricotilomanía',
+  data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+}],
+  chart: {
+  type: 'bar',
+  height: 350
+},
+plotOptions: {
+  bar: {
+    horizontal: false,
+    columnWidth: '55%',
+    endingShape: 'rounded'
+  },
+},
+dataLabels: {
+  enabled: false
+},
+stroke: {
+  show: true,
+  width: 2,
+  colors: ['transparent']
+},
+xaxis: {
+  categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+},
+yaxis: {
+  title: {
+    text: '$ (thousands)'
+  }
+},
+fill: {
+  opacity: 1
+},
+tooltip: {
+  y: {
+    formatter: function (val) {
+      return "$ " + val + " thousands"
+    }
+  }
+}
+};
+
+var chart_anual_trico = new ApexCharts(document.querySelector("#chart_anual_trico"), option_anual_trico);
+chart_anual_trico.render();
