@@ -457,7 +457,7 @@ window.onload = carga_home;
 
 
 
-/*mas graficos */
+/*para mas graficos menu superior derecha recientes, mes, año */
 const checktricorec = document.getElementById('checktricorec');
 const tricorec = document.getElementById('tricorec');
 

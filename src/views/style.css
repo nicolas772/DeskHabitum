@@ -637,6 +637,17 @@ body.shrink .message-count{
     visibility: hidden;
 }
 
+#objrec {
+    visibility: visible;
+}
+#objmes{
+    visibility: hidden;
+}
+
+#objanio{
+    visibility: hidden;
+}
+
 
 
 /*-FIN MOSTRAR REPORTES POR FECHA-*/
