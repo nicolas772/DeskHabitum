@@ -298,6 +298,32 @@ async function Update_Dashboard(){
   var chart_trico2 = new ApexCharts(document.querySelector("#chart_trico2"), options_trico2);
   chart_trico2.render();
 
+  var chart_trico_mes = {
+    series: [{
+    data: [55, 35, 25]
+  }],
+    chart: {
+    type: 'bar',
+    height: 350
+  },
+  plotOptions: {
+    bar: {
+      borderRadius: 4,
+      horizontal: true,
+    }
+  },
+  dataLabels: {
+    enabled: false
+  },
+  xaxis: {
+    categories: ['Peor mes', 'Actual', 'Mejor mes'
+    ],
+  }
+  };
+
+  var chart_mes_tric = new ApexCharts(document.querySelector("#chart_mes_tric"), chart_trico_mes);
+  chart_mes_tric.render();
+
   //////// Dashboard objetos
   var options_obj1 = {
     series: [30, 70], 
