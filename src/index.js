@@ -7,32 +7,21 @@ let win, camera_win;
 let ID_USER;
 
 const createWindow = () => {
-<<<<<<< HEAD
       win = new BrowserWindow({
       width: 900,
-=======
-    const win = new BrowserWindow({
-      width: 900, 
->>>>>>> FRONT
       height: 700,
       icon: __dirname + '/icons/icono.ico',
       webPreferences: {
         nodeIntegration: true,
-<<<<<<< HEAD
         preload: path.join(__dirname, './preload.js'),
         enableRemoteModule: true
         
-=======
-       // contextIsolation:false, //se agrego esto
-        preload: path.join(__dirname, './preload.js')
->>>>>>> FRONT
       }
     })
     //win.webContents.openDevTools();
     //win.loadFile('src/views/index.html');
     
     win.loadFile('src/views/index.html');
-<<<<<<< HEAD
     
     camera_win = new BrowserWindow({
       width: 600,
@@ -48,9 +37,6 @@ const createWindow = () => {
     })
     camera_win.loadFile('src/views/camera.html');
     camera_win.webContents.openDevTools();
-=======
-
->>>>>>> FRONT
 }
 
 app.on('window-all-closed', () => {
@@ -66,7 +52,6 @@ app.on('activate', () => {
 })
 
 
-<<<<<<< HEAD
 function loginWindow () {
   winlogin = new BrowserWindow({
    width: 900,
@@ -80,7 +65,8 @@ function loginWindow () {
    }
  })
 
- winlogin.loadFile('src/views/login.html')
+ //winlogin.loadFile('src/views/login.html')
+ winlogin.loadFile('src/views/login2.html')
 }
 
 
@@ -124,7 +110,8 @@ function regWindow () {
    }
  })
 
- winreg.loadFile('src/views/registro.html')
+ //winreg.loadFile('src/views/registro.html')
+ winreg.loadFile('src/views/register2.html')
 }
 
 
@@ -194,9 +181,3 @@ ipcMain.on('cerrar-sesion', (event, data) => {
  app.whenReady().then(() => {
   loginWindow();
 })
-=======
-
-
-
-
->>>>>>> FRONT
