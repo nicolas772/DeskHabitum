@@ -37,6 +37,7 @@ async function update_dash_ultima_sesion() {
     document.getElementById("Card-Visual").innerHTML = visual
 
     //HTML: index , indicador: porcentajes hábitos ultima sesion
+    id_lastSesion = 3 //hardcode ya que los habitos aun no se registran en BD
     await window.api.totalSesionTimeUnhas(id_lastSesion).then(result => {
         duracionunas = parseInt(result);
     });

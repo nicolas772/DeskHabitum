@@ -7,8 +7,9 @@ const malaPostura = document.getElementById("malaPostura")
 const alertaVisual = document.getElementById("alertaVisual")
 const alertaSonora = document.getElementById("alertaSonora")
 const intervaloNotificacion = document.getElementById("intervaloNotificacion")
+const tiempoNotificacion = document.getElementById("tiempoNotificacion")
 const NOTIFICATION_TITLE = 'Desk Habitum'
-const NOTIFICATION_BODY = 'Configuración Guardada'
+const NOTIFICATION_BODY = 'Configuración Guardada. Si tienes el monitoreo activado, tendrás que apagar y encender monitoreo para tu nueva configuración.'
 const CLICK_MESSAGE = 'Notification clicked!'
 
 async function saveSettings(){
@@ -21,9 +22,9 @@ async function saveSettings(){
         malaPostura.checked,
         alertaVisual.checked,
         alertaSonora.checked,
-        intervaloNotificacion.value
+        intervaloNotificacion.value,
+        tiempoNotificacion.value
     ]
-    console.log(intervaloNotificacion.value)
     let CONF = configList.map(function(e){
         switch(e) {
             case true:
@@ -37,8 +38,6 @@ async function saveSettings(){
                 break;
         }
     })
-    console.log(configList)
-    console.log(CONF)
     await window.api.updateConfig(
         CONF[0],
         CONF[1],
@@ -48,7 +47,8 @@ async function saveSettings(){
         CONF[5],
         CONF[6],
         CONF[7],
-        CONF[8]
+        CONF[8],
+        CONF[9]
     ).then(result => {
         let resultado=result
     })
@@ -60,7 +60,6 @@ async function actualizarSettings(){
     await window.api.getConfig(ID_USER).then(result => {
         config = result[0];
     });
-    console.log(config)
     $('#morderUnha').bootstrapToggle(config.morderunha)
     $('#morderObjetos').bootstrapToggle(config.morderobjetos) 
     $('#jalarPelo').bootstrapToggle(config.jalarpelo) 
@@ -69,6 +68,7 @@ async function actualizarSettings(){
     $('#alertaVisual').bootstrapToggle(config.alertavisual) 
     $('#alertaSonora').bootstrapToggle(config.alertasonora)
     $('#intervaloNotificacion').val(config.intervalonotificacion)
+    $('#tiempoNotificacion').val(config.tiemponotificacion)
 }
 
 window.onload = actualizarSettings;
