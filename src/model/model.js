@@ -80,20 +80,6 @@ const totalTimeSesions = async (userId) => {
     return result[0]['sum']
 }
 
-const countUnhasSesion = async (sesionId) => {
-    let query = `select * from unnas where id_ses = ${sesionId}`;
-    const res = await conexion.query(query)
-    const result = res.rowCount
-    return result    
-}
-
-const allSesionsUnhas = async (userId) => {
-    let query = `select * from unnas where id_user = ${userId}`;
-    const res = await conexion.query(query)
-    const result = res.rowCount
-    return result    
-}
-
 const percentageTenSesion = async (userId) => { 
     var percentages = []  
     let query = `select total_time, time_unnas from sesions where id_user = ${userId} order by id desc limit 10`;
@@ -117,6 +103,7 @@ const createUnhas = async (id_usuario, id_sesion, inicio, final, total_time) => 
     let query = `INSERT INTO unnas (id_user, id_ses, inicio, fin, total_time) VALUES (${id_usuario}, '${id_sesion}','${inicio}', '${final}', '${total_time}')`;
     const res = await conexion.query(query)
 }
+
 const totalSesionTimeUnhas = async (sesionId) => {
     let query = `select sum(total_time) from unnas where id_ses = ${sesionId}`;
     const res = await conexion.query(query)
@@ -131,6 +118,87 @@ const totalTimeUnhas = async (userId) => {
     return result[0]['sum']    
 }
 
+const countUnhasSesion = async (sesionId) => {
+    let query = `select * from unnas where id_ses = ${sesionId}`;
+    const res = await conexion.query(query)
+    const result = res.rowCount
+    return result    
+}
+
+const allSesionsUnhas = async (userId) => {
+    let query = `select * from unnas where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rowCount
+    return result    
+}
+
+//QUERYS MORDER
+const createMorder = async (id_usuario, id_sesion, inicio, final, total_time) => {
+    let query = `INSERT INTO morder (id_user, id_ses, inicio, fin, total_time) VALUES (${id_usuario}, '${id_sesion}','${inicio}', '${final}', '${total_time}')`;
+    const res = await conexion.query(query)
+}
+
+const totalSesionTimeMorder = async (sesionId) => {
+    let query = `select sum(total_time) from morder where id_ses = ${sesionId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['sum']    
+}
+
+const totalTimeMorder = async (userId) => {
+    let query = `select sum(total_time) from morder where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['sum']    
+}
+
+const countMorderSesion = async (sesionId) => {
+    let query = `select * from morder where id_ses = ${sesionId}`;
+    const res = await conexion.query(query)
+    const result = res.rowCount
+    return result    
+}
+
+const allSesionsMorder = async (userId) => {
+    let query = `select * from morder where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rowCount
+    return result    
+}
+
+//QUERYS PELO
+const createPelo = async (id_usuario, id_sesion, inicio, final, total_time) => {
+    let query = `INSERT INTO pelo (id_user, id_ses, inicio, fin, total_time) VALUES (${id_usuario}, '${id_sesion}','${inicio}', '${final}', '${total_time}')`;
+    const res = await conexion.query(query)
+}
+
+const totalSesionTimePelo = async (sesionId) => {
+    let query = `select sum(total_time) from pelo where id_ses = ${sesionId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['sum']    
+}
+
+const totalTimePelo = async (userId) => {
+    let query = `select sum(total_time) from pelo where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['sum']    
+}
+
+const countPeloSesion = async (sesionId) => {
+    let query = `select * from pelo where id_ses = ${sesionId}`;
+    const res = await conexion.query(query)
+    const result = res.rowCount
+    return result    
+}
+
+const allSesionsPelo = async (userId) => {
+    let query = `select * from pelo where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rowCount
+    return result    
+}
 
 //QUERYS CONFIG
 
@@ -161,4 +229,8 @@ const getConfig = async (id_usuario) => {
     return result
 }
 
-module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion, totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesion, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas, validateUser, postConfig, getConfig, updateConfig, confirmMail}
+module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion,
+                 totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesion, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas,
+                  validateUser, postConfig, getConfig, updateConfig, confirmMail,
+              /*nuevas querys*/    createMorder, totalSesionTimeMorder, totalTimeMorder, countMorderSesion, allSesionsMorder,
+              createPelo, totalSesionTimePelo, totalTimePelo, countPeloSesion, allSesionsPelo}
