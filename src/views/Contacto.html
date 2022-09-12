@@ -19,12 +19,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
 
 </head>
+
 <body class="shrink">
-    <div class = "container" style="margin:0" >
+    <div class = "container" style="margin:0"  >
         <aside style="z-index:2" class="aside1">
             <div class = "top">
                 <span class = "shrink-btn">
-                    <!--<i class = 'bx bx-chevron-left'></i>-->
+                   <!-- <i class = 'bx bx-chevron-left'></i>-->
                 </span>
                 <div class = "logo">
                     <img src = "../images/logo1.png">
@@ -42,13 +43,13 @@
                         </a>
                     </div>
                     <div class="item">
-                    <a href = "Profile.html" >
+                    <a href = "Profile.html" class ="active">
                         <span class="material-icons-sharp">person_outline</span>
                         <h3>Perfil</h3>
                     </a>
                     </div>
                     <div class="item">
-                    <a href = "Tips.html" class="active">
+                    <a href = "Tips.html">
                         <span class="material-icons-sharp">receipt_long</span>
                         <h3>Consejos</h3>
                     </a>
@@ -97,7 +98,7 @@
                     </a>
                     </div>
     
-                    <div id="cerrar-sesion" class="item">
+                    <div class="item">
                     <a href = "#">
                         <span class="material-icons-sharp">logout</span>
                         <h3>Cerrar Sesión</h3>
@@ -111,28 +112,17 @@
             <nav>
 
             </nav>
-            <h1>Consejos</h1>
-
-            <!--<div id="chart2"></div> -->
+            <h1>Perfil</h1>
+            <div class = "date">
+                <input type="date">
+            </div>
             
-            <div class="col-sm-6">
-                <div class="card" style="width: 18rem;">
-                  <div class="card-body">
-                    <h2 class="card-title">Fatiga visual</h2>
-                    <h5>Al parecer este hábito es el más frecuente en tu recuento actual, recuerda que blablablablablabla</h5>
-                  </div>
-                </div>
-              </div>
-
-                    
 
 
 
         </main>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="../navbar.js"></script>
-    <!--<script src="../renderWebcam.js"></script>-->
+    <script src="../app.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('.sub-btn').click(function(){
