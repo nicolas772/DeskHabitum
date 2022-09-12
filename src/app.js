@@ -512,3 +512,59 @@ checktricoanio.addEventListener('click', function handleClick() {
     tricoanio.style.visibility = 'hidden';
   }
 });
+/* ----------grafico objetos */
+
+const checkobjrec = document.getElementById('checkobjrec');
+const objrec = document.getElementById('objrec');
+
+
+
+const objomes = document.getElementById('objmes');
+const objanio = document.getElementById('objanio');
+
+const checkobjmes = document.getElementById('checkobjmes');
+const checkobjanio = document.getElementById('checkobjanio');
+
+checkobjrec.addEventListener('click', function handleClick() {
+  if (checkobjrec.checked) {
+    objrec.style.display = 'block';
+    objmes.style.display = 'none';
+    objanio.style.display = 'none';
+    objrec.style.visibility = 'visible';
+    objmes.style.visibility = 'hidden';
+    objanio.style.visibility = 'hidden';
+    
+  } else {
+    objrec.style.display = 'none';
+    objrec.style.visibility = 'hidden';
+  }
+});
+
+checkobjmes.addEventListener('click', function handleClick() {
+  if (checkobjmes.checked) {
+    objrec.style.display = 'none';
+    objmes.style.display = 'block';
+    objanio.style.display = 'none';
+    objrec.style.visibility = 'hidden';
+    objmes.style.visibility = 'visible';
+    objanio.style.visibility = 'hidden';
+  } else {
+    objmes.style.display = 'none';
+    objmes.style.visibility = 'hidden';
+  }
+});
+
+checkobjanio.addEventListener('click', function handleClick() {
+  if (checkobjanio.checked) {
+    objrec.style.display = 'none';
+    objmes.style.display = 'none';
+    objanio.style.display = 'block';
+    objrec.style.visibility = 'hidden';
+    objmes.style.visibility = 'hidden';
+    objanio.style.visibility = 'visible';
+    
+  } else {
+    objanio.style.display = 'none';
+    objanio.style.visibility = 'hidden';
+  }
+});
