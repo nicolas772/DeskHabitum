@@ -435,6 +435,14 @@ async function predict() {
             clase4 = classes_data[3];
             clase5 = classes_data[4];
             clase6 = classes_data[5];
+
+            score_clase1 = scores_data[0];
+            score_clase2 = scores_data[1];
+            score_clase3 = scores_data[2];
+            score_clase4 = scores_data[3];
+            score_clase5 = scores_data[4];
+
+            coef = 0.62
             
             //Si se detecta al menos una clase, entrar aquí
             if (clase1 != -1){
@@ -450,40 +458,57 @@ async function predict() {
     
                     //Si detecta un objeto fino o grande
                     if(clase2 == 1 || clase2 == 2){
-        
-                        x_izq = clase2_x1
-                        x_der = clase2_x2
-                        x_med = (clase2_x1 + clase2_x2) / 2.0
-                        y_up = clase2_y1
-                        y_med = Math.abs(clase2_y2 - clase2_y1) / 2.0
-                        y_low = clase2_y2
                         
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        if (score_clase2 > coef){
+                            x_izq = clase2_x1
+                            x_der = clase2_x2
+                            x_med = (clase2_x1 + clase2_x2) / 2.0
+                            y_up = clase2_y1
+                            y_med = Math.abs(clase2_y2 - clase2_y1) / 2.0
+                            y_low = clase2_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
+                        
+
                     }if(clase3 == 1 || clase3 == 2){
-                        x_izq = clase3_x1
-                        x_der = clase3_x2
-                        x_med = (clase3_x1 + clase3_x2) / 2.0
-                        y_up = clase3_y1
-                        y_med = Math.abs(clase3_y2 - clase3_y1) / 2.0
-                        y_low = clase3_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase3 > coef){
+                            x_izq = clase3_x1
+                            x_der = clase3_x2
+                            x_med = (clase3_x1 + clase3_x2) / 2.0
+                            y_up = clase3_y1
+                            y_med = Math.abs(clase3_y2 - clase3_y1) / 2.0
+                            y_low = clase3_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
+
                     }if(clase4 == 1 || clase4 == 2){
-                        x_izq = clase4_x1
-                        x_der = clase4_x2
-                        x_med = (clase4_x1 + clase4_x2) / 2.0
-                        y_up = clase4_y1
-                        y_med = Math.abs(clase4_y2 - clase4_y1) / 2.0
-                        y_low = clase4_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase4 > coef){
+                            x_izq = clase4_x1
+                            x_der = clase4_x2
+                            x_med = (clase4_x1 + clase4_x2) / 2.0
+                            y_up = clase4_y1
+                            y_med = Math.abs(clase4_y2 - clase4_y1) / 2.0
+                            y_low = clase4_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
     
                     }if(clase5 == 1 || clase5 == 2){
-                        x_izq = clase5_x1
-                        x_der = clase5_x2
-                        x_med = (clase5_x1 + clase5_x2) / 2.0
-                        y_up = clase5_y1
-                        y_med = Math.abs(clase5_y2 - clase5_y1) / 2.0
-                        y_low = clase5_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase5 > coef){
+                            x_izq = clase5_x1
+                            x_der = clase5_x2
+                            x_med = (clase5_x1 + clase5_x2) / 2.0
+                            y_up = clase5_y1
+                            y_med = Math.abs(clase5_y2 - clase5_y1) / 2.0
+                            y_low = clase5_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
                     }
         
                 }
@@ -498,40 +523,55 @@ async function predict() {
     
                     //Si detecta un objeto fino o grande
                     if(clase1 == 1 || clase1 == 2){
-        
-                        x_izq = clase1_x1
-                        x_der = clase1_x2
-                        x_med = (clase1_x1 + clase1_x2) / 2.0
-                        y_up = clase1_y1
-                        y_med = Math.abs(clase1_y2 - clase1_y1) / 2.0
-                        y_low = clase1_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase1 > coef){
+                            x_izq = clase1_x1
+                            x_der = clase1_x2
+                            x_med = (clase1_x1 + clase1_x2) / 2.0
+                            y_up = clase1_y1
+                            y_med = Math.abs(clase1_y2 - clase1_y1) / 2.0
+                            y_low = clase1_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
         
                     }if(clase3 == 1 || clase3 == 2){
-                        x_izq = clase3_x1
-                        x_der = clase3_x2
-                        x_med = (clase3_x1 + clase3_x2) / 2.0
-                        y_up = clase3_y1
-                        y_med = Math.abs(clase3_y2 - clase3_y1) / 2.0
-                        y_low = clase3_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase3 > coef){
+                            x_izq = clase3_x1
+                            x_der = clase3_x2
+                            x_med = (clase3_x1 + clase3_x2) / 2.0
+                            y_up = clase3_y1
+                            y_med = Math.abs(clase3_y2 - clase3_y1) / 2.0
+                            y_low = clase3_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
                     }if(clase4 == 1 || clase4 == 2){
-                        x_izq = clase4_x1
-                        x_der = clase4_x2
-                        x_med = (clase4_x1 + clase4_x2) / 2.0
-                        y_up = clase4_y1
-                        y_med = Math.abs(clase4_y2 - clase4_y1) / 2.0
-                        y_low = clase4_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase4 > coef){
+                            x_izq = clase4_x1
+                            x_der = clase4_x2
+                            x_med = (clase4_x1 + clase4_x2) / 2.0
+                            y_up = clase4_y1
+                            y_med = Math.abs(clase4_y2 - clase4_y1) / 2.0
+                            y_low = clase4_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
     
                     }if(clase5 == 1 || clase5 == 2){
-                        x_izq = clase5_x1
-                        x_der = clase5_x2
-                        x_med = (clase5_x1 + clase5_x2) / 2.0
-                        y_up = clase5_y1
-                        y_med = Math.abs(clase5_y2 - clase5_y1) / 2.0
-                        y_low = clase5_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase5 > coef){
+                            x_izq = clase5_x1
+                            x_der = clase5_x2
+                            x_med = (clase5_x1 + clase5_x2) / 2.0
+                            y_up = clase5_y1
+                            y_med = Math.abs(clase5_y2 - clase5_y1) / 2.0
+                            y_low = clase5_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
                     
     
                     }
@@ -546,41 +586,56 @@ async function predict() {
     
                     //Si detecta un objeto fino o grande
                     if(clase1 == 1 || clase1 == 2){
-        
-                        x_izq = clase1_x1
-                        x_der = clase1_x2
-                        x_med = (clase1_x1 + clase1_x2) / 2.0
-                        y_up = clase1_y1
-                        y_med = Math.abs(clase1_y2 - clase1_y1) / 2.0
-                        y_low = clase1_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase1 > coef){
+                            x_izq = clase1_x1
+                            x_der = clase1_x2
+                            x_med = (clase1_x1 + clase1_x2) / 2.0
+                            y_up = clase1_y1
+                            y_med = Math.abs(clase1_y2 - clase1_y1) / 2.0
+                            y_low = clase1_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
         
                     }if(clase2 == 1 || clase2 == 2){
-                        x_izq = clase2_x1
-                        x_der = clase2_x2
-                        x_med = (clase2_x1 + clase2_x2) / 2.0
-                        y_up = clase2_y1
-                        y_med = Math.abs(clase2_y2 - clase2_y1) / 2.0
-                        y_low = clase2_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase2 > coef){
+                            x_izq = clase2_x1
+                            x_der = clase2_x2
+                            x_med = (clase2_x1 + clase2_x2) / 2.0
+                            y_up = clase2_y1
+                            y_med = Math.abs(clase2_y2 - clase2_y1) / 2.0
+                            y_low = clase2_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
     
                     }if(clase4 == 1 || clase4 == 2){
-                        x_izq = clase4_x1
-                        x_der = clase4_x2
-                        x_med = (clase4_x1 + clase4_x2) / 2.0
-                        y_up = clase4_y1
-                        y_med = Math.abs(clase4_y2 - clase4_y1) / 2.0
-                        y_low = clase4_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase4 > coef){
+                            x_izq = clase4_x1
+                            x_der = clase4_x2
+                            x_med = (clase4_x1 + clase4_x2) / 2.0
+                            y_up = clase4_y1
+                            y_med = Math.abs(clase4_y2 - clase4_y1) / 2.0
+                            y_low = clase4_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
     
                     }if(clase5 == 1 || clase5 == 2){
-                        x_izq = clase5_x1
-                        x_der = clase5_x2
-                        x_med = (clase5_x1 + clase5_x2) / 2.0
-                        y_up = clase5_y1
-                        y_med = Math.abs(clase5_y2 - clase5_y1) / 2.0
-                        y_low = clase5_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase5 > coef){
+                            x_izq = clase5_x1
+                            x_der = clase5_x2
+                            x_med = (clase5_x1 + clase5_x2) / 2.0
+                            y_up = clase5_y1
+                            y_med = Math.abs(clase5_y2 - clase5_y1) / 2.0
+                            y_low = clase5_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
     
                     }
                     
@@ -598,41 +653,58 @@ async function predict() {
     
                     //Si detecta un objeto fino o grande
                     if(clase1 == 1 || clase1 == 2){
-        
-                        x_izq = clase1_x1
-                        x_der = clase1_x2
-                        x_med = (clase1_x1 + clase1_x2) / 2.0
-                        y_up = clase1_y1
-                        y_med = Math.abs(clase1_y2 - clase1_y1) / 2.0
-                        y_low = clase1_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        if (score_clase1 > coef){
+
+                            x_izq = clase1_x1
+                            x_der = clase1_x2
+                            x_med = (clase1_x1 + clase1_x2) / 2.0
+                            y_up = clase1_y1
+                            y_med = Math.abs(clase1_y2 - clase1_y1) / 2.0
+                            y_low = clase1_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
     
                     }if(clase2 == 1 || clase2 == 2){
-                        x_izq = clase2_x1
-                        x_der = clase2_x2
-                        x_med = (clase2_x1 + clase2_x2) / 2.0
-                        y_up = clase2_y1
-                        y_med = Math.abs(clase2_y2 - clase2_y1) / 2.0
-                        y_low = clase2_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase2 > coef){
+
+                            x_izq = clase2_x1
+                            x_der = clase2_x2
+                            x_med = (clase2_x1 + clase2_x2) / 2.0
+                            y_up = clase2_y1
+                            y_med = Math.abs(clase2_y2 - clase2_y1) / 2.0
+                            y_low = clase2_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
     
                     }if(clase3 == 1 || clase3 == 2){
-                        x_izq = clase3_x1
-                        x_der = clase3_x2
-                        x_med = (clase3_x1 + clase3_x2) / 2.0
-                        y_up = clase3_y1
-                        y_med = Math.abs(clase3_y2 - clase3_y1) / 2.0
-                        y_low = clase3_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase3 > coef){
+
+                            x_izq = clase3_x1
+                            x_der = clase3_x2
+                            x_med = (clase3_x1 + clase3_x2) / 2.0
+                            y_up = clase3_y1
+                            y_med = Math.abs(clase3_y2 - clase3_y1) / 2.0
+                            y_low = clase3_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
     
                     }if(clase5 == 1 || clase5 == 2){
-                        x_izq = clase5_x1
-                        x_der = clase5_x2
-                        x_med = (clase5_x1 + clase5_x2) / 2.0
-                        y_up = clase5_y1
-                        y_med = Math.abs(clase5_y2 - clase5_y1) / 2.0
-                        y_low = clase5_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase5 > coef){
+
+                            x_izq = clase5_x1
+                            x_der = clase5_x2
+                            x_med = (clase5_x1 + clase5_x2) / 2.0
+                            y_up = clase5_y1
+                            y_med = Math.abs(clase5_y2 - clase5_y1) / 2.0
+                            y_low = clase5_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
                     }    
                 }
                 
@@ -646,41 +718,60 @@ async function predict() {
     
                     //Si detecta un objeto fino o grande
                     if(clase1 == 1 || clase1 == 2){
-        
-                        x_izq = clase1_x1
-                        x_der = clase1_x2
-                        x_med = (clase1_x1 + clase1_x2) / 2.0
-                        y_up = clase1_y1
-                        y_med = Math.abs(clase1_y2 - clase1_y1) / 2.0
-                        y_low = clase1_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase1 > coef){
+
+                            x_izq = clase1_x1
+                            x_der = clase1_x2
+                            x_med = (clase1_x1 + clase1_x2) / 2.0
+                            y_up = clase1_y1
+                            y_med = Math.abs(clase1_y2 - clase1_y1) / 2.0
+                            y_low = clase1_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
     
                     }if(clase2 == 1 || clase2 == 2){
-                        x_izq = clase2_x1
-                        x_der = clase2_x2
-                        x_med = (clase2_x1 + clase2_x2) / 2.0
-                        y_up = clase2_y1
-                        y_med = Math.abs(clase2_y2 - clase2_y1) / 2.0
-                        y_low = clase2_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase2 > coef){
+
+                            x_izq = clase2_x1
+                            x_der = clase2_x2
+                            x_med = (clase2_x1 + clase2_x2) / 2.0
+                            y_up = clase2_y1
+                            y_med = Math.abs(clase2_y2 - clase2_y1) / 2.0
+                            y_low = clase2_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
     
                     }if(clase3 == 1 || clase3 == 2){
-                        x_izq = clase3_x1
-                        x_der = clase3_x2
-                        x_med = (clase3_x1 + clase3_x2) / 2.0
-                        y_up = clase3_y1
-                        y_med = Math.abs(clase3_y2 - clase3_y1) / 2.0
-                        y_low = clase3_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase3 > coef){
+
+                            x_izq = clase3_x1
+                            x_der = clase3_x2
+                            x_med = (clase3_x1 + clase3_x2) / 2.0
+                            y_up = clase3_y1
+                            y_med = Math.abs(clase3_y2 - clase3_y1) / 2.0
+                            y_low = clase3_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
     
                     }if(clase4 == 1 || clase4 == 2){
-                        x_izq = clase4_x1
-                        x_der = clase4_x2
-                        x_med = (clase4_x1 + clase4_x2) / 2.0
-                        y_up = clase4_y1
-                        y_med = Math.abs(clase4_y2 - clase4_y1) / 2.0
-                        y_low = clase4_y2
-                        print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+
+                        if (score_clase4 > coef){
+
+                            x_izq = clase4_x1
+                            x_der = clase4_x2
+                            x_med = (clase4_x1 + clase4_x2) / 2.0
+                            y_up = clase4_y1
+                            y_med = Math.abs(clase4_y2 - clase4_y1) / 2.0
+                            y_low = clase4_y2
+                            print_mordida(boca_x1, boca_x2, boca_y1, boca_y2, x_izq, x_der, x_med, y_up, y_med, y_low);
+                        }
+
                     }
         
                 }    
