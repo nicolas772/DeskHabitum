@@ -1,3 +1,5 @@
+ID_USER = window.api.get_user_id("")
+let userData
 /*codigo para que navbar lateral se despliegue automaticamente
 al acercar mouse*/
 const shrink_btn = document.querySelector(".shrink-btn");
@@ -43,5 +45,4 @@ logoutBtn.onclick = function(){
     console.log("prueba boton cerrar sesion")
     window.api.cerrar_sesion("")
 }
-
 
