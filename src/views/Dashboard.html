@@ -154,28 +154,28 @@
                         <h1 style="font-size:1.5rem">Reportes Onicofagia</h1>
 
                         <div class="row" >
-                                <div style="width:40%; float:left">
-                                    <h1 style="font-size:1rem; margin-top:0.3rem; margin-bottom:2rem;"  > Cantidad de detecciones</h1>
+                            <div style="width:40%; float:left">
+                                <h1 style="font-size:1rem; margin-top:0.3rem; margin-bottom:2rem;"  > Cantidad de detecciones</h1>
 
-                                    <div class="col-sm-6">
-                                        <div class="card"  style="width: 18rem; margin:1.5rem;">
-                                            <div class="card-body" style="padding:0.4rem">
-                                                <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones última sesión</h4>
-                                                <h1 id ="ultima-sesion-unhas" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1>
+                                <div class="col-sm-6">
+                                    <div class="card"  style="width: 18rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones última sesión</h4>
+                                            <h1 id ="ultima-sesion-unhas" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="card" style="width: 18rem; margin:1.5rem;">
-                                            <div class="card-body" style="padding:0.4rem">
-                                                <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones totales</h4>
-                                                <h1 id ="total-detecciones-unhas" style="font-size:1rem; text-align:center; margin-bottom: 0;"></h1>
-
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-sm-6">
+                                    <div class="card" style="width: 18rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones totales</h4>
+                                            <h1 id ="total-detecciones-unhas" style="font-size:1rem; text-align:center; margin-bottom: 0;"></h1>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div style="width: 60%;float:right">
                                 <div class="col-sm-6" >
                                 <h1 style="font-size:1rem; margin-top:0.3rem" > Porcentaje distracción total</h1>
@@ -195,13 +195,153 @@
                 <input type="radio" id="tabgold" name="mytabs">
                 <label for="tabgold">Tricotilomanía</label>
                 <div class="tab">
-                    <h1>Reportes Tricotilomanía</h1>
+                    <div class="row">
+                        <div style="width:60%; float:left">
+                            <h1 style="padding-top:5px;">Reportes Tricotilomanía</h1>
+                        </div>
+                        <div style="width: 40%;float:right">
+                            <div class="radio2"> 
+                                <input class="radio__input" type="radio" value="option1" name="myRadio" id="checktricorec" checked="checked">
+                                <label class="radio__label" for="checktricorec">Recientes</label>
+                                
+                                
+                                <input class="radio__input" type="radio" value="option2" name="myRadio" id="checktricomes">
+                                <label class="radio__label" for="checktricomes">Este Mes</label>
+                                
+                                <input class="radio__input" type="radio" value="option3" name="myRadio" id="checktricoanio">
+                                <label class="radio__label" for="checktricoanio">Este Año</label>
+                            </div>
+                        </div>
+                       
+                    </div>
+
+                    <div class="row" id="tricorec">
+                        <h1>trico rec</h1>
+                        <div class="row">
+                            <div style="width:40%; float:left">
+                                <h1 style="font-size:1rem; margin-top:0.3rem; margin-bottom:2rem;"  > Cantidad de detecciones</h1>
+    
+                                <div class="col-sm-6">
+                                    <div class="card"  style="width: 18rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones última sesión</h4>
+                                            <h1 id ="ultima-sesion-unhas" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1> <!-- Cambiar datos trico-->
+    
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="card" style="width: 18rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones totales</h4>
+                                            <h1 id ="total-detecciones-unhas" style="font-size:1rem; text-align:center; margin-bottom: 0;"></h1> <!-- Cambiar datos trico -->
+    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 60%;float:right">
+                                <div class="col-sm-6" >
+                                <h1 style="font-size:1rem; margin-top:0.3rem" > Porcentaje distracción total</h1>
+                                <div id="chart_trico1" style="margin:auto; width:40%;padding-left:1rem"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h1 style="font-size:1rem; margin-top:0.3rem"> Porcentaje distracción últimas 10 sesiones </h1>
+                            <div id="chart_trico2" style="margin:auto; padding:1rem"></div>
+                        </div>
+                        
+                        
+                    </div>
+
+                    <div class="row" id="tricomes">
+                        <h1>trico mes</h1>
+                    </div>
+
+                    <div class="row" id="tricoanio">
+                        <h1>trico anio</h1>
+                    </div>
+                    
+            
+                  
+                    
                 </div>
 
                 <input type="radio" id="tablast" name="mytabs">
                 <label for="tablast">Manía Morder objetos</label>
                 <div class="tab">
-                    <h1>Reportes Manía de Morder objetos</h1>
+                    <div class="row">
+                        <div style="width:60%; float:left">
+                            <h1 style="padding-top:5px;">Reportes Manía Morder Objetos</h1>
+                        </div>
+                        <div style="width: 40%;float:right">
+                            <div class="radio2"> 
+                                <input class="radio__input" type="radio" value="option1" name="myRadio" id="checkobjrec" checked="checked">
+                                <label class="radio__label" for="checkobjrec">Recientes</label>
+                                
+                                
+                                <input class="radio__input" type="radio" value="option2" name="myRadio" id="checkobjmes">
+                                <label class="radio__label" for="checkobjmes">Este Mes</label>
+                                
+                                <input class="radio__input" type="radio" value="option3" name="myRadio" id="checkobjanio">
+                                <label class="radio__label" for="checkobjanio">Este Año</label>
+                            </div>
+                        </div>
+                       
+                    </div>
+
+                    <div class="row" id="objrec">
+                        <h1>Recientes</h1>
+                        <div class="row">
+                            <div style="width:40%; float:left">
+                                <h1 style="font-size:1rem; margin-top:0.3rem; margin-bottom:2rem;"  > Cantidad de detecciones</h1>
+    
+                                <div class="col-sm-6">
+                                    <div class="card"  style="width: 18rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones última sesión</h4>
+                                            <h1 id ="ultima-sesion-unhas" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1> <!-- Cambiar datos morder -->
+    
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="card" style="width: 18rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones totales</h4>
+                                            <h1 id ="total-detecciones-unhas" style="font-size:1rem; text-align:center; margin-bottom: 0;"></h1> <!-- Cambiar datos morder-->
+    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 60%;float:right">
+                                <div class="col-sm-6" >
+                                <h1 style="font-size:1rem; margin-top:0.3rem" > Porcentaje distracción total</h1>
+                                <div id="chart_obj1" style="margin:auto; width:40%;padding-left:1rem"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h1 style="font-size:1rem; margin-top:0.3rem"> Porcentaje distracción últimas 10 sesiones </h1>
+                            <div id="chart_obj2" style="margin:auto; padding:1rem"></div>
+                        </div>
+                        
+                        
+                    </div>
+
+                    <div class="row" id="objmes">
+                        <h1>obj mes</h1>
+                    </div>
+
+                    <div class="row" id="objanio">
+                        <h1>obj anio</h1>
+                    </div>
+                    
+            
+                  
+                    
                 </div>
 
             </div>
@@ -226,6 +366,6 @@
             
         });
     </script>
-    
+
 </body>
 </html>
