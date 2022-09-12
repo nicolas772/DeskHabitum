@@ -342,7 +342,7 @@ aside .sidebar .message-count{
 /* ========MAIN==========*/
 
 main {
-    margin-top:1rem;
+    margin-top:2px;
     margin-left: 0rem;
 }
 
@@ -848,7 +848,36 @@ body.shrink .message-count{
 
 
 
+/*------------INICIO topbar--*/
+.topbar{
+    display: flex;
+    justify-content: end;
+    background-color: white;
+    box-shadow: #58555E;
+       
+}
+ 
+.topbar button{
+    display: none;
+}
+ 
+.topbar .profile2{
+    display:flex;
+    gap:0.5rem;
+    text-align:right;
+}
+ 
+.topbar .profile2 .info p{
+    margin-bottom:0px;
+}
 
+.topbar .profile2 .info .text-muted{
+    margin-bottom:0px;
+    text-align: right;
+}
+
+
+/*------------FIN topbar--*/
 
 
   
