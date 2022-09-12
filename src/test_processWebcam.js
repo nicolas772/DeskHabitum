@@ -83,8 +83,6 @@ async function getConfig(id_usuario){
         }else{
             fatiga_visual = false;
         }
-
-        console.log(onicofagia, morder_objetos, tricotilomania, postura, fatiga_visual)
     });  
 }
   //aqui debiera ser ID_USER, pero no hay datos aun en la BD
