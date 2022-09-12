@@ -702,3 +702,173 @@ tooltip: {
 
 var chart_anual_trico = new ApexCharts(document.querySelector("#chart_anual_trico"), option_anual_trico);
 chart_anual_trico.render();
+
+
+/*GRAFICO CENTRAL OBJETOS ANUAL */
+
+var option_anual_obj = {
+  series: [{
+  name: 'Mordiendo objetos',
+  data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+}, {
+  name: 'Total',
+  data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+}, {
+  name: 'Sin Morder objetos',
+  data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+}],
+  chart: {
+  type: 'bar',
+  height: 350
+},
+plotOptions: {
+  bar: {
+    horizontal: false,
+    columnWidth: '55%',
+    endingShape: 'rounded'
+  },
+},
+dataLabels: {
+  enabled: false
+},
+stroke: {
+  show: true,
+  width: 2,
+  colors: ['transparent']
+},
+xaxis: {
+  categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+},
+yaxis: {
+  title: {
+    text: '$ (thousands)'
+  }
+},
+fill: {
+  opacity: 1
+},
+tooltip: {
+  y: {
+    formatter: function (val) {
+      return "$ " + val + " thousands"
+    }
+  }
+}
+};
+
+var chart_anual_obj = new ApexCharts(document.querySelector("#chart_anual_obj"), option_anual_obj);
+chart_anual_obj.render();
+
+
+/* grafico trico mes 10 dias casi*/
+var options_trico_10dias = {
+  series: [{
+  name: 'Sales',
+  data: [4, 3, 10, 9, 29, 19, 22, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5]
+}],
+  chart: {
+  height: 350,
+  type: 'line',
+},
+forecastDataPoints: {
+  count: 7
+},
+stroke: {
+  width: 5,
+  curve: 'smooth'
+},
+xaxis: {
+  type: 'datetime',
+  categories: ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000', '7/11/2000', '8/11/2000', '9/11/2000', '10/11/2000', '11/11/2000', '12/11/2000', '1/11/2001', '2/11/2001', '3/11/2001','4/11/2001' ,'5/11/2001' ,'6/11/2001'],
+  tickAmount: 10,
+  labels: {
+    formatter: function(value, timestamp, opts) {
+      return opts.dateFormatter(new Date(timestamp), 'dd MMM')
+    }
+  }
+},
+title: {
+  text: 'Forecast',
+  align: 'left',
+  style: {
+    fontSize: "16px",
+    color: '#666'
+  }
+},
+fill: {
+  type: 'gradient',
+  gradient: {
+    shade: 'dark',
+    gradientToColors: [ '#FDD835'],
+    shadeIntensity: 1,
+    type: 'horizontal',
+    opacityFrom: 1,
+    opacityTo: 1,
+    stops: [0, 100, 100, 100]
+  },
+},
+yaxis: {
+  min: -10,
+  max: 40
+}
+};
+
+var chart_trico10 = new ApexCharts(document.querySelector("#chart_trico10"), options_trico_10dias);
+chart_trico10.render();
+
+
+//------------10dias obj
+var options_obj_10dias = {
+  series: [{
+  name: 'Sales',
+  data: [4, 3, 10, 9, 29, 19, 22, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5]
+}],
+  chart: {
+  height: 350,
+  type: 'line',
+},
+forecastDataPoints: {
+  count: 7
+},
+stroke: {
+  width: 5,
+  curve: 'smooth'
+},
+xaxis: {
+  type: 'datetime',
+  categories: ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000', '7/11/2000', '8/11/2000', '9/11/2000', '10/11/2000', '11/11/2000', '12/11/2000', '1/11/2001', '2/11/2001', '3/11/2001','4/11/2001' ,'5/11/2001' ,'6/11/2001'],
+  tickAmount: 10,
+  labels: {
+    formatter: function(value, timestamp, opts) {
+      return opts.dateFormatter(new Date(timestamp), 'dd MMM')
+    }
+  }
+},
+title: {
+  text: 'Forecast',
+  align: 'left',
+  style: {
+    fontSize: "16px",
+    color: '#666'
+  }
+},
+fill: {
+  type: 'gradient',
+  gradient: {
+    shade: 'dark',
+    gradientToColors: [ '#FDD835'],
+    shadeIntensity: 1,
+    type: 'horizontal',
+    opacityFrom: 1,
+    opacityTo: 1,
+    stops: [0, 100, 100, 100]
+  },
+},
+yaxis: {
+  min: -10,
+  max: 40
+}
+};
+
+var chart_obj10 = new ApexCharts(document.querySelector("#chart_obj10"), options_obj_10dias);
+chart_obj10.render();
