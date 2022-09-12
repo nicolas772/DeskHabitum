@@ -1,3 +1,4 @@
+let ID_USER = window.api.get_user_id("")
 const NOTIFICATION_TITLE = 'Desk Habitum'
 const NOTIFICATION_BODY = 'Morderte las uñas es malo para tu salud. Seria bueno que dejaras de hacerlo :)'
 const CLICK_MESSAGE = 'Notification clicked!'

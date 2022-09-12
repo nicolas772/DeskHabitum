@@ -1,0 +1,1 @@
+let ID_USER = window.api.get_user_id("")

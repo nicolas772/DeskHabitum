@@ -1,5 +1,5 @@
-let id_Usuario = 2
-let ID_USER = window.api.get_user_id("")
+id_Usuario = 2
+ID_USER = window.api.get_user_id("")
 var id_Sesion, duracion, manias, duraciontotal, duracionunas, duracionpelo, duracionobjetos, id_lastSesion;
 var postura = "10 veces";
 var visual = "Sí"

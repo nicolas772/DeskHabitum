@@ -1,4 +1,5 @@
 let id_Usuario = 2;
+let ID_USER = window.api.get_user_id("")
 let id_Sesion;
 
 var unha_ultima_sesion = 0;
