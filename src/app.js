@@ -238,6 +238,125 @@ async function Update_Dashboard(){
   
   document.getElementById("total-detecciones-unhas").innerHTML = total_unha;
   
+  //////// Dashboard trico
+  var options_trico1 = {
+    series: [30, 70],
+    chart: {
+      width: 380,
+      type: 'pie',
+    },
+    labels: ['Tiempo Tricotilomanía', 'Tiempo Óptimo'],
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 300
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }]
+  };
+  
+  var chart_trico1 = new ApexCharts(document.querySelector("#chart_trico1"), options_trico1);
+  chart_trico1.render();
+  
+  var options_trico2 = {
+    series: [{
+      name: "% tricotilomanía",
+      data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8]
+    }],
+    chart: {
+      height: 240,
+      type: 'line',
+      zoom: {
+        enabled: false
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'straight'
+    },
+    title: {
+      text: '% tricotilomanía últimas 10 sesiones.',
+      align: 'left'
+    },
+    grid: {
+      row: {
+        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+        opacity: 0.5
+      },
+    },
+    xaxis: {
+      categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+    }
+  };
+  
+  var chart_trico2 = new ApexCharts(document.querySelector("#chart_trico2"), options_trico2);
+  chart_trico2.render();
+
+  //////// Dashboard objetos
+  var options_obj1 = {
+    series: [30, 70], 
+    chart: {
+      width: 380,
+      type: 'pie',
+    },
+    labels: ['Tiempo Morder objetos', 'Tiempo Óptimo'],
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 300
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }]
+  };
+  
+  var chart_obj1 = new ApexCharts(document.querySelector("#chart_obj1"), options_obj1);
+  chart_obj1.render();
+  
+  var options_obj2 = {
+    series: [{
+      name: "% morder objetos",
+      data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56]
+    }],
+    chart: {
+      height: 240,
+      type: 'line',
+      zoom: {
+        enabled: false
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'straight'
+    },
+    title: {
+      text: '% morder objetos últimas 10 sesiones.',
+      align: 'left'
+    },
+    grid: {
+      row: {
+        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+        opacity: 0.5
+      },
+    },
+    xaxis: {
+      categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+    }
+  };
+  
+  var chart_obj2 = new ApexCharts(document.querySelector("#chart_obj2"), options_obj2);
+  chart_obj2.render();
 
 }
 
