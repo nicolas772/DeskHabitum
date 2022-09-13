@@ -66,7 +66,7 @@ function loginWindow () {
  })
 
  //winlogin.loadFile('src/views/login.html')
- winlogin.loadFile('src/views/login2.html')
+ winlogin.loadFile('src/views/dashboard.html')
 }
 
 
