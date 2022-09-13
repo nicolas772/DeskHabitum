@@ -660,30 +660,6 @@ async function update_dash_general() {
 
 }
 
-//Navbar responsive
-/*let aside = document.querySelector(".aside1");
-shrink_btn = document.querySelector(".shrink-btn");
-aside.addEventListener("mouseenter",()=>{
-    document.body.classList.toggle("shrink");
-    shrink_btn.classList.add("hovered");
-
-    setTimeout(
-        ()=>{
-            shrink_btn.classList.remove("hovered");
-        },500);
-
-});
-
-aside.addEventListener("mouseleave",()=>{
-    document.body.classList.toggle("shrink");
-    shrink_btn.classList.add("hovered");
-
-    setTimeout(
-        ()=>{
-            shrink_btn.classList.remove("hovered");
-        },500);
-
-});*/
 const tricorec = document.getElementById('tricorec');
 const tricomes = document.getElementById('tricomes');
 const tricoanio = document.getElementById('tricoanio');
