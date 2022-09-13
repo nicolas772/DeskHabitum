@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain, Notification, MessageChannelMain} = require('electron')
 const path = require('path')
 const model = require('./model/model.js')
+var nodemailer = require("nodemailer");
 
 let winlogin;
 let win, camera_win;
@@ -174,6 +175,39 @@ ipcMain.on('cerrar-sesion', (event, data) => {
   loginWindow()
   win.close()
 })
+
+//Contacto mail
+function SendIt(name) {
+  var transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "contacto.dolphindev@gmail.com",
+      pass: "vxarbpfkxguwfqxp",
+    },
+  });
+
+  const mailOptions = {
+    from: "contacto.dolphindev@gmail.com", 
+    to: "j.cabrerab96@gmail.com",
+    subject: "Subject of your email",
+    html: `<p>estimado ${name} le informa que...</p>`,
+  };
+
+  transporter.sendMail(mailOptions, function (err, info) {
+    if (err) console.log(err);
+    else console.log(info);
+  });
+}
+
+
+
+ipcMain.on('contacto', (event, obj) => {
+  const {nombre} = obj
+  console.log("correo enviado a: ", nombre)
+  SendIt(nombre)
+})
+
+
 
 
 

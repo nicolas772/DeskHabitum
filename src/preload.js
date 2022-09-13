@@ -117,6 +117,13 @@ const getConfig = (id_usuario) => {
     return model.getConfig(id_usuario)
 }
 
+
+const contacto = (nombre) => {
+    const obj = {nombre:nombre.value}
+    let respuesta = ipcRenderer.sendSync('contacto', obj)
+    return respuesta
+}
+
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
     createUser: createUser,
@@ -139,7 +146,8 @@ contextBridge.exposeInMainWorld("api", {
     iniciar_camara: iniciar_camara,
     cerrar_sesion: cerrar_sesion,
     cerrar_camara: cerrar_camara,
-    confirmMail: confirmMail
+    confirmMail: confirmMail,
+    contacto: contacto
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
