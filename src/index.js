@@ -4,7 +4,7 @@ const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
 
 let winlogin;
-let win, camera_win;
+let win, camera_win, formulario_win;
 
 
 const createWindow = () => {
@@ -202,10 +202,35 @@ function SendIt(name) {
 
 
 ipcMain.on('contacto', (event, obj) => {
-  const {nombre} = obj
-  console.log("correo enviado a: ", nombre)
-  SendIt(nombre)
+  formWindow();
+  win.close();
+
 })
+
+function formWindow () {
+  formulario_win = new BrowserWindow({
+   width: 900,
+   height: 700,
+   webPreferences: {
+    nodeIntegration: true,
+    contextIsolation:true,
+    // devTools:false,
+     preload:path.join(__dirname, 'formulario.js')
+     
+   }
+ })
+
+ formulario_win.loadFile('src/views/formulario.html')
+}
+
+ipcMain.handle('env_formulario', (event) => {
+
+  console.log("correo enviado a: ")
+  SendIt();
+  createWindow();
+  formulario_win.close();
+});
+
 
 
 

@@ -1,4 +1,4 @@
-const { ipcRenderer, Notification } = require('electron')
+const { ipcRenderer } = require('electron')
 
 let btnlogin;
 let email; 

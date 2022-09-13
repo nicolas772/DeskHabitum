@@ -118,9 +118,9 @@ const getConfig = (id_usuario) => {
 }
 
 
-const contacto = (nombre) => {
-    const obj = {nombre:nombre.value}
-    let respuesta = ipcRenderer.sendSync('contacto', obj)
+const contacto = () => {
+
+    let respuesta = ipcRenderer.sendSync('contacto')
     return respuesta
 }
 
