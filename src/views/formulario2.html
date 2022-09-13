@@ -20,129 +20,111 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
 
 </head>
-<body class="shrink">
-    <div class = "container" style="margin:0"  >
-        <aside style="z-index:2" class="aside1">
-            <div class = "top">
-                <span class = "shrink-btn">
-                   <!-- <i class = 'bx bx-chevron-left'></i>-->
-                </span>
-                <div class = "logo">
-                    <img src = "../images/logo1.png">
-                    <h2>Desk<span class= "danger">Habitum</span></h2>
-                </div>
-                <div class = "close" id="close-btn">
-                    <span class="material-icons-sharp">close</span>
-                </div>
+<body >
+  <main style="z-index:1; width: 800px; padding-left:130px; padding-right: 20px; ">
+            
+    <h1 style="margin-top:20px">Contacto con profesionales de la salud</h1>
+    <br/>
+    <form>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Nombre</label>
+            <input type="text" class="form-control" id="name" placeholder="Nombre">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputPassword4">Email</label>
+            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input type="text" class="form-control" id="telefono" placeholder="99999999">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputCity">Región</label>
+              <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                <option selected>...</option>
+                <option value="1">Arica y Parinacota</option>
+                <option value="2">Tarapacá</option> 
+                <option value="3">Antofagasta</option> 
+                <option value="4">Atacama</option> 
+                <option value="5">Coquimbo</option> 
+                <option value="6">Valparaíso</option> 
+                <option value="7">Metropolitana de Santiago</option> 
+                <option value="8">Libertador General Bernardo O'Higgins</option> 
+                <option value="9">Maule</option> 
+                <option value="10">Ñuble</option> 
+                <option value="11">Biobío</option>   
+                <option value="12">La Araucanía</option> 
+                <option value="13">Los Ríos</option> 
+                <option value="14">Los Lagos</option> 
+                <option value="15">Aysén</option> 
+                <option value="16">Magallanes y de la Antártica Chilena</option>      
+            </select>
+          </div>
+            
+            <div class="form-group col-md-6">
+              <label for="inputZip">Ciudad</label>
+              <input type="text" class="form-control" id="inputZip">
             </div>
+        </div>
 
-            
-        </aside>
-        <!----END ASIDE---->
-        <main style="z-index:1">
-            
-            <h1>Contacto con profesionales de la salud</h1>
-            <br/>
-            <form>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="inputEmail4">Nombre</label>
-                    <input type="text" class="form-control" id="name" placeholder="Nombre">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputPassword4">Email</label>
-                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="telefono">Teléfono</label>
-                  <input type="text" class="form-control" id="telefono" placeholder="99999999">
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="inputCity">Región</label>
-                      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                        <option selected>...</option>
-                        <option value="1">Arica y Parinacota</option>
-                        <option value="2">Tarapacá</option> 
-                        <option value="3">Antofagasta</option> 
-                        <option value="4">Atacama</option> 
-                        <option value="5">Coquimbo</option> 
-                        <option value="6">Valparaíso</option> 
-                        <option value="7">Metropolitana de Santiago</option> 
-                        <option value="8">Libertador General Bernardo O'Higgins</option> 
-                        <option value="9">Maule</option> 
-                        <option value="10">Ñuble</option> 
-                        <option value="11">Biobío</option>   
-                        <option value="12">La Araucanía</option> 
-                        <option value="13">Los Ríos</option> 
-                        <option value="14">Los Lagos</option> 
-                        <option value="15">Aysén</option> 
-                        <option value="16">Magallanes y de la Antártica Chilena</option>      
-                    </select>
-                  </div>
-                    
-                    <div class="form-group col-md-6">
-                      <label for="inputZip">Ciudad</label>
-                      <input type="text" class="form-control" id="inputZip">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputState">Tipo de atención</label>
-                        
-                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                            <option selected>Atención...</option>
-                            <option value="1">Online</option>
-                            <option value="2">Presencial</option>        
-                        </select>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputState">Profesional</label>
-                        
-                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                            <option selected>Seleccionar</option>
-                            <option value="1">Médico general</option>
-                            <option value="2">Psicólogo</option> 
-                            <option value="2">Psiquiatra</option>       
-                        </select>
-                    </div>
-                    
-                </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputState">Tipo de atención</label>
                 
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Motivo de consulta</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                    <option selected>Atención...</option>
+                    <option value="1">Online</option>
+                    <option value="2">Presencial</option>        
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputState">Profesional</label>
                 
-              </div>  
-              <div class="form-group">   
-                <label >Subir Archivo</label>     
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" id="customFileLang" lang="es">
-                <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
-              </div>
-              </div> 
-                <button type="submit" class="btn btn-primary">Contactar Profesional</button>
-            </form>
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                    <option selected>Seleccionar</option>
+                    <option value="1">Médico general</option>
+                    <option value="2">Psicólogo</option> 
+                    <option value="2">Psiquiatra</option>       
+                </select>
+            </div>
+            
+        </div>
         
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Motivo de consulta</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        
+      </div>  
+      <div class="form-group">   
+        <label >Subir Archivo</label>     
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFileLang" lang="es">
+        <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
+      </div>
+      </div> 
+        <button type="submit" class="btn btn-primary">Contactar Profesional</button>
+    </form>
 
 
-        </main>
-    </div>
-    <script src="../app.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('.sub-btn').click(function(){
-            $(this).next('.sub-menu').slideToggle();
-            $(this).find('.dropdown').toggleClass('rotate');
-        });
-        $('.sub-btn .sub-item').click(function(e){
-            e.stopPropagation();
-        });
-            
-        });
-    </script>
+
+</main>
+
+  <script src="../app.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function(){
+          $('.sub-btn').click(function(){
+          $(this).next('.sub-menu').slideToggle();
+          $(this).find('.dropdown').toggleClass('rotate');
+      });
+      $('.sub-btn .sub-item').click(function(e){
+          e.stopPropagation();
+      });
+          
+      });
+  </script>
 </body>
 </html>
