@@ -342,7 +342,7 @@ aside .sidebar .message-count{
 /* ========MAIN==========*/
 
 main {
-    margin-top:1rem;
+    margin-top:2px;
     margin-left: 0rem;
 }
 
@@ -554,6 +554,7 @@ body.shrink .message-count{
 }
 
 
+
 /*TABS ELECCION MANIA*/
 .mytabs {
     display: flex;
@@ -587,6 +588,70 @@ body.shrink .message-count{
     background: #fff;
 }
 
+/*---FIN TABS ELECCION MANIAS REPORTES----*/
+
+/*--INICIO ELECCION RECIENTES MES ANIO --*/
+
+.radio2{
+    display: inline-flex;
+    overflow: hidden;
+    border-radius:15px;
+    box-shadow:0 0 5px rgba(0,0,0,0.25);
+    
+}
+
+.radio2 .radio__input{
+    display:none;
+}
+.radio2 .radio__label{
+    color:#ffffff;
+    padding:8px 14px;
+    font-size:14px;
+    font-family: sans-serif;
+
+    background:#3ac68f ;
+    cursor: pointer;
+    transition:background 0.1s;
+
+}
+
+.radio2 .radio__label:not(:last-of-type){
+    border-right: 1px solid #005b52;
+}
+
+.radio2 .radio__input:checked +  .radio__label{
+    background:  #005b52;
+}
+
+
+
+/*- INICIO MOSTRAR REPORTES POR FECHA--*/
+#tricorec {
+    visibility: visible;
+}
+#tricomes{
+    visibility: hidden;
+}
+
+#tricoanio{
+    visibility: hidden;
+}
+
+#objrec {
+    visibility: visible;
+}
+#objmes{
+    visibility: hidden;
+}
+
+#objanio{
+    visibility: hidden;
+}
+
+
+
+/*-FIN MOSTRAR REPORTES POR FECHA-*/
+/*---FIN TABS ELECCION RECIENTES MES ANIO---*/
 /* DESDE AQUI PARTE PARA NOTIFICACION DE EXITO DE TAREA - EXPERIMENTAL PARA TESTING*/
 
 .alerta{
@@ -790,5 +855,40 @@ body.shrink .message-count{
   .active {
     color: var(--first-color);
   }
+
+
+
+
+/*------------INICIO topbar--*/
+.topbar{
+    display: flex;
+    justify-content: end;
+    background-color: white;
+    box-shadow: #58555E;
+       
+}
+ 
+.topbar button{
+    display: none;
+}
+ 
+.topbar .profile2{
+    display:flex;
+    gap:0.5rem;
+    text-align:right;
+}
+ 
+.topbar .profile2 .info p{
+    margin-bottom:0px;
+}
+
+.topbar .profile2 .info .text-muted{
+    margin-bottom:0px;
+    text-align: right;
+}
+
+
+/*------------FIN topbar--*/
+
 
   

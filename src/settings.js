@@ -1,4 +1,4 @@
-const id_User = 2
+let ID_USER = window.api.get_user_id("")
 const morderUnha = document.getElementById("morderUnha")
 const morderObjetos = document.getElementById("morderObjetos")
 const jalarPelo = document.getElementById("jalarPelo")
@@ -7,14 +7,15 @@ const malaPostura = document.getElementById("malaPostura")
 const alertaVisual = document.getElementById("alertaVisual")
 const alertaSonora = document.getElementById("alertaSonora")
 const intervaloNotificacion = document.getElementById("intervaloNotificacion")
-var user_config 
+const tiempoNotificacion = document.getElementById("tiempoNotificacion")
+const tipoNotificacion = document.getElementById("tipoNotificacion")
 const NOTIFICATION_TITLE = 'Desk Habitum'
-const NOTIFICATION_BODY = 'Configuración Guardada'
+const NOTIFICATION_BODY = 'Configuración Guardada. Si tienes el monitoreo activado, tendrás que apagar y encender monitoreo para tu nueva configuración.'
 const CLICK_MESSAGE = 'Notification clicked!'
 
 async function saveSettings(){
     let configList = [
-        id_User, 
+        ID_USER, 
         morderUnha.checked, 
         morderObjetos.checked,
         jalarPelo.checked,
@@ -22,9 +23,10 @@ async function saveSettings(){
         malaPostura.checked,
         alertaVisual.checked,
         alertaSonora.checked,
-        intervaloNotificacion.value
+        intervaloNotificacion.value,
+        tiempoNotificacion.value,
+        tipoNotificacion.value //aqui poner .value quiza, cuando este implementado front
     ]
-    console.log(intervaloNotificacion.value)
     let CONF = configList.map(function(e){
         switch(e) {
             case true:
@@ -38,8 +40,6 @@ async function saveSettings(){
                 break;
         }
     })
-    console.log(configList)
-    console.log(CONF)
     await window.api.updateConfig(
         CONF[0],
         CONF[1],
@@ -49,7 +49,9 @@ async function saveSettings(){
         CONF[5],
         CONF[6],
         CONF[7],
-        CONF[8]
+        CONF[8],
+        CONF[9],
+        CONF[10]
     ).then(result => {
         let resultado=result
     })
@@ -58,10 +60,9 @@ async function saveSettings(){
 
 async function actualizarSettings(){
     
-    await window.api.getConfig(id_User).then(result => {
+    await window.api.getConfig(ID_USER).then(result => {
         config = result[0];
     });
-    console.log(config)
     $('#morderUnha').bootstrapToggle(config.morderunha)
     $('#morderObjetos').bootstrapToggle(config.morderobjetos) 
     $('#jalarPelo').bootstrapToggle(config.jalarpelo) 
@@ -69,7 +70,16 @@ async function actualizarSettings(){
     $('#malaPostura').bootstrapToggle(config.malapostura) 
     $('#alertaVisual').bootstrapToggle(config.alertavisual) 
     $('#alertaSonora').bootstrapToggle(config.alertasonora)
-    $('#intervaloNotificacion').val(config.intervalonotificacion)
+    $('#tipoNotificacion').val(config.tiponotificacion)
+
+    if(config.tiponotificacion == 'tiempo'){
+        $('#tiempoNotificacion').val(config.tiemponotificacion)
+        $('#tipo-intervalo').hide()
+    }else if(config.tiponotificacion == 'reconocimientos'){
+        $('#intervaloNotificacion').val(config.intervalonotificacion)
+        $('#tipo-tiempo').hide()
+    }
+    
 }
 
 window.onload = actualizarSettings;
@@ -83,16 +93,13 @@ function doNotify(){
     })
 }
 
-/*codigo para notificacion
-$('.btn').click(function(){
-            $('.alerta').removeClass("esconder");
-            $('.alerta').addClass("mostrar");
-        });
-
-        $('.close-btn').click(function(){
-            $('.alerta').addClass("esconder");
-            $('.alerta').removeClass("mostrar");
-
-
-        });
-*/ 
+//funcion que permite cambiar las opciones de intervalo de notificacion
+tipoNotificacion.addEventListener('change', (event) => {
+    if (event.target.value == 'tiempo'){
+        $('#tipo-intervalo').hide()
+        $('#tipo-tiempo').show()
+    }else if(event.target.value == 'reconocimientos'){
+        $('#tipo-tiempo').hide()
+        $('#tipo-intervalo').show()
+    }
+});

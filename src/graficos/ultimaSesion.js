@@ -1,9 +1,10 @@
-let id_Usuario = 2
+id_Usuario = 2
+ID_USER = window.api.get_user_id("")
 var id_Sesion, duracion, manias, duraciontotal, duracionunas, duracionpelo, duracionobjetos, id_lastSesion;
 var postura = "10 veces";
 var visual = "Sí"
+
 async function update_dash_ultima_sesion() {
-    
     //HTML: index , indicador: duracion ultima sesion
     await window.api.lastSesion(id_Usuario).then(result => {
         id_lastSesion = result;
@@ -36,6 +37,7 @@ async function update_dash_ultima_sesion() {
     document.getElementById("Card-Visual").innerHTML = visual
 
     //HTML: index , indicador: porcentajes hábitos ultima sesion
+    id_lastSesion = 3 //hardcode ya que los habitos aun no se registran en BD
     await window.api.totalSesionTimeUnhas(id_lastSesion).then(result => {
         duracionunas = parseInt(result);
     });
@@ -80,4 +82,17 @@ async function update_dash_ultima_sesion() {
 
 }
 
-window.onload = update_dash_ultima_sesion;
+//codigo para que se muestre el nombre del usuario activo
+async function navbarInit(){
+  await window.api.getUserData(ID_USER).then(result => {
+      userData = result[0];
+  });
+  document.getElementById("usuario-activo").append(userData.nombre)
+}
+
+function init(){
+  update_dash_ultima_sesion();
+  navbarInit()
+}
+
+window.onload = init;

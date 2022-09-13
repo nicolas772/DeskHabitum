@@ -6,11 +6,13 @@ var nodemailer = require("nodemailer");
 let winlogin;
 let win, camera_win, formulario_win;
 
+let ID_USER;
 
 const createWindow = () => {
       win = new BrowserWindow({
-      width: 900,
+      width: 1000,
       height: 700,
+      icon: __dirname + '/icons/icono.ico',
       webPreferences: {
         nodeIntegration: true,
         preload: path.join(__dirname, './preload.js'),
@@ -19,6 +21,8 @@ const createWindow = () => {
       }
     })
     //win.webContents.openDevTools();
+    //win.loadFile('src/views/index.html');
+    
     win.loadFile('src/views/index.html');
     
     camera_win = new BrowserWindow({
@@ -63,7 +67,8 @@ function loginWindow () {
    }
  })
 
- winlogin.loadFile('src/views/login.html')
+ //winlogin.loadFile('src/views/login.html')
+ winlogin.loadFile('src/views/login2.html')
 }
 
 
@@ -80,6 +85,7 @@ function validatelogin(obj) {
   model.validateUser(email, password).then(
     results => { //results es el id del usuario loggeado
       if(results > 0){
+        ID_USER = results
         createWindow();
         winlogin.close();
       }else{
@@ -106,7 +112,8 @@ function regWindow () {
    }
  })
 
- winreg.loadFile('src/views/registro.html')
+ //winreg.loadFile('src/views/registro.html')
+ winreg.loadFile('src/views/register2.html')
 }
 
 
@@ -125,6 +132,7 @@ function regUser(obj) {
         }).show()
       } else {
         model.createUser(nombre, apellido, email, password)
+        //luego de instertar usuario, se dispara trigger en BD para config por default
         new Notification({
           title:"registro",
           body: 'Usuario registrado correctamente'
@@ -159,21 +167,15 @@ function toLogin(){
 
 
 //Funcion para crear nueva camara desde boton "comenzar"
-/*ipcMain.on('iniciar-camara', (event, data) => {
-  corriendo = "true"
-  let respuesta = "llego proceso a main"
-  event.returnValue = respuesta;
+ipcMain.on('get-user-id', (event, data) => {
+  event.returnValue = ID_USER;
 })
-
-ipcMain.on('cerrar-camara', (event, data) => {
-  //camera_win.close()
-  corriendo = "false"
-})*/
 
 //Funcion para cerrar sesión y cambiar a vista de login
 ipcMain.on('cerrar-sesion', (event, data) => {
   loginWindow()
   win.close()
+  camera_win.close()
 })
 
 //Contacto mail

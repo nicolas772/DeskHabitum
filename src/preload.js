@@ -27,6 +27,11 @@ const cerrar_sesion = (data) => {
     return respuesta
 }
 
+const get_user_id = (data) => {
+    let respuesta = ipcRenderer.sendSync('get-user-id', data)
+    return respuesta
+}
+
 const getUsuarios = () => {
     return model.getUsuarios();
 }
@@ -104,12 +109,12 @@ const validateUser = (email, pass) => {
     return model.validateUser(email, pass)
 }
 
-const postConfig = (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion) => {
-    return model.postConfig(id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion)
+const postConfig = (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion) => {
+    return model.postConfig(id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion)
 }
 
-const updateConfig = (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion) => {
-    return model.updateConfig(id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion)
+const updateConfig = (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion) => {
+    return model.updateConfig(id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion)
 }
     
 
@@ -147,7 +152,8 @@ contextBridge.exposeInMainWorld("api", {
     cerrar_sesion: cerrar_sesion,
     cerrar_camara: cerrar_camara,
     confirmMail: confirmMail,
-    contacto: contacto
+    contacto: contacto,
+    get_user_id: get_user_id
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
