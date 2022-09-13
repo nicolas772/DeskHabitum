@@ -193,7 +193,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO ARRIBA ")
     }
@@ -201,7 +201,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO ARRIBA ")
 
@@ -209,7 +209,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO ARRIBA ")
 
@@ -219,7 +219,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO ABAJO ")
     }
@@ -227,7 +227,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO ABAJO ")
     }
@@ -235,7 +235,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO ABAJO ")
     }
@@ -244,7 +244,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO MEDIO")
     }
@@ -252,7 +252,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO MEDIO")
     }
@@ -260,7 +260,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO MEDIO")
     }
@@ -866,7 +866,7 @@ async function predict() {
                     boca_y2 = clase3_y2
     
                     //Si detecta un objeto fino o grande
-                    if(clase1 == 1 || clase1 == 2){
+                    if(clase1 == 1 || clase1 == 2 ){
 
                         if (score_clase1 > coef){
                             x_izq = clase1_x1
