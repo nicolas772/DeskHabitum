@@ -5,10 +5,10 @@ let ID_USER = window.api.get_user_id("")
 var fatiga_mes = {
     series: [{
     name: 'Pestañeo promedio',
-    data: [10,10,10,10,10,10,10,10]
+    data: [5,5,5,5,5,5,5,5]
   }, {
     name: 'Pestañeo mes actual',
-    data: [11, 14, 8, 8, 16, 11, 17,19]
+    data: [3, 3, 4, 5, 3, 6, 4,6]
   }],
     chart: {
     height: 350,
@@ -21,8 +21,13 @@ var fatiga_mes = {
     curve: 'smooth'
   },
   xaxis: {          
-    categories: ["1", "2", "3", "4", "5", "6", "7","8"]
-  },        
+    categories: ["1", "2", "3", "4", "5", "6", "7","8"]    
+  },
+  annotations: {
+    yaxis: [{
+      y: 0
+    }]
+  },      
   };
 
   var chart_fatm = new ApexCharts(document.querySelector("#chart_fatm"), fatiga_mes);
