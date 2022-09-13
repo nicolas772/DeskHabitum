@@ -1125,7 +1125,7 @@ async function predict() {
 
             if (fecha_ahora - inicio_objeto >= intervalo_objeto){
 
-                detectado_pelo = true;
+                detectado_objeto = true;
 
                 if (se_puede_notificar){
                     console.log("Notificar objeto");
@@ -1172,7 +1172,7 @@ async function predict() {
 
             if (fecha_ahora - inicio_objeto >= intervalo_objeto){
 
-                detectado_pelo = true;
+                detectado_objeto = true;
 
                 cantidad_detecciones++;
 
