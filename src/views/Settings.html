@@ -182,23 +182,35 @@
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Intervalo de notificación
-                            <select class="form-control" id="intervaloNotificacion">
-                                <option value="0">Siempre</option>
-                                <option value="2">Cada 2 reconocimientos</option>
-                                <option value="4">Cada 4 reconocimientos</option>
-                                <option value="6">Cada 6 reconocimientos</option>
-                                <option value="8">Cada 8 reconocimientos</option>
+                            <select class="form-control" id="tipoNotificacion">
+                                <option value="tiempo">Por tiempo</option>
+                                <option value="reconocimientos">Por cantidad de reconocimientos</option>
                             </select>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Tiempo entre notificaciones
-                            <select class="form-control" id="tiempoNotificacion">
-                                <option value="0">Siempre</option>
-                                <option value="1">Cada 1 minuto</option>
-                                <option value="5">Cada 5 minutos</option>
-                                <option value="10">Cada 10 minutos</option>
-                            </select>
-                        </li>
+                        <div id="tipo-intervalo">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Notificarme cada
+                                <select class="form-control" id="intervaloNotificacion">
+                                    <option value="0">Siempre</option>
+                                    <option value="2">2 reconocimientos</option>
+                                    <option value="4">4 reconocimientos</option>
+                                    <option value="6">6 reconocimientos</option>
+                                    <option value="8">8 reconocimientos</option>
+                                </select>
+                            </li>
+                        </div>
+                        <div id="tipo-tiempo">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Notificarme cada
+                                <select class="form-control" id="tiempoNotificacion">
+                                    <option value="0">Siempre</option>
+                                    <option value="1">1 minuto</option>
+                                    <option value="5">5 minutos</option>
+                                    <option value="10">10 minutos</option>
+                                </select>
+                            </li>
+                        </div>
+                        
                         <!--<li class="list-group-item d-flex justify-content-between align-items-center">
                             <label class="mr-sm-2" for="inlineFormCustomSelect">Intervalo de Notificacion</label>
                             <select class="custom-select mr-sm-2" id="intervaloNotificacion">
