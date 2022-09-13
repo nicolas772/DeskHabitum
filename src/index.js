@@ -179,7 +179,8 @@ ipcMain.on('cerrar-sesion', (event, data) => {
 })
 
 //Contacto mail
-function SendIt(name) {
+function SendIt(nombre, email, telefono, region, ciudad, atencion, profesional, motivo) {
+  
   var transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -190,9 +191,20 @@ function SendIt(name) {
 
   const mailOptions = {
     from: "contacto.dolphindev@gmail.com", 
-    to: "j.cabrerab96@gmail.com",
-    subject: "Subject of your email",
-    html: `<p>estimado ${name} le informa que...</p>`,
+    to: email,
+    subject: "Contacto usuario DeskHabitum",
+    html: `<p>Estimado/a, me comunico con usted, mediante la aplicaicon DeskHabitum para solicitar asesoria,  se adjuntas mis datos a continuacion</p>
+            <p>
+            nombre: ${nombre} <br>
+            email: ${email} <br>  
+            telefono: ${telefono} <br>
+            region: ${region} <br> 
+            ciudad: ${ciudad} <br>
+            tipo atencion solicitada: ${atencion} <br>  
+            motivo: ${motivo} <br>            
+            </p>
+    
+    `,
   };
 
   transporter.sendMail(mailOptions, function (err, info) {
@@ -225,10 +237,11 @@ function formWindow () {
  formulario_win.loadFile('src/views/formulario.html')
 }
 
-ipcMain.handle('env_formulario', (event) => {
+ipcMain.handle('env_formulario', (event, obj) => {
+  const {nombre, email, telefono, region, ciudad, atencion, profesional, motivo} = obj
 
-  console.log("correo enviado a: ")
-  //SendIt();
+  console.log("correo enviado a: ", obj)
+  //SendIt(nombre, email, telefono, region, ciudad, atencion, profesional, motivo);
   createWindow();
   formulario_win.close();
 });
