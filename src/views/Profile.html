@@ -17,15 +17,13 @@
     <link rel="stylesheet" href = "./style.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
-
 </head>
-
 <body class="shrink">
-    <div class = "container" style="margin:0"  >
+    <div class = "container" style="margin:0" >
         <aside style="z-index:2" class="aside1">
             <div class = "top">
                 <span class = "shrink-btn">
-                   <!-- <i class = 'bx bx-chevron-left'></i>-->
+                    <!--<i class = 'bx bx-chevron-left'></i>-->
                 </span>
                 <div class = "logo">
                     <img src = "../images/logo1.png">
@@ -43,7 +41,7 @@
                         </a>
                     </div>
                     <div class="item">
-                    <a href = "Profile.html" class ="active">
+                    <a href = "Profile.html" class="active">
                         <span class="material-icons-sharp">person_outline</span>
                         <h3>Perfil</h3>
                     </a>
@@ -98,7 +96,7 @@
                     </a>
                     </div>
     
-                    <div class="item">
+                    <div id="cerrar-sesion" class="item">
                     <a href = "#">
                         <span class="material-icons-sharp">logout</span>
                         <h3>Cerrar Sesión</h3>
@@ -113,16 +111,12 @@
 
             </nav>
             <h1>Perfil</h1>
-            <div class = "date">
-                <input type="date">
-            </div>
-            
-
-
 
         </main>
     </div>
-    <script src="../app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="../navbar.js"></script>
+    <!--<script src="../renderWebcam.js"></script>-->
     <script type="text/javascript">
         $(document).ready(function(){
             $('.sub-btn').click(function(){

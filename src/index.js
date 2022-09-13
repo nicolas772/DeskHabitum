@@ -1,41 +1,43 @@
-const { app, BrowserWindow, ipcMain} = require('electron')
+const { app, BrowserWindow, ipcMain, Notification, MessageChannelMain} = require('electron')
 const path = require('path')
+const model = require('./model/model.js')
 
-
-
+let winlogin;
+let win, camera_win;
+let ID_USER;
 
 const createWindow = () => {
-    const win = new BrowserWindow({
-      width: 900, 
+      win = new BrowserWindow({
+      width: 900,
       height: 700,
+      icon: __dirname + '/icons/icono.ico',
       webPreferences: {
         nodeIntegration: true,
-       // contextIsolation:false, //se agrego esto
-        preload: path.join(__dirname, './preload.js')
+        preload: path.join(__dirname, './preload.js'),
+        enableRemoteModule: true
+        
       }
     })
-
-    //Variable que almacena el timestamp del inicio de la sesión, si no hay sesión en curso almacena "No-Session"
-    let sesion = 'No-Session';
-    ipcMain.on('Check-Session', (event, data) => {
-      if (data == "Init")
-        sesion = new Date();
-      else if (data == "Stop")
-        sesion = 'No-Session';
-      event.returnValue = sesion;
-    })
-
-
     //win.webContents.openDevTools();
     //win.loadFile('src/views/index.html');
     
     win.loadFile('src/views/index.html');
-
+    
+    camera_win = new BrowserWindow({
+      width: 600,
+      height: 600,
+      //show: false,
+      webPreferences: {
+          // nodeIntegration: true,
+          // contextIsolation:true,
+          //devTools:true,
+          preload:path.join(__dirname, 'test_processWebcam.js')
+          
+      }
+    })
+    camera_win.loadFile('src/views/camera.html');
+    camera_win.webContents.openDevTools();
 }
-
-app.whenReady().then(() => {
-    createWindow()
-})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -50,7 +52,132 @@ app.on('activate', () => {
 })
 
 
+function loginWindow () {
+  winlogin = new BrowserWindow({
+   width: 900,
+   height: 700,
+   webPreferences: {
+    nodeIntegration: true,
+    contextIsolation:true,
+    // devTools:false,
+     preload:path.join(__dirname, 'login.js')
+     
+   }
+ })
+
+ //winlogin.loadFile('src/views/login.html')
+ winlogin.loadFile('src/views/login2.html')
+}
+
+
+/*function loginWindow () {
+  createWindow()
+}*/
+
+ipcMain.handle('login', (event, obj) => {
+  validatelogin(obj)
+});
+
+function validatelogin(obj) {
+  const { email, password } = obj 
+  model.validateUser(email, password).then(
+    results => { //results es el id del usuario loggeado
+      if(results > 0){
+        ID_USER = results
+        createWindow();
+        winlogin.close();
+      }else{
+        new Notification({
+          title:"login",
+          body: 'email o password equivocado'
+        }).show()
+      }
+    }    
+  )
+}
+
+//Funcionalidades registrarse
+function regWindow () {
+  winreg = new BrowserWindow({
+   width: 900,
+   height: 700,
+   webPreferences: {
+    // nodeIntegration: true,
+    // contextIsolation:true,
+    // devTools:false,
+     preload:path.join(__dirname, 'registro.js')
+     
+   }
+ })
+
+ //winreg.loadFile('src/views/registro.html')
+ winreg.loadFile('src/views/register2.html')
+}
+
+
+ipcMain.handle('registrar', (event, obj) => {
+  regUser(obj)
+});
+
+function regUser(obj) {
+  const {nombre, apellido, email, password } = obj
+  model.confirmMail(email).then( existe =>
+    {
+      if (existe>0) {
+        new Notification({
+          title:"registro",
+          body: 'Email ya registrado'
+        }).show()
+      } else {
+        model.createUser(nombre, apellido, email, password)
+        //luego de instertar usuario, se dispara trigger en BD para config por default
+        new Notification({
+          title:"registro",
+          body: 'Usuario registrado correctamente'
+        }).show()
+      }
+    }
 
 
 
+  )
 
+}
+
+//Movimiento entre vistas login/registro
+ipcMain.handle('moveToReg', (event, obj) => {
+  toReg();
+});
+
+function toReg(){
+  regWindow();
+  winlogin.close();
+}
+
+ipcMain.handle('moveToLogin', (event, obj) => {
+  toLogin();
+});
+
+function toLogin(){
+  loginWindow();
+  winreg.close();
+}
+
+
+//Funcion para crear nueva camara desde boton "comenzar"
+ipcMain.on('get-user-id', (event, data) => {
+  event.returnValue = ID_USER;
+})
+
+//Funcion para cerrar sesión y cambiar a vista de login
+ipcMain.on('cerrar-sesion', (event, data) => {
+  loginWindow()
+  win.close()
+  camera_win.close()
+})
+
+
+
+ app.whenReady().then(() => {
+  loginWindow();
+})

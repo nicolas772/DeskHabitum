@@ -18,7 +18,6 @@
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
-    <script src="../RenderWebcam.js"></script>
     
 </head>
 <body class="shrink">
@@ -99,7 +98,7 @@
                     </a>
                     </div>
     
-                    <div class="item">
+                    <div id="cerrar-sesion" class="item">
                     <a href = "#">
                         <span class="material-icons-sharp">logout</span>
                         <h3>Cerrar Sesión</h3>
@@ -130,31 +129,31 @@
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Morderse las uñas (onicofagia)
                             <div class ="botoncito">
-                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                                <input type="checkbox" id="morderUnha" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Morder objetos
                             <div class ="botoncito">
-                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                                <input type="checkbox" id="morderObjetos" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Jalarse el pelo (tricotilomanía)
                             <div class ="botoncito">
-                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                                <input type="checkbox" id="jalarPelo" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Fatiga visual
                             <div class ="botoncito">
-                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                                <input type="checkbox" id="fatigaVisual" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Mala postura
                             <div class ="botoncito">
-                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                                <input type="checkbox" id="malaPostura" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
                             </div>
                         </li>
                     
@@ -172,25 +171,43 @@
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Alerta visual
                             <div class ="botoncito">
-                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                                <input type="checkbox" id="alertaVisual" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Alerta sonora
                             <div class ="botoncito">
-                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                                <input type="checkbox" id="alertaSonora" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Intervalo de notificación
-                            <select class="form-control">
-                                <option>Siempre</option>
-                                <option>Cada 2 reconocimientos</option>
-                                <option>Cada 4 reconocimientos</option>
-                                <option>Cada 6 reconocimientos</option>
-                                <option>Cada 8 reconocimientos</option>
+                            <select class="form-control" id="intervaloNotificacion">
+                                <option value="0">Siempre</option>
+                                <option value="2">Cada 2 reconocimientos</option>
+                                <option value="4">Cada 4 reconocimientos</option>
+                                <option value="6">Cada 6 reconocimientos</option>
+                                <option value="8">Cada 8 reconocimientos</option>
                             </select>
                         </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Tiempo entre notificaciones
+                            <select class="form-control" id="tiempoNotificacion">
+                                <option value="0">Siempre</option>
+                                <option value="1">Cada 1 minuto</option>
+                                <option value="5">Cada 5 minutos</option>
+                                <option value="10">Cada 10 minutos</option>
+                            </select>
+                        </li>
+                        <!--<li class="list-group-item d-flex justify-content-between align-items-center">
+                            <label class="mr-sm-2" for="inlineFormCustomSelect">Intervalo de Notificacion</label>
+                            <select class="custom-select mr-sm-2" id="intervaloNotificacion">
+                                <option selected>Choose...</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </li>-->
                     </ul>
                     
                 </div>
@@ -200,14 +217,15 @@
             
             <br/>
             <div class = "div-boton-cambios">
-                <button type='button' class="btn btn-outline-primary" style="float: right;">Guardar Cambios</button>
+                <button type='button' class="btn btn-outline-primary" style="float: right;" onclick='saveSettings()'>Guardar Cambios</button>
             </div>
 
 
         </main>
     </div>
+    <script src="../settings.js"></script>
+    <script src="../navbar.js"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <script src="../app.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('.sub-btn').click(function(){
@@ -220,19 +238,6 @@
             
         });
     </script>
-
-    <script type = "text/javascript">
-        $('.btn').click(function(){
-            $('.alerta').removeClass("esconder");
-            $('.alerta').addClass("mostrar");
-        });
-
-        $('.close-btn').click(function(){
-            $('.alerta').addClass("esconder");
-            $('.alerta').removeClass("mostrar");
-
-
-        });
-    </script>
+    <!--<script src="../renderWebcam.js"></script>-->
 </body>
 </html>

@@ -2,7 +2,7 @@ const tmImage = require('@teachablemachine/image');
 const tf = require('@tensorflow/tfjs')
 const crud = require('./model/model.js')
 const fs = require('fs');
-
+let id_User = 2;
 const URL = 'https://teachablemachine.withgoogle.com/models/83c4Qg0Gu/';
 //Variables para la ejecución de la webcam y modelo
 let model, webcam;
@@ -70,15 +70,18 @@ async function init_model(sesion) {
 
 function stop_monitoring(){
     if (corriendo == true){
+        
         fin_sesion = new Date();
         let ini_sesion = inicio_sesion.toISOString()
         let fini_sesion = fin_sesion.toISOString()
-        crud.createSesion(2, ini_sesion, fini_sesion); //2 hardcodeado por el id_usuario
+        let total =  fin_sesion - inicio_sesion 
+        console.log("total: ", total)
+        crud.createSesion(id_User, ini_sesion, fini_sesion, total); 
         let rawdata = fs.readFileSync('./src/data/unhasSesion.json');
         let lista_unhas = JSON.parse(rawdata);
         lista_unhas.map(u => {
             //2 hardcodeado por el id_usuario
-            crud.lastSesion(2).then(res => crud.createUnhas(res,u.inicio,u.final)) 
+            crud.lastSesion(id_User).then(res => crud.createUnhas(id_User, res, u.inicio, u.final, u.total)) //falta funcion createUnhas en model.js
         })
         fs.writeFileSync('./src/data/unhasSesion.json', '[]')//vaciar archivo
 
@@ -125,9 +128,14 @@ async function predict() {
         
         let ini = tiempo_inicio.toISOString()
         let fini = tiempo_final.toISOString()
+        let total = tiempo_final - tiempo_inicio
+        let totali = total.toString()
+
+
         let unha = {
             "inicio": ini,
-            "final": fini
+            "final": fini,
+            "total": totali
         }
         //lista_unhas.push(unha)
         //console.log(lista_unhas)
@@ -141,6 +149,6 @@ async function predict() {
     }
 }
 
-
+init_model();
 
 module.exports = { init_model , stop_monitoring}

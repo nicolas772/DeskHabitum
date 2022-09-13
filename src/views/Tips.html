@@ -17,9 +17,7 @@
     <link rel="stylesheet" href = "./style.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
-    <script src="../RenderWebcam.js">
-        window.onload = check_cam;
-    </script>
+
 </head>
 <body class="shrink">
     <div class = "container" style="margin:0" >
@@ -99,7 +97,7 @@
                     </a>
                     </div>
     
-                    <div class="item">
+                    <div id="cerrar-sesion" class="item">
                     <a href = "#">
                         <span class="material-icons-sharp">logout</span>
                         <h3>Cerrar Sesión</h3>
@@ -133,7 +131,8 @@
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="../app.js"></script>
+    <script src="../navbar.js"></script>
+    <!--<script src="../renderWebcam.js"></script>-->
     <script type="text/javascript">
         $(document).ready(function(){
             $('.sub-btn').click(function(){

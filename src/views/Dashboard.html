@@ -101,8 +101,7 @@
                         </a>
                     </div>
     
-                    
-                    <div class="item">
+                    <div id="cerrar-sesion" class="item">
                     <a href = "#">
                         <span class="material-icons-sharp">logout</span>
                         <h3>Cerrar Sesión</h3>
@@ -126,7 +125,7 @@
                                 <div class="card"  style="width: 18rem; margin:1.5rem;">
                                     <div class="card-body" style="padding:0.4rem">
                                         <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones última sesión</h4>
-                                        <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;"><div id="h1unhassesion"></div></h1>
+                                        <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;"><div id="deteccionesUltimaSesion"></div></h1>
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +133,7 @@
                                 <div class="card" style="width: 18rem; margin:1.5rem;">
                                     <div class="card-body" style="padding:0.4rem">
                                         <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones totales</h4>
-                                        <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;"><div id="h1totunhas"></div></h1>
+                                        <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;"><div id="deteccionesTotales"></div></h1>
 
                                     </div>
                                 </div>
@@ -143,7 +142,7 @@
                         <div style="width: 60%;float:right">
                             <div class="col-sm-6" >
                                 <h1 style="font-size:1rem; margin-top:0.3rem" > Porcentaje distracción total</h1>
-                                <div id="chart5" style="margin:auto; width:40%;padding-left:1rem"></div>
+                                <div id="chartDistraccionTotal" style="margin:auto; width:40%;padding-left:1rem"></div>
                             </div>
                         </div>
 
@@ -151,7 +150,7 @@
 
                     <div class="row">
                         <h1 style="font-size:1rem; margin-top:0.3rem"> Porcentaje distracción últimas 10 sesiones </h1>
-                        <div id="chart11" style="margin:auto; padding:1rem"></div>
+                        <div id="chart10Sesiones" style="margin:auto; padding:1rem"></div>
                     </div>
 
                 </div>
@@ -187,7 +186,7 @@
                             <div style="width: 60%;float:right">
                                 <div class="col-sm-6" >
                                 <h1 style="font-size:1rem; margin-top:0.3rem" > Porcentaje distracción total</h1>
-                                <div id="chart61" style="margin:auto; width:40%;padding-left:1rem"></div>
+                                <div id="chartDistraccionTotalUnhas" style="margin:auto; width:40%;padding-left:1rem"></div>
                                 </div>
                             </div>
 
@@ -195,7 +194,7 @@
 
                         <div class="row">
                             <h1 style="font-size:1rem; margin-top:0.3rem"> Porcentaje distracción últimas 10 sesiones </h1>
-                            <div id="chart62" style="margin:auto; padding:1rem"></div>
+                            <div id="chart10SesionesUnhas" style="margin:auto; padding:1rem"></div>
                         </div>
 
                 </div>
@@ -899,7 +898,9 @@
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="../app.js"></script>
+    <script src="../graficos/maniasCompulsivas.js"></script>
+    <script src="../navbar.js"></script>
+    <!--<script src="../renderWebcam.js"></script>-->
     <script type="text/javascript">
         $(document).ready(function(){
             $('.sub-btn').click(function(){
