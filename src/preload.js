@@ -124,7 +124,6 @@ const getConfig = (id_usuario) => {
 
 
 const contacto = () => {
-
     let respuesta = ipcRenderer.sendSync('contacto')
     return respuesta
 }

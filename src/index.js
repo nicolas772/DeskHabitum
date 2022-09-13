@@ -228,7 +228,7 @@ function formWindow () {
 ipcMain.handle('env_formulario', (event) => {
 
   console.log("correo enviado a: ")
-  SendIt();
+  //SendIt();
   createWindow();
   formulario_win.close();
 });
