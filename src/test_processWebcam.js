@@ -6,6 +6,9 @@ const poseDetection = require('@tensorflow-models/pose-detection');
 //Base de datos
 const crud = require('./model/model.js')
 const fs = require('fs');
+//Notificaciones
+const {NotificarUña, NotificarPelo, NotificarObjeto} = require('./notificaciones.js');
+
 const {contextBridge, ipcRenderer} = require("electron");
 let ID_USER = get_user_id()
 
@@ -193,7 +196,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO ARRIBA ")
     }
@@ -201,7 +204,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO ARRIBA ")
 
@@ -209,7 +212,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO ARRIBA ")
 
@@ -219,7 +222,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO ABAJO ")
     }
@@ -227,7 +230,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO ABAJO ")
     }
@@ -235,7 +238,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO ABAJO ")
     }
@@ -244,7 +247,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO MEDIO")
     }
@@ -252,7 +255,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO MEDIO")
     }
@@ -260,7 +263,7 @@ function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_
         if (!corriendo_objeto){
             inicio_objeto = new Date;
         }
-        tirando_objeto = true;
+        mordiendo_objeto = true;
         corriendo_objeto = true;
         console.log("MORDIENDO MEDIO")
     }
@@ -1102,7 +1105,7 @@ async function predict() {
                 detectado_uña = true;
 
                 if (se_puede_notificar){
-                    console.log("Notificar uña");
+                    NotificarUña();
                     CountDownEntreNotificaciones();
                 }
             }
@@ -1115,7 +1118,7 @@ async function predict() {
                 detectado_pelo= true;
 
                 if (se_puede_notificar){
-                    console.log("Notificar pelo");
+                    NotificarPelo();
                     CountDownEntreNotificaciones();
                 }
             }
@@ -1128,7 +1131,7 @@ async function predict() {
                 detectado_objeto = true;
 
                 if (se_puede_notificar){
-                    console.log("Notificar objeto");
+                    NotificarObjeto();
                     CountDownEntreNotificaciones();
                 }
             }
