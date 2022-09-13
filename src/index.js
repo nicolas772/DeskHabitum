@@ -241,7 +241,7 @@ ipcMain.handle('env_formulario', (event, obj) => {
   const {nombre, email, telefono, region, ciudad, atencion, profesional, motivo} = obj
 
   console.log("correo enviado a: ", obj)
-  //SendIt(nombre, email, telefono, region, ciudad, atencion, profesional, motivo);
+  SendIt(nombre, email, telefono, region, ciudad, atencion, profesional, motivo);
   createWindow();
   formulario_win.close();
 });
