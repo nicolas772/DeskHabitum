@@ -25,15 +25,13 @@
         <aside style="z-index:2" class="aside1">
             <div class = "top">
                 <span class = "shrink-btn">
-                   <!-- <i class = 'bx bx-chevron-left'></i>-->
+                    <!--<i class = 'bx bx-chevron-left'></i>-->
                 </span>
                 <div class = "logo">
                     <img src = "../images/logo1.png">
                     <h2>Desk<span class= "danger">Habitum</span></h2>
                 </div>
-                <div class = "close" id="close-btn">
-                    <span class="material-icons-sharp">close</span>
-                </div>
+
             </div>
 
             <div class="sidebar">
@@ -73,21 +71,13 @@
                             </a>
                             <a href = "DashboardVista.html" class="sub-item">
                                 <span class="material-icons-sharp">visibility</span>
-                                <h3>Descanso Visual</h3>
+                                <h3>Fatiga ocular</h3>
                             </a>
                         </div>
                     </div>
-                    
-                    <div class="item">
-                    <a href = "Notifications.html" class ="active">
-                        <span class="material-icons-sharp">mail_outline</span>
-                        <h3>Notificaciones</h3>
-                        <span class="message-count"> 26</span>
-                    </a>
-                    </div>
 
                     <div class="item">
-                        <a href = "formulario.html">
+                        <a href = "formulario.html" class="active">
                             <span class="material-icons-sharp"><i class="fas fa-user-md"></i></span>
                             <h3>Contacto Profesional</h3>
                         </a>
@@ -100,7 +90,7 @@
                     </a>
                     </div>
     
-                    <div class="item">
+                    <div id="cerrar-sesion" class="item">
                     <a href = "#">
                         <span class="material-icons-sharp">logout</span>
                         <h3>Cerrar Sesión</h3>
@@ -259,7 +249,7 @@
 
         </main>
     </div>
-    <script src="../app.js"></script>
+    <script src="../navbar.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('.sub-btn').click(function(){

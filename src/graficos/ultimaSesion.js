@@ -87,7 +87,7 @@ async function navbarInit(){
   await window.api.getUserData(ID_USER).then(result => {
       userData = result[0];
   });
-  document.getElementById("usuario-activo").append("Hola, " + userData.nombre)
+  document.getElementById("usuario-activo").append(userData.nombre)
 }
 
 function init(){

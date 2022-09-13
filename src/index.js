@@ -8,7 +8,7 @@ let ID_USER;
 
 const createWindow = () => {
       win = new BrowserWindow({
-      width: 900,
+      width: 1000,
       height: 700,
       icon: __dirname + '/icons/icono.ico',
       webPreferences: {
@@ -26,7 +26,7 @@ const createWindow = () => {
     camera_win = new BrowserWindow({
       width: 600,
       height: 600,
-      //show: false,
+      show: false,
       webPreferences: {
           // nodeIntegration: true,
           // contextIsolation:true,
@@ -36,7 +36,7 @@ const createWindow = () => {
       }
     })
     camera_win.loadFile('src/views/camera.html');
-    camera_win.webContents.openDevTools();
+    //camera_win.webContents.openDevTools();
 }
 
 app.on('window-all-closed', () => {

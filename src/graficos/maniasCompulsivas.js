@@ -179,8 +179,6 @@ async function update_dash_general() {
     await window.api.totalTimeSesions(id_Usuario).then(result => {
       tiempo_optimo = result;
     });
-    console.log("tiempo_unha: ", typeof(tiempo_unha))
-    console.log("tiempo_optimo: ", typeof(tiempo_optimo))
     var dataDistraccionTotalUnhas = {
         series: [parseInt(tiempo_unha), parseInt(tiempo_optimo)],
         chart: {
@@ -662,33 +660,11 @@ async function update_dash_general() {
 
 }
 
-//Navbar responsive
-const aside = document.querySelector(".aside1");
-aside.addEventListener("mouseenter",()=>{
-    document.body.classList.toggle("shrink");
-    shrink_btn.classList.add("hovered");
-
-    setTimeout(
-        ()=>{
-            shrink_btn.classList.remove("hovered");
-        },500);
-
-});
-
-aside.addEventListener("mouseleave",()=>{
-    document.body.classList.toggle("shrink");
-    shrink_btn.classList.add("hovered");
-
-    setTimeout(
-        ()=>{
-            shrink_btn.classList.remove("hovered");
-        },500);
-
-});
-
+const tricorec = document.getElementById('tricorec');
 const tricomes = document.getElementById('tricomes');
 const tricoanio = document.getElementById('tricoanio');
 
+const checktricorec = document.getElementById('checktricorec');
 const checktricomes = document.getElementById('checktricomes');
 const checktricoanio = document.getElementById('checktricoanio');
 
@@ -738,15 +714,14 @@ checktricoanio.addEventListener('click', function handleClick() {
 /* ----------grafico objetos */
 
 const checkobjrec = document.getElementById('checkobjrec');
+const checkobjmes = document.getElementById('checkobjmes');
+const checkobjanio = document.getElementById('checkobjanio');
+
 const objrec = document.getElementById('objrec');
-
-
-
 const objomes = document.getElementById('objmes');
 const objanio = document.getElementById('objanio');
 
-const checkobjmes = document.getElementById('checkobjmes');
-const checkobjanio = document.getElementById('checkobjanio');
+
 
 checkobjrec.addEventListener('click', function handleClick() {
   if (checkobjrec.checked) {
