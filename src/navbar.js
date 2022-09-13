@@ -42,7 +42,6 @@ aside.addEventListener("mouseleave",()=>{
 
 let logoutBtn = document.getElementById("cerrar-sesion")
 logoutBtn.onclick = function(){
-    console.log("prueba boton cerrar sesion")
     window.api.cerrar_sesion("")
 }
 

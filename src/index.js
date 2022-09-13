@@ -26,7 +26,7 @@ const createWindow = () => {
     camera_win = new BrowserWindow({
       width: 600,
       height: 600,
-      //show: false,
+      show: false,
       webPreferences: {
           // nodeIntegration: true,
           // contextIsolation:true,
@@ -36,7 +36,7 @@ const createWindow = () => {
       }
     })
     camera_win.loadFile('src/views/camera.html');
-    camera_win.webContents.openDevTools();
+    //camera_win.webContents.openDevTools();
 }
 
 app.on('window-all-closed', () => {
