@@ -8,6 +8,8 @@ const alertaVisual = document.getElementById("alertaVisual")
 const alertaSonora = document.getElementById("alertaSonora")
 const intervaloNotificacion = document.getElementById("intervaloNotificacion")
 const tiempoNotificacion = document.getElementById("tiempoNotificacion")
+//const tipoNotificacion = document.getElementById("tipoNotificacion")
+const tipoNotificacion = 'reconocimientos' //puede ser tiempo
 const NOTIFICATION_TITLE = 'Desk Habitum'
 const NOTIFICATION_BODY = 'Configuración Guardada. Si tienes el monitoreo activado, tendrás que apagar y encender monitoreo para tu nueva configuración.'
 const CLICK_MESSAGE = 'Notification clicked!'
@@ -23,7 +25,8 @@ async function saveSettings(){
         alertaVisual.checked,
         alertaSonora.checked,
         intervaloNotificacion.value,
-        tiempoNotificacion.value
+        tiempoNotificacion.value,
+        tipoNotificacion //aqui poner .value quiza, cuando este implementado front
     ]
     let CONF = configList.map(function(e){
         switch(e) {
@@ -48,7 +51,8 @@ async function saveSettings(){
         CONF[6],
         CONF[7],
         CONF[8],
-        CONF[9]
+        CONF[9],
+        CONF[10]
     ).then(result => {
         let resultado=result
     })
@@ -69,6 +73,7 @@ async function actualizarSettings(){
     $('#alertaSonora').bootstrapToggle(config.alertasonora)
     $('#intervaloNotificacion').val(config.intervalonotificacion)
     $('#tiempoNotificacion').val(config.tiemponotificacion)
+    //$('#tipoNotificacion').val(config.tiponotificacion)//esto cambiara segun el tipo de elemento html que se ocupe
 }
 
 window.onload = actualizarSettings;
