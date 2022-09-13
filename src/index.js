@@ -8,7 +8,7 @@ let ID_USER;
 
 const createWindow = () => {
       win = new BrowserWindow({
-      width: 900,
+      width: 1000,
       height: 700,
       icon: __dirname + '/icons/icono.ico',
       webPreferences: {
