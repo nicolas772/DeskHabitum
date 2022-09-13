@@ -191,9 +191,9 @@ function SendIt(nombre, email, telefono, region, ciudad, atencion, profesional, 
 
   const mailOptions = {
     from: "contacto.dolphindev@gmail.com", 
-    to: email,
+    to: "contacto.dolphindev@gmail.com",
     subject: "Contacto usuario DeskHabitum",
-    html: `<p>Estimado/a, me comunico con usted, mediante la aplicaicon DeskHabitum para solicitar asesoria,  se adjuntas mis datos a continuacion</p>
+    html: `<p>Estimado/a, me comunico con usted, mediante la aplicación DeskHabitum para solicitar asesoria,  se adjunta mis datos a continuacion</p>
             <p>
             nombre: ${nombre} <br>
             email: ${email} <br>  
@@ -214,42 +214,12 @@ function SendIt(nombre, email, telefono, region, ciudad, atencion, profesional, 
 }
 
 
-
-ipcMain.on('contacto', (event, obj) => {
-  formWindow();
-  win.close();
-
-})
-
-function formWindow () {
-  formulario_win = new BrowserWindow({
-   width: 900,
-   height: 700,
-   webPreferences: {
-    nodeIntegration: true,
-    contextIsolation:true,
-    // devTools:false,
-     preload:path.join(__dirname, 'formulario.js')
-     
-   }
- })
-
- formulario_win.loadFile('src/views/formulario.html')
-}
-
 ipcMain.handle('env_formulario', (event, obj) => {
   const {nombre, email, telefono, region, ciudad, atencion, profesional, motivo} = obj
 
   console.log("correo enviado a: ", obj)
   SendIt(nombre, email, telefono, region, ciudad, atencion, profesional, motivo);
-  createWindow();
-  formulario_win.close();
 });
-
-
-
-
-
 
  app.whenReady().then(() => {
   loginWindow();

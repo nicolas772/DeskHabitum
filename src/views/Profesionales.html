@@ -43,7 +43,7 @@
             <div class="sidebar">
                 <div class="menu">
                     <div class="item">
-                        <a style= "text-decoration: none" href = "#" class="active">
+                        <a href = "index.html">
                             <span class="material-icons-sharp">grid_view</span>
                             <h3>Inicio</h3>
                         </a>
@@ -83,7 +83,7 @@
                     </div>
 
                     <div class="item">
-                        <a href = "Profesionales.html">
+                        <a href = "Profesionales.html" class="active" style= "text-decoration: none" >
                             <span class="material-icons-sharp"><i class="fas fa-user-md"></i></span>
                             <h3>Contacto Profesional</h3>
                         </a>
@@ -96,12 +96,12 @@
                     </a>
                     </div>
 
-                <div id="cerrar-sesion" class="item">
-                <a href = "#">
-                    <span class="material-icons-sharp">logout</span>
-                    <h3>Cerrar Sesión</h3>
-                </a>
-                </div>
+                    <div id="cerrar-sesion" class="item">
+                        <a href = "#">
+                            <span class="material-icons-sharp">logout</span>
+                            <h3>Cerrar Sesión</h3>
+                        </a>
+                    </div>
             </div>
         </aside>
         <!----END ASIDE---->
@@ -127,7 +127,7 @@
                                     <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                        <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+                                        <!--<img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">-->
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                         <h6 class="mb-0 text-sm">John Michael</h6>
@@ -151,7 +151,7 @@
                                     <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                        <img src="../assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user2">
+                                        <!--<img src="../assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user2">-->
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                         <h6 class="mb-0 text-sm">Alexa Liras</h6>
@@ -175,7 +175,7 @@
                                     <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                        <img src="../assets/img/team-4.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user3">
+                                        <!--<img src="../assets/img/team-4.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user3">-->
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                         <h6 class="mb-0 text-sm">Laurent Perrier</h6>
@@ -199,7 +199,7 @@
                                     <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                        <img src="../assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user4">
+                                        <!--<img src="../assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user4">-->
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                         <h6 class="mb-0 text-sm">Michael Levi</h6>
@@ -223,7 +223,7 @@
                                     <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                        <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user5">
+                                        <!--<img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user5">-->
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                         <h6 class="mb-0 text-sm">Richard Gran</h6>
@@ -247,7 +247,7 @@
                                     <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                        <img src="../assets/img/team-4.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user6">
+                                        <!--<img src="../assets/img/team-4.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user6">-->
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                         <h6 class="mb-0 text-sm">Miriam Eric</h6>
@@ -274,16 +274,14 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" id="btn_contacto">Contactar Profesional</button>
+            <a href = "formulario.html">Contactar profesional</a>
+            <!--<button type="submit" class="btn btn-primary" onclick='init_formulario()'>Contactar Profesional</button>-->
 
         </main>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-<script src="../graficos/ultimaSesion.js"></script>
 <script src="../navbar.js"></script>
-<script src="../contacto.js"></script>
-<script src="../graficos/ultimaSesion.js"></script>
 <script src="../test_handleButtons.js"></script>
 <!--<script src="../renderWebcam.js"></script>-->
 <script type="text/javascript">

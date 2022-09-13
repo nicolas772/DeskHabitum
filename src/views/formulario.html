@@ -22,22 +22,22 @@
           <label for="inputCity">Región</label>
           <select class="custom-select mr-sm-2" id="region_contacto">
             <option selected>...</option>
-            <option value="1">Arica y Parinacota</option>
-            <option value="2">Tarapacá</option> 
-            <option value="3">Antofagasta</option> 
-            <option value="4">Atacama</option> 
-            <option value="5">Coquimbo</option> 
-            <option value="6">Valparaíso</option> 
-            <option value="7">Metropolitana de Santiago</option> 
-            <option value="8">Libertador General Bernardo O'Higgins</option> 
-            <option value="9">Maule</option> 
-            <option value="10">Ñuble</option> 
-            <option value="11">Biobío</option>   
-            <option value="12">La Araucanía</option> 
-            <option value="13">Los Ríos</option> 
-            <option value="14">Los Lagos</option> 
-            <option value="15">Aysén</option> 
-            <option value="16">Magallanes y de la Antártica Chilena</option>      
+            <option value="Arica y Parinacota">Arica y Parinacota</option>
+            <option value="Tarapacá">Tarapacá</option> 
+            <option value="Antofagasta">Antofagasta</option> 
+            <option value="Atacama">Atacama</option> 
+            <option value="Coquimbo">Coquimbo</option> 
+            <option value="Valparaíso">Valparaíso</option> 
+            <option value="Metropolitana de Santiago">Metropolitana de Santiago</option> 
+            <option value="Libertador General Bernardo O'Higgins">Libertador General Bernardo O'Higgins</option> 
+            <option value="Maule">Maule</option> 
+            <option value="Ñuble">Ñuble</option> 
+            <option value="Biobío">Biobío</option>   
+            <option value="La Araucanía">La Araucanía</option> 
+            <option value="Los Ríos">Los Ríos</option> 
+            <option value="Los Lagos">Los Lagos</option> 
+            <option value="Aysén">Aysén</option> 
+            <option value="Magallanes y de la Antártica Chilena">Magallanes y de la Antártica Chilena</option>      
         </select>
       </div>
         
@@ -53,8 +53,8 @@
             
             <select class="custom-select mr-sm-2" id="atencion_contacto">
                 <option selected>Atención...</option>
-                <option value="1">Online</option>
-                <option value="2">Presencial</option>        
+                <option value="Online">Online</option>
+                <option value="Presencial">Presencial</option>        
             </select>
         </div>
         <div class="form-group col-md-6">
@@ -62,9 +62,9 @@
             
             <select class="custom-select mr-sm-2" id="profesional_contacto">
                 <option selected>Seleccionar</option>
-                <option value="1">Médico general</option>
-                <option value="2">Psicólogo</option> 
-                <option value="2">Psiquiatra</option>       
+                <option value="Médico general">Médico general</option>
+                <option value="Psicólogo">Psicólogo</option> 
+                <option value="Psiquiatra">Psiquiatra</option>       
             </select>
         </div>
         
@@ -82,5 +82,7 @@
     <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
   </div>
   </div> 
-    <button type="submit" class="btn btn-primary" id="btn_formulario">Contactar Profesional</button>
+    <button type="submit" class="btn btn-primary" onclick='contactar_profesional()'>Contactar Profesional</button>
+    <a href="Profesionales.html">VOLVER</a>
 </form>
+<script src="../test_handleButtons.js"></script>

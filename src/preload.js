@@ -122,6 +122,10 @@ const getConfig = (id_usuario) => {
     return model.getConfig(id_usuario)
 }
 
+const contactar_profesional = (obj) => {
+     ipcRenderer.invoke("env_formulario", obj)
+}
+
 
 const contacto = () => {
     let respuesta = ipcRenderer.sendSync('contacto')
@@ -152,6 +156,7 @@ contextBridge.exposeInMainWorld("api", {
     cerrar_camara: cerrar_camara,
     confirmMail: confirmMail,
     contacto: contacto,
+    contactar_profesional: contactar_profesional,
     get_user_id: get_user_id
 })
 
