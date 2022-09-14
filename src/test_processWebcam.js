@@ -1149,7 +1149,7 @@ async function predict() {
                 cantidad_detecciones++;
 
                 if (cantidad_detecciones == cantidad_notificacion){
-                    console.log("Notificar uña");
+                    NotificarUña();
                     cantidad_detecciones = 0;
                     
                 }
@@ -1165,7 +1165,7 @@ async function predict() {
                 cantidad_detecciones++;
 
                 if (cantidad_detecciones == cantidad_notificacion){
-                    console.log("Notificar pelo");
+                    NotificarPelo();
                     cantidad_detecciones = 0;
                 }
             }
@@ -1180,7 +1180,7 @@ async function predict() {
                 cantidad_detecciones++;
 
                 if (cantidad_detecciones == cantidad_notificacion){
-                    console.log("Notificar objeto");
+                    NotificarObjeto();
                     cantidad_detecciones = 0;
                 }
             }
