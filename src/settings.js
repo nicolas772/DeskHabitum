@@ -8,6 +8,7 @@ const alertaVisual = document.getElementById("alertaVisual")
 const alertaSonora = document.getElementById("alertaSonora")
 const intervaloNotificacion = document.getElementById("intervaloNotificacion")
 const tiempoNotificacion = document.getElementById("tiempoNotificacion")
+const tipoNotificacion = document.getElementById("tipoNotificacion")
 const NOTIFICATION_TITLE = 'Desk Habitum'
 const NOTIFICATION_BODY = 'Configuración Guardada. Si tienes el monitoreo activado, tendrás que apagar y encender monitoreo para tu nueva configuración.'
 const CLICK_MESSAGE = 'Notification clicked!'
@@ -23,7 +24,8 @@ async function saveSettings(){
         alertaVisual.checked,
         alertaSonora.checked,
         intervaloNotificacion.value,
-        tiempoNotificacion.value
+        tiempoNotificacion.value,
+        tipoNotificacion.value //aqui poner .value quiza, cuando este implementado front
     ]
     let CONF = configList.map(function(e){
         switch(e) {
@@ -48,7 +50,8 @@ async function saveSettings(){
         CONF[6],
         CONF[7],
         CONF[8],
-        CONF[9]
+        CONF[9],
+        CONF[10]
     ).then(result => {
         let resultado=result
     })
@@ -67,8 +70,16 @@ async function actualizarSettings(){
     $('#malaPostura').bootstrapToggle(config.malapostura) 
     $('#alertaVisual').bootstrapToggle(config.alertavisual) 
     $('#alertaSonora').bootstrapToggle(config.alertasonora)
-    $('#intervaloNotificacion').val(config.intervalonotificacion)
-    $('#tiempoNotificacion').val(config.tiemponotificacion)
+    $('#tipoNotificacion').val(config.tiponotificacion)
+
+    if(config.tiponotificacion == 'tiempo'){
+        $('#tiempoNotificacion').val(config.tiemponotificacion)
+        $('#tipo-intervalo').hide()
+    }else if(config.tiponotificacion == 'reconocimientos'){
+        $('#intervaloNotificacion').val(config.intervalonotificacion)
+        $('#tipo-tiempo').hide()
+    }
+    
 }
 
 window.onload = actualizarSettings;
@@ -82,16 +93,13 @@ function doNotify(){
     })
 }
 
-/*codigo para notificacion
-$('.btn').click(function(){
-            $('.alerta').removeClass("esconder");
-            $('.alerta').addClass("mostrar");
-        });
-
-        $('.close-btn').click(function(){
-            $('.alerta').addClass("esconder");
-            $('.alerta').removeClass("mostrar");
-
-
-        });
-*/ 
+//funcion que permite cambiar las opciones de intervalo de notificacion
+tipoNotificacion.addEventListener('change', (event) => {
+    if (event.target.value == 'tiempo'){
+        $('#tipo-intervalo').hide()
+        $('#tipo-tiempo').show()
+    }else if(event.target.value == 'reconocimientos'){
+        $('#tipo-tiempo').hide()
+        $('#tipo-intervalo').show()
+    }
+});

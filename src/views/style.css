@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    --color-primary: #7380ec;
+    --color-primary: #3AAF88;
 
     --color-danger2: #ff7782;
-    --color-danger: #AAB952;
+    --color-danger: #3AAF88;
     --color-success:#41f1b6;
     --color-warning: #ffbb55;
     --color-white: #fff;
@@ -221,6 +221,7 @@ aside:hover .shrink-btn,shrink-btn.hovered{
 aside .logo{
     display: flex;
     gap: 0.8rem;
+    margin-left: 1rem;
 }
 
 aside .logo img{

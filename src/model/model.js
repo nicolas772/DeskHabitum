@@ -134,13 +134,13 @@ const totalTimeUnhas = async (userId) => {
 
 //QUERYS CONFIG
 
-const postConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion) => {
-    let query = `INSERT INTO config (id_user, morderunha, morderobjetos, jalarpelo, fatigavisual, malapostura, alertavisual, alertasonora, intervalonotificacion, tiemponotificacion) VALUES 
-    (${id_usuario}, '${morderUnha}', '${morderObjetos}', '${jalarPelo}', '${fatigaVisual}', '${malaPostura}', '${alertaVisual}', '${alertaSonora}', '${intervaloNotificacion}', '${tiempoNotificacion}')`;
+const postConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion) => {
+    let query = `INSERT INTO config (id_user, morderunha, morderobjetos, jalarpelo, fatigavisual, malapostura, alertavisual, alertasonora, intervalonotificacion, tiemponotificacion, tiponotificacion) VALUES 
+    (${id_usuario}, '${morderUnha}', '${morderObjetos}', '${jalarPelo}', '${fatigaVisual}', '${malaPostura}', '${alertaVisual}', '${alertaSonora}', '${intervaloNotificacion}', '${tiempoNotificacion}', '${tipoNotificacion}')`;
     const res = await conexion.query(query)
 }
 
-const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion) => {
+const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion) => {
     let query = `UPDATE config SET 
     morderunha='${morderUnha}', 
     morderobjetos='${morderObjetos}', 
@@ -150,7 +150,8 @@ const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fa
     alertavisual='${alertaVisual}', 
     alertasonora='${alertaSonora}', 
     intervalonotificacion='${intervaloNotificacion}',
-    tiemponotificacion='${tiempoNotificacion}'
+    tiemponotificacion='${tiempoNotificacion}',
+    tiponotificacion='${tipoNotificacion}'
     WHERE id_user = ${id_usuario}` ;
     const res = await conexion.query(query)
 }
