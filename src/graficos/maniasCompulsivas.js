@@ -357,10 +357,30 @@ async function update_dash_general() {
     document.getElementById("mejor_ses_trico").innerHTML = mejor_ses_trico;
 
 
+    let pelo_mes_act, ult_mes_pelo_total;
+    let date = new Date();
+    let pelo_mes_peor, pelo_mes_peor_arr = [];
+    let pelo_mes_mejor, pelo_mes_mejor_arr = [];
+    let categories_pelo = [];
+    await window.api.sesionesMesPelo(id_Usuario, date.getMonth()+1, date.getFullYear()).then(result => {
+      pelo_mes_act = result;
+    })
+
+    await window.api.mejorMesPelo(id_Usuario,date.getMonth()+1,date.getFullYear()).then(result => {
+      pelo_mes_mejor = result;
+    })
+    
+    await window.api.peorMesPelo(id_Usuario,date.getMonth()+1,date.getFullYear()).then(result => {
+      pelo_mes_peor = result;
+    })
+
+
     //graficos mensuales
-    document.getElementById("peor_mes_trico").innerHTML = parseInt(peor_ses_trico)+60;
-    document.getElementById("ult_mes_trico").innerHTML = parseInt(ultima_ses_trico)+15;
-    document.getElementById("mejor_mes_trico").innerHTML = parseInt(mejor_ses_trico)+22;
+    document.getElementById("peor_mes_trico").innerHTML = pelo_mes_peor;
+    document.getElementById("ult_mes_trico").innerHTML = pelo_mes_act.reduce((a, b) => a + b, 0);
+    document.getElementById("mejor_mes_trico").innerHTML = pelo_mes_mejor;
+
+
 
     //////// grafico de comparativo mensual trico
     
@@ -387,21 +407,28 @@ async function update_dash_general() {
         }
        
     });
-    
+
+
+   
+    for (let index = 0; index < pelo_mes_act.length; index++) {
+      pelo_mes_peor_arr[index] = pelo_mes_peor;
+      pelo_mes_mejor_arr[index] = pelo_mes_mejor;
+      categories_pelo[index] = index+1;      
+    }
 
 
     var trico_mes = {
       series: [{
         name: "Detecciones mes actual",
-        data: [1,4,1,6,5,8,7,5,4,6]
+        data: pelo_mes_act
       },
       {
         name: "Mejor record",
-        data: [1,1,1,1,1,1,1,1,1,1]
+        data: pelo_mes_mejor_arr
       },
       {
         name: 'Peor record',
-        data: [7,7,7,7,7,7,7,7,7,7]
+        data: pelo_mes_peor_arr
       }
     ],
       chart: {
@@ -435,9 +462,7 @@ async function update_dash_general() {
       }
     },
     xaxis: {
-      categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9',
-        '10'
-      ],
+      categories: categories_pelo,
     },
     
     grid: {
@@ -445,7 +470,7 @@ async function update_dash_general() {
     }
     };
 
-    var chart_tricomes = new ApexCharts(document.querySelector("#chart_tricomes"), trico_mes);
+    var chart_tricomes = new ApexCharts(document.getElementById("chart_tricomes"), trico_mes);
     chart_tricomes.render();
 
     //----------------------------------------Pestaña MANIA MORDER OBJETOS------------------------------------------------
@@ -555,9 +580,29 @@ async function update_dash_general() {
     document.getElementById("mejor_ses_obj").innerHTML = mejor_ses_obj;
 
     //graficos mensuales
-    document.getElementById("peor_mes_obj").innerHTML = parseInt(peor_ses_obj)+90;
-    document.getElementById("ult_mes_obj").innerHTML = parseInt(ultima_ses_morder)+15;
-    document.getElementById("mejor_mes_obj").innerHTML = parseInt(mejor_ses_obj)+7;
+    let obj_mes_act;
+    let obj_mes_peor, obj_mes_peor_arr = [];
+    let obj_mes_mejor, obj_mes_mejor_arr = [];
+    let categories_obj = [];
+    await window.api.sesionesMesMorder(id_Usuario, date.getMonth()+1, date.getFullYear()).then(result => {
+      obj_mes_act = result;
+    })
+
+    await window.api.mejorMesMorder(id_Usuario,date.getMonth()+1,date.getFullYear()).then(result => {
+      obj_mes_mejor = result;
+    })
+    
+    await window.api.peorMesMorder(id_Usuario,date.getMonth()+1,date.getFullYear()).then(result => {
+      obj_mes_peor = result;
+    })
+
+
+
+
+
+    document.getElementById("peor_mes_obj").innerHTML = obj_mes_peor;
+    document.getElementById("ult_mes_obj").innerHTML = obj_mes_act.reduce((a, b) => a + b, 0);
+    document.getElementById("mejor_mes_obj").innerHTML = obj_mes_mejor;
 
       
     let ct = document.getElementById('ob_comparacion').getContext('2d');
@@ -583,29 +628,27 @@ async function update_dash_general() {
         }
        
     });
-    
+  
 
-    let obj_mes_act;
-    let date = new Date();
-
-    await window.api.sesionesMesMorder(id_Usuario, date.getMonth()+1, date.getFullYear()).then(result => {
-      obj_mes_act = result;
-      console.log(obj_mes_act)
-    }) 
+    for (let index = 0; index < obj_mes_act.length; index++) {
+      obj_mes_peor_arr[index] = obj_mes_peor;
+      obj_mes_mejor_arr[index] = obj_mes_mejor;
+      categories_obj[index] = index+1;      
+    }
     
     //////// grafico de comparativo mensual objetos
     var ob_mes = {
       series: [{
         name: "Detecciones mes actual",
-        data: [1,4,1,6,5,8,7,5,4,6]
+        data: obj_mes_act
       },
       {
         name: "Mejor record",
-        data: [1,1,1,1,1,1,1,1,1,1]
+        data: obj_mes_mejor_arr
       },
       {
         name: 'Peor record',
-        data: [7,7,7,7,7,7,7,7,7,7]
+        data: obj_mes_peor_arr
       }
     ],
       chart: {
@@ -639,9 +682,7 @@ async function update_dash_general() {
       }
     },
     xaxis: {
-      categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9',
-        '10'
-      ],
+      categories: categories_obj,
     },
     
     grid: {
@@ -649,7 +690,7 @@ async function update_dash_general() {
     }
     };
 
-    var chart_obmes = new ApexCharts(document.querySelector("#chart_obmes"), ob_mes);
+    var chart_obmes = new ApexCharts(document.getElementById("chart_obmes"), ob_mes);
     chart_obmes.render();
 
     myChart();

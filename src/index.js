@@ -8,13 +8,7 @@ let win, camera_win;
 
 let ID_USER;
 
-model.sesionesMesPelo(2, 9, 2022).then(r=>{
-  let date = new Date();
-  console.log(r)
 
-
-
-})
 
 
 const createWindow = () => {
@@ -37,7 +31,7 @@ const createWindow = () => {
     camera_win = new BrowserWindow({
       width: 600,
       height: 600,
-      //show: false,
+      show: false,
       webPreferences: {
           // nodeIntegration: true,
           // contextIsolation:true,
