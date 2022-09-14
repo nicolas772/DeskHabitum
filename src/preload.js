@@ -47,8 +47,8 @@ const getUserData = (id) => {
 const confirmMail = (email) => {
     return model.confirmMail(email);
 }
-const createSesion = (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder) => {
-    return model.createSesion(id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder)
+const createSesion = (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, mes_sesion, anno_sesion) => {
+    return model.createSesion(id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, mes_sesion, anno_sesion)
 }
 
 const getSesion = (id) => {
@@ -163,19 +163,24 @@ const obtenerTotal = () => {
     let lista_pelo = JSON.parse(rawdata1);
     let rawdata2 = fs.readFileSync('./src/data/objetoSesion.json');
     let lista_objeto = JSON.parse(rawdata2);
-    let tot_unha = 0, tot_objeto = 0, tot_pelo = 0
+    let tot_unha = 0, tot_objeto = 0, tot_pelo = 0;
+    let cant_tot_unha = 0, cant_tot_objeto = 0, cant_tot_pelo = 0;
     lista_unhas.map(u => {
         tot_unha = tot_unha + parseInt(u.total)
+        cant_tot_unha += 1
     })
 
     lista_pelo.map(u => {
         tot_pelo = tot_pelo + parseInt(u.total)
+        cant_tot_pelo += 1
     })
 
     lista_objeto.map(u => {
         tot_objeto = tot_objeto + parseInt(u.total)
+        cant_tot_objeto += 1
     })
-    return [tot_unha, tot_pelo, tot_objeto]
+
+    return [tot_unha, tot_pelo, tot_objeto, cant_tot_unha, cant_tot_pelo, cant_tot_objeto]
 }
 
 const leerCameraHandle = () => {
