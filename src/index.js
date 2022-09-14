@@ -8,7 +8,13 @@ let win, camera_win;
 
 let ID_USER;
 
-model.peorSesionPelo(2).then(r=>console.log(typeof(r)))
+model.sesionesMesPelo(2, 9, 2022).then(r=>{
+  let date = new Date();
+  console.log(r)
+
+
+
+})
 
 
 const createWindow = () => {

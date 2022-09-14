@@ -17,6 +17,11 @@ var objetos_10_sesiones = [];
 var tiempo_unha = 0
 var tiempo_optimo = 0
 
+let ultima_ses_trico, total_trico;
+let peor_ses_trico, mejor_ses_trico;
+let ultima_ses_morder, total_morder_objeto;
+let peor_ses_obj, mejor_ses_obj;
+
 async function update_dash_general() {
 
     await window.api.lastSesion(id_Usuario).then(result => {
@@ -250,7 +255,7 @@ async function update_dash_general() {
     //----------------------------------------Pestaña TRICOTILOMANIA------------------------------------------------
     
 
-    let ultima_ses_trico, total_trico;
+
 
     await window.api.countPeloSesion(id_Sesion).then(result => {
       ultima_ses_trico = result
@@ -333,7 +338,7 @@ async function update_dash_general() {
     var chart_trico2 = new ApexCharts(document.querySelector("#chart_trico2"), options_trico2);
     chart_trico2.render();
 
-    let peor_ses_trico, mejor_ses_trico;
+
     await window.api.peorSesionPelo(id_Usuario).then(result => {
       peor_ses_trico = result
       console.log(peor_ses_trico, result)
@@ -358,6 +363,33 @@ async function update_dash_general() {
     document.getElementById("mejor_mes_trico").innerHTML = parseInt(mejor_ses_trico)+22;
 
     //////// grafico de comparativo mensual trico
+    
+    let ctx = document.getElementById('trico_comparacion').getContext('2d');
+    let myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Mejor sesión', 'Última sesión', 'Peor sesión'],
+            datasets: [{
+                label: 'Cantidad de detecciones',
+                data: [parseInt(peor_ses_trico),parseInt(ultima_ses_trico),parseInt(mejor_ses_trico)],
+                backgroundColor: [
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rrgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(255, 99, 132)'
+                ],
+                borderWidth: 1
+            }]
+        }
+       
+    });
+    
+
+
     var trico_mes = {
       series: [{
         name: "Detecciones mes actual",
@@ -421,7 +453,7 @@ async function update_dash_general() {
 
 
 
-    let ultima_ses_morder, total_morder_objeto;
+
 
     await window.api.countMorderSesion(id_Sesion).then(result => {
       ultima_ses_morder = result
@@ -504,7 +536,7 @@ async function update_dash_general() {
     chart_obj2.render();
     
     //Diarias
-    let peor_ses_obj, mejor_ses_obj;
+    
     //vat ultima_ses_morder ultima ses
 
     await window.api.peorSesionMorder(id_Usuario).then(result => {
@@ -527,8 +559,39 @@ async function update_dash_general() {
     document.getElementById("ult_mes_obj").innerHTML = parseInt(ultima_ses_morder)+15;
     document.getElementById("mejor_mes_obj").innerHTML = parseInt(mejor_ses_obj)+7;
 
+      
+    let ct = document.getElementById('ob_comparacion').getContext('2d');
+    let ob_comparacion = new Chart(ct, {
+        type: 'bar',
+        data: {
+            labels: ['Mejor sesión', 'Última sesión', 'Peor sesión'],
+            datasets: [{
+                label: 'Cantidad de detecciones',
+                data: [parseInt(peor_ses_obj), parseInt(ultima_ses_morder),parseInt(mejor_ses_obj)],
+                backgroundColor: [
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rrgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(255, 99, 132)'
+                ],
+                borderWidth: 1
+            }]
+        }
+       
+    });
+    
 
+    let obj_mes_act;
+    let date = new Date();
 
+    await window.api.sesionesMesMorder(id_Usuario, date.getMonth()+1, date.getFullYear()).then(result => {
+      obj_mes_act = result;
+      console.log(obj_mes_act)
+    }) 
     
     //////// grafico de comparativo mensual objetos
     var ob_mes = {
@@ -589,7 +652,8 @@ async function update_dash_general() {
     var chart_obmes = new ApexCharts(document.querySelector("#chart_obmes"), ob_mes);
     chart_obmes.render();
 
-
+    myChart();
+    ob_comparacion();
 }
 
 const tricorec = document.getElementById('tricorec');
@@ -698,5 +762,6 @@ checkobjanio.addEventListener('click', function handleClick() {
     objanio.style.visibility = 'hidden';
   }
 });
+
 
 window.onload = update_dash_general;

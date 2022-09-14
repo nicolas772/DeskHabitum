@@ -193,7 +193,19 @@ const mejorSesionMorder = (userId) => {
 const percentageTenSesionMorder = (userId) => {
     return model.percentageTenSesionMorder(userId)
 }
-peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo
+
+const sesionesMesUnha = (userId, mes, año) => {
+    return model.sesionesMesUnha(userId, mes, año)
+}
+
+const sesionesMesMorder = (userId, mes, año) => {
+    return model.sesionesMesMorder(userId, mes, año)
+}
+
+const sesionesMesPelo = (userId, mes, año) => {
+    return model.sesionesMesPelo(userId, mes, año)
+}
+
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -236,8 +248,10 @@ contextBridge.exposeInMainWorld("api", {
     peorSesionPelo: peorSesionPelo, 
     mejorSesionPelo: mejorSesionPelo,
     percentageTenSesionPelo: percentageTenSesionPelo,
-    percentageTenSesionMorder: percentageTenSesionMorder
-
+    percentageTenSesionMorder: percentageTenSesionMorder,
+    sesionesMesUnha: sesionesMesUnha,
+    sesionesMesMorder: sesionesMesMorder,
+    sesionesMesPelo: sesionesMesPelo
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})

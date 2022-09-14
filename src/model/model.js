@@ -2,6 +2,10 @@ const conexion = require("./database.js")
 const bcrypt = require('bcrypt')
 conexion.connect()
 
+
+//select id_ses, count(*) from (select * from (select id_ses, inicio from unnas where EXTRACT(month from inicio) = '1' and id_user = 2 ) as subq where EXTRACT(year from inicio) = '2030') as subsubq group by id_ses 
+
+
 //QUERYS USER
 const validateUser = async (email, pass) => {
 
@@ -80,6 +84,10 @@ const totalTimeSesions = async (userId) => {
     return result[0]['sum']
 }
 
+
+
+
+
 const percentageTenSesionUnhas = async (userId) => { 
     var percentages = []  
     let query = `select total_time, time_unnas from sesions where id_user = ${userId} order by id desc limit 10`;
@@ -97,6 +105,51 @@ const percentageTenSesionUnhas = async (userId) => {
     }
     return percentages.reverse()
 }
+
+
+
+//query sesiones del mes
+//total manias mes
+//select sum(total_time) from (select * from sesions where EXTRACT(month from inicio) = '1' and id_user = '2') as subq where EXTRACT(year from inicio) = '2030'
+
+const sesionesMesUnha = async (userId, mes, año) => {
+    let query = `select cant_total_unnas from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    var totales_sesiones = [] 
+    result.forEach(element => {
+        totales_sesiones.push(parseInt(element['cant_total_unnas']))
+    });
+    return totales_sesiones
+}
+
+const sesionesMesMorder = async (userId, mes, año) => {
+    let query = `select cant_total_morder from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    var totales_sesiones = [] 
+    result.forEach(element => {
+        totales_sesiones.push(parseInt(element['cant_total_morder']))
+    });
+    return totales_sesiones
+}
+
+
+const sesionesMesPelo = async (userId, mes, año) => {
+    let query = `select cant_total_pelo from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    var totales_sesiones = [] 
+    result.forEach(element => {
+        totales_sesiones.push(parseInt(element['cant_total_pelo']))
+    });
+    return totales_sesiones
+}
+
+
+
+
+
 
 //QUERYS UNNAS
 const createUnhas = async (id_usuario, id_sesion, inicio, final, total_time) => {
@@ -304,4 +357,5 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
                   validateUser, postConfig, getConfig, updateConfig, confirmMail,
                 createMorder, totalSesionTimeMorder, totalTimeMorder, countMorderSesion, allSesionsMorder,
               createPelo, totalSesionTimePelo, totalTimePelo, countPeloSesion, allSesionsPelo, 
-              /*nuevas querys*/  peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo, percentageTenSesionMorder, percentageTenSesionPelo}
+              /*nuevas querys*/  peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo, percentageTenSesionMorder, percentageTenSesionPelo, 
+              sesionesMesUnha, sesionesMesMorder, sesionesMesPelo}
