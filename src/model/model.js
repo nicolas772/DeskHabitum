@@ -2,6 +2,10 @@ const conexion = require("./database.js")
 const bcrypt = require('bcrypt')
 conexion.connect()
 
+
+//select id_ses, count(*) from (select * from (select id_ses, inicio from unnas where EXTRACT(month from inicio) = '1' and id_user = 2 ) as subq where EXTRACT(year from inicio) = '2030') as subsubq group by id_ses 
+
+
 //QUERYS USER
 const validateUser = async (email, pass) => {
 
@@ -80,7 +84,11 @@ const totalTimeSesions = async (userId) => {
     return result[0]['sum']
 }
 
-const percentageTenSesion = async (userId) => { 
+
+
+
+
+const percentageTenSesionUnhas = async (userId) => { 
     var percentages = []  
     let query = `select total_time, time_unnas from sesions where id_user = ${userId} order by id desc limit 10`;
     const data = await conexion.query(query)
@@ -97,6 +105,51 @@ const percentageTenSesion = async (userId) => {
     }
     return percentages.reverse()
 }
+
+
+
+//query sesiones del mes
+//total manias mes
+//select sum(total_time) from (select * from sesions where EXTRACT(month from inicio) = '1' and id_user = '2') as subq where EXTRACT(year from inicio) = '2030'
+
+const sesionesMesUnha = async (userId, mes, año) => {
+    let query = `select cant_total_unnas from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    var totales_sesiones = [] 
+    result.forEach(element => {
+        totales_sesiones.push(parseInt(element['cant_total_unnas']))
+    });
+    return totales_sesiones
+}
+
+const sesionesMesMorder = async (userId, mes, año) => {
+    let query = `select cant_total_morder from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    var totales_sesiones = [] 
+    result.forEach(element => {
+        totales_sesiones.push(parseInt(element['cant_total_morder']))
+    });
+    return totales_sesiones
+}
+
+
+const sesionesMesPelo = async (userId, mes, año) => {
+    let query = `select cant_total_pelo from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    var totales_sesiones = [] 
+    result.forEach(element => {
+        totales_sesiones.push(parseInt(element['cant_total_pelo']))
+    });
+    return totales_sesiones
+}
+
+
+
+
+
 
 //QUERYS UNNAS
 const createUnhas = async (id_usuario, id_sesion, inicio, final, total_time) => {
@@ -166,6 +219,40 @@ const allSesionsMorder = async (userId) => {
     return result    
 }
 
+const peorSesionMorder = async (userId) => {
+    let query = `select min(valor) from (select id_ses, count(*) as valor from morder where id_user = ${userId} group by id_ses) as subquery`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['min']    
+}
+
+const mejorSesionMorder = async (userId) => {
+    let query = `select min(valor) from (select id_ses, count(*) as valor from morder where id_user = ${userId} group by id_ses) as subquery`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['min']    
+}
+
+
+const percentageTenSesionMorder = async (userId) => { 
+    var percentages = []  
+    let query = `select total_time, time_morder from sesions where id_user = ${userId} order by id desc limit 10`;
+    const data = await conexion.query(query)
+    const result = data.rows
+    for (let i = 0; i < result.length; i++) {
+        if (result[i]['total_time'] == 0) { 
+            let p = 0  
+            percentages.push(p)       
+        }else{ 
+            let p = result[i]['time_morder']/result[i]['total_time']
+            p = p*100
+            percentages.push(p)
+        }
+    }
+    return percentages.reverse()
+}
+
+
 //QUERYS PELO
 const createPelo = async (id_usuario, id_sesion, inicio, final, total_time) => {
     let query = `INSERT INTO pelo (id_user, id_ses, inicio, fin, total_time) VALUES (${id_usuario}, '${id_sesion}','${inicio}', '${final}', '${total_time}')`;
@@ -200,6 +287,40 @@ const allSesionsPelo = async (userId) => {
     return result    
 }
 
+
+const peorSesionPelo = async (userId) => {
+    let query = `select min(valor) from (select id_ses, count(*) as valor from pelo where id_user = ${userId} group by id_ses) as subquery`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['min']    
+}
+
+const mejorSesionPelo = async (userId) => {
+    let query = `select min(valor) from (select id_ses, count(*) as valor from pelo where id_user = ${userId} group by id_ses) as subquery`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['min']    
+}
+
+const percentageTenSesionPelo = async (userId) => { 
+    var percentages = []  
+    let query = `select total_time, time_pelo from sesions where id_user = ${userId} order by id desc limit 10`;
+    const data = await conexion.query(query)
+    const result = data.rows
+    for (let i = 0; i < result.length; i++) {
+        if (result[i]['total_time'] == 0) { 
+            let p = 0  
+            percentages.push(p)       
+        }else{ 
+            let p = result[i]['time_pelo']/result[i]['total_time']
+            p = p*100
+            percentages.push(p)
+        }
+    }
+    return percentages.reverse()
+}
+
+
 //QUERYS CONFIG
 
 const postConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion) => {
@@ -232,7 +353,9 @@ const getConfig = async (id_usuario) => {
 }
 
 module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion,
-                 totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesion, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas,
+                 totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesionUnhas, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas,
                   validateUser, postConfig, getConfig, updateConfig, confirmMail,
-              /*nuevas querys*/    createMorder, totalSesionTimeMorder, totalTimeMorder, countMorderSesion, allSesionsMorder,
-              createPelo, totalSesionTimePelo, totalTimePelo, countPeloSesion, allSesionsPelo}
+                createMorder, totalSesionTimeMorder, totalTimeMorder, countMorderSesion, allSesionsMorder,
+              createPelo, totalSesionTimePelo, totalTimePelo, countPeloSesion, allSesionsPelo, 
+              /*nuevas querys*/  peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo, percentageTenSesionMorder, percentageTenSesionPelo, 
+              sesionesMesUnha, sesionesMesMorder, sesionesMesPelo}

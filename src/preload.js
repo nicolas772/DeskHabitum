@@ -83,8 +83,8 @@ const totalTimeSesions  = (userId) => {
     return model.totalTimeSesions(userId)
 }
 
-const percentageTenSesion = (userId) => {
-    return model.percentageTenSesion(userId)
+const percentageTenSesionUnhas = (userId) => {
+    return model.percentageTenSesionUnhas(userId)
 }
 
 const totalSesionTimeUnhas = (sesionId) => {
@@ -188,6 +188,81 @@ const leerCameraHandle = () => {
     return data
 }
 
+const createPelo = (id_usuario, id_sesion, inicio, final, total_time) => {
+    return model.createPelo(id_usuario, id_sesion, inicio, final, total_time)
+}
+
+const totalSesionTimePelo = (sesionId) => {
+    return model.totalSesionTimePelo(sesionId)
+}
+const totalTimePelo = (userId) => {
+    return model.totalTimePelo(userId)
+}
+const countPeloSesion = (sesionId) => {
+    return model.countPeloSesion(sesionId)
+}
+
+const allSesionsPelo = (userId) => {
+    return model.allSesionsPelo(userId)
+}
+
+const peorSesionPelo = (userId) => {
+    return model.peorSesionPelo(userId)
+}
+
+const mejorSesionPelo = (userId) => {
+    return model.mejorSesionPelo(userId)
+}
+
+const percentageTenSesionPelo = (userId) => {
+    return model.percentageTenSesionPelo(userId)
+}
+
+const createMorder = (id_usuario, id_sesion, inicio, final, total_time) => {
+    return model.createMorder(id_usuario, id_sesion, inicio, final, total_time)
+}
+
+const totalSesionTimeMorder = (sesionId) => {
+    return model.totalSesionTimeMorder(sesionId)
+}
+
+const totalTimeMorder = (userId) => {
+    return model.totalTimeMorder(userId)
+}
+
+const countMorderSesion = (sesionId) => {
+    return model.countMorderSesion(sesionId)
+}
+
+const allSesionsMorder = (userId) => {
+    return model.allSesionsMorder(userId)
+}
+
+const peorSesionMorder = (userId) => {
+    return model.peorSesionMorder(userId)
+}
+
+const mejorSesionMorder = (userId) => {
+    return model.mejorSesionMorder(userId)
+}
+
+const percentageTenSesionMorder = (userId) => {
+    return model.percentageTenSesionMorder(userId)
+}
+
+const sesionesMesUnha = (userId, mes, año) => {
+    return model.sesionesMesUnha(userId, mes, año)
+}
+
+const sesionesMesMorder = (userId, mes, año) => {
+    return model.sesionesMesMorder(userId, mes, año)
+}
+
+const sesionesMesPelo = (userId, mes, año) => {
+    return model.sesionesMesPelo(userId, mes, año)
+}
+
+
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
     createUser: createUser,
@@ -196,7 +271,7 @@ contextBridge.exposeInMainWorld("api", {
     getSesion: getSesion,
     lastSesion: lastSesion,
     countUnhasSesion: countUnhasSesion,
-    percentageTenSesion: percentageTenSesion,
+    percentageTenSesionUnhas: percentageTenSesionUnhas,
     allSesionUnhas: allSesionUnhas,
     totalTimeSesions: totalTimeSesions,
     totalTimeUnhas: totalTimeUnhas,
@@ -216,7 +291,26 @@ contextBridge.exposeInMainWorld("api", {
     get_user_id: get_user_id,
     insertManias: insertManias,
     obtenerTotal: obtenerTotal,
-    leerCameraHandle: leerCameraHandle
+    leerCameraHandle: leerCameraHandle,
+    createPelo: createPelo,
+    totalSesionTimePelo: totalSesionTimePelo,
+    totalTimePelo: totalTimePelo,
+    countPeloSesion: countPeloSesion,
+    allSesionsPelo: allSesionsPelo,
+    createMorder: createMorder,
+    totalSesionTimeMorder: totalSesionTimeMorder,
+    totalTimeMorder: totalTimeMorder,
+    countMorderSesion: countMorderSesion,
+    allSesionsMorder: allSesionsMorder,
+    peorSesionMorder: peorSesionMorder,
+    mejorSesionMorder: mejorSesionMorder, 
+    peorSesionPelo: peorSesionPelo, 
+    mejorSesionPelo: mejorSesionPelo,
+    percentageTenSesionPelo: percentageTenSesionPelo,
+    percentageTenSesionMorder: percentageTenSesionMorder,
+    sesionesMesUnha: sesionesMesUnha,
+    sesionesMesMorder: sesionesMesMorder,
+    sesionesMesPelo: sesionesMesPelo
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
