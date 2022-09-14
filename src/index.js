@@ -4,9 +4,11 @@ const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
 
 let winlogin;
-let win, camera_win, formulario_win;
+let win, camera_win;
 
 let ID_USER;
+
+
 
 const createWindow = () => {
       win = new BrowserWindow({
@@ -70,9 +72,9 @@ function loginWindow () {
  //winlogin.loadFile('src/views/login.html')
  winlogin.loadFile('src/views/login2.html')
 }
+/*
 
-
-/*function loginWindow () {
+function loginWindow () {
   createWindow()
 }*/
 

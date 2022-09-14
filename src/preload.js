@@ -83,8 +83,8 @@ const totalTimeSesions  = (userId) => {
     return model.totalTimeSesions(userId)
 }
 
-const percentageTenSesion = (userId) => {
-    return model.percentageTenSesion(userId)
+const percentageTenSesionUnhas = (userId) => {
+    return model.percentageTenSesionUnhas(userId)
 }
 
 const totalSesionTimeUnhas = (sesionId) => {
@@ -132,6 +132,46 @@ const contacto = () => {
     return respuesta
 }
 
+const createPelo = (id_usuario, id_sesion, inicio, final, total_time) => {
+    return model.createPelo(id_usuario, id_sesion, inicio, final, total_time)
+}
+
+const totalSesionTimePelo = (sesionId) => {
+    return model.totalSesionTimePelo(sesionId)
+}
+const totalTimePelo = (userId) => {
+    return model.totalTimePelo(userId)
+}
+const countPeloSesion = (sesionId) => {
+    return model.countPeloSesion(sesionId)
+}
+
+const allSesionsPelo = (userId) => {
+    return model.allSesionsPelo(userId)
+}
+
+const createMorder = (id_usuario, id_sesion, inicio, final, total_time) => {
+    return model.createMorder(id_usuario, id_sesion, inicio, final, total_time)
+}
+
+const totalSesionTimeMorder = (sesionId) => {
+    return model.totalSesionTimeMorder(sesionId)
+}
+
+const totalTimeMorder = (userId) => {
+    return model.totalTimeMorder(userId)
+}
+
+const countMorderSesion = (sesionId) => {
+    return model.countMorderSesion(sesionId)
+}
+
+const allSesionsMorder = (userId) => {
+    return model.allSesionsMorder(userId)
+}
+
+
+
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
     createUser: createUser,
@@ -140,7 +180,7 @@ contextBridge.exposeInMainWorld("api", {
     getSesion: getSesion,
     lastSesion: lastSesion,
     countUnhasSesion: countUnhasSesion,
-    percentageTenSesion: percentageTenSesion,
+    percentageTenSesionUnhas: percentageTenSesionUnhas,
     allSesionUnhas: allSesionUnhas,
     totalTimeSesions: totalTimeSesions,
     totalTimeUnhas: totalTimeUnhas,
@@ -157,7 +197,18 @@ contextBridge.exposeInMainWorld("api", {
     confirmMail: confirmMail,
     contacto: contacto,
     contactar_profesional: contactar_profesional,
-    get_user_id: get_user_id
+    get_user_id: get_user_id,
+    createPelo: createPelo,
+    totalSesionTimePelo: totalSesionTimePelo,
+    totalTimePelo: totalTimePelo,
+    countPeloSesion: countPeloSesion,
+    allSesionsPelo: allSesionsPelo,
+    createMorder: createMorder,
+    totalSesionTimeMorder: totalSesionTimeMorder,
+    totalTimeMorder: totalTimeMorder,
+    countMorderSesion: countMorderSesion,
+    allSesionsMorder: allSesionsMorder
+
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})

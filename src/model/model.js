@@ -80,7 +80,7 @@ const totalTimeSesions = async (userId) => {
     return result[0]['sum']
 }
 
-const percentageTenSesion = async (userId) => { 
+const percentageTenSesionUnhas = async (userId) => { 
     var percentages = []  
     let query = `select total_time, time_unnas from sesions where id_user = ${userId} order by id desc limit 10`;
     const data = await conexion.query(query)
@@ -232,7 +232,7 @@ const getConfig = async (id_usuario) => {
 }
 
 module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion,
-                 totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesion, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas,
+                 totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesionUnhas, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas,
                   validateUser, postConfig, getConfig, updateConfig, confirmMail,
               /*nuevas querys*/    createMorder, totalSesionTimeMorder, totalTimeMorder, countMorderSesion, allSesionsMorder,
               createPelo, totalSesionTimePelo, totalTimePelo, countPeloSesion, allSesionsPelo}

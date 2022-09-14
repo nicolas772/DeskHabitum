@@ -72,7 +72,7 @@ async function update_dash_general() {
 
       //html: dashboard, dato: Porcentaje distracción últimas 10 sesiones
       
-      await window.api.percentageTenSesion(id_Usuario).then(result => {
+      await window.api.percentageTenSesionUnhas(id_Usuario).then(result => {
         unhas_10_sesiones = result;
       });
 
@@ -240,8 +240,34 @@ async function update_dash_general() {
     chart10SesionesUnhas.render();
 
     //----------------------------------------Pestaña TRICOTILOMANIA------------------------------------------------
+    
+
+    let ultima_ses_trico, total_trico;
+
+    await window.api.countPeloSesion(id_Sesion).then(result => {
+      ultima_ses_trico = result
+      })
+
+    await window.api.allSesionsPelo(id_Usuario).then(result => {
+      total_trico = result
+      })
+    
+       
+    //Html: dashboard, pestana: Onicofagia, dato: Cantidad detecciones ultima sesion
+    document.getElementById("ultima-sesion-trico").innerHTML =  ultima_ses_trico;   
+;
+
+    //Html: dashboard, pestana: Onicofagia, dato: Cantidad detecciones totales
+    document.getElementById("total-detecciones-trico").innerHTML = total_trico;
+
+    var tiempo_trico;
+    await window.api.totalTimePelo(id_Usuario).then(result => {
+      console.log(result)
+      tiempo_trico = result
+    })
+
     var options_trico1 = {
-      series: [30, 70],
+      series: [parseInt(tiempo_trico), parseInt(tiempo_optimo)],
       chart: {
         width: 380,
         type: 'pie',
@@ -260,7 +286,7 @@ async function update_dash_general() {
       }]
     };
     
-    var chart_trico1 = new ApexCharts(document.querySelector("#chart_trico1"), options_trico1);
+    var chart_trico1 = new ApexCharts(document.getElementById("#chart_trico1"), options_trico1);
     chart_trico1.render();
     
     var options_trico2 = {
@@ -449,8 +475,34 @@ async function update_dash_general() {
 
     //----------------------------------------Pestaña MANIA MORDER OBJETOS------------------------------------------------
     //////// Dashboard objetos
+
+
+
+    let ultima_ses_morder, total_morder_objeto;
+
+    await window.api.countMorderSesion(id_Sesion).then(result => {
+      ultima_ses_morder = result
+      })
+
+    await window.api.allSesionsMorder(id_Usuario).then(result => {
+      total_morder_objeto = result
+      })
+    
+       
+    //Html: dashboard, pestana: Onicofagia, dato: Cantidad detecciones ultima sesion
+    document.getElementById("ultima-sesion-morder").innerHTML =  ultima_ses_trico;   
+;
+
+    //Html: dashboard, pestana: Onicofagia, dato: Cantidad detecciones totales
+    document.getElementById("total-detecciones-morder").innerHTML = total_trico;
+
+    var tiempo_morder;
+    await window.api.totalTimeMorder(id_Usuario).then(result => {
+      tiempo_morder = result
+    })
+
     var options_obj1 = {
-      series: [30, 70], 
+      series: [parseInt(tiempo_morder), parseInt(tiempo_optimo)], 
       chart: {
         width: 380,
         type: 'pie',
@@ -469,7 +521,7 @@ async function update_dash_general() {
       }]
     };
     
-    var chart_obj1 = new ApexCharts(document.querySelector("#chart_obj1"), options_obj1);
+    var chart_obj1 = new ApexCharts(document.getElementById("#chart_obj1"), options_obj1);
     chart_obj1.render();
     
     var options_obj2 = {
