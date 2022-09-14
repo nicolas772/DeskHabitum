@@ -4,10 +4,10 @@ let ID_USER = window.api.get_user_id("")
 
 var fatiga_mes = {
     series: [{
-    name: 'Pestañeo promedio',
+    name: 'Pestañeo promedio normal',
     data: [5,5,5,5,5,5,5,5]
   }, {
-    name: 'Pestañeo mes actual',
+    name: 'Pestañeo promedio por sesión',
     data: [3, 3, 4, 5, 3, 6, 4,6]
   }],
     chart: {
