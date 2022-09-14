@@ -166,6 +166,21 @@ const allSesionsMorder = async (userId) => {
     return result    
 }
 
+const peorSesionMorder = async (userId) => {
+    let query = `select min(valor) from (select id_ses, count(*) as valor from morder where id_user = ${userId} group by id_ses) as subquery`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['min']    
+}
+
+const mejorSesionMorder = async (userId) => {
+    let query = `select min(valor) from (select id_ses, count(*) as valor from morder where id_user = ${userId} group by id_ses) as subquery`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['min']    
+}
+
+
 //QUERYS PELO
 const createPelo = async (id_usuario, id_sesion, inicio, final, total_time) => {
     let query = `INSERT INTO pelo (id_user, id_ses, inicio, fin, total_time) VALUES (${id_usuario}, '${id_sesion}','${inicio}', '${final}', '${total_time}')`;
@@ -199,6 +214,22 @@ const allSesionsPelo = async (userId) => {
     const result = res.rowCount
     return result    
 }
+
+
+const peorSesionPelo = async (userId) => {
+    let query = `select min(valor) from (select id_ses, count(*) as valor from pelo where id_user = ${userId} group by id_ses) as subquery`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['min']    
+}
+
+const mejorSesionPelo = async (userId) => {
+    let query = `select min(valor) from (select id_ses, count(*) as valor from pelo where id_user = ${userId} group by id_ses) as subquery`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['min']    
+}
+
 
 //QUERYS CONFIG
 
@@ -234,5 +265,6 @@ const getConfig = async (id_usuario) => {
 module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion,
                  totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesionUnhas, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas,
                   validateUser, postConfig, getConfig, updateConfig, confirmMail,
-              /*nuevas querys*/    createMorder, totalSesionTimeMorder, totalTimeMorder, countMorderSesion, allSesionsMorder,
-              createPelo, totalSesionTimePelo, totalTimePelo, countPeloSesion, allSesionsPelo}
+                createMorder, totalSesionTimeMorder, totalTimeMorder, countMorderSesion, allSesionsMorder,
+              createPelo, totalSesionTimePelo, totalTimePelo, countPeloSesion, allSesionsPelo, 
+              /*nuevas querys*/  peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo}

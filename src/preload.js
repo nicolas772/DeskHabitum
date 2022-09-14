@@ -150,6 +150,14 @@ const allSesionsPelo = (userId) => {
     return model.allSesionsPelo(userId)
 }
 
+const peorSesionPelo = (userId) => {
+    return model.peorSesionPelo(userId)
+}
+
+const mejorSesionPelo = (userId) => {
+    return model.mejorSesionPelo(userId)
+}
+
 const createMorder = (id_usuario, id_sesion, inicio, final, total_time) => {
     return model.createMorder(id_usuario, id_sesion, inicio, final, total_time)
 }
@@ -170,7 +178,15 @@ const allSesionsMorder = (userId) => {
     return model.allSesionsMorder(userId)
 }
 
+const peorSesionMorder = (userId) => {
+    return model.peorSesionMorder(userId)
+}
 
+const mejorSesionMorder = (userId) => {
+    return model.mejorSesionMorder(userId)
+}
+
+peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -207,7 +223,11 @@ contextBridge.exposeInMainWorld("api", {
     totalSesionTimeMorder: totalSesionTimeMorder,
     totalTimeMorder: totalTimeMorder,
     countMorderSesion: countMorderSesion,
-    allSesionsMorder: allSesionsMorder
+    allSesionsMorder: allSesionsMorder,
+    peorSesionMorder: peorSesionMorder,
+    mejorSesionMorder: mejorSesionMorder, 
+    peorSesionPelo: peorSesionPelo, 
+    mejorSesionPelo: mejorSesionPelo
 
 })
 
