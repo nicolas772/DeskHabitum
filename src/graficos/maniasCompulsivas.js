@@ -1,4 +1,3 @@
-let id_Usuario = 2;
 let ID_USER = window.api.get_user_id("")
 let id_Sesion;
 
@@ -24,7 +23,7 @@ let peor_ses_obj, mejor_ses_obj;
 
 async function update_dash_general() {
 
-    await window.api.lastSesion(id_Usuario).then(result => {
+    await window.api.lastSesion(ID_USER).then(result => {
         id_Sesion = result;
       });
 
@@ -40,7 +39,7 @@ async function update_dash_general() {
 
 
     //Html: dashboard, dato: Cantidad detecciones totales
-    await window.api.allSesionUnhas(id_Usuario).then(result => {
+    await window.api.allSesionUnhas(ID_USER).then(result => {
         total_unha = result;
       });
 
@@ -77,15 +76,15 @@ async function update_dash_general() {
 
       //html: dashboard, dato: Porcentaje distracción últimas 10 sesiones
       
-      await window.api.percentageTenSesionUnhas(id_Usuario).then(result => {
+      await window.api.percentageTenSesionUnhas(ID_USER).then(result => {
         unhas_10_sesiones = result;
       });
 
-      await window.api.percentageTenSesionPelo(id_Usuario).then(result => {
+      await window.api.percentageTenSesionPelo(ID_USER).then(result => {
         pelos_10_sesiones = result;
       });
 
-      await window.api.percentageTenSesionMorder(id_Usuario).then(result => {
+      await window.api.percentageTenSesionMorder(ID_USER).then(result => {
         objetos_10_sesiones = result;
       });
 
@@ -186,10 +185,10 @@ async function update_dash_general() {
     document.getElementById("total-detecciones-unhas").innerHTML = total_unha;
 
     //Html: dashboard, pestana: Onicofagia, dato: porcentaje distracción total
-    await window.api.totalTimeUnhas(id_Usuario).then(result => {
+    await window.api.totalTimeUnhas(ID_USER).then(result => {
       tiempo_unha = result;
     });
-    await window.api.totalTimeSesions(id_Usuario).then(result => {
+    await window.api.totalTimeSesions(ID_USER).then(result => {
       tiempo_optimo = result;
     });
     var dataDistraccionTotalUnhas = {
@@ -261,7 +260,7 @@ async function update_dash_general() {
       ultima_ses_trico = result
       })
 
-    await window.api.allSesionsPelo(id_Usuario).then(result => {
+    await window.api.allSesionsPelo(ID_USER).then(result => {
       total_trico = result
       })
     
@@ -274,7 +273,7 @@ async function update_dash_general() {
     document.getElementById("total-detecciones-trico").innerHTML = total_trico;
 
     var tiempo_trico;
-    await window.api.totalTimePelo(id_Usuario).then(result => {
+    await window.api.totalTimePelo(ID_USER).then(result => {
       console.log(result)
       tiempo_trico = result
     })
@@ -339,12 +338,12 @@ async function update_dash_general() {
     chart_trico2.render();
 
 
-    await window.api.peorSesionPelo(id_Usuario).then(result => {
+    await window.api.peorSesionPelo(ID_USER).then(result => {
       peor_ses_trico = result
       console.log(peor_ses_trico, result)
       })
 
-    await window.api.mejorSesionPelo(id_Usuario).then(result => {
+    await window.api.mejorSesionPelo(ID_USER).then(result => {
       mejor_ses_trico = result
       console.log(mejor_ses_trico, result)
       })
@@ -362,15 +361,15 @@ async function update_dash_general() {
     let pelo_mes_peor, pelo_mes_peor_arr = [];
     let pelo_mes_mejor, pelo_mes_mejor_arr = [];
     let categories_pelo = [];
-    await window.api.sesionesMesPelo(id_Usuario, date.getMonth()+1, date.getFullYear()).then(result => {
+    await window.api.sesionesMesPelo(ID_USER, date.getMonth()+1, date.getFullYear()).then(result => {
       pelo_mes_act = result;
     })
 
-    await window.api.mejorMesPelo(id_Usuario,date.getMonth()+1,date.getFullYear()).then(result => {
+    await window.api.mejorMesPelo(ID_USER,date.getMonth()+1,date.getFullYear()).then(result => {
       pelo_mes_mejor = result;
     })
     
-    await window.api.peorMesPelo(id_Usuario,date.getMonth()+1,date.getFullYear()).then(result => {
+    await window.api.peorMesPelo(ID_USER,date.getMonth()+1,date.getFullYear()).then(result => {
       pelo_mes_peor = result;
     })
 
@@ -484,7 +483,7 @@ async function update_dash_general() {
       ultima_ses_morder = result
       })
 
-    await window.api.allSesionsMorder(id_Usuario).then(result => {
+    await window.api.allSesionsMorder(ID_USER).then(result => {
       total_morder_objeto = result
       })
     
@@ -497,7 +496,7 @@ async function update_dash_general() {
     document.getElementById("total-detecciones-morder").innerHTML = total_morder_objeto;
 
     var tiempo_morder;
-    await window.api.totalTimeMorder(id_Usuario).then(result => {
+    await window.api.totalTimeMorder(ID_USER).then(result => {
       tiempo_morder = result
     })
 
@@ -564,11 +563,11 @@ async function update_dash_general() {
     
     //vat ultima_ses_morder ultima ses
 
-    await window.api.peorSesionMorder(id_Usuario).then(result => {
+    await window.api.peorSesionMorder(ID_USER).then(result => {
       peor_ses_obj = result
       })
 
-    await window.api.mejorSesionMorder(id_Usuario).then(result => {
+    await window.api.mejorSesionMorder(ID_USER).then(result => {
       mejor_ses_obj = result
       })
 
@@ -584,15 +583,15 @@ async function update_dash_general() {
     let obj_mes_peor, obj_mes_peor_arr = [];
     let obj_mes_mejor, obj_mes_mejor_arr = [];
     let categories_obj = [];
-    await window.api.sesionesMesMorder(id_Usuario, date.getMonth()+1, date.getFullYear()).then(result => {
+    await window.api.sesionesMesMorder(ID_USER, date.getMonth()+1, date.getFullYear()).then(result => {
       obj_mes_act = result;
     })
 
-    await window.api.mejorMesMorder(id_Usuario,date.getMonth()+1,date.getFullYear()).then(result => {
+    await window.api.mejorMesMorder(ID_USER,date.getMonth()+1,date.getFullYear()).then(result => {
       obj_mes_mejor = result;
     })
     
-    await window.api.peorMesMorder(id_Usuario,date.getMonth()+1,date.getFullYear()).then(result => {
+    await window.api.peorMesMorder(ID_USER,date.getMonth()+1,date.getFullYear()).then(result => {
       obj_mes_peor = result;
     })
 
