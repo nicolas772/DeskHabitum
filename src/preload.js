@@ -47,8 +47,8 @@ const getUserData = (id) => {
 const confirmMail = (email) => {
     return model.confirmMail(email);
 }
-const createSesion = (id_usuario, inicio, final, total) => {
-    return model.createSesion(id_usuario, inicio, final, total)
+const createSesion = (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder) => {
+    return model.createSesion(id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder)
 }
 
 const getSesion = (id) => {
@@ -132,6 +132,52 @@ const contacto = () => {
     return respuesta
 }
 
+const insertManias = (id_usuario) => {
+    let rawdata = fs.readFileSync('./src/data/unhasSesion.json');
+    let lista_unhas = JSON.parse(rawdata);
+    let rawdata1 = fs.readFileSync('./src/data/peloSesion.json');
+    let lista_pelo = JSON.parse(rawdata1);
+    let rawdata2 = fs.readFileSync('./src/data/objetoSesion.json');
+    let lista_objeto = JSON.parse(rawdata2);
+    
+    lista_unhas.map(u => {
+        model.lastSesion(id_usuario).then(res => model.createUnhas(id_usuario, res, u.inicio, u.final, u.total))
+    })
+    fs.writeFileSync('./src/data/unhasSesion.json', '[]')//vaciar archivo
+
+    lista_pelo.map(u => {
+        model.lastSesion(id_usuario).then(res => model.createPelo(id_usuario, res, u.inicio, u.final, u.total))
+    })
+    fs.writeFileSync('./src/data/peloSesion.json', '[]')//vaciar archivo
+
+    lista_objeto.map(u => {
+        model.lastSesion(id_usuario).then(res => model.createMorder(id_usuario, res, u.inicio, u.final, u.total))
+    })
+    fs.writeFileSync('./src/data/objetoSesion.json', '[]')//vaciar archivo
+}
+ //calculo de totales por mania, para insertar en la tabla sesion al momento de detener la deteccion
+const obtenerTotal = () => {
+    let rawdata = fs.readFileSync('./src/data/unhasSesion.json');
+    let lista_unhas = JSON.parse(rawdata);
+    let rawdata1 = fs.readFileSync('./src/data/peloSesion.json');
+    let lista_pelo = JSON.parse(rawdata1);
+    let rawdata2 = fs.readFileSync('./src/data/objetoSesion.json');
+    let lista_objeto = JSON.parse(rawdata2);
+    let tot_unha = 0, tot_objeto = 0, tot_pelo = 0
+    lista_unhas.map(u => {
+        tot_unha = tot_unha + parseInt(u.total)
+    })
+
+    lista_pelo.map(u => {
+        tot_pelo = tot_pelo + parseInt(u.total)
+    })
+
+    lista_objeto.map(u => {
+        tot_objeto = tot_objeto + parseInt(u.total)
+    })
+    return [tot_unha, tot_pelo, tot_objeto]
+}
+
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
     createUser: createUser,
@@ -157,7 +203,9 @@ contextBridge.exposeInMainWorld("api", {
     confirmMail: confirmMail,
     contacto: contacto,
     contactar_profesional: contactar_profesional,
-    get_user_id: get_user_id
+    get_user_id: get_user_id,
+    insertManias: insertManias,
+    obtenerTotal: obtenerTotal
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})

@@ -80,6 +80,37 @@ function get_user_id(){
     return respuesta   
 }
 
+function actualizarJson(tipo, inicio, fin){
+    let ini = inicio.toISOString()
+    let fini = fin.toISOString()
+    let total = Math.trunc((fin - inicio)/1000)
+    let totali = total.toString()
+    let objInsert = {
+        "inicio": ini,
+        "final": fini,
+        "total": totali
+    }
+    if (tipo == 'unha'){
+        let rawdata = fs.readFileSync('./src/data/unhasSesion.json');
+        let lista_unhas = JSON.parse(rawdata);
+        lista_unhas.push(objInsert)
+        let data_unha = JSON.stringify(lista_unhas);
+        fs.writeFileSync("./src/data/unhasSesion.json", data_unha)
+    }else if (tipo == 'pelo'){
+        let rawdata1 = fs.readFileSync('./src/data/peloSesion.json');
+        let lista_pelo = JSON.parse(rawdata1);
+        lista_pelo.push(objInsert)
+        let data_pelo = JSON.stringify(lista_pelo);
+        fs.writeFileSync("./src/data/peloSesion.json", data_pelo)
+    }else if (tipo== 'objeto'){
+        let rawdata2 = fs.readFileSync('./src/data/objetoSesion.json');
+        let lista_objeto = JSON.parse(rawdata2);
+        lista_objeto.push(objInsert)
+        let data_objeto = JSON.stringify(lista_objeto);
+        fs.writeFileSync("./src/data/objetoSesion.json", data_objeto)
+    }
+}
+
 async function getConfig(ID_USER){
     ID_USER = get_user_id()
     await crud.getConfig(ID_USER).then(result => {
@@ -1074,6 +1105,7 @@ async function predict() {
             
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_uña, fin_uña);
+            actualizarJson('unha', inicio_uña, fin_uña)
         }
 
         if (corriendo_pelo && detectado_pelo){
@@ -1083,6 +1115,7 @@ async function predict() {
             
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_pelo, fin_pelo);
+            actualizarJson('pelo', inicio_pelo, fin_pelo)
         }
 
         if (corriendo_objeto && detectado_objeto){
@@ -1092,6 +1125,7 @@ async function predict() {
             
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_objeto, fin_objeto);
+            actualizarJson('objeto', inicio_objeto, fin_objeto)
         }
     }
 

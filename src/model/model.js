@@ -48,8 +48,8 @@ const confirmMail = async (email) => {
 }
 
 //QUERYS SESIONES
-const createSesion = async (id_usuario, inicio, final, total) => {
-    let query = `INSERT INTO sesions (id_user, inicio, fin, total_time) VALUES (${id_usuario}, '${inicio}', '${final}', '${total}')`;
+const createSesion = async (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder) => {
+    let query = `INSERT INTO sesions (id_user, inicio, fin, total_time, time_unnas, time_pelo, time_morder) VALUES (${id_usuario}, '${inicio}', '${final}', '${total}', '${total_unhas}', '${total_pelo}', '${total_morder}')`;
     const res = await conexion.query(query)
 }
 const getSesion = async (id) => {
