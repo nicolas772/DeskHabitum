@@ -10,9 +10,9 @@ var total_pelo = 20;
 var total_morder = 15;
 var total_unha = 0;
 
-var pelos_10_sesiones = [45, 52, 38, 24, 33, 26, 21, 20, 6, 8];
+var pelos_10_sesiones = [];
 var unhas_10_sesiones = [];
-var objetos_10_sesiones = [87, 57, 74, 99, 75, 38, 62, 47, 82, 56];
+var objetos_10_sesiones = [];
 
 var tiempo_unha = 0
 var tiempo_optimo = 0
@@ -74,6 +74,14 @@ async function update_dash_general() {
       
       await window.api.percentageTenSesionUnhas(id_Usuario).then(result => {
         unhas_10_sesiones = result;
+      });
+
+      await window.api.percentageTenSesionPelo(id_Usuario).then(result => {
+        pelos_10_sesiones = result;
+      });
+
+      await window.api.percentageTenSesionMorder(id_Usuario).then(result => {
+        objetos_10_sesiones = result;
       });
 
       //ARREGLAR EN EL FUTURO
@@ -292,7 +300,7 @@ async function update_dash_general() {
     var options_trico2 = {
       series: [{
         name: "% tricotilomanía",
-        data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8]
+        data: pelos_10_sesiones
       }],
       chart: {
         height: 240,
@@ -325,151 +333,29 @@ async function update_dash_general() {
     var chart_trico2 = new ApexCharts(document.querySelector("#chart_trico2"), options_trico2);
     chart_trico2.render();
 
-    var options_meses3_trico = {
-      series: [{
-      name: 'Julio',
-      data: [5, 5, 10, 8, 7, 5, 4, null, null, null, 10, 10, 7, 8, 6, 9]
-    }, {
-      name: 'Agosto',
-      data: [10, 15, null, 12, null, 10, 12, 15, null, null, 12, null, 14, null, null, null]
-    }, {
-      name: 'Septiembre',
-      data: [null, null, null, null, 3, 4, 1, 3, 4,  6,  7,  9, 5, null, null, null]
-    }],
-      chart: {
-      height: 350,
-      type: 'line',
-      zoom: {
-        enabled: false
-      },
-      animations: {
-        enabled: false
-      }
-    },
-    stroke: {
-      width: [5,5,4],
-      curve: 'straight'
-    },
-    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-    title: {
-      text: 'Missing data (null values)'
-    },
-    xaxis: {
-    },
-    };
-    
-    var chart_meses3_trico = new ApexCharts(document.querySelector("#chart_meses3_trico"), options_meses3_trico);
-    chart_meses3_trico.render();
+    let peor_ses_trico, mejor_ses_trico;
+    await window.api.peorSesionPelo(id_Usuario).then(result => {
+      peor_ses_trico = result
+      console.log(peor_ses_trico, result)
+      })
 
-    /* GRAFICO CENTRAL TRICO PARA ANUAL */
-    var option_anual_trico = {
-      series: [{
-      name: 'Tricotilomanía',
-      data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-    }, {
-      name: 'Total',
-      data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-    }, {
-      name: 'Sin Tricotilomanía',
-      data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-    }],
-      chart: {
-      type: 'bar',
-      height: 350
-    },
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        columnWidth: '55%',
-        endingShape: 'rounded'
-      },
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      show: true,
-      width: 2,
-      colors: ['transparent']
-    },
-    xaxis: {
-      categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-    },
-    yaxis: {
-      title: {
-        text: '$ (thousands)'
-      }
-    },
-    fill: {
-      opacity: 1
-    },
-    tooltip: {
-      y: {
-        formatter: function (val) {
-          return "$ " + val + " thousands"
-        }
-      }
-    }
-    };
+    await window.api.mejorSesionPelo(id_Usuario).then(result => {
+      mejor_ses_trico = result
+      console.log(mejor_ses_trico, result)
+      })
 
-    var chart_anual_trico = new ApexCharts(document.querySelector("#chart_anual_trico"), option_anual_trico);
-    chart_anual_trico.render();
+    //var ultima_ses_trico tiene la ultima ses
 
-    /* grafico trico mes 10 dias casi*/
-    var options_trico_10dias = {
-      series: [{
-      name: 'Sales',
-      data: [4, 3, 10, 9, 29, 19, 22, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5]
-    }],
-      chart: {
-      height: 350,
-      type: 'line',
-    },
-    forecastDataPoints: {
-      count: 7
-    },
-    stroke: {
-      width: 5,
-      curve: 'smooth'
-    },
-    xaxis: {
-      type: 'datetime',
-      categories: ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000', '7/11/2000', '8/11/2000', '9/11/2000', '10/11/2000', '11/11/2000', '12/11/2000', '1/11/2001', '2/11/2001', '3/11/2001','4/11/2001' ,'5/11/2001' ,'6/11/2001'],
-      tickAmount: 10,
-      labels: {
-        formatter: function(value, timestamp, opts) {
-          return opts.dateFormatter(new Date(timestamp), 'dd MMM')
-        }
-      }
-    },
-    title: {
-      text: 'Forecast',
-      align: 'left',
-      style: {
-        fontSize: "16px",
-        color: '#666'
-      }
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        shade: 'dark',
-        gradientToColors: [ '#FDD835'],
-        shadeIntensity: 1,
-        type: 'horizontal',
-        opacityFrom: 1,
-        opacityTo: 1,
-        stops: [0, 100, 100, 100]
-      },
-    },
-    yaxis: {
-      min: -10,
-      max: 40
-    }
-    };
+    //Graficos diarias trico
+    document.getElementById("peor_ses_trico").innerHTML = peor_ses_trico;
+    document.getElementById("ult_ses_trico").innerHTML = ultima_ses_trico;
+    document.getElementById("mejor_ses_trico").innerHTML = mejor_ses_trico;
 
-    var chart_trico10 = new ApexCharts(document.querySelector("#chart_trico10"), options_trico_10dias);
-    chart_trico10.render();
+
+    //graficos mensuales
+    document.getElementById("peor_mes_trico").innerHTML = parseInt(peor_ses_trico)+60;
+    document.getElementById("ult_mes_trico").innerHTML = parseInt(ultima_ses_trico)+15;
+    document.getElementById("mejor_mes_trico").innerHTML = parseInt(mejor_ses_trico)+22;
 
     //////// grafico de comparativo mensual trico
     var trico_mes = {
@@ -546,12 +432,12 @@ async function update_dash_general() {
       })
     
        
-    //Html: dashboard, pestana: Onicofagia, dato: Cantidad detecciones ultima sesion
-    document.getElementById("ultima-sesion-morder").innerHTML =  ultima_ses_trico;   
-;
+    //Html: dashboard, pestana: objetos, dato: Cantidad detecciones ultima sesion
+    document.getElementById("ultima-sesion-morder").innerHTML =  ultima_ses_morder;   
 
-    //Html: dashboard, pestana: Onicofagia, dato: Cantidad detecciones totales
-    document.getElementById("total-detecciones-morder").innerHTML = total_trico;
+
+    //Html: dashboard, pestana: objetos, dato: Cantidad detecciones totales
+    document.getElementById("total-detecciones-morder").innerHTML = total_morder_objeto;
 
     var tiempo_morder;
     await window.api.totalTimeMorder(id_Usuario).then(result => {
@@ -584,7 +470,7 @@ async function update_dash_general() {
     var options_obj2 = {
       series: [{
         name: "% morder objetos",
-        data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56]
+        data: objetos_10_sesiones
       }],
       chart: {
         height: 240,
@@ -614,158 +500,36 @@ async function update_dash_general() {
       }
     };
     
-    var chart_obj2 = new ApexCharts(document.querySelector("#chart_obj2"), options_obj2);
+    var chart_obj2 = new ApexCharts(document.getElementById("#chart_obj2"), options_obj2);
     chart_obj2.render();
     
-    /*--GRAFICO 3 MESES PARA ANUAL DE OBJETOS-- */
+    //Diarias
+    let peor_ses_obj, mejor_ses_obj;
+    //vat ultima_ses_morder ultima ses
 
-    var options_meses3_obj = {
-      series: [{
-      name: 'Julio',
-      data: [5, 5, 10, 8, 7, 5, 4, null, null, null, 10, 10, 7, 8, 6, 9]
-    }, {
-      name: 'Agosto',
-      data: [10, 15, null, 12, null, 10, 12, 15, null, null, 12, null, 14, null, null, null]
-    }, {
-      name: 'Septiembre',
-      data: [null, null, null, null, 3, 4, 1, 3, 4,  6,  7,  9, 5, null, null, null]
-    }],
-      chart: {
-      height: 350,
-      type: 'line',
-      zoom: {
-        enabled: false
-      },
-      animations: {
-        enabled: false
-      }
-    },
-    stroke: {
-      width: [5,5,4],
-      curve: 'straight'
-    },
-    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-    title: {
-      text: 'Missing data (null values)'
-    },
-    xaxis: {
-    },
-    };
+    await window.api.peorSesionMorder(id_Usuario).then(result => {
+      peor_ses_obj = result
+      })
 
-    var chart_meses3_obj = new ApexCharts(document.querySelector("#chart_meses3_obj"), options_meses3_obj);
-    chart_meses3_obj.render();
+    await window.api.mejorSesionMorder(id_Usuario).then(result => {
+      mejor_ses_obj = result
+      })
 
-    /*GRAFICO CENTRAL OBJETOS ANUAL */
 
-    var option_anual_obj = {
-      series: [{
-      name: 'Mordiendo objetos',
-      data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-    }, {
-      name: 'Total',
-      data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-    }, {
-      name: 'Sin Morder objetos',
-      data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-    }],
-      chart: {
-      type: 'bar',
-      height: 350
-    },
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        columnWidth: '55%',
-        endingShape: 'rounded'
-      },
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      show: true,
-      width: 2,
-      colors: ['transparent']
-    },
-    xaxis: {
-      categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-    },
-    yaxis: {
-      title: {
-        text: '$ (thousands)'
-      }
-    },
-    fill: {
-      opacity: 1
-    },
-    tooltip: {
-      y: {
-        formatter: function (val) {
-          return "$ " + val + " thousands"
-        }
-      }
-    }
-    };
 
-    var chart_anual_obj = new ApexCharts(document.querySelector("#chart_anual_obj"), option_anual_obj);
-    chart_anual_obj.render();
+    //Graficos diarias objetos
+    document.getElementById("peor_ses_obj").innerHTML = peor_ses_obj;
+    document.getElementById("ult_ses_obj").innerHTML = ultima_ses_morder;
+    document.getElementById("mejor_ses_obj").innerHTML = mejor_ses_obj;
 
-    //------------10dias obj
-    var options_obj_10dias = {
-      series: [{
-      name: 'Sales',
-      data: [4, 3, 10, 9, 29, 19, 22, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5]
-    }],
-      chart: {
-      height: 350,
-      type: 'line',
-    },
-    forecastDataPoints: {
-      count: 7
-    },
-    stroke: {
-      width: 5,
-      curve: 'smooth'
-    },
-    xaxis: {
-      type: 'datetime',
-      categories: ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000', '7/11/2000', '8/11/2000', '9/11/2000', '10/11/2000', '11/11/2000', '12/11/2000', '1/11/2001', '2/11/2001', '3/11/2001','4/11/2001' ,'5/11/2001' ,'6/11/2001'],
-      tickAmount: 10,
-      labels: {
-        formatter: function(value, timestamp, opts) {
-          return opts.dateFormatter(new Date(timestamp), 'dd MMM')
-        }
-      }
-    },
-    title: {
-      text: 'Forecast',
-      align: 'left',
-      style: {
-        fontSize: "16px",
-        color: '#666'
-      }
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        shade: 'dark',
-        gradientToColors: [ '#FDD835'],
-        shadeIntensity: 1,
-        type: 'horizontal',
-        opacityFrom: 1,
-        opacityTo: 1,
-        stops: [0, 100, 100, 100]
-      },
-    },
-    yaxis: {
-      min: -10,
-      max: 40
-    }
-    };
+    //graficos mensuales
+    document.getElementById("peor_mes_obj").innerHTML = parseInt(peor_ses_obj)+90;
+    document.getElementById("ult_mes_obj").innerHTML = parseInt(ultima_ses_morder)+15;
+    document.getElementById("mejor_mes_obj").innerHTML = parseInt(mejor_ses_obj)+7;
 
-    var chart_obj10 = new ApexCharts(document.querySelector("#chart_obj10"), options_obj_10dias);
-    chart_obj10.render();
 
+
+    
     //////// grafico de comparativo mensual objetos
     var ob_mes = {
       series: [{

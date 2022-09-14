@@ -181,6 +181,25 @@ const mejorSesionMorder = async (userId) => {
 }
 
 
+const percentageTenSesionMorder = async (userId) => { 
+    var percentages = []  
+    let query = `select total_time, time_morder from sesions where id_user = ${userId} order by id desc limit 10`;
+    const data = await conexion.query(query)
+    const result = data.rows
+    for (let i = 0; i < result.length; i++) {
+        if (result[i]['total_time'] == 0) { 
+            let p = 0  
+            percentages.push(p)       
+        }else{ 
+            let p = result[i]['time_morder']/result[i]['total_time']
+            p = p*100
+            percentages.push(p)
+        }
+    }
+    return percentages.reverse()
+}
+
+
 //QUERYS PELO
 const createPelo = async (id_usuario, id_sesion, inicio, final, total_time) => {
     let query = `INSERT INTO pelo (id_user, id_ses, inicio, fin, total_time) VALUES (${id_usuario}, '${id_sesion}','${inicio}', '${final}', '${total_time}')`;
@@ -230,6 +249,24 @@ const mejorSesionPelo = async (userId) => {
     return result[0]['min']    
 }
 
+const percentageTenSesionPelo = async (userId) => { 
+    var percentages = []  
+    let query = `select total_time, time_pelo from sesions where id_user = ${userId} order by id desc limit 10`;
+    const data = await conexion.query(query)
+    const result = data.rows
+    for (let i = 0; i < result.length; i++) {
+        if (result[i]['total_time'] == 0) { 
+            let p = 0  
+            percentages.push(p)       
+        }else{ 
+            let p = result[i]['time_pelo']/result[i]['total_time']
+            p = p*100
+            percentages.push(p)
+        }
+    }
+    return percentages.reverse()
+}
+
 
 //QUERYS CONFIG
 
@@ -267,4 +304,4 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
                   validateUser, postConfig, getConfig, updateConfig, confirmMail,
                 createMorder, totalSesionTimeMorder, totalTimeMorder, countMorderSesion, allSesionsMorder,
               createPelo, totalSesionTimePelo, totalTimePelo, countPeloSesion, allSesionsPelo, 
-              /*nuevas querys*/  peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo}
+              /*nuevas querys*/  peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo, percentageTenSesionMorder, percentageTenSesionPelo}

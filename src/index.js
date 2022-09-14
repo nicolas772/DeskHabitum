@@ -8,7 +8,7 @@ let win, camera_win;
 
 let ID_USER;
 
-model.peorSesionMorder(2).then(r=>console.log(r))
+model.peorSesionPelo(2).then(r=>console.log(typeof(r)))
 
 
 const createWindow = () => {
