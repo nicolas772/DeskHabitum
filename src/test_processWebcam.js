@@ -805,7 +805,7 @@ async function predict() {
             score_clase4 = scores_data[3];
             score_clase5 = scores_data[4];
 
-            coef = 0.5
+            coef = 0.6
             
             //Si se detecta al menos una clase, entrar aquí
             if (clase1 != -1){

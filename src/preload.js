@@ -71,7 +71,7 @@ const countUnhasSesion = (sesionId) => {
     return model.countUnhasSesion(sesionId)
 }
 
-const allSesionUnhas = (userId) => {
+const allSesionsUnhas = (userId) => {
     return model.allSesionsUnhas(userId)
 }
 
@@ -288,7 +288,7 @@ contextBridge.exposeInMainWorld("api", {
     lastSesion: lastSesion,
     countUnhasSesion: countUnhasSesion,
     percentageTenSesionUnhas: percentageTenSesionUnhas,
-    allSesionUnhas: allSesionUnhas,
+    allSesionsUnhas: allSesionsUnhas,
     totalTimeSesions: totalTimeSesions,
     totalTimeUnhas: totalTimeUnhas,
     totalSesionTimeUnhas: totalSesionTimeUnhas,

@@ -2,11 +2,11 @@ let ID_USER = window.api.get_user_id("")
 let id_Sesion;
 
 var unha_ultima_sesion = 0;
-var pelo_ultima_sesion = 2
-var morder_ultima_sesion = 3
+var pelo_ultima_sesion = 0;
+var morder_ultima_sesion = 0;
 
-var total_pelo = 20;
-var total_morder = 15;
+var total_pelo = 0;
+var total_morder = 0;
 var total_unha = 0;
 
 var pelos_10_sesiones = [];
@@ -33,15 +33,31 @@ async function update_dash_general() {
         unha_ultima_sesion = result;
     });
 
+    await window.api.countPeloSesion(id_Sesion).then(result => {
+      pelo_ultima_sesion = result;
+    });
+
+    await window.api.countMorderSesion(id_Sesion).then(result => {
+      morder_ultima_sesion = result;
+    });
+
     //agregar pelo y morder
 
     document.getElementById("deteccionesUltimaSesion").innerHTML= unha_ultima_sesion + pelo_ultima_sesion + morder_ultima_sesion;
 
 
     //Html: dashboard, dato: Cantidad detecciones totales
-    await window.api.allSesionUnhas(ID_USER).then(result => {
+    await window.api.allSesionsUnhas(ID_USER).then(result => {
         total_unha = result;
       });
+
+    await window.api.allSesionsMorder(ID_USER).then(result => {
+      total_morder = result;
+    });
+
+    await window.api.allSesionsPelo(ID_USER).then(result => {
+      total_pelo = result;
+    });
 
 
     //agregar pelo y morder
