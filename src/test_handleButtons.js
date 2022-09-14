@@ -3,6 +3,7 @@ let inicio_sesion
 let fin_sesion
 let total
 let nombre, email, telefono, region, ciudad, atencion, profesional, motivo, obj;
+
 function init_cam(){
     window.api.iniciar_camara("")
     inicio_sesion = new Date()
