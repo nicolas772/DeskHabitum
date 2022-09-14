@@ -9,8 +9,8 @@ const fs = require('fs');
 //Notificaciones
 const {NotificarUña, NotificarPelo, NotificarObjeto} = require('./notificaciones.js');
 
-const {contextBridge, ipcRenderer} = require("electron");
-let ID_USER = get_user_id()
+const {ipcRenderer} = require("electron");
+var ID_USER = get_user_id()
 
 const URL = 'https://teachablemachine.withgoogle.com/models/83c4Qg0Gu/';
 
@@ -80,9 +80,9 @@ function get_user_id(){
     return respuesta   
 }
 
-async function getConfig(id_usuario){
-    
-    await crud.getConfig(id_usuario).then(result => {
+async function getConfig(ID_USER){
+    ID_USER = get_user_id()
+    await crud.getConfig(ID_USER).then(result => {
 
         config_user = result[0];
         console.log(config_user);
@@ -127,7 +127,7 @@ async function getConfig(id_usuario){
   //aqui debiera ser ID_USER, pero no hay datos aun en la BD
 
 async function camaraHandle(){ //funcion que va leyendo el archivo cameraHandle infinitamente.
-    //console.log("usuario logeado:", ID_USER)
+    console.log("usuario logeado:", ID_USER)
     //console.log("config: ", config_user)
     let flag = true
     fs.writeFileSync('./src/data/cameraHandle.txt', "0", function(err) {

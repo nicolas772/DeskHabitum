@@ -1,4 +1,3 @@
-let ID_USER = window.api.get_user_id("")
 const NOTIFICATION_TITLE = 'Desk Habitum'
 const CLICK_MESSAGE = 'Notification clicked!'
 
