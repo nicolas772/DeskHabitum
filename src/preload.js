@@ -178,6 +178,11 @@ const obtenerTotal = () => {
     return [tot_unha, tot_pelo, tot_objeto]
 }
 
+const leerCameraHandle = () => {
+    let data = fs.readFileSync('./src/data/cameraHandle.txt', 'utf8')
+    return data
+}
+
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
     createUser: createUser,
@@ -205,7 +210,8 @@ contextBridge.exposeInMainWorld("api", {
     contactar_profesional: contactar_profesional,
     get_user_id: get_user_id,
     insertManias: insertManias,
-    obtenerTotal: obtenerTotal
+    obtenerTotal: obtenerTotal,
+    leerCameraHandle: leerCameraHandle
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})

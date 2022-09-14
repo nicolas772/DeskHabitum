@@ -177,7 +177,7 @@ async function camaraHandle(){ //funcion que va leyendo el archivo cameraHandle 
         });
 
         if (run == '1' && flag){
-            await getConfig(2)
+            await getConfig(2) //aqui deberia haber cambiado a ID USER, pero lo arregle en la funcion xd
             corriendo = true
             flag = false
             await init_model()
