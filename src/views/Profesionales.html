@@ -5,15 +5,11 @@
     <meta http-equiv = "X-UA-Compatible" content = "IE=edge">
     <meta name="viewport" content="width=device-width", initial-scale="1.0">
     <title>Desk Habitum</title>
-
-    <meta name="viewport" content="width=device-width", initial-scale="1.0">
-    <title>Tutorial 1</title>
     <!-- Material CDN --->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel='stylesheet'>
     <!-- STYLESHEET -->
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -21,18 +17,14 @@
     <link rel="stylesheet" href = "./style.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
-
 </head>
 <body class="shrink">
-    
-    
     <div class = "container" style="margin:0" >
         <aside style="z-index:2" class="aside1">
             <div class = "top">
-                <!---->
-                    <span class = "shrink-btn">
-                        <!--<i class = 'bx bx-chevron-left'></i>-->
-                    </span>
+                <span class = "shrink-btn">
+                    <!--<i class = 'bx bx-chevron-left'></i>-->
+                </span>
                 <div class = "logo">
                     <img src = "../images/logo1.png">
                     <h2>Desk<span class= "danger">Habitum</span></h2>
@@ -43,13 +35,13 @@
             <div class="sidebar">
                 <div class="menu">
                     <div class="item">
-                        <a href = "index.html">
+                        <a style= "text-decoration: none" href = "index.html" >
                             <span class="material-icons-sharp">grid_view</span>
                             <h3>Inicio</h3>
                         </a>
                     </div>
                     <div class="item">
-                    <a href = "Profile.html" >
+                    <a href = "Profile.html">
                         <span class="material-icons-sharp">person_outline</span>
                         <h3>Perfil</h3>
                     </a>
@@ -81,34 +73,35 @@
                             </a>
                         </div>
                     </div>
-
+                    
                     <div class="item">
-                        <a href = "Profesionales.html" class="active" style= "text-decoration: none" >
+                        <a href = "formulario.html" class="active">
                             <span class="material-icons-sharp"><i class="fas fa-user-md"></i></span>
                             <h3>Contacto Profesional</h3>
                         </a>
                     </div>
-
+    
                     <div class="item">
                     <a href = "Settings.html">
                         <span class="material-icons-sharp">settings</span>
                         <h3>Configuraciones</h3>
                     </a>
                     </div>
-
+    
                     <div id="cerrar-sesion" class="item">
-                        <a href = "#">
-                            <span class="material-icons-sharp">logout</span>
-                            <h3>Cerrar Sesión</h3>
-                        </a>
+                    <a href = "#">
+                        <span class="material-icons-sharp">logout</span>
+                        <h3>Cerrar Sesión</h3>
+                    </a>
                     </div>
+                </div>
             </div>
         </aside>
         <!----END ASIDE---->
         <main style="z-index:1">
             <div class="row">
-                <h1 style="padding-top:0.3rem;"> Conoce a nuestros profesionales</h1>
-                <div class="col-12">
+                <h1 style="padding-top:0.3rem;"> Conoce y contacta a nuestros profesionales</h1>
+                <div class="col-lg-8">
                     <div class="card">
                         
                         <div class="card-body">
@@ -117,9 +110,9 @@
                                 <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Profesional</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Función</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Datos</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Datos2</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-7">Especialidades</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Hábito en que te puede ayudar</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -127,23 +120,37 @@
                                     <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                        <!--<img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">-->
+                                        <img src="../images/team-1.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1" style="width: 36px !important; height: 36px !important; font-size: 0.875rem;">
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 text-sm">John Michael</h6>
-                                        <p class="text-xs text-secondary mb-0">john@gmail.com</p>
+                                        <h6 class="mb-0 text-sm">Alexa Olivares</h6>
+                                        <p class="text-xs text-secondary mb-0">Psicóloga Clínica Universidad Católica de Chile</p>
                                         </div>
                                     </div>
                                     </td>
                                     <td>
-                                    <p class="text-xs font-weight-bold mb-0">Manager</p>
-                                    <p class="text-xs text-secondary mb-0">Organization</p>
+                                    <p class="text-xs font-weight-bold mb-0">Trastornos compulsivos y ansiedad. </p>
+                                    <p class="text-xs text-secondary mb-0">Todas las edades</p>
                                     </td>
-                                    <td class="align-middle text-center text-sm">
-                                    <span class="badge badge-sm bg-gradient-success">Online</span>
+
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">Manías compulsivas</p>
+                                        <p class="text-xs text-secondary mb-0">Estrategias de autocontrol, autoconocimiento y manejo de estrés</p>
                                     </td>
-                                    <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
+
+                                    
+                                    <td class="align-middle">
+                                        <span style="visibility: hidden;"class="text-secondary text-uppercase font-weight-bold">-----</span>
+                                    </td>
+                                   
+                                    <td class="align-middle">
+                                        <span style="visibility: hidden;" class="text-secondary text-uppercase font-weight-bold">-----</span>
+                                    </td>
+                                    
+                                    <td class="align-middle text-dark text-center text-sm">
+                                        <a href="formulario.html" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                          Contactar
+                                        </a>
                                     </td>
                                     
                                 </tr>
@@ -151,23 +158,36 @@
                                     <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                        <!--<img src="../assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user2">-->
+                                        <img src="../images/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user2" style="width: 36px !important; height: 36px !important; font-size: 0.875rem;">
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 text-sm">Alexa Liras</h6>
-                                        <p class="text-xs text-secondary mb-0">alexa@gmail.com</p>
+                                        <h6 class="mb-0 text-sm">Joaquín Liras</h6>
+                                        <p class="text-xs text-secondary mb-0">Oftalmólogo Universidad Católica de Chile</p>
                                         </div>
                                     </div>
                                     </td>
                                     <td>
-                                    <p class="text-xs font-weight-bold mb-0">Programator</p>
-                                    <p class="text-xs text-secondary mb-0">Developer</p>
+                                    <p class="text-xs font-weight-bold mb-0">Prevención de riesgos.</p>
+                                    <p class="text-xs text-secondary mb-0">Todas las edades </p>
                                     </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">Fatiga Visual</p>
+                                        <p class="text-xs text-secondary mb-0">Chequeo y recomendaciones para evitar riesgos asociados a alta exposición frente al computador.</p>
+                                    </td>
+                                    
+                                    <td class="align-middle">
+                                        <span style="visibility: hidden;"class="text-secondary text-uppercase font-weight-bold">-----</span>
+                                    </td>
+                                   
+                                    <td class="align-middle">
+                                        <span style="visibility: hidden;" class="text-secondary text-uppercase font-weight-bold">-----</span>
+                                    </td>
+
+
                                     <td class="align-middle text-center text-sm">
-                                    <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">11/01/19</span>
+                                        <a href="formulario.html" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                          Contactar
+                                        </a>
                                     </td>
                                     
                                 </tr>
@@ -175,23 +195,34 @@
                                     <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                        <!--<img src="../assets/img/team-4.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user3">-->
+                                        <img src="../images/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user3" style="width: 36px !important; height: 36px !important; font-size: 0.875rem;">
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 text-sm">Laurent Perrier</h6>
-                                        <p class="text-xs text-secondary mb-0">laurent@gmail.com</p>
+                                        <h6 class="mb-0 text-sm">Laura Perrier</h6>
+                                        <p class="text-xs text-secondary mb-0">Psicóloga Clínica Universidad Católica de Chile</p>
                                         </div>
                                     </div>
                                     </td>
                                     <td>
-                                    <p class="text-xs font-weight-bold mb-0">Executive</p>
-                                    <p class="text-xs text-secondary mb-0">Projects</p>
+                                    <p class="text-xs font-weight-bold mb-0">Manías compulsivas y autoconocimiento.</p>
+                                    <p class="text-xs text-secondary mb-0">Todas las edades.</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">Manías compulsivas</p>
+                                        <p class="text-xs text-secondary mb-0">Estrategias de autoconciencia del impulso compulsivo y transmutarlo.</p>
+                                    </td>
+                                    
+                                    <td class="align-middle">
+                                        <span style="visibility: hidden;"class="text-secondary text-uppercase font-weight-bold">-----</span>
+                                    </td>
+                                   
+                                    <td class="align-middle">
+                                        <span style="visibility: hidden;" class="text-secondary text-uppercase font-weight-bold">-----</span>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                                    <span class="badge badge-sm bg-gradient-success">Online</span>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">19/09/17</span>
+                                        <a href="formulario.html" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                          Contactar
+                                        </a>
                                     </td>
                                     
                                 </tr>
@@ -199,74 +230,39 @@
                                     <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                        <!--<img src="../assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user4">-->
+                                        <img src="../images/team-4.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user4" style="width: 36px !important; height: 36px !important; font-size: 0.875rem;">
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                         <h6 class="mb-0 text-sm">Michael Levi</h6>
-                                        <p class="text-xs text-secondary mb-0">michael@gmail.com</p>
+                                        <p class="text-xs text-secondary mb-0">Kinesiólogo Universidad Católica de Chile</p>
                                         </div>
                                     </div>
                                     </td>
                                     <td>
-                                    <p class="text-xs font-weight-bold mb-0">Programator</p>
-                                    <p class="text-xs text-secondary mb-0">Developer</p>
+                                    <p class="text-xs font-weight-bold mb-0">Problemas de postura</p>
+                                    <p class="text-xs text-secondary mb-0">Todas las edades.</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">Manías compulsivas</p>
+                                        <p class="text-xs text-secondary mb-0">Estrategias de autocontrol, autoconocimiento y manejo de estrés</p>
+                                    </td>
+                                    
+                                    <td class="align-middle">
+                                        <span style="visibility: hidden;"class="text-secondary text-uppercase font-weight-bold">-----</span>
+                                    </td>
+                                   
+                                    <td class="align-middle">
+                                        <span style="visibility: hidden;" class="text-secondary text-uppercase font-weight-bold">-----</span>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                                    <span class="badge badge-sm bg-gradient-success">Online</span>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">24/12/08</span>
+                                        <a href="formulario.html" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                          Contactar
+                                        </a>
                                     </td>
                                     
                                 </tr>
-                                <tr>
-                                    <td>
-                                    <div class="d-flex px-2 py-1">
-                                        <div>
-                                        <!--<img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user5">-->
-                                        </div>
-                                        <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 text-sm">Richard Gran</h6>
-                                        <p class="text-xs text-secondary mb-0">richard@gmail.com</p>
-                                        </div>
-                                    </div>
-                                    </td>
-                                    <td>
-                                    <p class="text-xs font-weight-bold mb-0">Manager</p>
-                                    <p class="text-xs text-secondary mb-0">Executive</p>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                    <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">04/10/21</span>
-                                    </td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td>
-                                    <div class="d-flex px-2 py-1">
-                                        <div>
-                                        <!--<img src="../assets/img/team-4.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user6">-->
-                                        </div>
-                                        <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 text-sm">Miriam Eric</h6>
-                                        <p class="text-xs text-secondary mb-0">miriam@gmail.com</p>
-                                        </div>
-                                    </div>
-                                    </td>
-                                    <td>
-                                    <p class="text-xs font-weight-bold mb-0">Programator</p>
-                                    <p class="text-xs text-secondary mb-0">Developer</p>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                    <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">14/09/20</span>
-                                    </td>
-                                    
-                                </tr>
+                                
+                                
                                 </tbody>
                             </table>
                             </div>
@@ -274,26 +270,23 @@
                     </div>
                 </div>
             </div>
-            <a href = "formulario.html">Contactar profesional</a>
-            <!--<button type="submit" class="btn btn-primary" onclick='init_formulario()'>Contactar Profesional</button>-->
 
         </main>
     </div>
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-<script src="../navbar.js"></script>
-<script src="../test_handleButtons.js"></script>
-<!--<script src="../renderWebcam.js"></script>-->
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('.sub-btn').click(function(){
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="../navbar.js"></script>
+    <!--<script src="../renderWebcam.js"></script>-->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.sub-btn').click(function(){
             $(this).next('.sub-menu').slideToggle();
             $(this).find('.dropdown').toggleClass('rotate');
         });
         $('.sub-btn .sub-item').click(function(e){
             e.stopPropagation();
         });
-    });
-</script>
+            
+        });
+    </script>
 </body>
 </html>

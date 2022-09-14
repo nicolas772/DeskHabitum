@@ -471,7 +471,64 @@ async function update_dash_general() {
     var chart_trico10 = new ApexCharts(document.querySelector("#chart_trico10"), options_trico_10dias);
     chart_trico10.render();
 
+    //////// grafico de comparativo mensual trico
+    var trico_mes = {
+      series: [{
+        name: "Detecciones mes actual",
+        data: [1,4,1,6,5,8,7,5,4,6]
+      },
+      {
+        name: "Mejor record",
+        data: [1,1,1,1,1,1,1,1,1,1]
+      },
+      {
+        name: 'Peor record',
+        data: [7,7,7,7,7,7,7,7,7,7]
+      }
+    ],
+      chart: {
+      height: 350,
+      type: 'line',
+      zoom: {
+        enabled: false
+      },
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      width: [5, 7, 5],
+      curve: 'straight',
+      dashArray: [0, 8, 5]
+    },
+    title: {
+      text: 'Cantidad de detecciones por sesión',
+      align: 'left'
+    },
+    legend: {
+      tooltipHoverFormatter: function(val, opts) {
+        return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
+      }
+    },
+    markers: {
+      size: 0,
+      hover: {
+        sizeOffset: 6
+      }
+    },
+    xaxis: {
+      categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9',
+        '10'
+      ],
+    },
+    
+    grid: {
+      borderColor: '#f1f1f1',
+    }
+    };
 
+    var chart_tricomes = new ApexCharts(document.querySelector("#chart_tricomes"), trico_mes);
+    chart_tricomes.render();
 
     //----------------------------------------Pestaña MANIA MORDER OBJETOS------------------------------------------------
     //////// Dashboard objetos
@@ -708,6 +765,65 @@ async function update_dash_general() {
 
     var chart_obj10 = new ApexCharts(document.querySelector("#chart_obj10"), options_obj_10dias);
     chart_obj10.render();
+
+    //////// grafico de comparativo mensual objetos
+    var ob_mes = {
+      series: [{
+        name: "Detecciones mes actual",
+        data: [1,4,1,6,5,8,7,5,4,6]
+      },
+      {
+        name: "Mejor record",
+        data: [1,1,1,1,1,1,1,1,1,1]
+      },
+      {
+        name: 'Peor record',
+        data: [7,7,7,7,7,7,7,7,7,7]
+      }
+    ],
+      chart: {
+      height: 350,
+      type: 'line',
+      zoom: {
+        enabled: false
+      },
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      width: [5, 7, 5],
+      curve: 'straight',
+      dashArray: [0, 8, 5]
+    },
+    title: {
+      text: 'Cantidad de detecciones por sesión',
+      align: 'left'
+    },
+    legend: {
+      tooltipHoverFormatter: function(val, opts) {
+        return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
+      }
+    },
+    markers: {
+      size: 0,
+      hover: {
+        sizeOffset: 6
+      }
+    },
+    xaxis: {
+      categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9',
+        '10'
+      ],
+    },
+    
+    grid: {
+      borderColor: '#f1f1f1',
+    }
+    };
+
+    var chart_obmes = new ApexCharts(document.querySelector("#chart_obmes"), ob_mes);
+    chart_obmes.render();
 
 
 }

@@ -16,8 +16,11 @@ window.onload = function() {
   volver = document.getElementById("volver_login")
 
   regbtn.onclick = function(){
-    const obj = {nombre: nombre.value, apellido:apellido.value, email:email.value, password:password.value}
-    ipcRenderer.invoke("registrar", obj)    
+    if(nombre.value != null && nombre.value != "", apellido.value != null && apellido.value != "", email.value != null && email.value != "", password.value != null && password.value != ""){
+      const obj = {nombre: nombre.value, apellido:apellido.value, email:email.value, password:password.value}
+      ipcRenderer.invoke("registrar", obj) 
+    }
+       
   }
 
 
