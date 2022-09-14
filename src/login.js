@@ -5,6 +5,7 @@ let email;
 let password;
 let reg_btn;
 
+
 window.onload = function() { 
   email = document.getElementById("email")
   password = document.getElementById("password")

@@ -7,7 +7,7 @@ const poseDetection = require('@tensorflow-models/pose-detection');
 const crud = require('./model/model.js')
 const fs = require('fs');
 //Notificaciones
-const {NotificarUña, NotificarPelo, NotificarObjeto} = require('./notificaciones.js');
+const {NotificarUña, NotificarPelo, NotificarObjeto, CamaraCargada} = require('./notificaciones.js');
 
 const {ipcRenderer} = require("electron");
 var ID_USER = get_user_id()
@@ -28,11 +28,12 @@ let fatiga_visual = false;
 //Variable para controlar la ejecución de la webcam
 let webcam, run;
 let corriendo = false;
+let camara_cargada = false;
 
 //Intervalo de tiempo antes de mandar notificación por cada mal habito y consolidar la detección
 let intervalo_uña = 2000;
 let intervalo_pelo = 0000;
-let intervalo_objeto = 2000;
+let intervalo_objeto = 4000;
 let intervalo_vista = 2000;
 let intervalo_postura = 2000;
 
@@ -48,6 +49,11 @@ let opcion;
 
 let cantidad_detecciones = 0;
 let cantidad_notificacion;
+
+let cantidad_mordidas = 0;
+let cantidad_pregunta = 2;
+let comiendo = false;
+let tiempo_comiendo = 600000;
 
 let tiempo_entre_notificaciones;
 let se_puede_notificar = true;
@@ -65,6 +71,21 @@ let fin_uña, fin_pelo, fin_objeto, fin_vista, fin_postura;
 
 //Booleanos que indican si se está realizando dicho mal habito
 let comiendo_uña, tirando_pelo, mordiendo_objeto, fatigando_vista, mala_postura;
+
+
+function CountDownComiendo() {
+    comiendo = true;
+    setTimeout (function(){comiendo = false; cantidad_mordidas = 0}, tiempo_comiendo);
+}
+
+function Preguntar_Comiendo(){
+    Notification.requestPermission().then(function (result){
+        new Notification("¿ESTÁS COMIENDO?", { 
+            body: "CLICKEA ESTA NOTIFICACIÓN SI ESTÁS COMIENDO, PARA DETENER LA DETECCIÓN DE MORDIDA DE OBJETOS", icon: 'https://static-s.aa-cdn.net/img/gp/20600015537296/H7xxPfRsli0ushtWWCqO57x9BHPYksX5y1RepU6gFXAtzRNy4D0t9WkOIUuuNu5xNA?v=1'
+        })
+        .onclick = () => CountDownComiendo()
+    })
+}
 
 function CountDownEntreNotificaciones() {
     se_puede_notificar = false;
@@ -153,6 +174,22 @@ async function getConfig(ID_USER){
         }else{
             fatiga_visual = false;
         }
+
+        corriendo_uña = false;
+        corriendo_pelo = false;
+        corriendo_objeto = false;
+        corriendo_vista = false;
+        corriendo_postura = false;
+        detectado_uña = false;
+        detectado_pelo = false;
+        detectado_objeto = false;
+        detectado_vista = false;
+        detectado_postura = false;
+        cantidad_mordidas = 0;
+        cantidad_detecciones = 0;
+
+
+
     });  
 }
   //aqui debiera ser ID_USER, pero no hay datos aun en la BD
@@ -345,9 +382,17 @@ async function predict() {
 
     let posesHand, posesBlaze, bocaCenter_x, bocaCenter_y;
     //https://github.com/tensorflow/tfjs-models/tree/master/hand-pose-detection
-    posesHand = await detectorHand.estimateHands(webcam.canvas);
-    //https://github.com/tensorflow/tfjs-models/tree/master/pose-detection
-    posesBlaze = await detectorBlaze.estimatePoses(webcam.canvas);
+
+    if (onicofagia || tricotilomania){
+        posesHand = await detectorHand.estimateHands(webcam.canvas);
+        //https://github.com/tensorflow/tfjs-models/tree/master/pose-detection
+        posesBlaze = await detectorBlaze.estimatePoses(webcam.canvas);
+    }
+
+    if (!camara_cargada){
+        CamaraCargada();
+        camara_cargada = true;
+    }
 
     comiendo_uña = false 
     tirando_pelo = false
@@ -723,7 +768,7 @@ async function predict() {
         }
     }
 
-    if(morder_objetos){
+    if(morder_objetos && !comiendo){
         tf.engine().startScope()   // Liberar tensores que no se ocupan
         tensor = tf.image.resizeBilinear(tf.browser.fromPixels(webcam.canvas), [224, 224]).div(255.0).expandDims(0);
         modelo = await model.executeAsync(tensor).then(predictions=> { 
@@ -757,7 +802,7 @@ async function predict() {
             score_clase4 = scores_data[3];
             score_clase5 = scores_data[4];
 
-            coef = 0.62
+            coef = 0.5
             
             //Si se detecta al menos una clase, entrar aquí
             if (clase1 != -1){
@@ -1118,7 +1163,7 @@ async function predict() {
             actualizarJson('pelo', inicio_pelo, fin_pelo)
         }
 
-        if (corriendo_objeto && detectado_objeto){
+        if (corriendo_objeto && detectado_objeto && !comiendo){
             corriendo_objeto = false;
             detectado_objeto = false;
             fin_objeto = new Date;
@@ -1158,15 +1203,24 @@ async function predict() {
             }
         }
 
-        if (corriendo_objeto && !detectado_objeto){
+        if (corriendo_objeto && !detectado_objeto && !comiendo){
 
             if (fecha_ahora - inicio_objeto >= intervalo_objeto){
 
-                detectado_objeto = true;
+                if(cantidad_pregunta == cantidad_mordidas){
+                    Preguntar_Comiendo()
+                    await sleep(4000);
+                }
 
-                if (se_puede_notificar){
-                    NotificarObjeto();
-                    CountDownEntreNotificaciones();
+                if(!comiendo){
+                    detectado_objeto = true;
+                    
+                    if (se_puede_notificar && cantidad_pregunta != cantidad_mordidas){
+                        NotificarObjeto();
+                        CountDownEntreNotificaciones();
+                    }
+
+                    cantidad_mordidas++;
                 }
             }
         }
@@ -1183,7 +1237,7 @@ async function predict() {
                 cantidad_detecciones++;
 
                 if (cantidad_detecciones == cantidad_notificacion){
-                    console.log("Notificar uña");
+                    NotificarUña();
                     cantidad_detecciones = 0;
                     
                 }
@@ -1199,23 +1253,31 @@ async function predict() {
                 cantidad_detecciones++;
 
                 if (cantidad_detecciones == cantidad_notificacion){
-                    console.log("Notificar pelo");
+                    NotificarPelo();
                     cantidad_detecciones = 0;
                 }
             }
         }
 
-        if (corriendo_objeto && !detectado_objeto){
+        if (corriendo_objeto && !detectado_objeto && !comiendo){
 
             if (fecha_ahora - inicio_objeto >= intervalo_objeto){
 
-                detectado_objeto = true;
+                if(cantidad_pregunta == cantidad_mordidas){
+                    Preguntar_Comiendo()
+                    await sleep(4000);
+                }
 
-                cantidad_detecciones++;
+                if(!comiendo){
+                    detectado_objeto = true;
 
-                if (cantidad_detecciones == cantidad_notificacion){
-                    console.log("Notificar objeto");
-                    cantidad_detecciones = 0;
+                    cantidad_detecciones++;
+                    cantidad_mordidas++;
+
+                    if (cantidad_detecciones == cantidad_notificacion && cantidad_pregunta != cantidad_mordidas){
+                        NotificarObjeto();
+                        cantidad_detecciones = 0;
+                    }
                 }
             }
         }
