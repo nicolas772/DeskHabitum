@@ -201,14 +201,14 @@
                         <div style="width: 40%;float:right">
                             <div class="radio2"> 
                                 <input class="radio__input" type="radio" value="option1" name="myRadio" id="checktricorec" checked="checked">
-                                <label class="radio__label" for="checktricorec">Recientes</label>
+                                <label class="radio__label" for="checktricorec">Resumen</label>
                                 
                                 
                                 <input class="radio__input" type="radio" value="option2" name="myRadio" id="checktricomes">
-                                <label class="radio__label" for="checktricomes">Diarias</label>
+                                <label class="radio__label" for="checktricomes">Por sesión</label>
                                 
                                 <input class="radio__input" type="radio" value="option3" name="myRadio" id="checktricoanio">
-                                <label class="radio__label" for="checktricoanio">Mensuales</label>
+                                <label class="radio__label" for="checktricoanio">Por mes</label>
                             </div>
                         </div>
                        
@@ -266,7 +266,7 @@
                                       </div>
                                       <div class="text-end pt-1">
                                         <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
-                                        <h4 class="mb-0">8</h4>
+                                        <h4 class="mb-0" id="peor_ses_trico"></h4>
                                       </div>
                                     </div>
                                                                         
@@ -283,7 +283,7 @@
                                               </div>
                                               <div class="text-end pt-1">
                                                 <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
-                                                <h4 class="mb-0">4</h4>
+                                                <h4 class="mb-0" id="ult_ses_trico"></h4>
                                               </div>
                                             </div>                                           
                                             
@@ -298,7 +298,7 @@
                                               </div>
                                               <div class="text-end pt-1">
                                                 <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
-                                                <h4 class="mb-0">3</h4>
+                                                <h4 class="mb-0" id="mejor_ses_trico"></h4>
                                               </div>
                                             </div>                                           
                                             
@@ -310,9 +310,9 @@
 
                         </div>
                         </br>                        
-                        <div class="row">
-                            <h1 style="margin-top:0.3rem;"> Comparativa última sesión</h1>
-                            <canvas id="trico_comparacion" width="200" height="200"></canvas>
+                        <div class="row" style="width: 90%; height: 90px;">
+                            <h4 style="margin-top:0.3rem;"> Comparativa última sesión</h4>
+                            <canvas style="margin-left:100px;" id="trico_comparacion" ></canvas>
                         </div>                        
                     </div>
 
@@ -328,7 +328,7 @@
                                       </div>
                                       <div class="text-end pt-1">
                                         <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
-                                        <h4 class="mb-0">39</h4>
+                                        <h4 class="mb-0" id="peor_mes_trico"></h4>
                                       </div>
                                     </div>                                  
                                     
@@ -345,7 +345,7 @@
                                               </div>
                                               <div class="text-end pt-1">
                                                 <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
-                                                <h4 class="mb-0">18</h4>
+                                                <h4 class="mb-0" id="ult_mes_trico"></h4>
                                               </div>
                                             </div>                                          
                                             
@@ -360,7 +360,7 @@
                                               </div>
                                               <div class="text-end pt-1">
                                                 <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
-                                                <h4 class="mb-0">22</h4>
+                                                <h4 class="mb-0" id="mejor_mes_trico"></h4>
                                               </div>
                                             </div>                                          
                                             
@@ -399,14 +399,14 @@
                         <div style="width: 40%;float:right">
                             <div class="radio2"> 
                                 <input class="radio__input" type="radio" value="option1" name="myRadio" id="checkobjrec" checked="checked">
-                                <label class="radio__label" for="checkobjrec">Recientes</label>
+                                <label class="radio__label" for="checkobjrec">Resumen</label>
                                 
                                 
                                 <input class="radio__input" type="radio" value="option2" name="myRadio" id="checkobjmes">
-                                <label class="radio__label" for="checkobjmes">Diarias</label>
+                                <label class="radio__label" for="checkobjmes">Por sesión</label>
                                 
                                 <input class="radio__input" type="radio" value="option3" name="myRadio" id="checkobjanio">
-                                <label class="radio__label" for="checkobjanio">Mensuales</label>
+                                <label class="radio__label" for="checkobjanio">Por mes</label>
                             </div>
                         </div>
                        
@@ -465,7 +465,7 @@
                                           </div>
                                           <div class="text-end pt-1">
                                             <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
-                                            <h4 class="mb-0">9</h4>
+                                            <h4 class="mb-0" id="peor_ses_obj"></h4>
                                           </div>
                                         </div>                                      
                                         
@@ -482,7 +482,7 @@
                                                   </div>
                                                   <div class="text-end pt-1">
                                                     <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
-                                                    <h4 class="mb-0">7</h4>
+                                                    <h4 class="mb-0" id="ult_ses_obj"></h4>
                                                   </div>
                                                 </div>                                              
                                                 
@@ -497,7 +497,7 @@
                                                   </div>
                                                   <div class="text-end pt-1">
                                                     <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
-                                                    <h4 class="mb-0">6</h4>
+                                                    <h4 class="mb-0" id="mejor_ses_obj"></h4>
                                                   </div>
                                                 </div>                                              
                                                 
@@ -508,10 +508,10 @@
                             </div>
 
                           </br>                        
-                          <div class="row">
-                              <h1 style="margin-top:0.3rem;"> Comparativa última sesión</h1>
-                              <canvas id="ob_comparacion" width="200" height="200"></canvas>
-                          </div>                           
+                          <div class="row" style="width: 90%; height: 90px;">
+                            <h4 style="margin-top:0.3rem;"> Comparativa última sesión</h4>
+                            <canvas style="margin-left:100px;" id="ob_comparacion" ></canvas>
+                        </div>                          
                             
                         </div>                     
 
@@ -529,7 +529,7 @@
                                       </div>
                                       <div class="text-end pt-1">
                                         <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
-                                        <h4 class="mb-0">10</h4>
+                                        <h4 class="mb-0" id="peor_mes_obj"></h4>
                                       </div>
                                     </div>                                                                       
                                   </div>
@@ -545,7 +545,7 @@
                                               </div>
                                               <div class="text-end pt-1">
                                                 <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
-                                                <h4 class="mb-0">9</h4>
+                                                <h4 class="mb-0" id="ult_mes_obj"></h4>
                                               </div>
                                             </div>           
                                             
@@ -560,7 +560,7 @@
                                               </div>
                                               <div class="text-end pt-1">
                                                 <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
-                                                <h4 class="mb-0">6</h4>
+                                                <h4 class="mb-0" id="mejor_mes_obj"></h4>
                                               </div>
                                             </div>                                          
                                             
@@ -611,56 +611,7 @@
             
         });
     </script>
-    <script>
-      const ctx = document.getElementById('trico_comparacion').getContext('2d');
-      const myChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-              labels: ['Mejor sesión', 'Última sesión', 'Peor sesión'],
-              datasets: [{
-                  label: 'Cantidad de detecciones',
-                  data: [3,4,8],
-                  backgroundColor: [
-                      'rgba(255, 205, 86, 0.2)',
-                      'rgba(75, 192, 192, 0.2)',
-                      'rrgba(255, 99, 132, 0.2)'
-                  ],
-                  borderColor: [
-                      'rgb(255, 205, 86)',
-                      'rgb(75, 192, 192)',
-                      'rgb(255, 99, 132)'
-                  ],
-                  borderWidth: 1
-              }]
-          }
-         
-      });
-      </script>
-      <script>
-        const ct = document.getElementById('ob_comparacion').getContext('2d');
-        const ob_comparacion = new Chart(ct, {
-            type: 'bar',
-            data: {
-                labels: ['Mejor sesión', 'Última sesión', 'Peor sesión'],
-                datasets: [{
-                    label: 'Cantidad de detecciones',
-                    data: [6,7,9],
-                    backgroundColor: [
-                        'rgba(255, 205, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rrgba(255, 99, 132, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)',
-                        'rgb(255, 99, 132)'
-                    ],
-                    borderWidth: 1
-                }]
-            }
-           
-        });
-        </script>
+
 
 </body>
 </html>

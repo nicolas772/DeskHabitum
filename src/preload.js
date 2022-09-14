@@ -47,8 +47,8 @@ const getUserData = (id) => {
 const confirmMail = (email) => {
     return model.confirmMail(email);
 }
-const createSesion = (id_usuario, inicio, final, total) => {
-    return model.createSesion(id_usuario, inicio, final, total)
+const createSesion = (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, mes_sesion, anno_sesion) => {
+    return model.createSesion(id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, mes_sesion, anno_sesion)
 }
 
 const getSesion = (id) => {
@@ -132,6 +132,62 @@ const contacto = () => {
     return respuesta
 }
 
+const insertManias = (id_usuario) => {
+    let rawdata = fs.readFileSync('./src/data/unhasSesion.json');
+    let lista_unhas = JSON.parse(rawdata);
+    let rawdata1 = fs.readFileSync('./src/data/peloSesion.json');
+    let lista_pelo = JSON.parse(rawdata1);
+    let rawdata2 = fs.readFileSync('./src/data/objetoSesion.json');
+    let lista_objeto = JSON.parse(rawdata2);
+    
+    lista_unhas.map(u => {
+        model.lastSesion(id_usuario).then(res => model.createUnhas(id_usuario, res, u.inicio, u.final, u.total))
+    })
+    fs.writeFileSync('./src/data/unhasSesion.json', '[]')//vaciar archivo
+
+    lista_pelo.map(u => {
+        model.lastSesion(id_usuario).then(res => model.createPelo(id_usuario, res, u.inicio, u.final, u.total))
+    })
+    fs.writeFileSync('./src/data/peloSesion.json', '[]')//vaciar archivo
+
+    lista_objeto.map(u => {
+        model.lastSesion(id_usuario).then(res => model.createMorder(id_usuario, res, u.inicio, u.final, u.total))
+    })
+    fs.writeFileSync('./src/data/objetoSesion.json', '[]')//vaciar archivo
+}
+ //calculo de totales por mania, para insertar en la tabla sesion al momento de detener la deteccion
+const obtenerTotal = () => {
+    let rawdata = fs.readFileSync('./src/data/unhasSesion.json');
+    let lista_unhas = JSON.parse(rawdata);
+    let rawdata1 = fs.readFileSync('./src/data/peloSesion.json');
+    let lista_pelo = JSON.parse(rawdata1);
+    let rawdata2 = fs.readFileSync('./src/data/objetoSesion.json');
+    let lista_objeto = JSON.parse(rawdata2);
+    let tot_unha = 0, tot_objeto = 0, tot_pelo = 0;
+    let cant_tot_unha = 0, cant_tot_objeto = 0, cant_tot_pelo = 0;
+    lista_unhas.map(u => {
+        tot_unha = tot_unha + parseInt(u.total)
+        cant_tot_unha += 1
+    })
+
+    lista_pelo.map(u => {
+        tot_pelo = tot_pelo + parseInt(u.total)
+        cant_tot_pelo += 1
+    })
+
+    lista_objeto.map(u => {
+        tot_objeto = tot_objeto + parseInt(u.total)
+        cant_tot_objeto += 1
+    })
+
+    return [tot_unha, tot_pelo, tot_objeto, cant_tot_unha, cant_tot_pelo, cant_tot_objeto]
+}
+
+const leerCameraHandle = () => {
+    let data = fs.readFileSync('./src/data/cameraHandle.txt', 'utf8')
+    return data
+}
+
 const createPelo = (id_usuario, id_sesion, inicio, final, total_time) => {
     return model.createPelo(id_usuario, id_sesion, inicio, final, total_time)
 }
@@ -148,6 +204,18 @@ const countPeloSesion = (sesionId) => {
 
 const allSesionsPelo = (userId) => {
     return model.allSesionsPelo(userId)
+}
+
+const peorSesionPelo = (userId) => {
+    return model.peorSesionPelo(userId)
+}
+
+const mejorSesionPelo = (userId) => {
+    return model.mejorSesionPelo(userId)
+}
+
+const percentageTenSesionPelo = (userId) => {
+    return model.percentageTenSesionPelo(userId)
 }
 
 const createMorder = (id_usuario, id_sesion, inicio, final, total_time) => {
@@ -170,6 +238,29 @@ const allSesionsMorder = (userId) => {
     return model.allSesionsMorder(userId)
 }
 
+const peorSesionMorder = (userId) => {
+    return model.peorSesionMorder(userId)
+}
+
+const mejorSesionMorder = (userId) => {
+    return model.mejorSesionMorder(userId)
+}
+
+const percentageTenSesionMorder = (userId) => {
+    return model.percentageTenSesionMorder(userId)
+}
+
+const sesionesMesUnha = (userId, mes, año) => {
+    return model.sesionesMesUnha(userId, mes, año)
+}
+
+const sesionesMesMorder = (userId, mes, año) => {
+    return model.sesionesMesMorder(userId, mes, año)
+}
+
+const sesionesMesPelo = (userId, mes, año) => {
+    return model.sesionesMesPelo(userId, mes, año)
+}
 
 
 contextBridge.exposeInMainWorld("api", {
@@ -198,6 +289,9 @@ contextBridge.exposeInMainWorld("api", {
     contacto: contacto,
     contactar_profesional: contactar_profesional,
     get_user_id: get_user_id,
+    insertManias: insertManias,
+    obtenerTotal: obtenerTotal,
+    leerCameraHandle: leerCameraHandle,
     createPelo: createPelo,
     totalSesionTimePelo: totalSesionTimePelo,
     totalTimePelo: totalTimePelo,
@@ -207,8 +301,16 @@ contextBridge.exposeInMainWorld("api", {
     totalSesionTimeMorder: totalSesionTimeMorder,
     totalTimeMorder: totalTimeMorder,
     countMorderSesion: countMorderSesion,
-    allSesionsMorder: allSesionsMorder
-
+    allSesionsMorder: allSesionsMorder,
+    peorSesionMorder: peorSesionMorder,
+    mejorSesionMorder: mejorSesionMorder, 
+    peorSesionPelo: peorSesionPelo, 
+    mejorSesionPelo: mejorSesionPelo,
+    percentageTenSesionPelo: percentageTenSesionPelo,
+    percentageTenSesionMorder: percentageTenSesionMorder,
+    sesionesMesUnha: sesionesMesUnha,
+    sesionesMesMorder: sesionesMesMorder,
+    sesionesMesPelo: sesionesMesPelo
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})

@@ -9,8 +9,8 @@ const alertaSonora = document.getElementById("alertaSonora")
 const intervaloNotificacion = document.getElementById("intervaloNotificacion")
 const tiempoNotificacion = document.getElementById("tiempoNotificacion")
 const tipoNotificacion = document.getElementById("tipoNotificacion")
-const NOTIFICATION_TITLE = 'Desk Habitum'
-const NOTIFICATION_BODY = 'Configuración Guardada. Si tienes el monitoreo activado, tendrás que apagar y encender monitoreo para tu nueva configuración.'
+const NOTIFICATION_TITLE = 'Configuración guardada'
+const NOTIFICATION_BODY = 'Si tienes el monitoreo activado, tendrás que reiniciarlo para tu nueva configuración.'
 const CLICK_MESSAGE = 'Notification clicked!'
 
 async function saveSettings(){
