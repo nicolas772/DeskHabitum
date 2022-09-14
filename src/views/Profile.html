@@ -99,11 +99,39 @@
         </aside>
         <!----END ASIDE---->
         <main style="z-index:1">
-            <nav>
-
-            </nav>
-            <h1>Perfil</h1>
-
+            <label><h1>Perfil</h1>
+                <br/>
+                <h2>Configuraciones</h2>
+                <br/>
+                <div class="row" style="margin-left: 15px;">
+                    <ul class="list-group">
+                    
+                        <li class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" style="width:150%">
+                        </li>
+                        <li class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Apellido</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" style="width:150%">
+                        </li>
+                        <li class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" style="width:150%">
+                        </li>
+                        
+                    </ul>  
+                </div>
+            </label>
+            <br/>
+            <div class="row" style="width: 200%;">
+                <div class = "div-boton-cambios" style="width: 30%; float: left;">
+                    <button type='button' class="btn btn-outline-primary" onclick='saveSettings()'>Cambiar Contraseña</button>
+                </div>
+                <div class = "div-boton-cambios" style="width: 60%; float: right;">
+                    <button type='button' class="btn btn-outline-primary" onclick='saveSettings()'>Guardar Cambios</button>
+                </div>
+            </div>
+            
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
