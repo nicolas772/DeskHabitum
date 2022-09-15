@@ -30,7 +30,7 @@ async function update_dash_general() {
 
     //Html: dashboard, dato: Cantidad detecciones ultima sesion
     await window.api.countUnhasSesion(id_Sesion).then(result => {
-        unha_ultima_sesion = result;
+      unha_ultima_sesion = result;
     });
 
     await window.api.countPeloSesion(id_Sesion).then(result => {
@@ -372,7 +372,7 @@ async function update_dash_general() {
     document.getElementById("mejor_ses_trico").innerHTML = mejor_ses_trico;
 
 
-    let pelo_mes_act, ult_mes_pelo_total;
+    let pelo_mes_act;
     let date = new Date();
     let pelo_mes_peor, pelo_mes_peor_arr = [];
     let pelo_mes_mejor, pelo_mes_mejor_arr = [];

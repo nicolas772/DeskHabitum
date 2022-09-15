@@ -8,7 +8,21 @@ let win, camera_win;
 
 let ID_USER;
 
+model.totalSesionTimeMorder(64).then(r=>{
+  r = parseInt(r)
+  console.log(r)
+  if (typeof(r)==Object) {
+    console.log(r)
+    console.log("Distinto de string")
+  } else {
+    console.log("normal")
+  }  
 
+
+}
+  
+
+)
 
 
 const createWindow = () => {

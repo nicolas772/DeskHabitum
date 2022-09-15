@@ -47,15 +47,30 @@ async function update_dash_ultima_sesion() {
     //HTML: index , indicador: porcentajes hábitos ultima sesion
 
     await window.api.totalSesionTimeUnhas(id_lastSesion).then(result => {
-        duracionunas = parseInt(result);
+      result = parseInt(result)
+        if (Number.isNaN(result)) {
+          duracionunas = 0
+        } else {
+          duracionunas = result;
+        }
     });
     
     await window.api.totalSesionTimePelo(id_lastSesion).then(result => {
-      duracionpelo = parseInt(result);
+      result = parseInt(result)
+      if (Number.isNaN(result)) {
+        duracionpelo = 0
+      } else {
+        duracionpelo = result;
+      }      
     });
 
     await window.api.totalSesionTimeMorder(id_lastSesion).then(result => {
-      duracionobjetos = parseInt(result);
+      result = parseInt(result)
+      if (Number.isNaN(result)) {
+        duracionobjetos = 0
+      } else {
+        duracionobjetos = result;
+      }
     });
 
     if (duracionunas > duraciontotal){ //ARREGLAR EN EL FUTURO (error del reconocimiento automatico)
