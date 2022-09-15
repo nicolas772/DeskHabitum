@@ -81,7 +81,7 @@ function CountDownComiendo() {
 function Preguntar_Comiendo(){
     Notification.requestPermission().then(function (result){
         new Notification("¿ESTÁS COMIENDO?", { 
-            body: "CLICKEA ESTA NOTIFICACIÓN SI ESTÁS COMIENDO, PARA DETENER LA DETECCIÓN DE MORDIDA DE OBJETOS", icon: 'https://static-s.aa-cdn.net/img/gp/20600015537296/H7xxPfRsli0ushtWWCqO57x9BHPYksX5y1RepU6gFXAtzRNy4D0t9WkOIUuuNu5xNA?v=1'
+            body: "CLICKEA ESTA NOTIFICACIÓN SI ESTÁS COMIENDO, PARA DETENER LA DETECCIÓN DE MORDIDA DE OBJETOS", icon: 'https://media.istockphoto.com/photos/woman-holding-slice-of-bread-with-question-mark-sign-picture-id1166079452?k=20&m=1166079452&s=612x612&w=0&h=JJJIj2EEn-8VV2aihn3tg0-Y281p2hH-0O3GC71UO2k='
         })
         .onclick = () => CountDownComiendo()
     })
