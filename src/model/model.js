@@ -265,10 +265,10 @@ const allSesionsMorder = async (userId) => {
 }
 
 const peorSesionMorder = async (userId) => {
-    let query = `select min(valor) from (select id_ses, count(*) as valor from morder where id_user = ${userId} group by id_ses) as subquery`;
+    let query = `select max(valor) from (select id_ses, count(*) as valor from morder where id_user = ${userId} group by id_ses) as subquery`;
     const res = await conexion.query(query)
     const result = res.rows
-    return result[0]['min']    
+    return result[0]['max']    
 }
 
 const mejorSesionMorder = async (userId) => {
@@ -334,10 +334,10 @@ const allSesionsPelo = async (userId) => {
 
 
 const peorSesionPelo = async (userId) => {
-    let query = `select min(valor) from (select id_ses, count(*) as valor from pelo where id_user = ${userId} group by id_ses) as subquery`;
+    let query = `select max(valor) from (select id_ses, count(*) as valor from pelo where id_user = ${userId} group by id_ses) as subquery`;
     const res = await conexion.query(query)
     const result = res.rows
-    return result[0]['min']    
+    return result[0]['max']    
 }
 
 const mejorSesionPelo = async (userId) => {

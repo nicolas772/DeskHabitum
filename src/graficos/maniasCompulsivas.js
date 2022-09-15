@@ -30,7 +30,7 @@ async function update_dash_general() {
 
     //Html: dashboard, dato: Cantidad detecciones ultima sesion
     await window.api.countUnhasSesion(id_Sesion).then(result => {
-        unha_ultima_sesion = result;
+      unha_ultima_sesion = result;
     });
 
     await window.api.countPeloSesion(id_Sesion).then(result => {
@@ -372,7 +372,7 @@ async function update_dash_general() {
     document.getElementById("mejor_ses_trico").innerHTML = mejor_ses_trico;
 
 
-    let pelo_mes_act, ult_mes_pelo_total;
+    let pelo_mes_act;
     let date = new Date();
     let pelo_mes_peor, pelo_mes_peor_arr = [];
     let pelo_mes_mejor, pelo_mes_mejor_arr = [];
@@ -403,7 +403,7 @@ async function update_dash_general() {
     let myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Mejor sesión', 'Última sesión', 'Peor sesión'],
+            labels: ['Peor sesión', 'Última sesión', 'Mejor sesión'],
             datasets: [{
                 label: 'Cantidad de detecciones',
                 data: [parseInt(peor_ses_trico),parseInt(ultima_ses_trico),parseInt(mejor_ses_trico)],
@@ -426,8 +426,8 @@ async function update_dash_general() {
 
    
     for (let index = 0; index < pelo_mes_act.length; index++) {
-      pelo_mes_peor_arr[index] = pelo_mes_peor;
-      pelo_mes_mejor_arr[index] = pelo_mes_mejor;
+      pelo_mes_peor_arr[index] = peor_ses_trico;
+      pelo_mes_mejor_arr[index] = mejor_ses_trico;
       categories_pelo[index] = index+1;      
     }
 
@@ -624,7 +624,7 @@ async function update_dash_general() {
     let ob_comparacion = new Chart(ct, {
         type: 'bar',
         data: {
-            labels: ['Mejor sesión', 'Última sesión', 'Peor sesión'],
+            labels: ['Peor sesión', 'Última sesión', 'Mejor sesión'],
             datasets: [{
                 label: 'Cantidad de detecciones',
                 data: [parseInt(peor_ses_obj), parseInt(ultima_ses_morder),parseInt(mejor_ses_obj)],
@@ -646,8 +646,8 @@ async function update_dash_general() {
   
 
     for (let index = 0; index < obj_mes_act.length; index++) {
-      obj_mes_peor_arr[index] = obj_mes_peor;
-      obj_mes_mejor_arr[index] = obj_mes_mejor;
+      obj_mes_peor_arr[index] = peor_ses_obj;
+      obj_mes_mejor_arr[index] = mejor_ses_obj;
       categories_obj[index] = index+1;      
     }
     

@@ -9,7 +9,7 @@ const NOTIFICATION_BODY_CAMARA = 'Reconocimiento iniciado'
 function NotificarUña(){
     Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
-            body: NOTIFICATION_BODY_UÑA, icon: 'http://placekitten.com/g/300/300'
+            body: NOTIFICATION_BODY_UÑA, icon: 'https://previews.123rf.com/images/tashatuvango/tashatuvango1504/tashatuvango150400671/39236581-stop-nail-biting-sign-painted-open-hand-raised-isolated-on-white-background-.jpg'
         })
     })
 }
@@ -17,7 +17,7 @@ function NotificarUña(){
 function NotificarPelo(){
     Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
-            body: NOTIFICATION_BODY_PELO, icon: 'http://placekitten.com/g/300/300'
+            body: NOTIFICATION_BODY_PELO, icon: 'https://i.pinimg.com/236x/1c/dc/c7/1cdcc71b23ec73fc874f448ec985f88a.jpg'
         })
     })
 }
@@ -25,7 +25,7 @@ function NotificarPelo(){
 function NotificarObjeto(){
     Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
-            body: NOTIFICATION_BODY_OBJETO, icon: 'http://placekitten.com/g/300/300'
+            body: NOTIFICATION_BODY_OBJETO, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
         })
     })
 }
@@ -33,7 +33,7 @@ function NotificarObjeto(){
 function CamaraCargada(){
     Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
-            body: NOTIFICATION_BODY_CAMARA, icon: 'http://placekitten.com/g/300/300'
+            body: NOTIFICATION_BODY_CAMARA, icon: 'https://webcam-test.com/ico/webcam.svg'
         })
     })
 }

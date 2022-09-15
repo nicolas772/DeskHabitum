@@ -32,7 +32,7 @@ let camara_cargada = false;
 
 //Intervalo de tiempo antes de mandar notificación por cada mal habito y consolidar la detección
 let intervalo_uña = 2000;
-let intervalo_pelo = 0000;
+let intervalo_pelo = 1000;
 let intervalo_objeto = 2000;
 let intervalo_vista = 2000;
 let intervalo_postura = 2000;
@@ -51,7 +51,7 @@ let cantidad_detecciones = 0;
 let cantidad_notificacion;
 
 let cantidad_mordidas = 0;
-let cantidad_pregunta = 2;
+let cantidad_pregunta = 3;
 let comiendo = false;
 let tiempo_comiendo = 600000;
 
@@ -81,7 +81,7 @@ function CountDownComiendo() {
 function Preguntar_Comiendo(){
     Notification.requestPermission().then(function (result){
         new Notification("¿ESTÁS COMIENDO?", { 
-            body: "CLICKEA ESTA NOTIFICACIÓN SI ESTÁS COMIENDO, PARA DETENER LA DETECCIÓN DE MORDIDA DE OBJETOS", icon: 'https://static-s.aa-cdn.net/img/gp/20600015537296/H7xxPfRsli0ushtWWCqO57x9BHPYksX5y1RepU6gFXAtzRNy4D0t9WkOIUuuNu5xNA?v=1'
+            body: "CLICKEA ESTA NOTIFICACIÓN SI ESTÁS COMIENDO, PARA DETENER LA DETECCIÓN DE MORDIDA DE OBJETOS", icon: 'https://media.istockphoto.com/photos/woman-holding-slice-of-bread-with-question-mark-sign-picture-id1166079452?k=20&m=1166079452&s=612x612&w=0&h=JJJIj2EEn-8VV2aihn3tg0-Y281p2hH-0O3GC71UO2k='
         })
         .onclick = () => CountDownComiendo()
     })
@@ -104,7 +104,7 @@ function get_user_id(){
 function actualizarJson(tipo, inicio, fin){
     let ini = inicio.toISOString()
     let fini = fin.toISOString()
-    let total = Math.trunc((fin - inicio)/1000)
+    let total = (fin - inicio)/1000
     let totali = total.toString()
     let objInsert = {
         "inicio": ini,
@@ -135,7 +135,7 @@ function actualizarJson(tipo, inicio, fin){
 async function getConfig(ID_USER){
     ID_USER = get_user_id()
     await crud.getConfig(ID_USER).then(result => {
-
+        camara_cargada = false;
         corriendo_uña = false;
         corriendo_pelo = false;
         corriendo_objeto = false;
@@ -805,7 +805,7 @@ async function predict() {
             score_clase4 = scores_data[3];
             score_clase5 = scores_data[4];
 
-            coef = 0.6
+            coef = 0.63
             
             //Si se detecta al menos una clase, entrar aquí
             if (clase1 != -1){

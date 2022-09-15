@@ -87,7 +87,7 @@ window.onload = actualizarSettings;
 function doNotify(){
     Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
-            body: NOTIFICATION_BODY, icon: 'http://placekitten.com/g/300/300'
+            body: NOTIFICATION_BODY, icon: 'https://cdn-icons-png.flaticon.com/512/244/244060.png'
         })
         .onclick = () => document.getElementById("output").innerText = CLICK_MESSAGE
     })
