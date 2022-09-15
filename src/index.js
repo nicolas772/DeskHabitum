@@ -196,7 +196,7 @@ ipcMain.on('cerrar-sesion', (event, data) => {
 })
 
 //Contacto mail
-function SendIt(nombre, email, telefono, region, ciudad, atencion, profesional, motivo) {
+function SendIt(nombre, email, telefono, region, ciudad, atencion, motivo) {
   
   var transporter = nodemailer.createTransport({
     service: "gmail",
@@ -232,10 +232,14 @@ function SendIt(nombre, email, telefono, region, ciudad, atencion, profesional, 
 
 
 ipcMain.handle('env_formulario', (event, obj) => {
-  const {nombre, email, telefono, region, ciudad, atencion, profesional, motivo} = obj
+  const {nombre, email, telefono, region, ciudad, atencion, motivo} = obj
 
   console.log("correo enviado a: ", obj)
-  SendIt(nombre, email, telefono, region, ciudad, atencion, profesional, motivo);
+  SendIt(nombre, email, telefono, region, ciudad, atencion, motivo);
+  new Notification({
+    title:"Contacto",
+    body: 'Correo enviado exitosamente'
+  }).show()
 });
 
  app.whenReady().then(() => {

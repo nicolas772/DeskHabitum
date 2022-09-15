@@ -50,8 +50,7 @@ function contactar_profesional(){
     region = document.getElementById("region_contacto")
     ciudad = document.getElementById("ciudad_contacto")
     atencion = document.getElementById("atencion_contacto")
-    profesional = document.getElementById("profesional_contacto")
     motivo = document.getElementById("motivo_contacto")
-    obj = {nombre:nombre.value, email:email.value, telefono:telefono.value, region:region.value, ciudad:ciudad.value, atencion:atencion.value, profesional:profesional.value, motivo:motivo.value }
+    obj = {nombre:nombre.value, email:email.value, telefono:telefono.value, region:region.value, ciudad:ciudad.value, atencion:atencion.value, motivo:motivo.value }
     window.api.contactar_profesional(obj)
 }
