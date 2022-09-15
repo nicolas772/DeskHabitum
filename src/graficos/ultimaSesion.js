@@ -1,5 +1,5 @@
-id_Usuario = 2
-ID_USER = window.api.get_user_id("")
+ID_USER = 2
+id_Usuario = window.api.get_user_id("")
 var id_Sesion, duracion, manias, duraciontotal, duracionunas, duracionpelo, duracionobjetos, id_lastSesion;
 var postura = "10 veces";
 var visual = "Sí"
@@ -26,6 +26,14 @@ async function update_dash_ultima_sesion() {
     await window.api.countUnhasSesion(id_lastSesion).then(result => {
         manias = result;
     });
+
+    await window.api.countPeloSesion(id_lastSesion).then(result => {
+      manias += result;
+    });
+
+    await window.api.countMorderSesion(id_lastSesion).then(result => {
+      manias += result;
+    });
     document.getElementById("Card-Manias").innerHTML = manias
 
     //HTML: index , indicador: # detecciones mala postura
@@ -37,19 +45,27 @@ async function update_dash_ultima_sesion() {
     document.getElementById("Card-Visual").innerHTML = visual
 
     //HTML: index , indicador: porcentajes hábitos ultima sesion
-    id_lastSesion = 3 //hardcode ya que los habitos aun no se registran en BD
+
     await window.api.totalSesionTimeUnhas(id_lastSesion).then(result => {
         duracionunas = parseInt(result);
     });
     
+    await window.api.totalSesionTimePelo(id_lastSesion).then(result => {
+      duracionpelo = parseInt(result);
+    });
+
+    await window.api.totalSesionTimeMorder(id_lastSesion).then(result => {
+      duracionobjetos = parseInt(result);
+    });
+
     if (duracionunas > duraciontotal){ //ARREGLAR EN EL FUTURO (error del reconocimiento automatico)
         duracionunas = duraciontotal
     }
     //hardcodeado
 
     
-    duracionpelo = 2;
-    duracionobjetos = 2;
+    //duracionpelo = 2;
+    //duracionobjetos = 2;
     duraciontotal = duraciontotal - duracionobjetos - duracionpelo - duracionunas
 
     var dataHabitosUltimaSesion = {
@@ -84,7 +100,7 @@ async function update_dash_ultima_sesion() {
 
 //codigo para que se muestre el nombre del usuario activo
 async function navbarInit(){
-  await window.api.getUserData(ID_USER).then(result => {
+  await window.api.getUserData(id_Usuario).then(result => {
       userData = result[0];
   });
   document.getElementById("usuario-activo").append(userData.nombre)

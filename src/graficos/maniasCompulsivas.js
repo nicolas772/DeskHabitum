@@ -1,13 +1,12 @@
-let id_Usuario = 2;
 let ID_USER = window.api.get_user_id("")
 let id_Sesion;
 
 var unha_ultima_sesion = 0;
-var pelo_ultima_sesion = 2
-var morder_ultima_sesion = 3
+var pelo_ultima_sesion = 0;
+var morder_ultima_sesion = 0;
 
-var total_pelo = 20;
-var total_morder = 15;
+var total_pelo = 0;
+var total_morder = 0;
 var total_unha = 0;
 
 var pelos_10_sesiones = [];
@@ -24,7 +23,7 @@ let peor_ses_obj, mejor_ses_obj;
 
 async function update_dash_general() {
 
-    await window.api.lastSesion(id_Usuario).then(result => {
+    await window.api.lastSesion(ID_USER).then(result => {
         id_Sesion = result;
       });
 
@@ -34,15 +33,31 @@ async function update_dash_general() {
         unha_ultima_sesion = result;
     });
 
+    await window.api.countPeloSesion(id_Sesion).then(result => {
+      pelo_ultima_sesion = result;
+    });
+
+    await window.api.countMorderSesion(id_Sesion).then(result => {
+      morder_ultima_sesion = result;
+    });
+
     //agregar pelo y morder
 
     document.getElementById("deteccionesUltimaSesion").innerHTML= unha_ultima_sesion + pelo_ultima_sesion + morder_ultima_sesion;
 
 
     //Html: dashboard, dato: Cantidad detecciones totales
-    await window.api.allSesionUnhas(id_Usuario).then(result => {
+    await window.api.allSesionsUnhas(ID_USER).then(result => {
         total_unha = result;
       });
+
+    await window.api.allSesionsMorder(ID_USER).then(result => {
+      total_morder = result;
+    });
+
+    await window.api.allSesionsPelo(ID_USER).then(result => {
+      total_pelo = result;
+    });
 
 
     //agregar pelo y morder
@@ -77,15 +92,15 @@ async function update_dash_general() {
 
       //html: dashboard, dato: Porcentaje distracción últimas 10 sesiones
       
-      await window.api.percentageTenSesionUnhas(id_Usuario).then(result => {
+      await window.api.percentageTenSesionUnhas(ID_USER).then(result => {
         unhas_10_sesiones = result;
       });
 
-      await window.api.percentageTenSesionPelo(id_Usuario).then(result => {
+      await window.api.percentageTenSesionPelo(ID_USER).then(result => {
         pelos_10_sesiones = result;
       });
 
-      await window.api.percentageTenSesionMorder(id_Usuario).then(result => {
+      await window.api.percentageTenSesionMorder(ID_USER).then(result => {
         objetos_10_sesiones = result;
       });
 
@@ -186,10 +201,10 @@ async function update_dash_general() {
     document.getElementById("total-detecciones-unhas").innerHTML = total_unha;
 
     //Html: dashboard, pestana: Onicofagia, dato: porcentaje distracción total
-    await window.api.totalTimeUnhas(id_Usuario).then(result => {
+    await window.api.totalTimeUnhas(ID_USER).then(result => {
       tiempo_unha = result;
     });
-    await window.api.totalTimeSesions(id_Usuario).then(result => {
+    await window.api.totalTimeSesions(ID_USER).then(result => {
       tiempo_optimo = result;
     });
     var dataDistraccionTotalUnhas = {
@@ -261,7 +276,7 @@ async function update_dash_general() {
       ultima_ses_trico = result
       })
 
-    await window.api.allSesionsPelo(id_Usuario).then(result => {
+    await window.api.allSesionsPelo(ID_USER).then(result => {
       total_trico = result
       })
     
@@ -274,7 +289,7 @@ async function update_dash_general() {
     document.getElementById("total-detecciones-trico").innerHTML = total_trico;
 
     var tiempo_trico;
-    await window.api.totalTimePelo(id_Usuario).then(result => {
+    await window.api.totalTimePelo(ID_USER).then(result => {
       console.log(result)
       tiempo_trico = result
     })
@@ -339,12 +354,12 @@ async function update_dash_general() {
     chart_trico2.render();
 
 
-    await window.api.peorSesionPelo(id_Usuario).then(result => {
+    await window.api.peorSesionPelo(ID_USER).then(result => {
       peor_ses_trico = result
       console.log(peor_ses_trico, result)
       })
 
-    await window.api.mejorSesionPelo(id_Usuario).then(result => {
+    await window.api.mejorSesionPelo(ID_USER).then(result => {
       mejor_ses_trico = result
       console.log(mejor_ses_trico, result)
       })
@@ -357,10 +372,30 @@ async function update_dash_general() {
     document.getElementById("mejor_ses_trico").innerHTML = mejor_ses_trico;
 
 
+    let pelo_mes_act, ult_mes_pelo_total;
+    let date = new Date();
+    let pelo_mes_peor, pelo_mes_peor_arr = [];
+    let pelo_mes_mejor, pelo_mes_mejor_arr = [];
+    let categories_pelo = [];
+    await window.api.sesionesMesPelo(ID_USER, date.getMonth()+1, date.getFullYear()).then(result => {
+      pelo_mes_act = result;
+    })
+
+    await window.api.mejorMesPelo(ID_USER,date.getMonth()+1,date.getFullYear()).then(result => {
+      pelo_mes_mejor = result;
+    })
+    
+    await window.api.peorMesPelo(ID_USER,date.getMonth()+1,date.getFullYear()).then(result => {
+      pelo_mes_peor = result;
+    })
+
+
     //graficos mensuales
-    document.getElementById("peor_mes_trico").innerHTML = parseInt(peor_ses_trico)+60;
-    document.getElementById("ult_mes_trico").innerHTML = parseInt(ultima_ses_trico)+15;
-    document.getElementById("mejor_mes_trico").innerHTML = parseInt(mejor_ses_trico)+22;
+    document.getElementById("peor_mes_trico").innerHTML = pelo_mes_peor;
+    document.getElementById("ult_mes_trico").innerHTML = pelo_mes_act.reduce((a, b) => a + b, 0);
+    document.getElementById("mejor_mes_trico").innerHTML = pelo_mes_mejor;
+
+
 
     //////// grafico de comparativo mensual trico
     
@@ -387,21 +422,28 @@ async function update_dash_general() {
         }
        
     });
-    
+
+
+   
+    for (let index = 0; index < pelo_mes_act.length; index++) {
+      pelo_mes_peor_arr[index] = pelo_mes_peor;
+      pelo_mes_mejor_arr[index] = pelo_mes_mejor;
+      categories_pelo[index] = index+1;      
+    }
 
 
     var trico_mes = {
       series: [{
         name: "Detecciones mes actual",
-        data: [1,4,1,6,5,8,7,5,4,6]
+        data: pelo_mes_act
       },
       {
         name: "Mejor record",
-        data: [1,1,1,1,1,1,1,1,1,1]
+        data: pelo_mes_mejor_arr
       },
       {
         name: 'Peor record',
-        data: [7,7,7,7,7,7,7,7,7,7]
+        data: pelo_mes_peor_arr
       }
     ],
       chart: {
@@ -435,9 +477,7 @@ async function update_dash_general() {
       }
     },
     xaxis: {
-      categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9',
-        '10'
-      ],
+      categories: categories_pelo,
     },
     
     grid: {
@@ -445,7 +485,7 @@ async function update_dash_general() {
     }
     };
 
-    var chart_tricomes = new ApexCharts(document.querySelector("#chart_tricomes"), trico_mes);
+    var chart_tricomes = new ApexCharts(document.getElementById("chart_tricomes"), trico_mes);
     chart_tricomes.render();
 
     //----------------------------------------Pestaña MANIA MORDER OBJETOS------------------------------------------------
@@ -459,7 +499,7 @@ async function update_dash_general() {
       ultima_ses_morder = result
       })
 
-    await window.api.allSesionsMorder(id_Usuario).then(result => {
+    await window.api.allSesionsMorder(ID_USER).then(result => {
       total_morder_objeto = result
       })
     
@@ -472,7 +512,7 @@ async function update_dash_general() {
     document.getElementById("total-detecciones-morder").innerHTML = total_morder_objeto;
 
     var tiempo_morder;
-    await window.api.totalTimeMorder(id_Usuario).then(result => {
+    await window.api.totalTimeMorder(ID_USER).then(result => {
       tiempo_morder = result
     })
 
@@ -539,11 +579,11 @@ async function update_dash_general() {
     
     //vat ultima_ses_morder ultima ses
 
-    await window.api.peorSesionMorder(id_Usuario).then(result => {
+    await window.api.peorSesionMorder(ID_USER).then(result => {
       peor_ses_obj = result
       })
 
-    await window.api.mejorSesionMorder(id_Usuario).then(result => {
+    await window.api.mejorSesionMorder(ID_USER).then(result => {
       mejor_ses_obj = result
       })
 
@@ -555,9 +595,29 @@ async function update_dash_general() {
     document.getElementById("mejor_ses_obj").innerHTML = mejor_ses_obj;
 
     //graficos mensuales
-    document.getElementById("peor_mes_obj").innerHTML = parseInt(peor_ses_obj)+90;
-    document.getElementById("ult_mes_obj").innerHTML = parseInt(ultima_ses_morder)+15;
-    document.getElementById("mejor_mes_obj").innerHTML = parseInt(mejor_ses_obj)+7;
+    let obj_mes_act;
+    let obj_mes_peor, obj_mes_peor_arr = [];
+    let obj_mes_mejor, obj_mes_mejor_arr = [];
+    let categories_obj = [];
+    await window.api.sesionesMesMorder(ID_USER, date.getMonth()+1, date.getFullYear()).then(result => {
+      obj_mes_act = result;
+    })
+
+    await window.api.mejorMesMorder(ID_USER,date.getMonth()+1,date.getFullYear()).then(result => {
+      obj_mes_mejor = result;
+    })
+    
+    await window.api.peorMesMorder(ID_USER,date.getMonth()+1,date.getFullYear()).then(result => {
+      obj_mes_peor = result;
+    })
+
+
+
+
+
+    document.getElementById("peor_mes_obj").innerHTML = obj_mes_peor;
+    document.getElementById("ult_mes_obj").innerHTML = obj_mes_act.reduce((a, b) => a + b, 0);
+    document.getElementById("mejor_mes_obj").innerHTML = obj_mes_mejor;
 
       
     let ct = document.getElementById('ob_comparacion').getContext('2d');
@@ -583,29 +643,27 @@ async function update_dash_general() {
         }
        
     });
-    
+  
 
-    let obj_mes_act;
-    let date = new Date();
-
-    await window.api.sesionesMesMorder(id_Usuario, date.getMonth()+1, date.getFullYear()).then(result => {
-      obj_mes_act = result;
-      console.log(obj_mes_act)
-    }) 
+    for (let index = 0; index < obj_mes_act.length; index++) {
+      obj_mes_peor_arr[index] = obj_mes_peor;
+      obj_mes_mejor_arr[index] = obj_mes_mejor;
+      categories_obj[index] = index+1;      
+    }
     
     //////// grafico de comparativo mensual objetos
     var ob_mes = {
       series: [{
         name: "Detecciones mes actual",
-        data: [1,4,1,6,5,8,7,5,4,6]
+        data: obj_mes_act
       },
       {
         name: "Mejor record",
-        data: [1,1,1,1,1,1,1,1,1,1]
+        data: obj_mes_mejor_arr
       },
       {
         name: 'Peor record',
-        data: [7,7,7,7,7,7,7,7,7,7]
+        data: obj_mes_peor_arr
       }
     ],
       chart: {
@@ -639,9 +697,7 @@ async function update_dash_general() {
       }
     },
     xaxis: {
-      categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9',
-        '10'
-      ],
+      categories: categories_obj,
     },
     
     grid: {
@@ -649,7 +705,7 @@ async function update_dash_general() {
     }
     };
 
-    var chart_obmes = new ApexCharts(document.querySelector("#chart_obmes"), ob_mes);
+    var chart_obmes = new ApexCharts(document.getElementById("chart_obmes"), ob_mes);
     chart_obmes.render();
 
     myChart();

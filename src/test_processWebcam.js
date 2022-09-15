@@ -33,7 +33,7 @@ let camara_cargada = false;
 //Intervalo de tiempo antes de mandar notificación por cada mal habito y consolidar la detección
 let intervalo_uña = 2000;
 let intervalo_pelo = 0000;
-let intervalo_objeto = 4000;
+let intervalo_objeto = 2000;
 let intervalo_vista = 2000;
 let intervalo_postura = 2000;
 
@@ -136,6 +136,20 @@ async function getConfig(ID_USER){
     ID_USER = get_user_id()
     await crud.getConfig(ID_USER).then(result => {
 
+        corriendo_uña = false;
+        corriendo_pelo = false;
+        corriendo_objeto = false;
+        corriendo_vista = false;
+        corriendo_postura = false;
+        detectado_uña = false;
+        detectado_pelo = false;
+        detectado_objeto = false;
+        detectado_vista = false;
+        detectado_postura = false;
+        cantidad_mordidas = 0;
+        cantidad_detecciones = 0;
+
+
         config_user = result[0];
         console.log(config_user);
 
@@ -144,6 +158,10 @@ async function getConfig(ID_USER){
         tiempo_entre_notificaciones = parseInt(config_user.tiemponotificacion) * 60000;
 
         cantidad_notificacion = parseInt(config_user.intervalonotificacion);
+
+        if (cantidad_notificacion == 0){
+            cantidad_notificacion = 1;
+        }
 
         if (config_user.morderunha == "on"){
             onicofagia = true;
@@ -174,20 +192,6 @@ async function getConfig(ID_USER){
         }else{
             fatiga_visual = false;
         }
-
-        corriendo_uña = false;
-        corriendo_pelo = false;
-        corriendo_objeto = false;
-        corriendo_vista = false;
-        corriendo_postura = false;
-        detectado_uña = false;
-        detectado_pelo = false;
-        detectado_objeto = false;
-        detectado_vista = false;
-        detectado_postura = false;
-        cantidad_mordidas = 0;
-        cantidad_detecciones = 0;
-
 
 
     });  
@@ -602,11 +606,9 @@ async function predict() {
             altura = 23/14
 
             pinza = false;
-
+            score_estricto = 0.98
             if(mano_pinza(tipPulgar3D, tipIndice3D, tipMedio3D, muñeca3D) || (posesHand.length == 2 && mano_pinza(tipPulgar2_3D, tipIndice2_3D, tipMedio2_3D, muñeca3D))){
 
-                //Se plantean 3 casos:
-                //Mirando de frente
                 if (dist_nariz_bocaCentro < dist_nariz_bocaLeft && dist_nariz_bocaCentro < dist_nariz_bocaRight){
 
                     segmento = (orejaLeft.x - orejaRight.x) / 4
@@ -620,7 +622,7 @@ async function predict() {
                     frente = areaDown_y + 2*segmento
 
                     // ZONA DE LA FRENTE HACIA ARRIBA
-                    if (tipPulgar.y <= frente && tipPulgar.y >= areaDown_y){
+                    if (tipPulgar.y <= frente && tipPulgar.y >= areaDown_y && posesHand[0].score > score_estricto){
 
                         if (tipPulgar.x >= areaDown_x && tipPulgar.x <= areaUp_x && tipPulgar.y >= areaDown_y && tipPulgar.y <= areaUp_y){
                             if (!corriendo_pelo){
@@ -632,7 +634,7 @@ async function predict() {
                         }
                     }
 
-                    else if (posesHand.length == 2 && tipPulgar2.y <= frente && tipPulgar2.y >= areaDown_y){
+                    else if (posesHand.length == 2 && tipPulgar2.y <= frente && tipPulgar2.y >= areaDown_y && posesHand[1].score > score_estricto){
 
                         if (tipPulgar2.x >= areaDown_x && tipPulgar2.x <= areaUp_x && tipPulgar2.y >= areaDown_y && tipPulgar2.y <= areaUp_y){
                             if (!corriendo_pelo){
@@ -645,7 +647,7 @@ async function predict() {
                     }
 
                     // ZONA A LOS COSTADOS DE LA CABEZA
-                    else if (tipPulgar.y > frente && tipPulgar.y <= areaUp_y){
+                    else if (tipPulgar.y > frente && tipPulgar.y <= areaUp_y && posesHand[0].score > score_estricto){
 
                         if (tipPulgar.x >= areaDown_x && tipPulgar.x <= orejaRight.x){
                             if (!corriendo_pelo){
@@ -666,7 +668,7 @@ async function predict() {
                         }
                     }
 
-                    else if (posesHand.length == 2 && tipPulgar2.y > frente && tipPulgar2.y <= areaUp_y){
+                    else if (posesHand.length == 2 && tipPulgar2.y > frente && tipPulgar2.y <= areaUp_y && posesHand[1].score > score_estricto){
 
                         if (tipPulgar2.x >= areaDown_x && tipPulgar2.x <= orejaRight.x){
                             if (!corriendo_pelo){
@@ -698,7 +700,7 @@ async function predict() {
                     
                     areaUp_x = orejaRight.x + unidad
     
-                    if (tipPulgar.y <= areaUp_y && tipPulgar.y >= areaDown_y){
+                    if (tipPulgar.y <= areaUp_y && tipPulgar.y >= areaDown_y && posesHand[0].score > score_estricto){
     
                         areaDown_x = orejaRight.x - (orejaRight.y - tipPulgar.y) / altura
     
@@ -712,7 +714,7 @@ async function predict() {
                         }
                     }
 
-                    else if (posesHand.length == 2 && tipPulgar2.y <= areaUp_y && tipPulgar2.y >= areaDown_y){
+                    else if (posesHand.length == 2 && tipPulgar2.y <= areaUp_y && tipPulgar2.y >= areaDown_y && posesHand[1].score > score_estricto){
     
                         areaDown_x = orejaRight.x - (orejaRight.y - tipPulgar2.y) / altura
     
@@ -736,7 +738,7 @@ async function predict() {
     
                     areaDown_x = orejaLeft.x - unidad
     
-                    if (tipPulgar.y <= areaUp_y && tipPulgar.y >= areaDown_y){
+                    if (tipPulgar.y <= areaUp_y && tipPulgar.y >= areaDown_y && posesHand[0].score > score_estricto){
     
                         areaUp_x = orejaLeft.x + (orejaLeft.y - tipPulgar.y) / altura
     
@@ -750,7 +752,7 @@ async function predict() {
                         }
                     }
 
-                    else if (posesHand.length == 2 && tipPulgar2.y <= areaUp_y && tipPulgar2.y >= areaDown_y){
+                    else if (posesHand.length == 2 && tipPulgar2.y <= areaUp_y && tipPulgar2.y >= areaDown_y && posesHand[1].score > score_estricto){
     
                         areaUp_x = orejaLeft.x + (orejaLeft.y - tipPulgar2.y) / altura
     
@@ -764,6 +766,7 @@ async function predict() {
                         }
                     }
                 }
+                    
             }
         }
     }
@@ -802,7 +805,7 @@ async function predict() {
             score_clase4 = scores_data[3];
             score_clase5 = scores_data[4];
 
-            coef = 0.5
+            coef = 0.6
             
             //Si se detecta al menos una clase, entrar aquí
             if (clase1 != -1){
@@ -1262,19 +1265,22 @@ async function predict() {
         if (corriendo_objeto && !detectado_objeto && !comiendo){
 
             if (fecha_ahora - inicio_objeto >= intervalo_objeto){
+                cantidad_detecciones++;
+                cantidad_mordidas++;
 
                 if(cantidad_pregunta == cantidad_mordidas){
                     Preguntar_Comiendo()
                     await sleep(4000);
                 }
 
+                console.log(comiendo)
                 if(!comiendo){
                     detectado_objeto = true;
 
-                    cantidad_detecciones++;
-                    cantidad_mordidas++;
 
-                    if (cantidad_detecciones == cantidad_notificacion && cantidad_pregunta != cantidad_mordidas){
+
+                    console.log(cantidad_detecciones, cantidad_notificacion, cantidad_pregunta, cantidad_mordidas)
+                    if (cantidad_detecciones == cantidad_notificacion){
                         NotificarObjeto();
                         cantidad_detecciones = 0;
                     }

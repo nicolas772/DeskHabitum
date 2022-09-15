@@ -147,6 +147,51 @@ const sesionesMesPelo = async (userId, mes, año) => {
 }
 
 
+const mejorMesUnhas=  async (userId) => {
+    let query = `select min(cant_total_unnas) from total_mensual where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['min']
+}
+
+
+const peorMesUnhas = async (userId) => {
+    let query = `select max(cant_total_unnas) from total_mensual where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['max']
+}
+
+const mejorMesPelo = async (userId) => {
+    let query = `select min(cant_total_pelo) from total_mensual where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['min']
+}
+
+
+const peorMesPelo = async (userId) => {
+    let query = `select max(cant_total_pelo) from total_mensual where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['max']
+}
+
+const mejorMesMorder = async (userId) => {
+    let query = `select min(cant_total_morder) from total_mensual where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['min']
+}
+
+
+const peorMesMorder = async (userId) => {
+    let query = `select max(cant_total_morder) from total_mensual where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['max']
+}
+
 
 
 
@@ -358,4 +403,5 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
                 createMorder, totalSesionTimeMorder, totalTimeMorder, countMorderSesion, allSesionsMorder,
               createPelo, totalSesionTimePelo, totalTimePelo, countPeloSesion, allSesionsPelo, 
               /*nuevas querys*/  peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo, percentageTenSesionMorder, percentageTenSesionPelo, 
-              sesionesMesUnha, sesionesMesMorder, sesionesMesPelo}
+              sesionesMesUnha, sesionesMesMorder, sesionesMesPelo, mejorMesUnhas,
+              peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder }

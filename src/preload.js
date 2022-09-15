@@ -71,7 +71,7 @@ const countUnhasSesion = (sesionId) => {
     return model.countUnhasSesion(sesionId)
 }
 
-const allSesionUnhas = (userId) => {
+const allSesionsUnhas = (userId) => {
     return model.allSesionsUnhas(userId)
 }
 
@@ -262,6 +262,22 @@ const sesionesMesPelo = (userId, mes, año) => {
     return model.sesionesMesPelo(userId, mes, año)
 }
 
+const peorMesMorder = (userId, mes, año) => {
+    return model.peorMesMorder(userId, mes, año)
+}
+
+const mejorMesMorder = (userId, mes, año) => {
+    return model.mejorMesMorder(userId, mes, año)
+}
+
+const peorMesPelo = (userId, mes, año) => {
+    return model.peorMesPelo(userId, mes, año)
+}
+
+const mejorMesPelo = (userId, mes, año) => {
+    return model.mejorMesPelo(userId, mes, año)
+}
+
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -272,7 +288,7 @@ contextBridge.exposeInMainWorld("api", {
     lastSesion: lastSesion,
     countUnhasSesion: countUnhasSesion,
     percentageTenSesionUnhas: percentageTenSesionUnhas,
-    allSesionUnhas: allSesionUnhas,
+    allSesionsUnhas: allSesionsUnhas,
     totalTimeSesions: totalTimeSesions,
     totalTimeUnhas: totalTimeUnhas,
     totalSesionTimeUnhas: totalSesionTimeUnhas,
@@ -310,7 +326,11 @@ contextBridge.exposeInMainWorld("api", {
     percentageTenSesionMorder: percentageTenSesionMorder,
     sesionesMesUnha: sesionesMesUnha,
     sesionesMesMorder: sesionesMesMorder,
-    sesionesMesPelo: sesionesMesPelo
+    sesionesMesPelo: sesionesMesPelo,
+    mejorMesMorder: mejorMesMorder,
+    peorMesMorder: peorMesMorder,
+    peorMesPelo: peorMesPelo,
+    mejorMesPelo: mejorMesPelo
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
