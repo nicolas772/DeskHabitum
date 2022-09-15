@@ -164,7 +164,7 @@ const obtenerTotal = () => {
     let rawdata2 = fs.readFileSync('./src/data/objetoSesion.json');
     let lista_objeto = JSON.parse(rawdata2);
     let tot_unha = 0, tot_objeto = 0, tot_pelo = 0;
-    let cant_tot_unha = 0, cant_tot_objeto = 0, cant_tot_pelo = 0;
+    let cant_tot_unha = 1, cant_tot_objeto = 1, cant_tot_pelo = 1;
     lista_unhas.map(u => {
         tot_unha = tot_unha + parseInt(u.total)
         cant_tot_unha += 1
@@ -179,8 +179,10 @@ const obtenerTotal = () => {
         tot_objeto = tot_objeto + parseInt(u.total)
         cant_tot_objeto += 1
     })
-
-    return [tot_unha, tot_pelo, tot_objeto, cant_tot_unha, cant_tot_pelo, cant_tot_objeto]
+    console.log(cant_tot_unha)
+    console.log(cant_tot_pelo)
+    console.log(cant_tot_objeto) 
+    return [Math.trunc(tot_unha), Math.trunc(tot_pelo), Math.trunc(tot_objeto), cant_tot_unha-1, cant_tot_pelo-1, cant_tot_objeto-1]
 }
 
 const leerCameraHandle = () => {
