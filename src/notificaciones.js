@@ -33,7 +33,7 @@ function NotificarObjeto(){
 function CamaraCargada(){
     Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
-            body: NOTIFICATION_BODY_CAMARA, icon: 'https://i.blogs.es/b95e0a/camera-1219748_1920/1024_2000.jpg'
+            body: NOTIFICATION_BODY_CAMARA, icon: 'https://webcam-test.com/ico/webcam.svg'
         })
     })
 }
