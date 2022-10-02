@@ -30,10 +30,10 @@ const getUsuarios = async () => {
     return result
 }
 
-const createUser = async (nombre, apellido, mail, pass) => {
+const createUser = async (nombre, apellido, mail, pass, lider) => {
     
     const hashedPassword = await bcrypt.hash(pass, 10)
-    let query = `INSERT INTO users (nombre, apellido, email, pass) VALUES ('${nombre}', '${apellido}', '${mail}', '${hashedPassword}')`;
+    let query = `INSERT INTO users (nombre, apellido, email, pass, liderequipo) VALUES ('${nombre}', '${apellido}', '${mail}', '${hashedPassword}', '${lider}')`;
     const res = await conexion.query(query)
 }
 
