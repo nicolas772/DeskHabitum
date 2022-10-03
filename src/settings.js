@@ -82,7 +82,12 @@ async function actualizarSettings(){
     
 }
 
-window.onload = actualizarSettings;
+function init2(){
+    actualizarSettings();
+    actualizarNavbar();
+}
+
+window.onload = init2;
 
 function doNotify(){
     Notification.requestPermission().then(function (result){
