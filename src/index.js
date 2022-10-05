@@ -3,6 +3,9 @@ const path = require('path')
 const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
 
+
+model.getParticipantesGrupo(3).then(r => console.log(r));
+
 let winlogin;
 let win, camera_win;
 
