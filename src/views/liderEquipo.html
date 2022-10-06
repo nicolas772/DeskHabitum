@@ -109,10 +109,163 @@
             <nav>
 
             </nav>
-            <h1>Equipo</h1>
+            <h1>Equipo <span>DolphinDev []</span></h1>
+            <div class="row" >
 
+                <div style="width:40%; float:left">
+
+                    <div class="col py-3" style="padding-left:1rem">
+                        <h1 style="font-size:1rem; ">Creación de equipo</h1>
+                        <div style="text-align:justify;text-justify:inter-character;justify-content: center;">Para mantener activo código de invitación (entre corchetes []) seleccione "Activar". Para editar código de invitación o nombre de equipo seleccione "Editar"</div>
+
+
+
+                        <div  role="group" aria-label="Basic example" style="padding-left:8.3rem;padding-top:0.85rem;">
+                            <button type='button' class="btn btn-outline-primary" '>Activar</button>
+                            <button id='btnstop' type='button' class="btn btn-outline-primary" onclick='javascript:(0)'>Editar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="width: 60%;float:right">
+                    <div class="col py-3" style="padding-left:1.5rem">
+                        <h1 style="font-size:1rem; ">Datos equipo último mes</h1>
+
+                        <div class="row" style="padding-bottom:0.5rem; padding-left:0.5rem">
+                            <div class="col-sm-6" >
+                                <div class="card"  style="width: 15rem;  height: 4rem; ">
+                                    <div class="card-body" style="padding:0.4rem">
+                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Nivel de ansiedad</h4>
+                                        <h1 id= "Card-Sesion" style="font-size:1rem;text-align:center; margin-bottom: 0;">Alto</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="card" style="width: 15rem; height: 4rem;">
+                                    <div class="card-body" style="padding:0.4rem">
+                                        <h4 class="card-title" style="text-align:center; text-decoration:underline"># Detecciones Manías</h4>
+                                        <h1 id= "Card-Manias" style="font-size:1rem; text-align:center; margin-bottom: 0;">131</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:0.1rem;padding-left:0.5rem;">
+                            <div class="col-sm-6" >
+                                <div class="card"  style="width: 15rem;  height: 4rem;">
+                                    <div class="card-body" style="padding:0.4rem">
+                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Detección de mala postura</h4>
+                                        <h1 id= "Card-Postura" style="font-size:1rem;text-align:center; margin-bottom: 0;">Si</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="card" style="width: 15rem; height: 4rem;">
+                                    <div class="card-body" style="padding:0.4rem">
+                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Detección fatiga visual</h4>
+
+                                    <!--<h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">Si <i class="bi bi-check-square" style="color:green;"></i></h1>-->
+                                    <h1 id= "Card-Visual" style="font-size:1rem; text-align:center; margin-bottom: 0;">No</h1>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             <!--<div id="chart2"></div> -->
-            
+            <div class="row" >
+
+                <div style="width:50%; float:left">
+                    <div class="col py-3" style="padding-left:1rem">
+                            <h1 style="font-size:1rem; ">Integrantes</h1>
+                            <!--<h1 style="margin-top:20px">Equipo DolphinDev</h1>-->
+                            <br/>
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Editar</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Rol</th>
+                                    <th scope="col">Eliminar</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">
+                                        <span class="material-icons-sharp">edit</span>
+                                    </th>
+                                    <td>Fabian</td>
+                                    <td>Front End developer</td>
+                                    <td>
+                                        <span class="material-icons-sharp">delete</span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">
+                                        <span class="material-icons-sharp">edit</span>
+                                    </th>
+                                    <td>Feña</td>
+                                    <td>Front End developer</td>
+                                    <td>
+                                        <span class="material-icons-sharp">delete</span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">
+                                        <span class="material-icons-sharp">edit</span>
+                                    </th>
+                                    <td>Nico</td>
+                                    <td>Scrum Master</td>
+                                    <td>
+                                        <span class="material-icons-sharp">delete</span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">
+                                        <span class="material-icons-sharp">edit</span>
+                                    </th>
+                                    <td>Jose</td>
+                                    <td>IA expert</td>
+                                    <td>
+                                        <span class="material-icons-sharp">delete</span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">
+                                        <span class="material-icons-sharp">edit</span>
+                                    </th>
+                                    <td>Alvaro</td>
+                                    <td>Especialista Comunicaciones</td>
+                                    <td>
+                                        <span class="material-icons-sharp">delete</span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">
+                                        <span class="material-icons-sharp">edit</span>
+                                    </th>
+                                    <td>Jorge</td>
+                                    <td>Back End developer</td>
+                                    <td>
+                                        <span class="material-icons-sharp">delete</span>
+                                    </td>
+                                  </tr>
+                                  
+                                </tbody>
+                              </table>
+                    </div>
+                </div>
+
+                <div style="width: 50%;float:right">
+                    <div class="col py-3" style="padding-left:1.5rem">
+                        <h1 style="font-size:1rem; ">% de tiempo con distracción</h1>
+                        <div  id="chart_equipo1"></div>
+                        <div  id="chart_equipo2"></div>
+                    </div>
+                </div>
+            </div>
             
                     
 
@@ -122,6 +275,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../navbar.js"></script>
+    <script src="../graficos/equipo.js"></script>
     <!--<script src="../renderWebcam.js"></script>-->
     <script type="text/javascript">
         $(document).ready(function(){
