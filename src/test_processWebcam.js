@@ -187,8 +187,9 @@ async function getConfig(ID_USER){
             postura = false;
         }
 
-        if (config_user.fatiga_visual == "on"){
+        if (config_user.fatigavisual == "on"){
             fatiga_visual = true;
+
         }else{
             fatiga_visual = false;
         }
@@ -347,7 +348,7 @@ async function init_model() {
     modeloBlaze = poseDetection.SupportedModels.BlazePose;
     detectorBlaze = await poseDetection.createDetector(modeloBlaze, {runtime : 'tfjs', modelType : 'full'});
 
-    if (onicofagia || tricotilomania){
+    if (onicofagia || tricotilomania || fatiga_visual){
         modeloHand = handPoseDetection.SupportedModels.MediaPipeHands;
         detectorHand = await handPoseDetection.createDetector(modeloHand, {runtime : 'tfjs', solutionPath: "https://cdn.jsdelivr.net/npm/@mediapipe/hands",  modelType : 'full'});
 
@@ -355,6 +356,10 @@ async function init_model() {
 
     if (morder_objetos){
         model = await tf.loadGraphModel('../modelo_objetos/model.json');
+    }
+
+    if(fatiga_visual){
+        //INSERTAR MODELO DE PESTAÑEO
     }
 
     const flip = false;
@@ -387,7 +392,7 @@ async function predict() {
     let posesHand, posesBlaze, bocaCenter_x, bocaCenter_y;
     //https://github.com/tensorflow/tfjs-models/tree/master/hand-pose-detection
 
-    if (onicofagia || tricotilomania){
+    if (onicofagia || tricotilomania || fatiga_visual){
         posesHand = await detectorHand.estimateHands(webcam.canvas);
         //https://github.com/tensorflow/tfjs-models/tree/master/pose-detection
         posesBlaze = await detectorBlaze.estimatePoses(webcam.canvas);
@@ -401,10 +406,11 @@ async function predict() {
     comiendo_uña = false 
     tirando_pelo = false
     mordiendo_objeto = false
+    fatigando_vista = false
 
 
     
-    if ( (onicofagia || tricotilomania) && posesBlaze.length != 0 && posesHand.length != 0 /* && (posesBlaze[0].keypoints3D[19].score >= 0.8 || posesBlaze[0].keypoints3D[20].score >= 0.8)*/){
+    if ( (onicofagia || tricotilomania || fatiga_visual) && posesBlaze.length != 0 && posesHand.length != 0 /* && (posesBlaze[0].keypoints3D[19].score >= 0.8 || posesBlaze[0].keypoints3D[20].score >= 0.8)*/){
 
         //BLAZE POSE
 
@@ -414,6 +420,12 @@ async function predict() {
 
         bocaLeft3D = posesBlaze[0].keypoints3D[9]
         bocaRight3D = posesBlaze[0].keypoints3D[10]
+
+        ojoLeft_Outer = posesBlaze[0].keypoints[3]
+        ojoLeft = posesBlaze[0].keypoints[2]
+
+        ojoRight_Outer = posesBlaze[0].keypoints[6]
+        ojoRight = posesBlaze[0].keypoints[5]
 
         ojoLeft3D = posesBlaze[0].keypoints3D[2]
         ojoRight3D = posesBlaze[0].keypoints3D[5]
@@ -454,6 +466,8 @@ async function predict() {
         dipAnular = posesHand[0].keypoints[15]
         dipMenique = posesHand[0].keypoints[19]
 
+        pipIndice = posesHand[0].keypoints[6]
+
         //Tambien las puntas de los dedos
         tipPulgar = posesHand[0].keypoints[4]
         tipPulgar3D = posesHand[0].keypoints3D[4]
@@ -480,6 +494,8 @@ async function predict() {
             dipMedio2 = posesHand[1].keypoints[11]
             dipAnular2 = posesHand[1].keypoints[15]
             dipMenique2 = posesHand[1].keypoints[19]
+
+            pipIndice2 = posesHand[1].keypoints[6]
 
             //Tambien las puntas de los dedos
             tipPulgar2 = posesHand[1].keypoints[4]
@@ -769,7 +785,130 @@ async function predict() {
                     
             }
         }
+/*-----------------------------------------------SECCIÓN DE FATIGA VISUAL CON MANO----------------------------------------------*/
+        if(fatiga_visual){
+
+            radio_ojoLeft = distancia_puntos(ojoLeft_Outer.x, ojoLeft_Outer.y, ojoLeft.x, ojoLeft.y)
+            radio_ojoRight = distancia_puntos(ojoRight_Outer.x, ojoRight_Outer.y, ojoRight.x, ojoRight.y)
+
+            //IZQUIERDA
+            //caso restregar con "pip"
+            dist_ojoLeft_pipIndice = distancia_puntos(pipIndice.x, pipIndice.y, ojoLeft.x, ojoLeft.y)
+
+            //caso restregar con puntas de los dedos
+            dist_ojoLeft_tipPulgar = distancia_puntos(tipPulgar.x, tipPulgar.y, ojoLeft.x, ojoLeft.y)
+            dist_ojoLeft_tipIndice = distancia_puntos(tipIndice.x, tipIndice.y, ojoLeft.x, ojoLeft.y)
+            dist_ojoLeft_tipMedio = distancia_puntos(tipMedio.x, tipMedio.y, ojoLeft.x, ojoLeft.y)
+            dist_ojoLeft_tipAnular = distancia_puntos(tipAnular.x, tipAnular.y, ojoLeft.x, ojoLeft.y)
+            dist_ojoLeft_tipMenique = distancia_puntos(tipMenique.x, tipMenique.y, ojoLeft.x, ojoLeft.y)
+
+            //DERECHA
+            //caso restregar con "pip"
+            dist_ojoRight_pipIndice = distancia_puntos(pipIndice.x, pipIndice.y, ojoRight.x, ojoRight.y)
+
+            //caso restregar con puntas de los dedos
+            dist_ojoRight_tipPulgar = distancia_puntos(tipPulgar.x, tipPulgar.y, ojoRight.x, ojoRight.y)
+            dist_ojoRight_tipIndice = distancia_puntos(tipIndice.x, tipIndice.y, ojoRight.x, ojoRight.y)
+            dist_ojoRight_tipMedio = distancia_puntos(tipMedio.x, tipMedio.y, ojoRight.x, ojoRight.y)
+            dist_ojoRight_tipAnular = distancia_puntos(tipAnular.x, tipAnular.y, ojoRight.x, ojoRight.y)
+            dist_ojoRight_tipMenique = distancia_puntos(tipMenique.x, tipMenique.y, ojoRight.x, ojoRight.y)
+
+            if (radio_ojoLeft >= dist_ojoLeft_pipIndice || radio_ojoRight >= dist_ojoRight_pipIndice){
+                
+                if (!corriendo_vista){
+                    inicio_vista = new Date;
+                }
+                console.log("restregando ojo")
+                fatigando_vista = true
+                corriendo_vista = true
+            }
+
+            else if(radio_ojoLeft >= dist_ojoLeft_tipPulgar || radio_ojoLeft >= dist_ojoLeft_tipIndice || radio_ojoLeft >= dist_ojoLeft_tipMedio || radio_ojoLeft >= dist_ojoLeft_tipAnular || radio_ojoLeft >= dist_ojoLeft_tipMenique){
+                
+                if (!corriendo_vista){
+                    inicio_vista = new Date;
+                }
+                console.log("restregando ojo")
+
+                fatigando_vista = true
+                corriendo_vista = true
+            }
+
+            else if(radio_ojoRight >= dist_ojoRight_tipPulgar || radio_ojoRight >= dist_ojoRight_tipIndice || radio_ojoRight >= dist_ojoRight_tipMedio || radio_ojoRight >= dist_ojoRight_tipAnular || radio_ojoRight >= dist_ojoRight_tipMenique){
+                
+                if (!corriendo_vista){
+                    inicio_vista = new Date;
+                }
+                console.log("restregando ojo")
+
+                fatigando_vista = true
+                corriendo_vista = true
+
+            }
+
+            if (posesHand.length == 2 && !corriendo_vista){
+
+                //IZQUIERDA
+                //caso restregar con "pip"
+                dist_ojoLeft_pipIndice2 = distancia_puntos(pipIndice2.x, pipIndice2.y, ojoLeft.x, ojoLeft.y)
+
+                //caso restregar con puntas de los dedos
+                dist_ojoLeft_tipPulgar2 = distancia_puntos(tipPulgar2.x, tipPulgar2.y, ojoLeft.x, ojoLeft.y)
+                dist_ojoLeft_tipIndice2 = distancia_puntos(tipIndice2.x, tipIndice2.y, ojoLeft.x, ojoLeft.y)
+                dist_ojoLeft_tipMedio2 = distancia_puntos(tipMedio2.x, tipMedio2.y, ojoLeft.x, ojoLeft.y)
+                dist_ojoLeft_tipAnular2 = distancia_puntos(tipAnular2.x, tipAnular2.y, ojoLeft.x, ojoLeft.y)
+                dist_ojoLeft_tipMenique2 = distancia_puntos(tipMenique2.x, tipMenique2.y, ojoLeft.x, ojoLeft.y)
+
+                //DERECHA
+                //caso restregar con "pip"
+                dist_ojoRight_pipIndice2 = distancia_puntos(pipIndice2.x, pipIndice2.y, ojoRight.x, ojoRight.y)
+
+                //caso restregar con puntas de los dedos
+                dist_ojoRight_tipPulgar2 = distancia_puntos(tipPulgar2.x, tipPulgar2.y, ojoRight.x, ojoRight.y)
+                dist_ojoRight_tipIndice2 = distancia_puntos(tipIndice2.x, tipIndice2.y, ojoRight.x, ojoRight.y)
+                dist_ojoRight_tipMedio2 = distancia_puntos(tipMedio2.x, tipMedio2.y, ojoRight.x, ojoRight.y)
+                dist_ojoRight_tipAnular2 = distancia_puntos(tipAnular2.x, tipAnular2.y, ojoRight.x, ojoRight.y)
+                dist_ojoRight_tipMenique2 = distancia_puntos(tipMenique2.x, tipMenique2.y, ojoRight.x, ojoRight.y)
+
+                if (radio_ojoLeft >= dist_ojoLeft_pipIndice2 || radio_ojoRight >= dist_ojoRight_pipIndice2){
+                    
+                    if (!corriendo_vista){
+                        inicio_vista = new Date;
+                    }
+                    console.log("restregando ojo")
+
+                    fatigando_vista = true
+                    corriendo_vista = true
+                }
+
+                else if(radio_ojoLeft >= dist_ojoLeft_tipPulgar2 || radio_ojoLeft >= dist_ojoLeft_tipIndice2 || radio_ojoLeft >= dist_ojoLeft_tipMedio2 || radio_ojoLeft >= dist_ojoLeft_tipAnular2 || radio_ojoLeft >= dist_ojoLeft_tipMenique2){
+                    
+                    if (!corriendo_vista){
+                        inicio_vista = new Date;
+                    }
+                    console.log("restregando ojo")
+
+                    fatigando_vista = true
+                    corriendo_vista = true
+                }
+
+                else if(radio_ojoRight >= dist_ojoRight_tipPulgar2 || radio_ojoRight >= dist_ojoRight_tipIndice2 || radio_ojoRight >= dist_ojoRight_tipMedio2 || radio_ojoRight >= dist_ojoRight_tipAnular2 || radio_ojoRight >= dist_ojoRight_tipMenique2){
+                    
+                    if (!corriendo_vista){
+                        inicio_vista = new Date;
+                    }
+                    console.log("restregando ojo")
+
+                    fatigando_vista = true
+                    corriendo_vista = true
+
+                }
+            }
+        }
     }
+
+/*---------------------------------------------SECCIÓN DE FATIGA VISUAL CON PESTAÑEO----------------------------------------------*/
+
 
     if(morder_objetos && !comiendo){
         tf.engine().startScope()   // Liberar tensores que no se ocupan
@@ -1144,7 +1283,7 @@ async function predict() {
     }
 
     //Termina la detección
-    if (!(comiendo_uña || tirando_pelo || mordiendo_objeto) && (corriendo_uña || corriendo_pelo || corriendo_objeto)){
+    if (!(comiendo_uña || tirando_pelo || mordiendo_objeto || fatigando_vista) && (corriendo_uña || corriendo_pelo || corriendo_objeto || corriendo_vista)){
 
         if (corriendo_uña && detectado_uña){
             corriendo_uña = false;
@@ -1174,6 +1313,15 @@ async function predict() {
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_objeto, fin_objeto);
             actualizarJson('objeto', inicio_objeto, fin_objeto)
+        }
+
+        if (corriendo_vista && detectado_vista){
+            corriendo_vista = false;
+            detectado_vista = false;
+            fin_vista = new Date;
+            
+            //AQUI GUARDAR EN BASE DE DATOS
+            console.log(inicio_vista, fin_vista);
         }
     }
 
