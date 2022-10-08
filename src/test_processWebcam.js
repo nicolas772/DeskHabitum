@@ -8,7 +8,7 @@ const faceLandmarksDetection = require('@tensorflow-models/face-landmarks-detect
 const crud = require('./model/model.js')
 const fs = require('fs');
 //Notificaciones
-const {NotificarUña, NotificarPelo, NotificarObjeto, CamaraCargada} = require('./notificaciones.js');
+const {NotificarUña, NotificarPelo, NotificarObjeto, NotificarPestañeo, NotificarVisual, CamaraCargada} = require('./notificaciones.js');
 
 const {ipcRenderer} = require("electron");
 var ID_USER = get_user_id()
@@ -35,7 +35,7 @@ let camara_cargada = false;
 let intervalo_uña = 2000;
 let intervalo_pelo = 1000;
 let intervalo_objeto = 2000;
-let intervalo_vista = 2000;
+let intervalo_vista = 1500;
 let intervalo_postura = 2000;
 
 //Booleanos que se activan cuando se cumplen los intervalos de tiempo
@@ -59,6 +59,12 @@ let cantidad_pregunta = 3;
 let comiendo = false;
 let tiempo_comiendo = 600000;
 
+let cantidad_pestañeos = 0;
+let tiempo_periodo = 5000; //en milisegundos
+let frec_normal_pestañeo = 2; // Sin concentrar vista: 20 pestañeos por min / Leyendo: 14 pestañeos por min -> 2 pestañeos por 10 seg
+let corriendo_periodo = false; 
+
+
 let tiempo_entre_notificaciones;
 let se_puede_notificar = true;
 
@@ -75,6 +81,32 @@ let fin_uña, fin_pelo, fin_objeto, fin_vista, fin_postura;
 
 //Booleanos que indican si se está realizando dicho mal habito
 let comiendo_uña, tirando_pelo, mordiendo_objeto, fatigando_vista, mala_postura;
+
+
+function Periodo_Pestañeo() {
+    corriendo_periodo = true
+    setTimeout (function(){
+        
+        if(cantidad_pestañeos < frec_normal_pestañeo){
+            
+            if(opcion == "tiempo" && se_puede_notificar){
+                NotificarPestañeo();
+                CountDownEntreNotificaciones();
+            }
+
+            else if (opcion == "reconocimientos"){
+                cantidad_detecciones++;
+                if (cantidad_detecciones == cantidad_notificacion){
+                    NotificarPestañeo();
+                    cantidad_detecciones = 0;
+                }
+            }
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@BASE DE DATOS
+        }
+        corriendo_periodo = false
+        cantidad_pestañeos = 0
+    }, tiempo_periodo);
+}
 
 
 function CountDownComiendo() {
@@ -150,8 +182,10 @@ async function getConfig(ID_USER){
         detectado_objeto = false;
         detectado_vista = false;
         detectado_postura = false;
+        corriendo_periodo = false
         cantidad_mordidas = 0;
         cantidad_detecciones = 0;
+        cantidad_pestañeos = 0;
 
 
         config_user = result[0];
@@ -916,6 +950,10 @@ async function predict() {
 
 /*---------------------------------------------SECCIÓN DE FATIGA VISUAL CON PESTAÑEO----------------------------------------------*/
     if(fatiga_visual){
+        if (!corriendo_periodo){
+            Periodo_Pestañeo()
+        }
+            
         cara = await detectorPestañeo.estimateFaces(webcam.canvas);
         if (cara.length != 0){
 
@@ -972,22 +1010,27 @@ async function predict() {
                 if(derecho <= 0.255 && izquierdo <= 0.255 && condicion_abajo_arriba > 0.18  && dist_frente < 28){
                     pestañeo_individual = true
                     console.log("Parpadeando frente")
+                    cantidad_pestañeos += 1
     
                 }else if(derecho <= 0.23 && izquierdo <= 0.23 && condicion_abajo_arriba > 0.18  && dist_frente >= 28){
                     pestañeo_individual = true
                     console.log("Parpadeando cerca frente")
+                    cantidad_pestañeos += 1
     
                 }else if(derecho <= 0.32 && izquierdo <= 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente < 28){
                     pestañeo_individual = true
                     console.log("Parpadeando abajo")
+                    cantidad_pestañeos += 1
     
                 }else if(derecho <= 0.32 && izquierdo <= 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente >= 28){
                     pestañeo_individual = true
                     console.log("Parpadeando abajo cerca")
+                    cantidad_pestañeos += 1
     
                 }else if(derecho <= 0.35 && izquierdo <= 0.35 && condicion_abajo_arriba > 0.1 && condicion_abajo_arriba < 0.15 && dist_frente < 28){
                     pestañeo_individual = true
                     console.log("Parpadeando muy abajo")
+                    cantidad_pestañeos += 1
                 }
 
             }if (derecho > 0.255 && izquierdo > 0.255 && condicion_abajo_arriba > 0.18  && dist_frente < 28){
@@ -1481,6 +1524,19 @@ async function predict() {
             }
         }
 
+        if (corriendo_vista && !detectado_vista){
+            if (fecha_ahora - inicio_vista >= intervalo_vista){
+
+                detectado_vista = true;
+
+                if (se_puede_notificar){
+                    NotificarVisual();
+                    CountDownEntreNotificaciones();
+                }
+            }
+
+        }
+
     //---------------------------NOTIFICACIONES ENTRE CANTIDADES DE RECONOCIMIENTOS---------------------------
     } else if (opcion == "reconocimientos"){
 
@@ -1537,6 +1593,22 @@ async function predict() {
                         NotificarObjeto();
                         cantidad_detecciones = 0;
                     }
+                }
+            }
+        }
+        
+        if (corriendo_vista && !detectado_vista){
+    
+            if (fecha_ahora - inicio_vista >= intervalo_vista){
+
+                detectado_vista = true;
+
+                cantidad_detecciones++;
+
+                if (cantidad_detecciones == cantidad_notificacion){
+                    NotificarVisual();
+                    cantidad_detecciones = 0;
+                    
                 }
             }
         }
