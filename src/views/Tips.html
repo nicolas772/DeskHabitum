@@ -106,25 +106,303 @@
         </aside>
         <!----END ASIDE---->
         <main style="z-index:1">
-            <nav>
 
-            </nav>
-            <h1>Consejos</h1>
+            <div class="mytabs">
+                <input type="radio" id="tabfree" name="mytabs" checked="checked">
+                <label for="tabfree">Fatiga Visual</label>
+                <div class="tab">
+                    <h1 style="font-size:1.5rem">Consejos fatiga visual</h1>
+                    <div class="row" >
+                        <div style="width:40%; float:left">
+                            
+                        </div>
+                        <div style="width: 60%;float:right">
+                            <div class="col-sm-6" >
+                                <h1 style="font-size:1rem; margin-top:0.3rem" > Porcentaje distracción total</h1>
+                                <div id="chartDistraccionTotal" style="margin:auto; width:40%;padding-left:1rem"></div>
+                            </div>
+                        </div>
 
-            <!--<div id="chart2"></div> -->
-            
-            <div class="col-sm-6">
-                <div class="card" style="width: 18rem;">
-                  <div class="card-body">
-                    <h2 class="card-title">Fatiga visual</h2>
-                    <h5>Al parecer este hábito es el más frecuente en tu recuento actual, recuerda que blablablablablabla</h5>
-                  </div>
+                    </div>
+
+                    <div class="row">
+                        <h1 style="font-size:1rem; margin-top:0.3rem"> Porcentaje distracción últimas 10 sesiones </h1>
+                        <div id="chart10Sesiones" style="margin:auto; padding:1rem"></div>
+                    </div>
+
                 </div>
-              </div>
+
+                <input type="radio" id="tabsilver" name="mytabs">
+                <label for="tabsilver">Onicofagia</label>
+                <div class="tab">
+                        <h1 style="font-size:1.5rem">Reportes Onicofagia</h1>
+
+                        <div class="row" >
+                            <div style="width:40%; float:left">
+                                <h1 style="font-size:1rem; margin-top:0.3rem; margin-bottom:2rem;"  > Cantidad de detecciones</h1>
+
+                                <div class="col-sm-6">
+                                    <div class="card"  style="width: 18rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones última sesión</h4>
+                                            <h1 id ="ultima-sesion-unhas" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="card" style="width: 18rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones totales</h4>
+                                            <h1 id ="total-detecciones-unhas" style="font-size:1rem; text-align:center; margin-bottom: 0;"></h1>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 60%;float:right">
+                                <div class="col-sm-6" >
+                                <h1 style="font-size:1rem; margin-top:0.3rem" > Porcentaje distracción total</h1>
+                                <div id="chartDistraccionTotalUnhas" style="margin:auto; width:40%;padding-left:1rem"></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <h1 style="font-size:1rem; margin-top:0.3rem"> Porcentaje distracción últimas 10 sesiones </h1>
+                            <div id="chart10SesionesUnhas" style="margin:auto; padding:1rem"></div>
+                        </div>
+
+                </div>
+
+                <input type="radio" id="tabgold" name="mytabs">
+                <label for="tabgold">Tricotilomanía</label>
+                <div class="tab">
+                    <div class="row">
+                        <div style="width:60%; float:left">
+                            <h1 style="padding-top:5px;">Reportes Tricotilomanía</h1>
+                        </div>
+                    </div>
+
+                    <div class="row" >
+                        <h4>Últimas sesiones</h4>
+                        
+                        
+                        
+                    </div>
 
                     
 
+                    
+            
+                  
+                    
+                </div>
 
+                <input type="radio" id="tablast" name="mytabs">
+                <label for="tablast">Manía Morder objetos</label>
+                <div class="tab">
+                    <div class="row">
+                        <div style="width:60%; float:left">
+                            <h1 style="padding-top:5px;">Reportes Manía Morder Objetos</h1>
+                        </div>
+                        <div style="width: 40%;float:right">
+                            <div class="radio2"> 
+                                <input class="radio__input" type="radio" value="option1" name="myRadio" id="checkobjrec" checked="checked">
+                                <label class="radio__label" for="checkobjrec">Resumen</label>
+                                
+                                
+                                <input class="radio__input" type="radio" value="option2" name="myRadio" id="checkobjmes">
+                                <label class="radio__label" for="checkobjmes">Por sesión</label>
+                                
+                                <input class="radio__input" type="radio" value="option3" name="myRadio" id="checkobjanio">
+                                <label class="radio__label" for="checkobjanio">Por mes</label>
+                            </div>
+                        </div>
+                       
+                    </div>
+
+                    <div class="row" id="objrec">
+                        <h1>Recientes</h1>
+                        <div class="row">
+                            <div style="width:40%; float:left">
+                                <h1 style="font-size:1rem; margin-top:0.3rem; margin-bottom:2rem;"  > Cantidad de detecciones</h1>
+    
+                                <div class="col-sm-6">
+                                    <div class="card"  style="width: 18rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones última sesión</h4>
+                                            <h1 id ="ultima-sesion-morder" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1> <!-- Cambiar datos morder -->
+    
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="card" style="width: 18rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones totales</h4>
+                                            <h1 id ="total-detecciones-morder" style="font-size:1rem; text-align:center; margin-bottom: 0;"></h1> <!-- Cambiar datos morder-->
+    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 60%;float:right">
+                                <div class="col-sm-6" >
+                                <h1 style="font-size:1rem; margin-top:0.3rem" > Porcentaje distracción total</h1>
+                                <div id="#chart_obj1" style="margin:auto; width:40%;padding-left:1rem"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h1 style="font-size:1rem; margin-top:0.3rem"> Porcentaje distracción últimas 10 sesiones </h1>
+                            <div id="#chart_obj2" style="margin:auto; padding:1rem"></div>
+                        </div>    
+                    </div>
+
+                    <div class="row" id="objmes">
+
+                        <h1>Ultima sesión</h1>
+                        <div class="row">
+                            <!--3 cuadritos obj-->
+                            <div class="row">
+                                <div style="width:33%; float:left">
+                                    <h4>Peor sesión</h4>
+                                    <div class="card">
+                                        <div class="card-header p-3 pt-2">
+                                          <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                                            <i class="material-icons opacity-10">person_remove</i>
+                                          </div>
+                                          <div class="text-end pt-1">
+                                            <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                            <h4 class="mb-0" id="peor_ses_obj"></h4>
+                                          </div>
+                                        </div>                                      
+                                        
+                                      </div>
+                                </div>
+                                <div style="width: 66%;float:right">
+                                    <div class="row">
+                                        <div style="width:50%; float:left">
+                                            <h4>Última sesión</h4>
+                                            <div class="card">
+                                                <div class="card-header p-3 pt-2">
+                                                  <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                                                    <i class="material-icons opacity-10">person</i>
+                                                  </div>
+                                                  <div class="text-end pt-1">
+                                                    <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                                    <h4 class="mb-0" id="ult_ses_obj"></h4>
+                                                  </div>
+                                                </div>                                              
+                                                
+                                              </div>
+                                        </div>
+                                        <div style="width: 50%;float:right">
+                                            <h4>Mejor sesión</h4>
+                                            <div class="card">
+                                                <div class="card-header p-3 pt-2">
+                                                  <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                                                    <i class="material-icons opacity-10">person_add</i>
+                                                  </div>
+                                                  <div class="text-end pt-1">
+                                                    <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                                    <h4 class="mb-0" id="mejor_ses_obj"></h4>
+                                                  </div>
+                                                </div>                                              
+                                                
+                                              </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                          </br>                        
+                          <div class="row" style="width: 90%; height: 90px;">
+                            <h4 style="margin-top:0.3rem;"></h4>
+                            <canvas style="margin-left:100px;" id="ob_comparacion" ></canvas>
+                        </div>                          
+                            
+                        </div>                     
+
+                        
+                    </div>
+                    <div class="row" id="objanio">
+                        <h1></h1>
+                        <div class="row">
+                            <div style="width:33%; float:left">
+                                <h4>Peor mes</h4>
+                                <div class="card">
+                                    <div class="card-header p-3 pt-2">
+                                      <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                                        <i class="material-icons opacity-10">person_remove</i>
+                                      </div>
+                                      <div class="text-end pt-1">
+                                        <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                        <h4 class="mb-0" id="peor_mes_obj"></h4>
+                                      </div>
+                                    </div>                                                                       
+                                  </div>
+                            </div>
+                            <div style="width: 66%;float:right">
+                                <div class="row">
+                                    <div style="width:50%; float:left">
+                                        <h4>Mes actual</h4>
+                                        <div class="card">
+                                            <div class="card-header p-3 pt-2">
+                                              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                                                <i class="material-icons opacity-10">person</i>
+                                              </div>
+                                              <div class="text-end pt-1">
+                                                <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                                <h4 class="mb-0" id="ult_mes_obj"></h4>
+                                              </div>
+                                            </div>           
+                                            
+                                          </div>
+                                    </div>
+                                    <div style="width: 50%;float:right">
+                                        <h4>Mejor mes</h4>
+                                        <div class="card">
+                                            <div class="card-header p-3 pt-2">
+                                              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                                                <i class="material-icons opacity-10">person_add</i>
+                                              </div>
+                                              <div class="text-end pt-1">
+                                                <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                                <h4 class="mb-0" id="mejor_mes_obj"></h4>
+                                              </div>
+                                            </div>                                          
+                                            
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--GRÁFICO ANUAL DE MORDER OBJETOS -->
+                      </br>
+                      <div class="row">
+                          <h1 style="margin-top:0.3rem;"> Evolución mensual por sesión</h1>
+                          <!--<h1 style="font-size:1rem; margin-top:0.3rem"> Tiempo de distracción, monitoreo y total </h1>-->
+                          <div id="chart_obmes" style="margin:auto; padding:1rem"></div>
+                      </div>
+                        <!-- grafico 3 meses -->
+                        
+
+
+                    </div>
+                    
+            
+                  
+                    
+                </div>
+
+            </div>
+
+
+
+            
 
         </main>
     </div>
