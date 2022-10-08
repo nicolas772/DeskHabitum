@@ -3,6 +3,7 @@ const tmImage = require('@teachablemachine/image');
 const tf = require('@tensorflow/tfjs')
 const handPoseDetection = require('@tensorflow-models/hand-pose-detection');
 const poseDetection = require('@tensorflow-models/pose-detection');
+const faceLandmarksDetection = require('@tensorflow-models/face-landmarks-detection');
 //Base de datos
 const crud = require('./model/model.js')
 const fs = require('fs');
@@ -43,6 +44,9 @@ let detectado_pelo = false;
 let detectado_objeto = false;
 let detectado_vista = false;
 let detectado_postura = false;
+
+//Booleano para el pestañeo intermitente
+let pestañeo_individual = false;
 
 //Variables para la configuración de las notificaciones
 let opcion; 
@@ -360,6 +364,8 @@ async function init_model() {
 
     if(fatiga_visual){
         //INSERTAR MODELO DE PESTAÑEO
+        modeloPestañeo = faceLandmarksDetection.SupportedModels.MediaPipeFaceMesh;
+        detectorPestañeo = await faceLandmarksDetection.createDetector(modeloPestañeo, {runtime: 'tfjs', solutionPath: 'https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh'});
     }
 
     const flip = false;
@@ -906,9 +912,108 @@ async function predict() {
             }
         }
     }
+    
 
 /*---------------------------------------------SECCIÓN DE FATIGA VISUAL CON PESTAÑEO----------------------------------------------*/
+    if(fatiga_visual){
+        cara = await detectorPestañeo.estimateFaces(webcam.canvas);
+        if (cara.length != 0){
 
+            //Nariz
+            nariz1 = cara[0].keypoints[4]
+            nariz2 = cara[0].keypoints[1]
+            narizUP = cara[0].keypoints[6]
+            narizLOW = cara[0].keypoints[5]
+
+            //frente
+            f1 = cara[0].keypoints[107]
+            f2 = cara[0].keypoints[336]
+
+            //Parpados
+            parpado_superior_160 = cara[0].keypoints[160]
+            parpado_superior_158 = cara[0].keypoints[158]
+            parpado_superior_385 = cara[0].keypoints[385]
+            parpado_superior_387 = cara[0].keypoints[387]
+
+
+            parpado_inferior_144 = cara[0].keypoints[144]
+            parpado_inferior_153 = cara[0].keypoints[153]
+            parpado_inferior_380 = cara[0].keypoints[380]
+            parpado_inferior_373 = cara[0].keypoints[373]
+
+            parpado_extremo_33 = cara[0].keypoints[33]
+            parpado_extremo_133 = cara[0].keypoints[133]
+            parpado_extremo_362 = cara[0].keypoints[362]
+            parpado_extremo_263 = cara[0].keypoints[263]
+
+
+            //Proporción para determinar parpadeo en ojo derecho
+            derecho = (distancia_puntos(parpado_superior_160.x, parpado_superior_160.y,parpado_inferior_144.x, parpado_inferior_144.y)
+            + distancia_puntos(parpado_superior_158.x, parpado_superior_158.y,parpado_inferior_153.x, parpado_inferior_153.y)
+            ) / (2 * distancia_puntos(parpado_extremo_33.x, parpado_extremo_33.y, parpado_extremo_133.x, parpado_extremo_133.y))
+
+            //Proporción para determinar parpadeo en ojo izquierdo
+            izquierdo = (distancia_puntos(parpado_superior_385.x, parpado_superior_385.y,parpado_inferior_380.x, parpado_inferior_380.y)
+            + distancia_puntos(parpado_superior_387.x, parpado_superior_387.y,parpado_inferior_373.x, parpado_inferior_373.y)
+            ) / (2 * distancia_puntos(parpado_extremo_362.x, parpado_extremo_362.y, parpado_extremo_263.x, parpado_extremo_263.y))
+
+        
+            //Unidad para definir cercanía a la pantalla en base a dos coordenadas de la frente
+            dist_frente = distancia_puntos(f1.x, f1.y, f2.x, f2.y)
+
+            //Condición para que bajar cabeza no se detecte como pestañeo
+            condicion_abajo_arriba = distancia_puntos(nariz1.x, nariz1.y, nariz2.x, nariz2.y) / distancia_puntos(f1.x, f1.y, f2.x, f2.y)
+
+            //Proporción para que levantar cabeza no se detecte como pestañeo
+            proporcion = distancia_puntos(f1.x, f1.y, f2.x, f2.y) / distancia_puntos(narizUP.x, narizUP.y, narizLOW.x, narizLOW.y)
+
+            //proporcion < 1.35
+            if(!pestañeo_individual){
+                if(derecho <= 0.255 && izquierdo <= 0.255 && condicion_abajo_arriba > 0.18  && dist_frente < 28){
+                    pestañeo_individual = true
+                    console.log("Parpadeando frente")
+    
+                }else if(derecho <= 0.23 && izquierdo <= 0.23 && condicion_abajo_arriba > 0.18  && dist_frente >= 28){
+                    pestañeo_individual = true
+                    console.log("Parpadeando cerca frente")
+    
+                }else if(derecho <= 0.32 && izquierdo <= 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente < 28){
+                    pestañeo_individual = true
+                    console.log("Parpadeando abajo")
+    
+                }else if(derecho <= 0.32 && izquierdo <= 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente >= 28){
+                    pestañeo_individual = true
+                    console.log("Parpadeando abajo cerca")
+    
+                }else if(derecho <= 0.35 && izquierdo <= 0.35 && condicion_abajo_arriba > 0.1 && condicion_abajo_arriba < 0.15 && dist_frente < 28){
+                    pestañeo_individual = true
+                    console.log("Parpadeando muy abajo")
+                }
+
+            }if (derecho > 0.255 && izquierdo > 0.255 && condicion_abajo_arriba > 0.18  && dist_frente < 28){
+                pestañeo_individual = false
+
+            }else if(derecho > 0.23 && izquierdo > 0.23 && condicion_abajo_arriba > 0.18  && dist_frente >= 28){
+                pestañeo_individual = false
+
+
+            }else if(derecho > 0.32 && izquierdo > 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente < 28){
+                pestañeo_individual = false
+
+
+            }else if(derecho > 0.32 && izquierdo > 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente >= 28){
+                pestañeo_individual = false
+
+
+            }else if(derecho > 0.35 && izquierdo > 0.35 && condicion_abajo_arriba > 0.1 && condicion_abajo_arriba < 0.15 && dist_frente < 28){
+                pestañeo_individual = false
+
+            }
+            
+
+        }
+
+    }
 
     if(morder_objetos && !comiendo){
         tf.engine().startScope()   // Liberar tensores que no se ocupan
