@@ -58,10 +58,10 @@ async function actualizarNavbar(){
     });
     if (lider == 'si'){
         $('#lider_equipo').show()
-        if (tieneGrupo = 0) {
-            document.getElementById("grupos").href = "LiderEquipo2.html"
+        if (tieneGrupo == 0) {
+            document.getElementById("grupos").href = "liderEquipo2.html"
         }else{
-            document.getElementById("grupos").href = "LiderEquipo.html"
+            document.getElementById("grupos").href = "liderEquipo.html"
         }
     }
 }
