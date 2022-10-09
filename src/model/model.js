@@ -410,6 +410,91 @@ const getConfig = async (id_usuario) => {
     return result
 }
 
+
+//QUERYS GRUPOS
+
+const createGrupo = async (id_lider, nombre) => {
+    let query = `insert into grupos (code, lider, participantes, nombre) values(random_string(10), ${id_lider}, array[${id_lider}], '${nombre}') returning id,code`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    id_grupo = result[0]['id']
+    let query2 = `UPDATE users SET grupo = ${id_grupo} where id = ${id_lider}`;
+    const res2 = await conexion.query(query2)
+    return result[0]['code']
+}
+
+const getCodeGrupo = async (id_lider) => {
+    let query = `select code from grupos where lider = ${id_lider}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    console.log(result)
+    return result[0]['code']
+}
+
+// mayor que 0 si es que tiene
+const tieneGrupo = async (id_lider) => {
+    let query = `select * from grupos where lider = ${id_lider}`;
+    const res = await conexion.query(query)
+    const result = res.rowCount
+    return result
+}
+
+
+
+const addParticipante = async (id_usuario, code) => {
+    let query = `UPDATE grupos SET participantes = array_append(participantes, ${id_usuario}) where code = '${code}' returning id`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    id_grupo = result[0]['id']
+    let query2 = `UPDATE users SET grupo = ${id_grupo} where id = ${id_usuario}`;
+    const res2 = await conexion.query(query2)
+    //Quitarlo de los pendientes
+    let query3 = `delete from pendientes where id_user = ${id_usuario} and code = '${code}'`
+    const res3 = await conexion.query(query3)
+
+}
+
+const quitarDelGrupo = async (id_usuario, id_grupo) => {
+    let query = `update grupos set participantes = array_remove(participantes, ${id_usuario}) where id = ${id_grupo}`;
+    const res = await conexion.query(query)
+    let query2 = `update users set grupo = null where id = ${id_usuario}`;
+    const res2 = await conexion.query(query2)
+}
+
+const getParticipantesGrupo = async (code) => {
+    let query = `select participantes from grupos where code = '${code}'`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    p = result[0]['participantes']
+    console.log(p)
+    c = '('
+    p.forEach( m => {
+        c = c + m.toString() + ','
+    });
+    c = c.slice(0, -1) 
+    c = c + ')'
+     
+    let query2 = `select nombre,apellido from users where id in ${c}`;
+    console.log(query2)
+    const res2 = await conexion.query(query2)
+    const result2 = res2.rows
+    return result2
+}
+
+const solicitudUnirseGrupo = async (id_user, code) => {
+    let query = `insert into pendientes (id_user, code) values(${id_user}, '${code}')`;
+    const res = await conexion.query(query)
+}
+
+const getSolicitudesGrupo = async (code) => {
+    let query = `SELECT users.nombre, users.apellido FROM users INNER JOIN pendientes ON pendientes.id_user=users.id where code = '${code}'`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result
+}
+
+
+
 module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion,
                  totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesionUnhas, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas,
                   validateUser, postConfig, getConfig, updateConfig, confirmMail,
@@ -417,4 +502,5 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
               createPelo, totalSesionTimePelo, totalTimePelo, countPeloSesion, allSesionsPelo, 
               /*nuevas querys*/  peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo, percentageTenSesionMorder, percentageTenSesionPelo, 
               sesionesMesUnha, sesionesMesMorder, sesionesMesPelo, mejorMesUnhas,
-              peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder, createVista, createPestaneo }
+              peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder, createVista, createPestaneo,
+              createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo}

@@ -318,6 +318,31 @@ const readConsejos = () => {
     let lista_consejos = JSON.parse(rawdata);
     return lista_consejos
 }
+const tieneGrupo = (lider_id) => {
+    return model.tieneGrupo(lider_id)
+}
+
+const solicitudUnirseGrupo = (user_id, code) => {
+    return model.solicitudUnirseGrupo(user_id, code)
+}
+
+const createGrupo = (id_lider, nombre) => {
+    return model.createGrupo(id_lider, nombre)
+}
+
+const getParticipantesGrupo = (id_grupo) => {
+    return model.getParticipantesGrupo(id_grupo)
+}
+
+const getSolicitudesGrupo = (code) => {
+    return model.getSolicitudesGrupo(code)
+}
+
+const getCodeGrupo = (id_lider) => {
+    return model.getCodeGrupo(id_lider)
+}
+
+
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -371,7 +396,13 @@ contextBridge.exposeInMainWorld("api", {
     peorMesMorder: peorMesMorder,
     peorMesPelo: peorMesPelo,
     mejorMesPelo: mejorMesPelo,
-    readConsejos: readConsejos
+    readConsejos: readConsejos,
+    tieneGrupo: tieneGrupo,
+    solicitudUnirseGrupo: solicitudUnirseGrupo,
+    createGrupo: createGrupo,
+    getParticipantesGrupo: getParticipantesGrupo,
+    getSolicitudesGrupo: getSolicitudesGrupo,
+    getCodeGrupo: getCodeGrupo
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})

@@ -87,6 +87,12 @@
                             <h3>Contacto Profesional</h3>
                         </a>
                     </div>
+                    <div class="item" id="lider_equipo" style="display:none">
+                        <a href = "liderEquipo.html" id="grupos">
+                            <span class="material-icons-sharp"><i class="fas fa-user-md"></i></span>
+                            <h3>Lider de equipo</h3>
+                        </a>
+                    </div>
     
                     <div class="item">
                     <a href = "Settings.html">
@@ -192,52 +198,9 @@
                                     <th scope="col">Eliminar</th>
                                   </tr>
                                 </thead>
-                                <tbody>
-                                  <tr>
-                                    <!--<th scope="row">
-                                        <span class="material-icons-sharp">edit</span>
-                                    </th>-->
-                                    <td>Fabián</td>
-                                    <td>Jiménez</td>
-                                    <td>
-                                        <span class="material-icons-sharp">delete</span>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>Fernanda</td>
-                                    <td>Rubio</td>
-                                    <td>
-                                        <span class="material-icons-sharp">delete</span>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>Nicolás</td>
-                                    <td>Araya</td>
-                                    <td>
-                                        <span class="material-icons-sharp">delete</span>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>José</td>
-                                    <td>Sansana</td>
-                                    <td>
-                                        <span class="material-icons-sharp">delete</span>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>Álvaro</td>
-                                    <td>Ortiz</td>
-                                    <td>
-                                        <span class="material-icons-sharp">delete</span>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>Jorge</td>
-                                    <td>Cabrera</td>
-                                    <td>
-                                        <span class="material-icons-sharp">delete</span>
-                                    </td>
-                                  </tr>
+                                <tbody id="myTable2">                          
+                                  
+                                  
                                   
                                 </tbody>
                               </table>
@@ -289,6 +252,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../navbar.js"></script>
     <script src="../graficos/equipo.js"></script>
+    <script src="../handleGrupos.js"></script>
     <!--<script src="../renderWebcam.js"></script>-->
     <script type="text/javascript">
         $(document).ready(function(){
