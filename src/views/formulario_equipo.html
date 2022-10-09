@@ -14,19 +14,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href = "./style.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
 
-
-
 </head>
 <body class="shrink">
-    <div class = "container" style="margin:0"  >
+    <div class = "container" style="margin:0; padding:0 !important"   >
         <aside style="z-index:2" class="aside1">
             <div class = "top">
                 <span class = "shrink-btn">
-                   <!-- <i class = 'bx bx-chevron-left'></i>-->
+                    <!--<i class = 'bx bx-chevron-left'></i>-->
                 </span>
                 <div class = "logo">
                     <img src = "../images/logo1.png">
@@ -38,7 +37,7 @@
             <div class="sidebar">
                 <div class="menu">
                     <div class="item">
-                        <a href = "index.html" >
+                        <a style= "text-decoration: none" href = "index.html" >
                             <span class="material-icons-sharp">grid_view</span>
                             <h3>Inicio</h3>
                         </a>
@@ -50,7 +49,7 @@
                     </a>
                     </div>
                     <div class="item">
-                        <a href = "liderEquipo.html">
+                        <a href = "liderEquipo.html" class="active">
                             <span class="material-icons-sharp"><i class="fas fa-users"></i></span>
                             <h3>Equipo</h3>
                         </a>
@@ -62,9 +61,9 @@
                     </a>
                     </div>
                     <div class="item">
-                        <a class ="sub-btn active">
-                            <span class="material-icons-sharp">insights<i class="fas fa-angle-right dropdown fa-sm"></i></span>
-                            <h3>Reportes</h3>
+                        <a class ="sub-btn">
+                            <span class="material-icons-sharp" style="color:#7d8da1 !important">insights<i class="fas fa-angle-right dropdown fa-sm" style="color:#7d8da1 !important"></i></span>
+                            <h3 style="color:#7d8da1 !important">Reportes</h3>
                         </a>
                         <div class = "sub-menu">
                             <a href = "Dashboard.html" class="sub-item" >
@@ -72,7 +71,7 @@
                                 <h3>Manías Compulsivas</h3>
                             </a>
                             
-                            <a href = "#" class="sub-item">
+                            <a href = "DashboardPostura.html" class="sub-item">
                                 <span class="material-icons-sharp">airline_seat_recline_normal</span>
                                 <h3>Postura</h3>
                             </a>
@@ -84,17 +83,12 @@
                     </div>
                     
                     <div class="item">
-                        <a href = "Profesionales.html">
+                        <a href = "formulario.html" >
                             <span class="material-icons-sharp"><i class="fas fa-user-md"></i></span>
                             <h3>Contacto Profesional</h3>
                         </a>
                     </div>
-                    <div class="item" id="lider_equipo" style="display:none">
-                        <a href = "liderEquipo.html">
-                            <span class="material-icons-sharp"><i class="fas fa-user-md"></i></span>
-                            <h3>Lider de equipo</h3>
-                        </a>
-                    </div>
+    
                     <div class="item">
                     <a href = "Settings.html">
                         <span class="material-icons-sharp">settings</span>
@@ -112,66 +106,54 @@
             </div>
         </aside>
         <!----END ASIDE---->
-        <main style="z-index:1">
-            <h1>Dashboard Postura</h1>
-            <div class="mytabs">
-                <input type="radio" id="tabfree" name="mytabs" checked="checked">
-                <label for="tabfree">Postura</label>
-                <div class="tab">
-                    <div class="row" >
-                        <div style="width:40%; float:left">
-
-                            <div class="col-sm-6">
-                                <div class="card"  style="width: 18rem; margin:1.5rem;">
-                                    <div class="card-body" style="padding:0.4rem">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de correcciones última sesión</h4>
-                                        <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;">1</h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="card" style="width: 18rem; margin:1.5rem;">
-                                    <div class="card-body" style="padding:0.4rem">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de correcciones totales</h4>
-                                        <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">27</h1>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="card" style="width: 18rem; margin:1.5rem;">
-                                    <div class="card-body" style="padding:0.4rem">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de posturas graves última sesión</h4>
-                                        <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">0</h1>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="card" style="width: 18rem; margin:1.5rem;">
-                                    <div class="card-body" style="padding:0.4rem">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de posturas graves totales</h4>
-                                        <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">1</h1>
-
-                                    </div>
-                                </div>
-                            </div>
+        <main style="z-index:1; width: 800px; padding-left:20px; padding-right:20px;padding-top:20px; ">  <!--padding-left:20px; padding-right: 20px;-->
+            <div class="row">
+                <h1 style="margin-top:20px">Formulario de creación de equipo</h1>
+                <br/>
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Nombre Equipo</label>
+                            <input type="text" class="form-control" id="nombre_contacto" placeholder="Nombre" required>
                         </div>
-
-
+                        
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                        <label for="telefono">Especialización del Equipo</label>
+                        <input type="text" class="form-control" id="telefono_contacto" placeholder="Especialización del Equipo">
+                        </div>
+                    
                     </div>
 
-
-
-                </div>
-
-                
-
+                    
+                        
+                   <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="exampleFormControlTextarea1">Información Adicional Respecto al Equipo</label>
+                            <textarea class="form-control" id="motivo_contacto" rows="3" required placeholder="Información del equipo..."></textarea>
+                        
+                        </div>  
+                   </div>
+                    
+          
+                </div> 
+                    <button type="submit" class="btn btn-primary" style="margin-left:190px;">Crear equipo</button> <!--onclick="contactar_profesional()"-->
+                    
+                </form>
+                <a href="liderEquipo.html">
+                    <button>
+                        <button  class="btn btn-primary" >Volver</button>
+                    </button>
+                </a>
+            </div>
         </main>
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="../graficos/postura.js"></script>
     <script src="../navbar.js"></script>
+    <script src="../test_handleButtons.js"></script>
     <!--<script src="../renderWebcam.js"></script>-->
     <script type="text/javascript">
         $(document).ready(function(){
@@ -185,6 +167,5 @@
             
         });
     </script>
-    
 </body>
 </html>

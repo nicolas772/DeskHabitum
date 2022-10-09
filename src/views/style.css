@@ -90,6 +90,7 @@ img{
 h1 {
     font-weight: 800;
     font-size: 1.8rem;
+    color:#052941;
 }
 
 h2 {
@@ -568,7 +569,10 @@ body.shrink .message-count{
     padding: 12px;
     background: #e2e2e2;
     font-weight: bold;
+    cursor:pointer;
+    margin-right: 2px;
 }
+
 
 .mytabs .tab {
     width: 100%;
@@ -576,6 +580,7 @@ body.shrink .message-count{
     background: #fff;
     order: 1;
     display: none;
+    
 }
 .mytabs .tab h2 {
     font-size: 3em;
@@ -892,4 +897,10 @@ body.shrink .message-count{
 /*------------FIN topbar--*/
 
 
-  
+/*--jhacerlo seleccionable-*/
+.force-select {  
+    -webkit-user-select: text;  /* Chrome 49+ */
+    -moz-user-select: text;     /* Firefox 43+ */
+    -ms-user-select: text;      /* No support yet */
+    user-select: text;          /* Likely future */   
+  }

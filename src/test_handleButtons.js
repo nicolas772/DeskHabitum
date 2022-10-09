@@ -53,6 +53,7 @@ function contactar_profesional(){
     motivo = document.getElementById("motivo_contacto")
     if(nombre.value != null && nombre.value != "", email.value != null && email.value != "", motivo.value != null && motivo.value != "")
     {
+
         let obj = {nombre:nombre.value, email:email.value, telefono:telefono.value, region:region.value, ciudad:ciudad.value, atencion:atencion.value, motivo:motivo.value }
         window.api.contactar_profesional(obj)
     }

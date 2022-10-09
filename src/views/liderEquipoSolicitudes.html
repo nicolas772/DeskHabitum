@@ -14,18 +14,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href = "./style.css">
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/solid.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/svg-with-js.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href = "./perfil.css">
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+
 </head>
 <body class="shrink">
-    <div class = "container" style="margin:0" >
+    <div class = "container" style="margin:0; padding:0 !important"   >
         <aside style="z-index:2" class="aside1">
             <div class = "top">
                 <span class = "shrink-btn">
@@ -47,16 +43,10 @@
                         </a>
                     </div>
                     <div class="item">
-                    <a href = "Profile.html" class="active">
+                    <a href = "Profile.html" >
                         <span class="material-icons-sharp">person_outline</span>
                         <h3>Perfil</h3>
                     </a>
-                    </div>
-                    <div class="item">
-                        <a href = "liderEquipo.html">
-                            <span class="material-icons-sharp"><i class="fas fa-users"></i></span>
-                            <h3>Equipo</h3>
-                        </a>
                     </div>
                     <div class="item">
                     <a href = "Tips.html">
@@ -66,8 +56,8 @@
                     </div>
                     <div class="item">
                         <a class ="sub-btn">
-                            <span class="material-icons-sharp">insights<i class="fas fa-angle-right dropdown fa-sm"></i></span>
-                            <h3>Reportes</h3>
+                            <span class="material-icons-sharp" style="color:#7d8da1 !important">insights<i class="fas fa-angle-right dropdown fa-sm" style="color:#7d8da1 !important"></i></span>
+                            <h3 style="color:#7d8da1 !important">Reportes</h3>
                         </a>
                         <div class = "sub-menu">
                             <a href = "Dashboard.html" class="sub-item" >
@@ -87,17 +77,12 @@
                     </div>
                     
                     <div class="item">
-                        <a href = "Profesionales.html">
+                        <a href = "formulario.html" class="active">
                             <span class="material-icons-sharp"><i class="fas fa-user-md"></i></span>
                             <h3>Contacto Profesional</h3>
                         </a>
                     </div>
-                    <div class="item" id="lider_equipo" style="display:none">
-                        <a href = "liderEquipo.html">
-                            <span class="material-icons-sharp"><i class="fas fa-user-md"></i></span>
-                            <h3>Lider de equipo</h3>
-                        </a>
-                    </div>
+    
                     <div class="item">
                     <a href = "Settings.html">
                         <span class="material-icons-sharp">settings</span>
@@ -115,54 +100,105 @@
             </div>
         </aside>
         <!----END ASIDE---->
-        <main style="z-index:1">
-            <label><h1>Perfil</h1>
-               
-                <div class="profilepic" style="margin-left:120px;">
-                    <img class="profilepic__image" src="../images/perfil.png" width="150" height="150" alt="Profibild" />
-                    <div class="profilepic__content">
-                        <span class="profilepic__icon"><i class="fas fa-camera"></i></span>
-                        <span class="profilepic__text">Edit Profile</span>
-                    </div>
-                </div>
-
+        <main style="z-index:1; width: 700px; padding-left:20px; padding-right: 20px; ">
+            <div class="row">
+                <h1 style="margin-top:20px">Solicitudes de unión a equipo</h1>
                 <br/>
-                <h2>Configuraciones</h2>
-                <br/>
-                <div class="row" style="margin-left: 15px;">
-                    <ul class="list-group">
-                    
-                        <li class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Nombre</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" style="width:150%">
-                        </li>
-                        <li class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Apellido</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" style="width:150%">
-                        </li>
-                        <li class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" style="width:150%">
-                        </li>
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Aceptar miembro</th>
+                        <th scope="col">Eliminar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
                         
-                    </ul>  
-                </div>
-            </label>
-            <br/>
-            <div class="row" style="width: 200%;">
-                <div class = "div-boton-cambios" style="width: 30%; float: left;">
-                    <button type='button' class="btn btn-outline-primary" >Cambiar Contraseña</button>
-                </div>
-                <div class = "div-boton-cambios" style="width: 60%; float: right;">
-                    <button type='button' class="btn btn-outline-primary" >Guardar Cambios</button>
-                </div>
+                        <td>Fabián</td>
+                        <td>Jiménez</td>
+                        <th scope="row">
+                            <span class="material-icons-sharp" style="margin-left:40px;">check</span>
+                        </th>
+                        <td>
+                            <span class="material-icons-sharp" style="margin-left:15px;">delete</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        
+                        <td>Fernanda</td>
+                        <td>Rubio</td>
+                        <th scope="row">
+                            <span class="material-icons-sharp" style="margin-left:40px;">check</span>
+                        </th>
+                        <td>
+                            <span class="material-icons-sharp" style="margin-left:15px;">delete</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        
+                        <td>Nicolás</td>
+                        <td>Araya</td>
+                        <th scope="row">
+                            <span class="material-icons-sharp" style="margin-left:40px;">check</span>
+                        </th>
+                        <td>
+                            <span class="material-icons-sharp" style="margin-left:15px;">delete</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        
+                        <td>Jose</td>
+                        <td>Sansana</td>
+                        <th scope="row">
+                            <span class="material-icons-sharp"style="margin-left:40px;" >check</span>
+                        </th>
+                        <td>
+                            <span class="material-icons-sharp" style="margin-left:15px;">delete</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        
+                        <td>Álvaro</td>
+                        <td>Ortiz</td>
+                        <th scope="row">
+                            <span class="material-icons-sharp" style="margin-left:40px;">check</span>
+                        </th>
+                        <td>
+                            <span class="material-icons-sharp" style="margin-left:15px;">delete</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        
+                        <td>Jorge</td>
+                        <td>Cabrera</td>
+                        <th scope="row">
+                            
+                            <span class="material-icons-sharp" style="margin-left:40px;">check</span>
+                        </th>
+                        <td>
+                            <span class="material-icons-sharp" style="margin-left:15px;"">delete</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <a href="liderEquipo.html">
+                    <button type='button' class="btn btn-outline-primary" style="margin-left:600px;color:#052941;border-color: #3ac68f;border-width: 2px; " onmouseover="this.style.backgroundColor='#89b5ba'" onmouseout="this.style.backgroundColor=''" >Volver</button>
+
+                </a>
             </div>
             
+        
+        
+        
         </main>
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../navbar.js"></script>
-    <script src="../profile.js"></script>
+    <script src="../test_handleButtons.js"></script>
     <!--<script src="../renderWebcam.js"></script>-->
     <script type="text/javascript">
         $(document).ready(function(){
