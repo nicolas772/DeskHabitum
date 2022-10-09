@@ -292,6 +292,10 @@ const createGrupo = (id_lider, nombre) => {
     return model.createGrupo(id_lider, nombre)
 }
 
+const getParticipantesGrupo = (id_grupo) => {
+    return model.getParticipantesGrupo(id_grupo)
+}
+
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -347,7 +351,8 @@ contextBridge.exposeInMainWorld("api", {
     mejorMesPelo: mejorMesPelo,
     tieneGrupo: tieneGrupo,
     solicitudUnirseGrupo: solicitudUnirseGrupo,
-    createGrupo: createGrupo
+    createGrupo: createGrupo,
+    getParticipantesGrupo: getParticipantesGrupo
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})

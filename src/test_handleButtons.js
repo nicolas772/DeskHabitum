@@ -91,5 +91,13 @@ function crear_grupo(){
     doNotify2()
 }
 
+function get_grupo(){   
+
+   let arreglo =  window.api.getParticipantesGrupo(4)
+   //console.log(arreglo)
+   return arreglo
+
+}
+
 
 

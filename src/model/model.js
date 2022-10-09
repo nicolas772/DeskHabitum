@@ -460,7 +460,7 @@ const getParticipantesGrupo = async (id_grupo) => {
     c = c.slice(0, -1) 
     c = c + ')'
      
-    let query2 = `select nombre from users where id in ${c}`;
+    let query2 = `select nombre, apellido from users where id in ${c}`;
     console.log(query2)
     const res2 = await conexion.query(query2)
     const result2 = res2.rows
