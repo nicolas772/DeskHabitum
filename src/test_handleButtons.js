@@ -58,3 +58,20 @@ function contactar_profesional(){
         window.api.contactar_profesional(obj)
     }
 }
+
+
+function doNotify(){
+    Notification.requestPermission().then(function (result){
+        new Notification("GRUPO", { 
+            body: "Solicitud de unión Enviada", icon: 'https://cdn-icons-png.flaticon.com/512/244/244060.png'
+        })
+    })
+}
+
+function unirse_grupo(){
+    let ID = window.api.get_user_id("")
+    code = document.getElementById("codigo_equipo")
+    window.api.solicitudUnirseGrupo(ID, code.value)
+    doNotify()
+}
+

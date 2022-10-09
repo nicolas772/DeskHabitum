@@ -284,6 +284,10 @@ const tieneGrupo = (lider_id) => {
     return model.tieneGrupo(lider_id)
 }
 
+const solicitudUnirseGrupo = (user_id, code) => {
+    return model.solicitudUnirseGrupo(user_id, code)
+}
+
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -337,7 +341,8 @@ contextBridge.exposeInMainWorld("api", {
     peorMesMorder: peorMesMorder,
     peorMesPelo: peorMesPelo,
     mejorMesPelo: mejorMesPelo,
-    tieneGrupo: tieneGrupo
+    tieneGrupo: tieneGrupo,
+    solicitudUnirseGrupo: solicitudUnirseGrupo
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
