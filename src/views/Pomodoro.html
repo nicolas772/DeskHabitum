@@ -16,6 +16,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href = "./style.css">
 
+    <!-- POMODORO -->
+    <!-- ICONS -->
+    <script src="https://kit.fontawesome.com/6f3103b13c.js" crossorigin="anonymous"></script>
+
+    <!-- CSS -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
 
 </head>
@@ -110,22 +116,40 @@
             <nav>
 
             </nav>
-            <h1>Consejos</h1>
+            <h1>Pomodoro</h1>
 
-            <!--<div id="chart2"></div> -->
-            
-            <div class="col-sm-6">
-                <div class="card" style="width: 18rem;">
-                  <div class="card-body">
-                    <h2 class="card-title">Fatiga visual</h2>
-                    <h5>Al parecer este hábito es el más frecuente en tu recuento actual, recuerda que blablablablablabla</h5>
-                  </div>
-                </div>
-              </div>
-
+            <section>
+        
+                <div class="container">
                     
-
-
+                    
+        
+                    <div class="painel">
+                        <p id="work">work</p>
+                        <p id="break">break</p>
+                    </div>
+        
+                    <div class="timer">
+                        <div class="circle">
+                            <div class="time">
+                                <p id="minutes"></p>
+                                <p>:</p>
+                                <p id="seconds"></p>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="controls">
+                        <button id="start" onclick="start_pomodoro()"><i class="fa-solid fa-play"></i></button>
+        
+                        <a id="reset" href="./"><i class="fa-solid fa-arrow-rotate-left"></i></a>
+                    </div>
+                </div>
+            </section>
+        
+            <!-- SCRIPT -->
+            <script src="../pomodoro.js"></script>
+            
 
         </main>
     </div>
