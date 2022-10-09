@@ -121,29 +121,6 @@
                     </thead>
                     <tbody id="myTable">
                         
-                        <script>
-                            var arreglo=[{'nombre':'Fabián','apellido':'Jiménez'},{'nombre':'Jorge','apellido':'Cabrera'}]
-
-                            buildTable(arreglo)
-                            function buildTable(data)
-                            {
-                                var table=document.getElementById('myTable')
-                                for(var i = 0;i<data.length;i++)
-                                {
-                                    var row =` <tr>
-                                                    <td>${data[i].nombre}</td>
-                                                    <td>${data[i].apellido}</td>
-                                                    <th scope="row">
-                                                        <span class="material-icons-sharp" style="margin-left:40px;">check</span>
-                                                    </th>
-                                                    <td>
-                                                        <span class="material-icons-sharp" style="margin-left:15px;">delete</span>
-                                                    </td>
-                                                </tr>`
-                                    table.innerHTML+=row
-                                }
-                            }
-                        </script>
                         
                     </tbody>
                   </table>
@@ -163,6 +140,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../navbar.js"></script>
     <script src="../test_handleButtons.js"></script>
+    <script src="../handleGrupos.js"></script>
     <!--<script src="../renderWebcam.js"></script>-->
     <script type="text/javascript">
         $(document).ready(function(){

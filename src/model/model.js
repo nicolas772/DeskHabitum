@@ -414,6 +414,7 @@ const getCodeGrupo = async (id_lider) => {
     let query = `select code from grupos where lider = ${id_lider}`;
     const res = await conexion.query(query)
     const result = res.rows
+    console.log(result)
     return result[0]['code']
 }
 
@@ -447,8 +448,8 @@ const quitarDelGrupo = async (id_usuario, id_grupo) => {
     const res2 = await conexion.query(query2)
 }
 
-const getParticipantesGrupo = async (id_grupo) => {
-    let query = `select participantes from grupos where id = ${id_grupo}`;
+const getParticipantesGrupo = async (code) => {
+    let query = `select participantes from grupos where code = '${code}'`;
     const res = await conexion.query(query)
     const result = res.rows
     p = result[0]['participantes']
@@ -460,7 +461,7 @@ const getParticipantesGrupo = async (id_grupo) => {
     c = c.slice(0, -1) 
     c = c + ')'
      
-    let query2 = `select nombre, apellido from users where id in ${c}`;
+    let query2 = `select nombre,apellido from users where id in ${c}`;
     console.log(query2)
     const res2 = await conexion.query(query2)
     const result2 = res2.rows
@@ -473,7 +474,7 @@ const solicitudUnirseGrupo = async (id_user, code) => {
 }
 
 const getSolicitudesGrupo = async (code) => {
-    let query = `SELECT users.id, users.nombre FROM users INNER JOIN pendientes ON pendientes.id_user=users.id where code = '${code}'`;
+    let query = `SELECT users.nombre, users.apellido FROM users INNER JOIN pendientes ON pendientes.id_user=users.id where code = '${code}'`;
     const res = await conexion.query(query)
     const result = res.rows
     return result

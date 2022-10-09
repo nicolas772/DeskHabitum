@@ -198,29 +198,7 @@
                                     <th scope="col">Eliminar</th>
                                   </tr>
                                 </thead>
-                                <tbody id="myTable2">
-                                    
-                                    <script>
-                                        var arreglo2=[{'nombre':'Fernanda','apellido':'Rubio'},{'nombre':'Nicolás','apellido':'Araya'},{'nombre':'José','apellido':'Sansana'},{'nombre':'Álvaro','apellido':'Ortiz'}]
-            
-                                        buildTable(arreglo2)
-                                        function buildTable(data)
-                                        {
-                                            var table=document.getElementById('myTable2')
-                                            for(var i = 0;i<data.length;i++)
-                                            {
-                                                var row =` <tr>
-                                                                <td>${data[i].nombre}</td>
-                                                                <td>${data[i].apellido}</td>
-                                                        
-                                                                <td>
-                                                                    <span class="material-icons-sharp" style="margin-left:14px;">delete</span>
-                                                                </td>
-                                                            </tr>`
-                                                table.innerHTML+=row
-                                            }
-                                        }
-                                    </script>
+                                <tbody id="myTable2">                          
                                   
                                   
                                   
@@ -274,6 +252,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../navbar.js"></script>
     <script src="../graficos/equipo.js"></script>
+    <script src="../handleGrupos.js"></script>
     <!--<script src="../renderWebcam.js"></script>-->
     <script type="text/javascript">
         $(document).ready(function(){
