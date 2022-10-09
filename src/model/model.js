@@ -401,9 +401,12 @@ const getConfig = async (id_usuario) => {
 //QUERYS GRUPOS
 
 const createGrupo = async (id_lider, nombre) => {
-    let query = `insert into grupos (code, lider, participantes, nombre) values(random_string(10), ${id_lider}, array[${id_lider}], '${nombre}') returning code`;
+    let query = `insert into grupos (code, lider, participantes, nombre) values(random_string(10), ${id_lider}, array[${id_lider}], '${nombre}') returning id,code`;
     const res = await conexion.query(query)
     const result = res.rows
+    id_grupo = result[0]['id']
+    let query2 = `UPDATE users SET grupo = ${id_grupo} where id = ${id_lider}`;
+    const res2 = await conexion.query(query2)
     return result[0]['code']
 }
 
@@ -449,6 +452,7 @@ const getParticipantesGrupo = async (id_grupo) => {
     const res = await conexion.query(query)
     const result = res.rows
     p = result[0]['participantes']
+    console.log(p)
     c = '('
     p.forEach( m => {
         c = c + m.toString() + ','

@@ -68,10 +68,28 @@ function doNotify(){
     })
 }
 
+function doNotify2(){
+    Notification.requestPermission().then(function (result){
+        new Notification("GRUPO", { 
+            body: "Creación de grupo exitosa", icon: 'https://cdn-icons-png.flaticon.com/512/244/244060.png'
+        })
+    })
+}
+
+
 function unirse_grupo(){
     let ID = window.api.get_user_id("")
     code = document.getElementById("codigo_equipo")
     window.api.solicitudUnirseGrupo(ID, code.value)
     doNotify()
 }
+
+function crear_grupo(){
+    let ID = window.api.get_user_id("")
+    nombre = document.getElementById("nombre_equipo")
+    window.api.createGrupo(ID, nombre.value)
+    doNotify2()
+}
+
+
 

@@ -4,7 +4,7 @@ const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
 
 
-model.tieneGrupo(3).then(r => console.log(r));
+model.createGrupo(21, "xxxxxx").then(r => console.log(r));
 
 let winlogin;
 let win, camera_win;
