@@ -313,6 +313,11 @@ const mejorMesPelo = (userId, mes, año) => {
     return model.mejorMesPelo(userId, mes, año)
 }
 
+const readConsejos = () => {
+    let rawdata = fs.readFileSync('./src/data/consejos.json');
+    let lista_consejos = JSON.parse(rawdata);
+    return lista_consejos
+}
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -365,7 +370,8 @@ contextBridge.exposeInMainWorld("api", {
     mejorMesMorder: mejorMesMorder,
     peorMesMorder: peorMesMorder,
     peorMesPelo: peorMesPelo,
-    mejorMesPelo: mejorMesPelo
+    mejorMesPelo: mejorMesPelo,
+    readConsejos: readConsejos
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
