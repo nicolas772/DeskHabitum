@@ -414,6 +414,15 @@ const getCodeGrupo = async (id_lider) => {
     return result[0]['code']
 }
 
+// mayor que 0 si es que tiene
+const tieneGrupo = async (id_lider) => {
+    let query = `select * from grupos where lider = ${id_lider}`;
+    const res = await conexion.query(query)
+    const result = res.rowCount
+    return result
+}
+
+
 
 const addParticipante = async (id_usuario, code) => {
     let query = `UPDATE grupos SET participantes = array_append(participantes, ${id_usuario}) where code = '${code}' returning id`;
@@ -476,4 +485,4 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
               /*nuevas querys*/  peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo, percentageTenSesionMorder, percentageTenSesionPelo, 
               sesionesMesUnha, sesionesMesMorder, sesionesMesPelo, mejorMesUnhas,
               peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder,
-              createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo}
+              createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo}

@@ -280,6 +280,10 @@ const mejorMesPelo = (userId, mes, año) => {
     return model.mejorMesPelo(userId, mes, año)
 }
 
+const tieneGrupo = (lider_id) => {
+    return model.tieneGrupo(lider_id)
+}
+
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -332,7 +336,8 @@ contextBridge.exposeInMainWorld("api", {
     mejorMesMorder: mejorMesMorder,
     peorMesMorder: peorMesMorder,
     peorMesPelo: peorMesPelo,
-    mejorMesPelo: mejorMesPelo
+    mejorMesPelo: mejorMesPelo,
+    tieneGrupo: tieneGrupo
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})

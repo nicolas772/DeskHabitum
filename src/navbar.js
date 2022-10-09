@@ -46,14 +46,23 @@ logoutBtn.onclick = function(){
 }
 
 //let lider_equipo =  document.getElementById("lider_equipo")
-let data_user, lider
+
+let data_user, lider, tieneGrupo
 async function actualizarNavbar(){
     await window.api.getUserData(ID_USER).then(result => {
         data_user = result[0];
         lider = data_user.liderequipo
     });
+    await window.api.tieneGrupo(ID_USER).then(result => {
+        tieneGrupo = result;
+    });
     if (lider == 'si'){
         $('#lider_equipo').show()
+        if (tieneGrupo = 0) {
+            document.getElementById("grupos").href = "LiderEquipo2.html"
+        }else{
+            document.getElementById("grupos").href = "LiderEquipo.html"
+        }
     }
 }
   
