@@ -49,6 +49,12 @@
                     </a>
                     </div>
                     <div class="item">
+                        <a href = "liderEquipo.html">
+                            <span class="material-icons-sharp"><i class="fas fa-users"></i></span>
+                            <h3>Equipo</h3>
+                        </a>
+                    </div>
+                    <div class="item">
                     <a href = "Tips.html">
                         <span class="material-icons-sharp">receipt_long</span>
                         <h3>Consejos</h3>
@@ -107,7 +113,7 @@
         <!----END ASIDE---->
         <main>
             
-            <label><h1>Configuraciones</h1>
+            <label><h1 style="margin-top:10px;">Configuraciones</h1>
                 <br/>
                 <h2> Detección automática</h2>
                 <br/>
@@ -215,9 +221,36 @@
             
             
             
+
             <br/>
             <div class = "div-boton-cambios">
                 <button type='button' class="btn btn-outline-primary" style="float: right;" onclick='saveSettings()'>Guardar Cambios</button>
+            </div>
+
+            <div class="row">
+                <label style="margin-top:20px; width:50%; float:left">
+                    <h2 style="margin-bottom:5px;"> Unirse a equipo</h2>
+                    
+                    <p style="margin-bottom:5px;"> Aquí podrás unirte a un equipo ingresando el código de invitación de tu líder.</p>
+                    <div class="row">
+                        <ul class="list-group">
+                            
+                            
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Código de equipo
+                                <input type="text" class="form-control" placeholder="Código"> <!--id="codigo_equipo"-->
+    
+                            </li>
+                           
+                        </ul>
+                        
+                    </div>
+                </label>
+            </div>
+
+            
+            <div class = "div-boton-cambios">
+                <button type='button' class="btn btn-outline-primary" style="margin-left:260px;" >Unirse</button> <!--onclick='saveSettings()'-->
             </div>
 
 

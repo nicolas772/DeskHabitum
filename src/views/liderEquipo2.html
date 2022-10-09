@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv = "X-UA-Compatible" content = "IE=edge">
     <meta name="viewport" content="width=device-width", initial-scale="1.0">
-    <title>Desk Habitum</title>
+    <title>Equipo</title>
     <!-- Material CDN --->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
@@ -18,15 +18,13 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
 
-
-
 </head>
 <body class="shrink">
-    <div class = "container" style="margin:0"  >
+    <div class = "container" style="margin:0" >
         <aside style="z-index:2" class="aside1">
             <div class = "top">
                 <span class = "shrink-btn">
-                   <!-- <i class = 'bx bx-chevron-left'></i>-->
+                    <!--<i class = 'bx bx-chevron-left'></i>-->
                 </span>
                 <div class = "logo">
                     <img src = "../images/logo1.png">
@@ -38,7 +36,7 @@
             <div class="sidebar">
                 <div class="menu">
                     <div class="item">
-                        <a href = "index.html" >
+                        <a style= "text-decoration: none" href = "index.html" >
                             <span class="material-icons-sharp">grid_view</span>
                             <h3>Inicio</h3>
                         </a>
@@ -50,7 +48,7 @@
                     </a>
                     </div>
                     <div class="item">
-                        <a href = "liderEquipo.html">
+                        <a href = "liderEquipo.html"  class="active">
                             <span class="material-icons-sharp"><i class="fas fa-users"></i></span>
                             <h3>Equipo</h3>
                         </a>
@@ -62,7 +60,7 @@
                     </a>
                     </div>
                     <div class="item">
-                        <a class ="sub-btn active">
+                        <a class ="sub-btn">
                             <span class="material-icons-sharp">insights<i class="fas fa-angle-right dropdown fa-sm"></i></span>
                             <h3>Reportes</h3>
                         </a>
@@ -72,7 +70,7 @@
                                 <h3>Manías Compulsivas</h3>
                             </a>
                             
-                            <a href = "#" class="sub-item">
+                            <a href = "DashboardPostura.html" class="sub-item">
                                 <span class="material-icons-sharp">airline_seat_recline_normal</span>
                                 <h3>Postura</h3>
                             </a>
@@ -89,12 +87,7 @@
                             <h3>Contacto Profesional</h3>
                         </a>
                     </div>
-                    <div class="item" id="lider_equipo" style="display:none">
-                        <a href = "liderEquipo.html">
-                            <span class="material-icons-sharp"><i class="fas fa-user-md"></i></span>
-                            <h3>Lider de equipo</h3>
-                        </a>
-                    </div>
+    
                     <div class="item">
                     <a href = "Settings.html">
                         <span class="material-icons-sharp">settings</span>
@@ -113,65 +106,42 @@
         </aside>
         <!----END ASIDE---->
         <main style="z-index:1">
-            <h1>Dashboard Postura</h1>
-            <div class="mytabs">
-                <input type="radio" id="tabfree" name="mytabs" checked="checked">
-                <label for="tabfree">Postura</label>
-                <div class="tab">
-                    <div class="row" >
-                        <div style="width:40%; float:left">
+            <nav>
 
-                            <div class="col-sm-6">
-                                <div class="card"  style="width: 18rem; margin:1.5rem;">
-                                    <div class="card-body" style="padding:0.4rem">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de correcciones última sesión</h4>
-                                        <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;">1</h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="card" style="width: 18rem; margin:1.5rem;">
-                                    <div class="card-body" style="padding:0.4rem">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de correcciones totales</h4>
-                                        <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">27</h1>
+            </nav>
+            <h1>Equipo <span></span></h1>
+            <div class="row" >
 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="card" style="width: 18rem; margin:1.5rem;">
-                                    <div class="card-body" style="padding:0.4rem">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de posturas graves última sesión</h4>
-                                        <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">0</h1>
+                <div style="width:60%; float:left">
 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="card" style="width: 18rem; margin:1.5rem;">
-                                    <div class="card-body" style="padding:0.4rem">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de posturas graves totales</h4>
-                                        <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">1</h1>
+                    <div class="col py-3" style="padding-left:1rem;">
+                        <h1 style="font-size:2rem; ">Crear equipo</h1>
+                        <div style="text-align:justify;text-justify:inter-character;justify-content: center;font-size:18px;">Vemos que aún no ha creado su equipo, si quiere gestionar uno nuevo seleccione "Crear".  </div>
 
-                                    </div>
-                                </div>
-                            </div>
+
+
+                        <div  role="group" aria-label="Basic example" style="padding-left:8.3rem;padding-top:0.85rem;">
+                            <a href="formulario_equipo.html" style="margin-left:295px;"><button type='button' class="btn btn-outline-primary" href="">Crear</button></a>
+                            
                         </div>
-
-
                     </div>
-
-
-
                 </div>
 
                 
 
+            </div>
+            <!--<div id="chart2"></div> -->
+            
+            
+                    
+
+
+
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="../graficos/postura.js"></script>
     <script src="../navbar.js"></script>
+    <script src="../graficos/equipo.js"></script>
     <!--<script src="../renderWebcam.js"></script>-->
     <script type="text/javascript">
         $(document).ready(function(){
@@ -185,6 +155,5 @@
             
         });
     </script>
-    
 </body>
 </html>
