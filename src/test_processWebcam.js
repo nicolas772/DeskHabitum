@@ -102,6 +102,8 @@ function Periodo_Pestañeo() {
                 }
             }
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@BASE DE DATOS
+            let inicio_pestaneo = new Date()
+            actualizarJson('pestaneo', inicio_pestaneo, inicio_pestaneo)
         }
         corriendo_periodo = false
         cantidad_pestañeos = 0
@@ -165,6 +167,18 @@ function actualizarJson(tipo, inicio, fin){
         lista_objeto.push(objInsert)
         let data_objeto = JSON.stringify(lista_objeto);
         fs.writeFileSync("./src/data/objetoSesion.json", data_objeto)
+    }else if (tipo== 'vista'){
+        let rawdata3 = fs.readFileSync('./src/data/vistaSesion.json');
+        let lista_vista = JSON.parse(rawdata3);
+        lista_vista.push(objInsert)
+        let data_vista = JSON.stringify(lista_vista);
+        fs.writeFileSync("./src/data/vistaSesion.json", data_vista)
+    }else if (tipo== 'pestaneo'){
+        let rawdata4 = fs.readFileSync('./src/data/pestaneoSesion.json');
+        let lista_pestaneo = JSON.parse(rawdata4);
+        lista_pestaneo.push(objInsert)
+        let data_pestaneo = JSON.stringify(lista_pestaneo);
+        fs.writeFileSync("./src/data/pestaneoSesion.json", data_pestaneo)
     }
 }
 
@@ -1470,6 +1484,7 @@ async function predict() {
             
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_vista, fin_vista);
+            actualizarJson('vista', inicio_vista, fin_vista)
         }
     }
 
