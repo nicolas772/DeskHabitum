@@ -122,39 +122,74 @@
                 <label for="tabfree" style="margin-left:676px;">Pomodoro</label>
                 <div class="tab">
                     <h1>Pomodoro</h1>
-                    
-                    <section>
-                        
-                        
-                        <div class="container" style="margin-left:0px;">
-                            
-                            
-                
-                            <div class="painel">
-                                <p id="work">work</p>
-                                <p id="break">break</p>
-                                <p id="long_break">long break</p>
-                            </div>
-                
-                            <div class="timer">
-                                <div class="circle">
-                                    <div class="time">
-                                        <p id="minutes"></p>
-                                        <p>:</p>
-                                        <p id="seconds"></p>
+                    <div class="containerpomodoro">
+                        <div class="painel">
+                            <div class="row">
+                                <div style="width:33%;float:left;">
+                                    <p id="work">Pomodoro</p>
+                                </div>
+                                <div style="width:66%;float:right;">
+                                    <div class="row">
+                                        <div style="width:50%;float:left;">
+                                            <p id="break">Start Break</p>
+                                        </div>
+                                        <div style="width:49%;float:right;">
+                                            <p id="long_break">Long Break</p>
+                                        </div>
                                     </div>
+                                </div>    
+                            </div>                 
+                        </div>
+            
+                        <div class="timer">
+                            <div class="circle">
+                                <div class="time">
+                                    <div class="row" style="margin-left:4px;">
+                                        <div style="width:33%;float:left;">
+                                            <p id="minutes" style="margin-left:28px;">25</p>
+                                        </div>
+                                        <div style="width:66%;float:right;">
+                                            <div class="row">
+                                                <div style="width:33%;float:left;padding-right: 0;">
+                                                    <p>:</p>
+                                                </div>
+                                                <div style="width:33%;float:right;padding-left:0px;">
+                                                    <p id="seconds" style="margin-right:20px;">00</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
                                 </div>
                             </div>
-                
-                            <div class="controls">
-                                <button id="start" onclick="start_pomodoro()"><i class="fa-solid fa-play"></i></button>
-                                
-                                
-                                <a id="reset" href="./"><i class="fa-solid fa-arrow-rotate-left"></i></a>
-                                <a id="pause" href="./"><i class="fa fa-pause"></i></a>
-                            </div>
                         </div>
-                    </section>
+            
+                        <div class="controls" style="margin-bottom:70px;">
+                            
+                            <div clas="row">
+                                <div style="width:30%;float:left;">
+                                    <button id="start" onclick="start_pomodoro()"><i class="fa-solid fa-play"></i></button>
+                                </div>
+                                <div style="width:63%;float:right;">
+                                    <div class="row">
+                                        <div style="width:50%; ">
+                                            <a id="reset" href="./"><button><i class="fa-solid fa-arrow-rotate-left"></i></button></a>
+                                        </div>
+                                        <div style="width:50%;">
+                                            <a id="pause" href="./"><button><i class="fa fa-pause"></i></button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+
                     
                 </div>
 
