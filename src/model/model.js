@@ -454,8 +454,8 @@ const addParticipante = async (id_usuario, code) => {
 
 }
 
-const quitarDelGrupo = async (id_usuario, id_grupo) => {
-    let query = `update grupos set participantes = array_remove(participantes, ${id_usuario}) where id = ${id_grupo}`;
+const quitarDelGrupo = async (id_usuario, code) => {
+    let query = `update grupos set participantes = array_remove(participantes, ${id_usuario}) where code = ${code}`;
     const res = await conexion.query(query)
     let query2 = `update users set grupo = null where id = ${id_usuario}`;
     const res2 = await conexion.query(query2)
@@ -475,7 +475,6 @@ const getParticipantesGrupo = async (code) => {
     c = c + ')'
      
     let query2 = `select nombre,apellido from users where id in ${c}`;
-    console.log(query2)
     const res2 = await conexion.query(query2)
     const result2 = res2.rows
     return result2
@@ -493,6 +492,11 @@ const getSolicitudesGrupo = async (code) => {
     return result
 }
 
+const quitarSolicitud = async (id_usuario, code) => {
+    let query = `dele from pendientes where id_user = ${id_usuario}) and code = '${code}'`;
+    const res = await conexion.query(query)
+}
+
 
 
 module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion,
@@ -503,4 +507,4 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
               /*nuevas querys*/  peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo, percentageTenSesionMorder, percentageTenSesionPelo, 
               sesionesMesUnha, sesionesMesMorder, sesionesMesPelo, mejorMesUnhas,
               peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder, createVista, createPestaneo,
-              createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo}
+              createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo, quitarSolicitud}
