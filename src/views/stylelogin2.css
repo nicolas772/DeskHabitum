@@ -162,3 +162,9 @@ h1 {
     text-transform: none;
     padding-right: 210px;
   }
+
+  
+  ::marker{
+    color: white;
+    
+  }
