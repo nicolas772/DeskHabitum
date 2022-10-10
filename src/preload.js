@@ -342,6 +342,10 @@ const getCodeGrupo = (id_lider) => {
     return model.getCodeGrupo(id_lider)
 }
 
+const quitarDelGrupo = (id_usuario, id_grupo) => {
+    return model.quitarDelGrupo(id_usuario, id_grupo)
+}
+
 
 
 contextBridge.exposeInMainWorld("api", {
@@ -402,7 +406,8 @@ contextBridge.exposeInMainWorld("api", {
     createGrupo: createGrupo,
     getParticipantesGrupo: getParticipantesGrupo,
     getSolicitudesGrupo: getSolicitudesGrupo,
-    getCodeGrupo: getCodeGrupo
+    getCodeGrupo: getCodeGrupo,
+    quitarDelGrupo: quitarDelGrupo
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})

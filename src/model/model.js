@@ -455,7 +455,7 @@ const addParticipante = async (id_usuario, code) => {
 }
 
 const quitarDelGrupo = async (id_usuario, code) => {
-    let query = `update grupos set participantes = array_remove(participantes, ${id_usuario}) where code = ${code}`;
+    let query = `update grupos set participantes = array_remove(participantes, ${id_usuario}) where code = '${code}'`;
     const res = await conexion.query(query)
     let query2 = `update users set grupo = null where id = ${id_usuario}`;
     const res2 = await conexion.query(query2)
@@ -474,7 +474,7 @@ const getParticipantesGrupo = async (code) => {
     c = c.slice(0, -1) 
     c = c + ')'
      
-    let query2 = `select nombre,apellido from users where id in ${c}`;
+    let query2 = `select id, nombre,apellido from users where id in ${c}`;
     const res2 = await conexion.query(query2)
     const result2 = res2.rows
     return result2
@@ -486,7 +486,7 @@ const solicitudUnirseGrupo = async (id_user, code) => {
 }
 
 const getSolicitudesGrupo = async (code) => {
-    let query = `SELECT users.nombre, users.apellido FROM users INNER JOIN pendientes ON pendientes.id_user=users.id where code = '${code}'`;
+    let query = `SELECT users.id, users.nombre, users.apellido FROM users INNER JOIN pendientes ON pendientes.id_user=users.id where code = '${code}'`;
     const res = await conexion.query(query)
     const result = res.rows
     return result
