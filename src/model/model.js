@@ -493,7 +493,7 @@ const getSolicitudesGrupo = async (code) => {
 }
 
 const quitarSolicitud = async (id_usuario, code) => {
-    let query = `dele from pendientes where id_user = ${id_usuario}) and code = '${code}'`;
+    let query = `delete from pendientes where id_user = ${id_usuario} and code = '${code}'`;
     const res = await conexion.query(query)
 }
 
