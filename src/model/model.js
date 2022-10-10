@@ -427,7 +427,6 @@ const getCodeGrupo = async (id_lider) => {
     let query = `select code from grupos where lider = ${id_lider}`;
     const res = await conexion.query(query)
     const result = res.rows
-    console.log(result)
     return result[0]['code']
 }
 
@@ -499,13 +498,34 @@ const quitarSolicitud = async (id_usuario, code) => {
 //GRAFICOS LIDER
 
 
+const tiempoGrupo = async (code, mes) => {
+    let query = `select participantes from grupos where code = '${code}'`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    p = result[0]['participantes']
+    c = '('
+    p.forEach( m => {
+        c = c + m.toString() + ','
+    });
+    c = c.slice(0, -1) 
+    c = c + ')'
+
+    let query2 = `select sum(total_time) as total_time, sum(time_unnas) as time_unnas, sum(time_pelo) as time_pelo, sum(time_morder) as time_morder, sum(time_vista) as time_vista  from (select * from sesions where id_user in ${c} and mes = ${mes}  order by id desc limit 15) as t1`
+    const res2 = await conexion.query(query2)
+    const result2 = res2.rows
+    return result2
+}
+
+// select sum(time_unnas) from (select * from sesions where id_user in (2,5) order by id desc limit 15) as t1
+//select * from sesions where id_user in (2,5) and EXTRACT(month from inicio) = 10  order by id desc limit 15
 
 module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion,
                  totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesionUnhas, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas,
                   validateUser, postConfig, getConfig, updateConfig, confirmMail,
                 createMorder, totalSesionTimeMorder, totalTimeMorder, countMorderSesion, allSesionsMorder,
               createPelo, totalSesionTimePelo, totalTimePelo, countPeloSesion, allSesionsPelo, 
-              /*nuevas querys*/  peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo, percentageTenSesionMorder, percentageTenSesionPelo, 
+              peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo, percentageTenSesionMorder, percentageTenSesionPelo, 
               sesionesMesUnha, sesionesMesMorder, sesionesMesPelo, mejorMesUnhas,
               peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder, createVista, createPestaneo,
-              createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo, quitarSolicitud}
+              createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo, quitarSolicitud,
+            tiempoGrupo}

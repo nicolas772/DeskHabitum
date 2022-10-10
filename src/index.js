@@ -4,7 +4,7 @@ const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
 
 
-model.getParticipantesGrupo('BxRNmSQArM').then(r => console.log(r));
+model.tiempoGrupo('BxRNmSQArM', 10).then(r => console.log(r));
 
 let winlogin;
 let win, camera_win;

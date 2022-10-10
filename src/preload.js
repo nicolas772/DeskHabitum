@@ -354,6 +354,11 @@ const quitarSolicitud = (id_usuario, code) => {
     return model.quitarSolicitud(id_usuario, code)
 }
 
+const tiempoGrupo = (code, mes) => {
+    return model.tiempoGrupo(code, mes)
+}
+
+
 
 
 
@@ -419,7 +424,8 @@ contextBridge.exposeInMainWorld("api", {
     getCodeGrupo: getCodeGrupo,
     quitarDelGrupo: quitarDelGrupo,
     addParticipante: addParticipante,
-    quitarSolicitud: quitarSolicitud
+    quitarSolicitud: quitarSolicitud,
+    tiempoGrupo: tiempoGrupo
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
