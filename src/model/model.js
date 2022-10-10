@@ -30,10 +30,10 @@ const getUsuarios = async () => {
     return result
 }
 
-const createUser = async (nombre, apellido, mail, pass, lider) => {
+const createUser = async (nombre, apellido, mail, pass) => {
     
     const hashedPassword = await bcrypt.hash(pass, 10)
-    let query = `INSERT INTO users (nombre, apellido, email, pass, liderequipo) VALUES ('${nombre}', '${apellido}', '${mail}', '${hashedPassword}', '${lider}')`;
+    let query = `INSERT INTO users (nombre, apellido, email, pass) VALUES ('${nombre}', '${apellido}', '${mail}', '${hashedPassword}')`;
     const res = await conexion.query(query)
 }
 
@@ -52,8 +52,8 @@ const confirmMail = async (email) => {
 }
 
 //QUERYS SESIONES
-const createSesion = async (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, mes_sesion, anno_sesion) => {
-    let query = `INSERT INTO sesions (id_user, inicio, fin, total_time, time_unnas, time_pelo, time_morder, cant_total_unnas, cant_total_pelo, cant_total_morder, mes, anno) VALUES (${id_usuario}, '${inicio}', '${final}', '${total}', '${total_unhas}', '${total_pelo}', '${total_morder}', '${cant_tot_unha}','${cant_tot_pelo}','${cant_tot_objeto}', '${mes_sesion}', '${anno_sesion}')`;
+const createSesion = async (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion) => {
+    let query = `INSERT INTO sesions (id_user, inicio, fin, total_time, time_unnas, time_pelo, time_morder, time_vista, cant_total_unnas, cant_total_pelo, cant_total_morder, cant_total_vista, cant_total_pestaneo, mes, anno) VALUES (${id_usuario}, '${inicio}', '${final}', '${total}', '${total_unhas}', '${total_pelo}', '${total_morder}', '${total_vista}', '${cant_tot_unha}','${cant_tot_pelo}','${cant_tot_objeto}', '${cant_tot_vista}', '${cant_tot_pestaneo}', '${mes_sesion}', '${anno_sesion}')`;
     const res = await conexion.query(query)
 }
 const getSesion = async (id) => {
@@ -365,6 +365,19 @@ const percentageTenSesionPelo = async (userId) => {
     return percentages.reverse()
 }
 
+//QUERYS VISTA
+
+const createVista = async (id_usuario, id_sesion, inicio, final, total_time) => {
+    let query = `INSERT INTO vista (id_user, id_ses, inicio, fin, total_time) VALUES (${id_usuario}, '${id_sesion}','${inicio}', '${final}', '${total_time}')`;
+    const res = await conexion.query(query)
+}
+
+//QUERYS PESTANEO
+
+const createPestaneo = async (id_usuario, id_sesion, inicio, final, total_time) => {
+    let query = `INSERT INTO pestaneo (id_user, id_ses, inicio, fin, total_time) VALUES (${id_usuario}, '${id_sesion}','${inicio}', '${final}', '${total_time}')`;
+    const res = await conexion.query(query)
+}
 
 //QUERYS CONFIG
 
@@ -489,5 +502,5 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
               createPelo, totalSesionTimePelo, totalTimePelo, countPeloSesion, allSesionsPelo, 
               /*nuevas querys*/  peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo, percentageTenSesionMorder, percentageTenSesionPelo, 
               sesionesMesUnha, sesionesMesMorder, sesionesMesPelo, mejorMesUnhas,
-              peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder,
+              peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder, createVista, createPestaneo,
               createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo}

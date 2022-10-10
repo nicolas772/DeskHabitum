@@ -819,5 +819,8 @@ checkobjanio.addEventListener('click', function handleClick() {
   }
 });
 
-
-window.onload = update_dash_general;
+function init4(){
+  update_dash_general()
+  actualizarNavbar();
+}
+window.onload = init4;

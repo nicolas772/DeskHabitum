@@ -94,7 +94,14 @@
                         <h3>Configuraciones</h3>
                     </a>
                     </div>
-    
+                    
+                    <div class="item">
+                        <a href = "Pomodoro.html">
+                            <span class="material-icons-sharp">browse_gallery</span>
+                            <h3>Pomodoro</h3>
+                        </a>
+                    </div>
+
                     <div id="cerrar-sesion" class="item">
                     <a href = "#">
                         <span class="material-icons-sharp">logout</span>
@@ -121,8 +128,8 @@
                             <div class="col-sm-6">
                                 <div class="card"  style="width: 18rem; margin-left:5rem;margin-top:0; ">
                                     <div class="card-body" style="padding:0.4rem;">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Nivel de cansancio</h4>
-                                        <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;">Alto</h1> <!--id ="ultima-sesion-unhas"-->
+                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Tu nivel en este mal hábito es:</h4>
+                                        <h1 id="fatiga-state" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1> <!--id ="ultima-sesion-unhas"-->
         
                                     </div>
                                 </div>
@@ -134,16 +141,16 @@
                     <div class="row" style="margin-top:20px;">
                         <br/>
                         <div class="card-deck">
-                            <div  style="width:48%;float:left; margin-left:8px; " >
-                                <div class="card bg-light border-success mb-3" >
+                            <div style="width:48%;float:left; margin-left:8px; " >
+                                <div id="fatiga-c1" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 1: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry printing and typesetting.</p>
+                                                <h5 id="fatiga-t1" class="card-title"></h5>
+                                                    <p id="fatiga-p1" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -157,15 +164,15 @@
                             </div>
                            <div style="width:48%;float:right; margin-left:12px;margin-right: 10px;">
                                 
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="fatiga-c2" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 2: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="fatiga-t2" class="card-title"></h5>
+                                                    <p id="fatiga-p2" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -186,15 +193,15 @@
                         <br/>
                         <div class="card-deck">
                             <div  style="width:48%;float:left; margin-left:8px; " >
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="fatiga-c3" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 3: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="fatiga-t3" class="card-title"></h5>
+                                                    <p id="fatiga-p3" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -207,15 +214,15 @@
                             </div>
                            <div style="width:48%;float:right; margin-left:12px;margin-right: 10px;">
                                 
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="fatiga-c4" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 4: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="fatiga-t4" class="card-title"></h5>
+                                                    <p id="fatiga-p4" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -246,8 +253,8 @@
                             <div class="col-sm-6">
                                 <div class="card"  style="width: 18rem; margin-left:5rem;margin-top:0; ">
                                     <div class="card-body" style="padding:0.4rem;">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Nivel de cansancio</h4>
-                                        <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;">Alto</h1> <!--id ="ultima-sesion-unhas"-->
+                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Tu nivel en este mal hábito es:</h4>
+                                        <h1 id="unha-state" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1> <!--id ="ultima-sesion-unhas"-->
         
                                     </div>
                                 </div>
@@ -260,15 +267,15 @@
                         <br/>
                         <div class="card-deck">
                             <div  style="width:48%;float:left; margin-left:8px; " >
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="unha-c1" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 1: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="unha-t1" class="card-title"></h5>
+                                                    <p id="unha-p1" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -282,15 +289,15 @@
                             </div>
                            <div style="width:48%;float:right; margin-left:12px;margin-right: 10px;">
                                 
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="unha-c2" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 2: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="unha-t2" class="card-title"></h5>
+                                                    <p id="unha-p2" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -311,15 +318,15 @@
                         <br/>
                         <div class="card-deck">
                             <div  style="width:48%;float:left; margin-left:8px; " >
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="unha-c3" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 3: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="unha-t3" class="card-title"></h5>
+                                                    <p id="unha-p3" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -332,15 +339,15 @@
                             </div>
                            <div style="width:48%;float:right; margin-left:12px;margin-right: 10px;">
                                 
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="unha-c4" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 4: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="unha-t4" class="card-title"></h5>
+                                                    <p id="unha-p4" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -374,8 +381,8 @@
                             <div class="col-sm-6">
                                 <div class="card"  style="width: 18rem; margin-left:5rem;margin-top:0; ">
                                     <div class="card-body" style="padding:0.4rem;">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Nivel de cansancio</h4>
-                                        <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;">Alto</h1> <!--id ="ultima-sesion-unhas"-->
+                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Tu nivel en este mal hábito es:</h4>
+                                        <h1 id="pelo-state" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1> <!--id ="ultima-sesion-unhas"-->
         
                                     </div>
                                 </div>
@@ -391,15 +398,15 @@
                         <br/>
                         <div class="card-deck">
                             <div  style="width:48%;float:left; margin-left:8px; " >
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="pelo-c1" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 1: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="pelo-t1" class="card-title"></h5>
+                                                    <p id="pelo-p1" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -413,15 +420,15 @@
                             </div>
                            <div style="width:48%;float:right; margin-left:12px;margin-right: 10px;">
                                 
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="pelo-c2" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 2: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="pelo-t2" class="card-title"></h5>
+                                                    <p id="pelo-p2" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -442,15 +449,15 @@
                         <br/>
                         <div class="card-deck">
                             <div  style="width:48%;float:left; margin-left:8px; " >
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="pelo-c3" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 3: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="pelo-t3" class="card-title"></h5>
+                                                    <p id="pelo-p3" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -463,15 +470,15 @@
                             </div>
                            <div style="width:48%;float:right; margin-left:12px;margin-right: 10px;">
                                 
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="pelo-c4" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 4: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="pelo-t4" class="card-title"></h5>
+                                                    <p id="pelo-p4" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -504,8 +511,8 @@
                             <div class="col-sm-6">
                                 <div class="card"  style="width: 18rem; margin-left:5rem;margin-top:0; ">
                                     <div class="card-body" style="padding:0.4rem;">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Nivel de cansancio</h4>
-                                        <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;">Alto</h1> <!--id ="ultima-sesion-unhas"-->
+                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Tu nivel en este mal hábito es:</h4>
+                                        <h1 id="morder-state" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1> <!--id ="ultima-sesion-unhas"-->
         
                                     </div>
                                 </div>
@@ -518,15 +525,15 @@
                         <br/>
                         <div class="card-deck">
                             <div  style="width:48%;float:left; margin-left:8px; " >
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="morder-c1" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 1: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="morder-t1" class="card-title"></h5>
+                                                    <p id="morder-p1"  class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -540,15 +547,15 @@
                             </div>
                            <div style="width:48%;float:right; margin-left:12px;margin-right: 10px;">
                                 
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="morder-c2" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 2: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="morder-t2" class="card-title"></h5>
+                                                    <p id="morder-p2" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -569,15 +576,15 @@
                         <br/>
                         <div class="card-deck">
                             <div  style="width:48%;float:left; margin-left:8px; " >
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="morder-c3" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 3: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="morder-t3" class="card-title"></h5>
+                                                    <p id="morder-p3" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -590,15 +597,15 @@
                             </div>
                            <div style="width:48%;float:right; margin-left:12px;margin-right: 10px;">
                                 
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="morder-c4" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 4: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="morder-t4" class="card-title"></h5>
+                                                    <p id="morder-p4" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -631,8 +638,8 @@
                             <div class="col-sm-6">
                                 <div class="card"  style="width: 18rem; margin-left:5rem;margin-top:0; ">
                                     <div class="card-body" style="padding:0.4rem;">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Nivel de cansancio</h4>
-                                        <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;">Alto</h1> <!--id ="ultima-sesion-unhas"-->
+                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Tu nivel en este mal hábito es:</h4>
+                                        <h1 id="postura-state" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1> <!--id ="ultima-sesion-unhas"-->
         
                                     </div>
                                 </div>
@@ -645,15 +652,15 @@
                         <br/>
                         <div class="card-deck">
                             <div  style="width:48%;float:left; margin-left:8px; " >
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="postura-c1" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 1: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="postura-t1" class="card-title"></h5>
+                                                    <p id="postura-p1" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -667,15 +674,15 @@
                             </div>
                            <div style="width:48%;float:right; margin-left:12px;margin-right: 10px;">
                                 
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="postura-c2" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 2: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="postura-t2" class="card-title"></h5>
+                                                    <p id="postura-p2" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -696,15 +703,15 @@
                         <br/>
                         <div class="card-deck">
                             <div  style="width:48%;float:left; margin-left:8px; " >
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="postura-c3" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 3: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="postura-t3" class="card-title"></h5>
+                                                    <p id="postura-p3" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -717,15 +724,15 @@
                             </div>
                            <div style="width:48%;float:right; margin-left:12px;margin-right: 10px;">
                                 
-                                <div class="card bg-light border-success mb-3" >
+                                <div id="postura-c4" style="display:none;" class="card bg-light border-success mb-3" >
                                     <div class="row">
                                         <div style=" width: 50%;float:left;">
                                             <img  style="height: 180px;margin:1px"class="card-img-top" src="https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_960_720.png" alt="Card image cap">
                                         </div>
                                         <div  style=" width: 50%;float:right; padding-left: 0px;">
                                             <div class="card-body" style="padding-left:1px;">
-                                                <h5 class="card-title">Consejo 4: What is Lorem Ipsum?</h5>
-                                                    <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                                <h5 id="postura-t4" class="card-title"></h5>
+                                                    <p id="postura-p4" class="card-text"></p>
                                                 </div>
                                         </div>
                                         
@@ -754,7 +761,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../navbar.js"></script>
-    <!--<script src="../renderWebcam.js"></script>-->
+    <script src="../tips.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('.sub-btn').click(function(){

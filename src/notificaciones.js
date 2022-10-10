@@ -1,9 +1,11 @@
 const NOTIFICATION_TITLE = 'Desk Habitum'
 const CLICK_MESSAGE = 'Notification clicked!'
 
-const NOTIFICATION_BODY_UÑA = 'Morderte las uñas es malo para tu salud. Seria bueno que dejaras de hacerlo :)'
-const NOTIFICATION_BODY_PELO = 'Jalarte el pelo es malo para tu salud. Seria bueno que dejaras de hacerlo :)'
-const NOTIFICATION_BODY_OBJETO = 'Morder objetos es malo para tu salud. Seria bueno que dejaras de hacerlo :)'
+const NOTIFICATION_BODY_UÑA = 'Morderte las uñas es malo para tu salud. Seria bueno que dejaras de hacerlo :-)'
+const NOTIFICATION_BODY_PELO = 'Jalarte el pelo es malo para tu salud. Seria bueno que dejaras de hacerlo :-)'
+const NOTIFICATION_BODY_OBJETO = 'Morder objetos es malo para tu salud. Seria bueno que dejaras de hacerlo :-)'
+const NOTIFICATION_BODY_PESTAÑEO = 'Estás pestañeando muy poco, esto puede afectar a tu vista! Toma un descanso :-)'
+const NOTIFICATION_BODY_VISUAL = 'Restregarte los ojos es dañino para tu visión. Seria bueno que dejaras de hacerlo :-)'
 const NOTIFICATION_BODY_CAMARA = 'Reconocimiento iniciado'
 
 function NotificarUña(){
@@ -30,6 +32,23 @@ function NotificarObjeto(){
     })
 }
 
+function NotificarPestañeo(){
+    Notification.requestPermission().then(function (result){
+        new Notification(NOTIFICATION_TITLE, { 
+            body: NOTIFICATION_BODY_PESTAÑEO, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
+        })
+    })
+}
+
+
+function NotificarVisual(){
+    Notification.requestPermission().then(function (result){
+        new Notification(NOTIFICATION_TITLE, { 
+            body: NOTIFICATION_BODY_VISUAL, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
+        })
+    })
+}
+
 function CamaraCargada(){
     Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
@@ -38,4 +57,4 @@ function CamaraCargada(){
     })
 }
 
-module.exports = { NotificarUña, NotificarPelo, NotificarObjeto, CamaraCargada}
+module.exports = { NotificarUña, NotificarPelo, NotificarObjeto, NotificarPestañeo, NotificarVisual, CamaraCargada}

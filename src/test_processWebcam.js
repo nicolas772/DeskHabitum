@@ -3,11 +3,12 @@ const tmImage = require('@teachablemachine/image');
 const tf = require('@tensorflow/tfjs')
 const handPoseDetection = require('@tensorflow-models/hand-pose-detection');
 const poseDetection = require('@tensorflow-models/pose-detection');
+const faceLandmarksDetection = require('@tensorflow-models/face-landmarks-detection');
 //Base de datos
 const crud = require('./model/model.js')
 const fs = require('fs');
 //Notificaciones
-const {NotificarUña, NotificarPelo, NotificarObjeto, CamaraCargada} = require('./notificaciones.js');
+const {NotificarUña, NotificarPelo, NotificarObjeto, NotificarPestañeo, NotificarVisual, CamaraCargada} = require('./notificaciones.js');
 
 const {ipcRenderer} = require("electron");
 var ID_USER = get_user_id()
@@ -34,7 +35,7 @@ let camara_cargada = false;
 let intervalo_uña = 2000;
 let intervalo_pelo = 1000;
 let intervalo_objeto = 2000;
-let intervalo_vista = 2000;
+let intervalo_vista = 1500;
 let intervalo_postura = 2000;
 
 //Booleanos que se activan cuando se cumplen los intervalos de tiempo
@@ -43,6 +44,9 @@ let detectado_pelo = false;
 let detectado_objeto = false;
 let detectado_vista = false;
 let detectado_postura = false;
+
+//Booleano para el pestañeo intermitente
+let pestañeo_individual = false;
 
 //Variables para la configuración de las notificaciones
 let opcion; 
@@ -54,6 +58,12 @@ let cantidad_mordidas = 0;
 let cantidad_pregunta = 3;
 let comiendo = false;
 let tiempo_comiendo = 600000;
+
+let cantidad_pestañeos = 0;
+let tiempo_periodo = 5000; //en milisegundos
+let frec_normal_pestañeo = 2; // Sin concentrar vista: 20 pestañeos por min / Leyendo: 14 pestañeos por min -> 2 pestañeos por 10 seg
+let corriendo_periodo = false; 
+
 
 let tiempo_entre_notificaciones;
 let se_puede_notificar = true;
@@ -71,6 +81,34 @@ let fin_uña, fin_pelo, fin_objeto, fin_vista, fin_postura;
 
 //Booleanos que indican si se está realizando dicho mal habito
 let comiendo_uña, tirando_pelo, mordiendo_objeto, fatigando_vista, mala_postura;
+
+
+function Periodo_Pestañeo() {
+    corriendo_periodo = true
+    setTimeout (function(){
+        
+        if(cantidad_pestañeos < frec_normal_pestañeo){
+            
+            if(opcion == "tiempo" && se_puede_notificar){
+                NotificarPestañeo();
+                CountDownEntreNotificaciones();
+            }
+
+            else if (opcion == "reconocimientos"){
+                cantidad_detecciones++;
+                if (cantidad_detecciones == cantidad_notificacion){
+                    NotificarPestañeo();
+                    cantidad_detecciones = 0;
+                }
+            }
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@BASE DE DATOS
+            let inicio_pestaneo = new Date()
+            actualizarJson('pestaneo', inicio_pestaneo, inicio_pestaneo)
+        }
+        corriendo_periodo = false
+        cantidad_pestañeos = 0
+    }, tiempo_periodo);
+}
 
 
 function CountDownComiendo() {
@@ -129,6 +167,18 @@ function actualizarJson(tipo, inicio, fin){
         lista_objeto.push(objInsert)
         let data_objeto = JSON.stringify(lista_objeto);
         fs.writeFileSync("./src/data/objetoSesion.json", data_objeto)
+    }else if (tipo== 'vista'){
+        let rawdata3 = fs.readFileSync('./src/data/vistaSesion.json');
+        let lista_vista = JSON.parse(rawdata3);
+        lista_vista.push(objInsert)
+        let data_vista = JSON.stringify(lista_vista);
+        fs.writeFileSync("./src/data/vistaSesion.json", data_vista)
+    }else if (tipo== 'pestaneo'){
+        let rawdata4 = fs.readFileSync('./src/data/pestaneoSesion.json');
+        let lista_pestaneo = JSON.parse(rawdata4);
+        lista_pestaneo.push(objInsert)
+        let data_pestaneo = JSON.stringify(lista_pestaneo);
+        fs.writeFileSync("./src/data/pestaneoSesion.json", data_pestaneo)
     }
 }
 
@@ -146,8 +196,10 @@ async function getConfig(ID_USER){
         detectado_objeto = false;
         detectado_vista = false;
         detectado_postura = false;
+        corriendo_periodo = false
         cantidad_mordidas = 0;
         cantidad_detecciones = 0;
+        cantidad_pestañeos = 0;
 
 
         config_user = result[0];
@@ -187,8 +239,9 @@ async function getConfig(ID_USER){
             postura = false;
         }
 
-        if (config_user.fatiga_visual == "on"){
+        if (config_user.fatigavisual == "on"){
             fatiga_visual = true;
+
         }else{
             fatiga_visual = false;
         }
@@ -347,7 +400,7 @@ async function init_model() {
     modeloBlaze = poseDetection.SupportedModels.BlazePose;
     detectorBlaze = await poseDetection.createDetector(modeloBlaze, {runtime : 'tfjs', modelType : 'full'});
 
-    if (onicofagia || tricotilomania){
+    if (onicofagia || tricotilomania || fatiga_visual){
         modeloHand = handPoseDetection.SupportedModels.MediaPipeHands;
         detectorHand = await handPoseDetection.createDetector(modeloHand, {runtime : 'tfjs', solutionPath: "https://cdn.jsdelivr.net/npm/@mediapipe/hands",  modelType : 'full'});
 
@@ -355,6 +408,12 @@ async function init_model() {
 
     if (morder_objetos){
         model = await tf.loadGraphModel('../modelo_objetos/model.json');
+    }
+
+    if(fatiga_visual){
+        //INSERTAR MODELO DE PESTAÑEO
+        modeloPestañeo = faceLandmarksDetection.SupportedModels.MediaPipeFaceMesh;
+        detectorPestañeo = await faceLandmarksDetection.createDetector(modeloPestañeo, {runtime: 'tfjs', solutionPath: 'https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh'});
     }
 
     const flip = false;
@@ -387,7 +446,7 @@ async function predict() {
     let posesHand, posesBlaze, bocaCenter_x, bocaCenter_y;
     //https://github.com/tensorflow/tfjs-models/tree/master/hand-pose-detection
 
-    if (onicofagia || tricotilomania){
+    if (onicofagia || tricotilomania || fatiga_visual){
         posesHand = await detectorHand.estimateHands(webcam.canvas);
         //https://github.com/tensorflow/tfjs-models/tree/master/pose-detection
         posesBlaze = await detectorBlaze.estimatePoses(webcam.canvas);
@@ -401,10 +460,11 @@ async function predict() {
     comiendo_uña = false 
     tirando_pelo = false
     mordiendo_objeto = false
+    fatigando_vista = false
 
 
     
-    if ( (onicofagia || tricotilomania) && posesBlaze.length != 0 && posesHand.length != 0 /* && (posesBlaze[0].keypoints3D[19].score >= 0.8 || posesBlaze[0].keypoints3D[20].score >= 0.8)*/){
+    if ( (onicofagia || tricotilomania || fatiga_visual) && posesBlaze.length != 0 && posesHand.length != 0 /* && (posesBlaze[0].keypoints3D[19].score >= 0.8 || posesBlaze[0].keypoints3D[20].score >= 0.8)*/){
 
         //BLAZE POSE
 
@@ -414,6 +474,12 @@ async function predict() {
 
         bocaLeft3D = posesBlaze[0].keypoints3D[9]
         bocaRight3D = posesBlaze[0].keypoints3D[10]
+
+        ojoLeft_Outer = posesBlaze[0].keypoints[3]
+        ojoLeft = posesBlaze[0].keypoints[2]
+
+        ojoRight_Outer = posesBlaze[0].keypoints[6]
+        ojoRight = posesBlaze[0].keypoints[5]
 
         ojoLeft3D = posesBlaze[0].keypoints3D[2]
         ojoRight3D = posesBlaze[0].keypoints3D[5]
@@ -454,6 +520,8 @@ async function predict() {
         dipAnular = posesHand[0].keypoints[15]
         dipMenique = posesHand[0].keypoints[19]
 
+        pipIndice = posesHand[0].keypoints[6]
+
         //Tambien las puntas de los dedos
         tipPulgar = posesHand[0].keypoints[4]
         tipPulgar3D = posesHand[0].keypoints3D[4]
@@ -480,6 +548,8 @@ async function predict() {
             dipMedio2 = posesHand[1].keypoints[11]
             dipAnular2 = posesHand[1].keypoints[15]
             dipMenique2 = posesHand[1].keypoints[19]
+
+            pipIndice2 = posesHand[1].keypoints[6]
 
             //Tambien las puntas de los dedos
             tipPulgar2 = posesHand[1].keypoints[4]
@@ -769,6 +839,237 @@ async function predict() {
                     
             }
         }
+/*-----------------------------------------------SECCIÓN DE FATIGA VISUAL CON MANO----------------------------------------------*/
+        if(fatiga_visual){
+
+            radio_ojoLeft = distancia_puntos(ojoLeft_Outer.x, ojoLeft_Outer.y, ojoLeft.x, ojoLeft.y)
+            radio_ojoRight = distancia_puntos(ojoRight_Outer.x, ojoRight_Outer.y, ojoRight.x, ojoRight.y)
+
+            //IZQUIERDA
+            //caso restregar con "pip"
+            dist_ojoLeft_pipIndice = distancia_puntos(pipIndice.x, pipIndice.y, ojoLeft.x, ojoLeft.y)
+
+            //caso restregar con puntas de los dedos
+            dist_ojoLeft_tipPulgar = distancia_puntos(tipPulgar.x, tipPulgar.y, ojoLeft.x, ojoLeft.y)
+            dist_ojoLeft_tipIndice = distancia_puntos(tipIndice.x, tipIndice.y, ojoLeft.x, ojoLeft.y)
+            dist_ojoLeft_tipMedio = distancia_puntos(tipMedio.x, tipMedio.y, ojoLeft.x, ojoLeft.y)
+            dist_ojoLeft_tipAnular = distancia_puntos(tipAnular.x, tipAnular.y, ojoLeft.x, ojoLeft.y)
+            dist_ojoLeft_tipMenique = distancia_puntos(tipMenique.x, tipMenique.y, ojoLeft.x, ojoLeft.y)
+
+            //DERECHA
+            //caso restregar con "pip"
+            dist_ojoRight_pipIndice = distancia_puntos(pipIndice.x, pipIndice.y, ojoRight.x, ojoRight.y)
+
+            //caso restregar con puntas de los dedos
+            dist_ojoRight_tipPulgar = distancia_puntos(tipPulgar.x, tipPulgar.y, ojoRight.x, ojoRight.y)
+            dist_ojoRight_tipIndice = distancia_puntos(tipIndice.x, tipIndice.y, ojoRight.x, ojoRight.y)
+            dist_ojoRight_tipMedio = distancia_puntos(tipMedio.x, tipMedio.y, ojoRight.x, ojoRight.y)
+            dist_ojoRight_tipAnular = distancia_puntos(tipAnular.x, tipAnular.y, ojoRight.x, ojoRight.y)
+            dist_ojoRight_tipMenique = distancia_puntos(tipMenique.x, tipMenique.y, ojoRight.x, ojoRight.y)
+
+            if (radio_ojoLeft >= dist_ojoLeft_pipIndice || radio_ojoRight >= dist_ojoRight_pipIndice){
+                
+                if (!corriendo_vista){
+                    inicio_vista = new Date;
+                }
+                console.log("restregando ojo")
+                fatigando_vista = true
+                corriendo_vista = true
+            }
+
+            else if(radio_ojoLeft >= dist_ojoLeft_tipPulgar || radio_ojoLeft >= dist_ojoLeft_tipIndice || radio_ojoLeft >= dist_ojoLeft_tipMedio || radio_ojoLeft >= dist_ojoLeft_tipAnular || radio_ojoLeft >= dist_ojoLeft_tipMenique){
+                
+                if (!corriendo_vista){
+                    inicio_vista = new Date;
+                }
+                console.log("restregando ojo")
+
+                fatigando_vista = true
+                corriendo_vista = true
+            }
+
+            else if(radio_ojoRight >= dist_ojoRight_tipPulgar || radio_ojoRight >= dist_ojoRight_tipIndice || radio_ojoRight >= dist_ojoRight_tipMedio || radio_ojoRight >= dist_ojoRight_tipAnular || radio_ojoRight >= dist_ojoRight_tipMenique){
+                
+                if (!corriendo_vista){
+                    inicio_vista = new Date;
+                }
+                console.log("restregando ojo")
+
+                fatigando_vista = true
+                corriendo_vista = true
+
+            }
+
+            if (posesHand.length == 2 && !corriendo_vista){
+
+                //IZQUIERDA
+                //caso restregar con "pip"
+                dist_ojoLeft_pipIndice2 = distancia_puntos(pipIndice2.x, pipIndice2.y, ojoLeft.x, ojoLeft.y)
+
+                //caso restregar con puntas de los dedos
+                dist_ojoLeft_tipPulgar2 = distancia_puntos(tipPulgar2.x, tipPulgar2.y, ojoLeft.x, ojoLeft.y)
+                dist_ojoLeft_tipIndice2 = distancia_puntos(tipIndice2.x, tipIndice2.y, ojoLeft.x, ojoLeft.y)
+                dist_ojoLeft_tipMedio2 = distancia_puntos(tipMedio2.x, tipMedio2.y, ojoLeft.x, ojoLeft.y)
+                dist_ojoLeft_tipAnular2 = distancia_puntos(tipAnular2.x, tipAnular2.y, ojoLeft.x, ojoLeft.y)
+                dist_ojoLeft_tipMenique2 = distancia_puntos(tipMenique2.x, tipMenique2.y, ojoLeft.x, ojoLeft.y)
+
+                //DERECHA
+                //caso restregar con "pip"
+                dist_ojoRight_pipIndice2 = distancia_puntos(pipIndice2.x, pipIndice2.y, ojoRight.x, ojoRight.y)
+
+                //caso restregar con puntas de los dedos
+                dist_ojoRight_tipPulgar2 = distancia_puntos(tipPulgar2.x, tipPulgar2.y, ojoRight.x, ojoRight.y)
+                dist_ojoRight_tipIndice2 = distancia_puntos(tipIndice2.x, tipIndice2.y, ojoRight.x, ojoRight.y)
+                dist_ojoRight_tipMedio2 = distancia_puntos(tipMedio2.x, tipMedio2.y, ojoRight.x, ojoRight.y)
+                dist_ojoRight_tipAnular2 = distancia_puntos(tipAnular2.x, tipAnular2.y, ojoRight.x, ojoRight.y)
+                dist_ojoRight_tipMenique2 = distancia_puntos(tipMenique2.x, tipMenique2.y, ojoRight.x, ojoRight.y)
+
+                if (radio_ojoLeft >= dist_ojoLeft_pipIndice2 || radio_ojoRight >= dist_ojoRight_pipIndice2){
+                    
+                    if (!corriendo_vista){
+                        inicio_vista = new Date;
+                    }
+                    console.log("restregando ojo")
+
+                    fatigando_vista = true
+                    corriendo_vista = true
+                }
+
+                else if(radio_ojoLeft >= dist_ojoLeft_tipPulgar2 || radio_ojoLeft >= dist_ojoLeft_tipIndice2 || radio_ojoLeft >= dist_ojoLeft_tipMedio2 || radio_ojoLeft >= dist_ojoLeft_tipAnular2 || radio_ojoLeft >= dist_ojoLeft_tipMenique2){
+                    
+                    if (!corriendo_vista){
+                        inicio_vista = new Date;
+                    }
+                    console.log("restregando ojo")
+
+                    fatigando_vista = true
+                    corriendo_vista = true
+                }
+
+                else if(radio_ojoRight >= dist_ojoRight_tipPulgar2 || radio_ojoRight >= dist_ojoRight_tipIndice2 || radio_ojoRight >= dist_ojoRight_tipMedio2 || radio_ojoRight >= dist_ojoRight_tipAnular2 || radio_ojoRight >= dist_ojoRight_tipMenique2){
+                    
+                    if (!corriendo_vista){
+                        inicio_vista = new Date;
+                    }
+                    console.log("restregando ojo")
+
+                    fatigando_vista = true
+                    corriendo_vista = true
+
+                }
+            }
+        }
+    }
+    
+
+/*---------------------------------------------SECCIÓN DE FATIGA VISUAL CON PESTAÑEO----------------------------------------------*/
+    if(fatiga_visual){
+        if (!corriendo_periodo){
+            Periodo_Pestañeo()
+        }
+            
+        cara = await detectorPestañeo.estimateFaces(webcam.canvas);
+        if (cara.length != 0){
+
+            //Nariz
+            nariz1 = cara[0].keypoints[4]
+            nariz2 = cara[0].keypoints[1]
+            narizUP = cara[0].keypoints[6]
+            narizLOW = cara[0].keypoints[5]
+
+            //frente
+            f1 = cara[0].keypoints[107]
+            f2 = cara[0].keypoints[336]
+
+            //Parpados
+            parpado_superior_160 = cara[0].keypoints[160]
+            parpado_superior_158 = cara[0].keypoints[158]
+            parpado_superior_385 = cara[0].keypoints[385]
+            parpado_superior_387 = cara[0].keypoints[387]
+
+
+            parpado_inferior_144 = cara[0].keypoints[144]
+            parpado_inferior_153 = cara[0].keypoints[153]
+            parpado_inferior_380 = cara[0].keypoints[380]
+            parpado_inferior_373 = cara[0].keypoints[373]
+
+            parpado_extremo_33 = cara[0].keypoints[33]
+            parpado_extremo_133 = cara[0].keypoints[133]
+            parpado_extremo_362 = cara[0].keypoints[362]
+            parpado_extremo_263 = cara[0].keypoints[263]
+
+
+            //Proporción para determinar parpadeo en ojo derecho
+            derecho = (distancia_puntos(parpado_superior_160.x, parpado_superior_160.y,parpado_inferior_144.x, parpado_inferior_144.y)
+            + distancia_puntos(parpado_superior_158.x, parpado_superior_158.y,parpado_inferior_153.x, parpado_inferior_153.y)
+            ) / (2 * distancia_puntos(parpado_extremo_33.x, parpado_extremo_33.y, parpado_extremo_133.x, parpado_extremo_133.y))
+
+            //Proporción para determinar parpadeo en ojo izquierdo
+            izquierdo = (distancia_puntos(parpado_superior_385.x, parpado_superior_385.y,parpado_inferior_380.x, parpado_inferior_380.y)
+            + distancia_puntos(parpado_superior_387.x, parpado_superior_387.y,parpado_inferior_373.x, parpado_inferior_373.y)
+            ) / (2 * distancia_puntos(parpado_extremo_362.x, parpado_extremo_362.y, parpado_extremo_263.x, parpado_extremo_263.y))
+
+        
+            //Unidad para definir cercanía a la pantalla en base a dos coordenadas de la frente
+            dist_frente = distancia_puntos(f1.x, f1.y, f2.x, f2.y)
+
+            //Condición para que bajar cabeza no se detecte como pestañeo
+            condicion_abajo_arriba = distancia_puntos(nariz1.x, nariz1.y, nariz2.x, nariz2.y) / distancia_puntos(f1.x, f1.y, f2.x, f2.y)
+
+            //Proporción para que levantar cabeza no se detecte como pestañeo
+            proporcion = distancia_puntos(f1.x, f1.y, f2.x, f2.y) / distancia_puntos(narizUP.x, narizUP.y, narizLOW.x, narizLOW.y)
+
+            //proporcion < 1.35
+            if(!pestañeo_individual){
+                if(derecho <= 0.255 && izquierdo <= 0.255 && condicion_abajo_arriba > 0.18  && dist_frente < 28){
+                    pestañeo_individual = true
+                    console.log("Parpadeando frente")
+                    cantidad_pestañeos += 1
+    
+                }else if(derecho <= 0.23 && izquierdo <= 0.23 && condicion_abajo_arriba > 0.18  && dist_frente >= 28){
+                    pestañeo_individual = true
+                    console.log("Parpadeando cerca frente")
+                    cantidad_pestañeos += 1
+    
+                }else if(derecho <= 0.32 && izquierdo <= 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente < 28){
+                    pestañeo_individual = true
+                    console.log("Parpadeando abajo")
+                    cantidad_pestañeos += 1
+    
+                }else if(derecho <= 0.32 && izquierdo <= 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente >= 28){
+                    pestañeo_individual = true
+                    console.log("Parpadeando abajo cerca")
+                    cantidad_pestañeos += 1
+    
+                }else if(derecho <= 0.35 && izquierdo <= 0.35 && condicion_abajo_arriba > 0.1 && condicion_abajo_arriba < 0.15 && dist_frente < 28){
+                    pestañeo_individual = true
+                    console.log("Parpadeando muy abajo")
+                    cantidad_pestañeos += 1
+                }
+
+            }if (derecho > 0.255 && izquierdo > 0.255 && condicion_abajo_arriba > 0.18  && dist_frente < 28){
+                pestañeo_individual = false
+
+            }else if(derecho > 0.23 && izquierdo > 0.23 && condicion_abajo_arriba > 0.18  && dist_frente >= 28){
+                pestañeo_individual = false
+
+
+            }else if(derecho > 0.32 && izquierdo > 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente < 28){
+                pestañeo_individual = false
+
+
+            }else if(derecho > 0.32 && izquierdo > 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente >= 28){
+                pestañeo_individual = false
+
+
+            }else if(derecho > 0.35 && izquierdo > 0.35 && condicion_abajo_arriba > 0.1 && condicion_abajo_arriba < 0.15 && dist_frente < 28){
+                pestañeo_individual = false
+
+            }
+            
+
+        }
+
     }
 
     if(morder_objetos && !comiendo){
@@ -1144,7 +1445,7 @@ async function predict() {
     }
 
     //Termina la detección
-    if (!(comiendo_uña || tirando_pelo || mordiendo_objeto) && (corriendo_uña || corriendo_pelo || corriendo_objeto)){
+    if (!(comiendo_uña || tirando_pelo || mordiendo_objeto || fatigando_vista) && (corriendo_uña || corriendo_pelo || corriendo_objeto || corriendo_vista)){
 
         if (corriendo_uña && detectado_uña){
             corriendo_uña = false;
@@ -1174,6 +1475,16 @@ async function predict() {
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_objeto, fin_objeto);
             actualizarJson('objeto', inicio_objeto, fin_objeto)
+        }
+
+        if (corriendo_vista && detectado_vista){
+            corriendo_vista = false;
+            detectado_vista = false;
+            fin_vista = new Date;
+            
+            //AQUI GUARDAR EN BASE DE DATOS
+            console.log(inicio_vista, fin_vista);
+            actualizarJson('vista', inicio_vista, fin_vista)
         }
     }
 
@@ -1226,6 +1537,19 @@ async function predict() {
                     cantidad_mordidas++;
                 }
             }
+        }
+
+        if (corriendo_vista && !detectado_vista){
+            if (fecha_ahora - inicio_vista >= intervalo_vista){
+
+                detectado_vista = true;
+
+                if (se_puede_notificar){
+                    NotificarVisual();
+                    CountDownEntreNotificaciones();
+                }
+            }
+
         }
 
     //---------------------------NOTIFICACIONES ENTRE CANTIDADES DE RECONOCIMIENTOS---------------------------
@@ -1284,6 +1608,22 @@ async function predict() {
                         NotificarObjeto();
                         cantidad_detecciones = 0;
                     }
+                }
+            }
+        }
+        
+        if (corriendo_vista && !detectado_vista){
+    
+            if (fecha_ahora - inicio_vista >= intervalo_vista){
+
+                detectado_vista = true;
+
+                cantidad_detecciones++;
+
+                if (cantidad_detecciones == cantidad_notificacion){
+                    NotificarVisual();
+                    cantidad_detecciones = 0;
+                    
                 }
             }
         }

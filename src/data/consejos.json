@@ -1,0 +1,282 @@
+[
+    {
+        "habito": "unhas",
+        "consejos": [
+            {
+                "nivel": 1,
+                "data": [
+                    {   
+                        "titulo": "unha titulo 1 n1",
+                        "c": "unha consejo 1 n1"
+                    },
+                    {
+                        "titulo": "unha titulo 2 n1",
+                        "c": "consejo 2 n1 unha"
+                    }
+                ]
+            },
+            {
+                "nivel": 2,
+                "data": [
+                    {   
+                        "titulo": "unha titulo 1 n2",
+                        "c": "unha consejo 1 n2"
+                    },
+                    {
+                        "titulo": "unha titulo 2 n2",
+                        "c": "unha consejo 2 n2"
+                    },
+                    {
+                        "titulo": "unha titulo 3 n2",
+                        "c": "unha consejo 3 n2"
+                    },
+                    {
+                        "titulo": "unha titulo 4 n2",
+                        "c": "unha consejo 4 n2"
+                    }
+                ]
+            },
+            {
+                "nivel": 3,
+                "data": [
+                    {   
+                        "titulo": "unha titulo 1 n3",
+                        "c": "unha consejo 1 n3"
+                    },
+                    {
+                        "titulo": "unha titulo 2 n3",
+                        "c": "unha consejo 2 n3"
+                    },
+                    {
+                        "titulo": "unha titulo 3 n3",
+                        "c": "unha consejo 3 n3"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "habito": "morder objetos",
+        "consejos": [
+            {
+                "nivel": 1,
+                "data": [
+                    {   
+                        "titulo": "morder titulo 1 n1",
+                        "c": "morder consejo 1 n1"
+                    },
+                    {
+                        "titulo": "morder titulo 2 n1",
+                        "c": "morder consejo 2 n1"
+                    }
+                ]
+            },
+            {
+                "nivel": 2,
+                "data": [
+                    {   
+                        "titulo": "morder titulo 1 n2",
+                        "c": "morder consejo 1 n2"
+                    },
+                    {
+                        "titulo": "morder titulo 2 n2",
+                        "c": "morder consejo 2 n2"
+                    },
+                    {
+                        "titulo": "morder titulo 3 n2",
+                        "c": "morder consejo 3 n2"
+                    },
+                    {
+                        "titulo": "morder titulo 4 n2",
+                        "c": "morder consejo 4 n2"
+                    }
+                ]
+            },
+            {
+                "nivel": 3,
+                "data": [
+                    {   
+                        "titulo": "morder titulo 1 n3",
+                        "c": "morder consejo 1 n3"
+                    },
+                    {
+                        "titulo": "morder titulo 2 n3",
+                        "c": "morder consejo 2 n3"
+                    },
+                    {
+                        "titulo": "morder titulo 3 n3",
+                        "c": "morder consejo 3 n3"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "habito": "pelo",
+        "consejos": [
+            {
+                "nivel": 1,
+                "data": [
+                    {   
+                        "titulo": "pelo titulo 1 n1",
+                        "c": "pelo consejo 1 n1"
+                    },
+                    {
+                        "titulo": "pelo titulo 2 n1",
+                        "c": "pelo consejo 2 n1"
+                    }
+                ]
+            },
+            {
+                "nivel": 2,
+                "data": [
+                    {   
+                        "titulo": "pelo titulo 1 n2",
+                        "c": "pelo consejo 1 n2"
+                    },
+                    {
+                        "titulo": "pelo titulo 2 n2",
+                        "c": "pelo consejo 2 n2"
+                    },
+                    {
+                        "titulo": "pelo titulo 3 n2",
+                        "c": "pelo consejo 3 n2"
+                    },
+                    {
+                        "titulo": "pelo titulo 4 n2",
+                        "c": "pelo consejo 4 n2"
+                    }
+                ]
+            },
+            {
+                "nivel": 3,
+                "data": [
+                    {   
+                        "titulo": "pelo titulo 1 n3",
+                        "c": "pelo consejo 1 n3"
+                    },
+                    {
+                        "titulo": "pelo titulo 2 n3",
+                        "c": "pelo consejo 2 n3"
+                    },
+                    {
+                        "titulo": "pelo titulo 3 n3",
+                        "c": "pelo consejo 3 n3"
+                    }
+                ]
+            }
+        ]
+    },  
+    {
+    "habito": "fatiga ocular",
+    "consejos": [
+        {
+            "nivel": 1,
+            "data": [
+                {   
+                    "titulo": "titulo 1 n1",
+                    "c": "consejo 1 n1"
+                },
+                {
+                    "titulo": "titulo 2 n1",
+                    "c": "consejo 2 n1"
+                }
+            ]
+        },
+        {
+            "nivel": 2,
+            "data": [
+                {   
+                    "titulo": "titulo 1 n2",
+                    "c": "consejo 1 n2"
+                },
+                {
+                    "titulo": "titulo 2 n2",
+                    "c": "consejo 2 n2"
+                },
+                {
+                    "titulo": "titulo 3 n2",
+                    "c": "consejo 3 n2"
+                },
+                {
+                    "titulo": "titulo 4 n2",
+                    "c": "consejo 4 n2"
+                }
+            ]
+        },
+        {
+            "nivel": 3,
+            "data": [
+                {   
+                    "titulo": "titulo 1 n3",
+                    "c": "consejo 1 n3"
+                },
+                {
+                    "titulo": "titulo 2 n3",
+                    "c": "consejo 2 n3"
+                },
+                {
+                    "titulo": "titulo 3 n3",
+                    "c": "consejo 3 n3"
+                }
+            ]
+        }
+    ]
+    },
+    {
+        "habito": "mala postura",
+        "consejos": [
+            {
+                "nivel": 1,
+                "data": [
+                    {   
+                        "titulo": "postura titulo 1 n1",
+                        "c": "postura consejo 1 n1"
+                    },
+                    {
+                        "titulo": "postura titulo 2 n1",
+                        "c": "postura consejo 2 n1"
+                    }
+                ]
+            },
+            {
+                "nivel": 2,
+                "data": [
+                    {   
+                        "titulo": "postura titulo 1 n2",
+                        "c": "postura consejo 1 n2"
+                    },
+                    {
+                        "titulo": "postura titulo 2 n2",
+                        "c": "postura consejo 2 n2"
+                    },
+                    {
+                        "titulo": "postura titulo 3 n2",
+                        "c": "postura consejo 3 n2"
+                    },
+                    {
+                        "titulo": "postura titulo 4 n2",
+                        "c": "postura consejo 4 n2"
+                    }
+                ]
+            },
+            {
+                "nivel": 3,
+                "data": [
+                    {   
+                        "titulo": "postura titulo 1 n3",
+                        "c": "postura consejo 1 n3"
+                    },
+                    {
+                        "titulo": "postura titulo 2 n3",
+                        "c": "postura consejo 2 n3"
+                    },
+                    {
+                        "titulo": "postura titulo 3 n3",
+                        "c": "postura consejo 3 n3"
+                    }
+                ]
+            }
+        ]
+    }
+]
