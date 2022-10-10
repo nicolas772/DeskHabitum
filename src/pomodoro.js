@@ -1,5 +1,3 @@
-
-
 let workTitle = document.getElementById('work');
 let breakTitle = document.getElementById('break');
 let longBreakTitle = document.getElementById('long_break');

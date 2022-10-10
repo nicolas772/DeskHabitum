@@ -342,7 +342,17 @@ const getCodeGrupo = (id_lider) => {
     return model.getCodeGrupo(id_lider)
 }
 
+const setConsejo = (obj) => {
+    fs.writeFileSync('./src/data/consejoHandle.json', '')//vaciar archivo
+    let insert = JSON.stringify(obj)
+    fs.writeFileSync('./src/data/consejoHandle.json', insert)//vaciar archivo
+}
 
+const readConsejoFile = () => {
+    let rawdata = fs.readFileSync('./src/data/consejoHandle.json');
+    let consejo = JSON.parse(rawdata);
+    return consejo
+}
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -402,7 +412,9 @@ contextBridge.exposeInMainWorld("api", {
     createGrupo: createGrupo,
     getParticipantesGrupo: getParticipantesGrupo,
     getSolicitudesGrupo: getSolicitudesGrupo,
-    getCodeGrupo: getCodeGrupo
+    getCodeGrupo: getCodeGrupo,
+    setConsejo: setConsejo,
+    readConsejoFile: readConsejoFile
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
