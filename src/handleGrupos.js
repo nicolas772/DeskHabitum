@@ -1,3 +1,10 @@
+async function get_code_grupo(){
+    let ID = await window.api.get_user_id("")
+    let code = await window.api.getCodeGrupo(ID)    
+    document.getElementById('codigo_vista_lider').textContent = code       
+}
+
+
 
 async function aceptar_solicitud(id_user){
     let ID = await window.api.get_user_id("")
@@ -8,6 +15,7 @@ async function aceptar_solicitud(id_user){
         body: 'Participante aceptado'
       });
     let aceptar = await window.api.addParticipante(id_user, code)
+    window.location.reload();
 }
 
 async function rechazar_solicitud(id_user){
@@ -17,6 +25,7 @@ async function rechazar_solicitud(id_user){
         body: 'Participante rechazado'
       });
     let rechazar = window.api.quitarSolicitud(id_user, code)
+    window.location.reload()
       
 }
 
@@ -26,7 +35,8 @@ async function eliminar_miembro(id_miembro){
     let myNotification2 = new Notification('SOLICITUD', {
         body: 'Participante eliminado'
       });    
-    let eliminar = await window.api.quitarDelGrupo(id_miembro,code)     
+    let eliminar = await window.api.quitarDelGrupo(id_miembro,code)
+    window.location.reload();     
 }
 
 async function get_solicitudes(){ 
@@ -83,6 +93,7 @@ async function get_participantes(){
 
 
 async function cargar_grupos(){
+    get_code_grupo()
     get_solicitudes()
     get_participantes()
 
