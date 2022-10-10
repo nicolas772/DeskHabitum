@@ -116,41 +116,74 @@
             <nav>
 
             </nav>
-            <h1>Pomodoro</h1>
-
-
             
-            <section>
+            <div class="mytabs" style="margin-left:10px;">
+                <input type="radio" id="tabfree" name="mytabs" checked="checked">
+                <label for="tabfree" style="margin-left:676px;">Pomodoro</label>
+                <div class="tab">
+                    <h1>Pomodoro</h1>
+                    <section>
+                        
         
-                <div class="container">
-                    
-                    
-        
-                    <div class="painel">
-                        <p id="work">work</p>
-                        <p id="break">break</p>
-                        <p id="long_break">long break</p>
-                    </div>
-        
-                    <div class="timer">
-                        <div class="circle">
-                            <div class="time">
-                                <p id="minutes"></p>
-                                <p>:</p>
-                                <p id="seconds"></p>
+                        <div class="container" style="margin-left:0px;">
+                            
+                            
+                
+                            <div class="painel">
+                                <p id="work">work</p>
+                                <p id="break">break</p>
+                                <p id="long_break">long break</p>
+                            </div>
+                
+                            <div class="timer">
+                                <div class="circle">
+                                    <div class="time">
+                                        <p id="minutes"></p>
+                                        <p>:</p>
+                                        <p id="seconds"></p>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="controls">
+                                <button id="start" onclick="start_pomodoro()"><i class="fa-solid fa-play"></i></button>
+                                
+                                
+                                <a id="reset" href="./"><i class="fa-solid fa-arrow-rotate-left"></i></a>
+                                <a id="pause" href="./"><i class="fa fa-pause"></i></a>
                             </div>
                         </div>
-                    </div>
-        
-                    <div class="controls">
-                        <button id="start" onclick="start_pomodoro()"><i class="fa-solid fa-play"></i></button>
-                        
-                        
-                        <a id="reset" href="./"><i class="fa-solid fa-arrow-rotate-left"></i></a>
-                        <a id="pause" href="./"><i class="fa fa-pause"></i></a>
-                    </div>
+                    </section>
+                    
                 </div>
-            </section>
+
+                <input type="radio" id="tabsilver" name="mytabs">
+                <label for="tabsilver">Gráficos</label>
+                <div class="tab">
+                    <div class="row" >
+                        
+                        <div style="width:60%; float:left">
+                            <h1 style="font-size:1.5rem">Gráficos Pomodoro</h1>
+                        </div>
+                        <div style="width: 40%;float:right">
+                            
+                            
+                        </div>
+
+                    </div>
+
+                    
+
+                </div>
+
+                
+
+                
+
+            </div>
+
+            
+           
         
             
             <script src="../pomodoro.js"></script>
