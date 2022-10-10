@@ -19,7 +19,7 @@ async function stop_cam(){
         window.api.cerrar_camara("")
 
         //calculo de totales por mania
-        let [total_unhas, total_pelo, total_objeto, cant_tot_unha, cant_tot_pelo, cant_tot_objeto]  = window.api.obtenerTotal()
+        let [total_unhas, total_pelo, total_objeto, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo]  = window.api.obtenerTotal()
 
         //creo sesion en BD
         fin_sesion = new Date()
@@ -28,7 +28,7 @@ async function stop_cam(){
         let fini_sesion = fin_sesion.toISOString()
         let mes_sesion = fin_sesion.getMonth() + 1
         let anno_sesion = fin_sesion.getFullYear()
-        await window.api.createSesion(ID_USER, ini_sesion, fini_sesion, total, total_unhas, total_pelo, total_objeto, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, mes_sesion, anno_sesion); 
+        await window.api.createSesion(ID_USER, ini_sesion, fini_sesion, total, total_unhas, total_pelo, total_objeto, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion); 
         //console.log("paso insert sesion")
         //inserto manias en BD
 
@@ -53,7 +53,41 @@ function contactar_profesional(){
     motivo = document.getElementById("motivo_contacto")
     if(nombre.value != null && nombre.value != "", email.value != null && email.value != "", motivo.value != null && motivo.value != "")
     {
+
         let obj = {nombre:nombre.value, email:email.value, telefono:telefono.value, region:region.value, ciudad:ciudad.value, atencion:atencion.value, motivo:motivo.value }
         window.api.contactar_profesional(obj)
     }
 }
+
+
+function doNotify(){
+    Notification.requestPermission().then(function (result){
+        new Notification("GRUPO", { 
+            body: "Solicitud de unión Enviada", icon: 'https://cdn-icons-png.flaticon.com/512/244/244060.png'
+        })
+    })
+}
+
+function doNotify2(){
+    Notification.requestPermission().then(function (result){
+        new Notification("GRUPO", { 
+            body: "Creación de grupo exitosa", icon: 'https://cdn-icons-png.flaticon.com/512/244/244060.png'
+        })
+    })
+}
+
+
+function unirse_grupo(){
+    let ID = window.api.get_user_id("")
+    code = document.getElementById("codigo_equipo")
+    window.api.solicitudUnirseGrupo(ID, code.value)
+    doNotify()
+}
+
+function crear_grupo(){
+    let ID = window.api.get_user_id("")
+    nombre = document.getElementById("nombre_equipo")
+    window.api.createGrupo(ID, nombre.value)
+    doNotify2()
+}
+

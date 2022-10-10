@@ -3,6 +3,13 @@ const {contextBridge, ipcRenderer} = require("electron");
 var fs = require('fs');
 
 const iniciar_camara = (d) => { //esta funcion es para manejar boton iniciar detección general
+    //esto lo agrego al iniciar reconocimiento, ya que hay algunos casos en donde luego de detener la deteccion, igual sigue escribiendo datos en el json.
+    fs.writeFileSync('./src/data/unhasSesion.json', '[]')//vaciar archivo
+    fs.writeFileSync('./src/data/peloSesion.json', '[]')//vaciar archivo
+    fs.writeFileSync('./src/data/objetoSesion.json', '[]')//vaciar archivo
+    fs.writeFileSync('./src/data/vistaSesion.json', '[]')//vaciar archivo
+    fs.writeFileSync('./src/data/pestaneoSesion.json', '[]')//vaciar archivo
+
     fs.writeFileSync('./src/data/cameraHandle.txt', "1", function(err) {
         if (err) {
           return console.log(err);
@@ -10,6 +17,7 @@ const iniciar_camara = (d) => { //esta funcion es para manejar boton iniciar det
       
         console.log("El archivo fue creado correctamente");
     });
+
 }
 
 const cerrar_camara = (data) => {//esta funcion es para manejar boton detener detección general
@@ -47,8 +55,8 @@ const getUserData = (id) => {
 const confirmMail = (email) => {
     return model.confirmMail(email);
 }
-const createSesion = (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, mes_sesion, anno_sesion) => {
-    return model.createSesion(id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, mes_sesion, anno_sesion)
+const createSesion = (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion) => {
+    return model.createSesion(id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion)
 }
 
 const getSesion = (id) => {
@@ -113,8 +121,8 @@ const postConfig = (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisu
     return model.postConfig(id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion)
 }
 
-const updateConfig = (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion) => {
-    return model.updateConfig(id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion)
+const updateConfig = (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak) => {
+    return model.updateConfig(id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak)
 }
     
 
@@ -139,6 +147,10 @@ const insertManias = (id_usuario) => {
     let lista_pelo = JSON.parse(rawdata1);
     let rawdata2 = fs.readFileSync('./src/data/objetoSesion.json');
     let lista_objeto = JSON.parse(rawdata2);
+    let rawdata3 = fs.readFileSync('./src/data/vistaSesion.json');
+    let lista_vista = JSON.parse(rawdata3);
+    let rawdata4 = fs.readFileSync('./src/data/pestaneoSesion.json');
+    let lista_pestaneo = JSON.parse(rawdata4);
     
     lista_unhas.map(u => {
         model.lastSesion(id_usuario).then(res => model.createUnhas(id_usuario, res, u.inicio, u.final, u.total))
@@ -154,6 +166,16 @@ const insertManias = (id_usuario) => {
         model.lastSesion(id_usuario).then(res => model.createMorder(id_usuario, res, u.inicio, u.final, u.total))
     })
     fs.writeFileSync('./src/data/objetoSesion.json', '[]')//vaciar archivo
+
+    lista_vista.map(u => {
+        model.lastSesion(id_usuario).then(res => model.createVista(id_usuario, res, u.inicio, u.final, u.total))
+    })
+    fs.writeFileSync('./src/data/vistaSesion.json', '[]')//vaciar archivo
+
+    lista_pestaneo.map(u => {
+        model.lastSesion(id_usuario).then(res => model.createPestaneo(id_usuario, res, u.inicio, u.final, u.total))
+    })
+    fs.writeFileSync('./src/data/pestaneoSesion.json', '[]')//vaciar archivo
 }
  //calculo de totales por mania, para insertar en la tabla sesion al momento de detener la deteccion
 const obtenerTotal = () => {
@@ -163,8 +185,12 @@ const obtenerTotal = () => {
     let lista_pelo = JSON.parse(rawdata1);
     let rawdata2 = fs.readFileSync('./src/data/objetoSesion.json');
     let lista_objeto = JSON.parse(rawdata2);
-    let tot_unha = 0, tot_objeto = 0, tot_pelo = 0;
-    let cant_tot_unha = 1, cant_tot_objeto = 1, cant_tot_pelo = 1;
+    let rawdata3 = fs.readFileSync('./src/data/vistaSesion.json');
+    let lista_vista = JSON.parse(rawdata3);
+    let rawdata4 = fs.readFileSync('./src/data/pestaneoSesion.json');
+    let lista_pestaneo = JSON.parse(rawdata4);
+    let tot_unha = 0, tot_objeto = 0, tot_pelo = 0, tot_vista = 0; //tiempo total de la mania en la sesion (se omite a pestaneo, no llevaremos esa cuenta)
+    let cant_tot_unha = 1, cant_tot_objeto = 1, cant_tot_pelo = 1, cant_tot_vista = 1, cant_tot_pestaneo = 1; //cantidad total de reconocimientos
     lista_unhas.map(u => {
         tot_unha = tot_unha + parseInt(u.total)
         cant_tot_unha += 1
@@ -179,10 +205,17 @@ const obtenerTotal = () => {
         tot_objeto = tot_objeto + parseInt(u.total)
         cant_tot_objeto += 1
     })
-    console.log(cant_tot_unha)
-    console.log(cant_tot_pelo)
-    console.log(cant_tot_objeto) 
-    return [Math.trunc(tot_unha), Math.trunc(tot_pelo), Math.trunc(tot_objeto), cant_tot_unha-1, cant_tot_pelo-1, cant_tot_objeto-1]
+
+    lista_vista.map(u => {
+        tot_vista = tot_vista + parseInt(u.total)
+        cant_tot_vista += 1
+    })
+
+    lista_pestaneo.map(u => {
+        cant_tot_pestaneo += 1
+    })
+     
+    return [Math.trunc(tot_unha), Math.trunc(tot_pelo), Math.trunc(tot_objeto), Math.trunc(tot_vista), cant_tot_unha-1, cant_tot_pelo-1, cant_tot_objeto-1, cant_tot_vista-1, cant_tot_pestaneo-1]
 }
 
 const leerCameraHandle = () => {
@@ -280,6 +313,40 @@ const mejorMesPelo = (userId, mes, año) => {
     return model.mejorMesPelo(userId, mes, año)
 }
 
+const readConsejos = () => {
+    let rawdata = fs.readFileSync('./src/data/consejos.json');
+    let lista_consejos = JSON.parse(rawdata);
+    return lista_consejos
+}
+const tieneGrupo = (lider_id) => {
+    return model.tieneGrupo(lider_id)
+}
+
+const solicitudUnirseGrupo = (user_id, code) => {
+    return model.solicitudUnirseGrupo(user_id, code)
+}
+
+const createGrupo = (id_lider, nombre) => {
+    return model.createGrupo(id_lider, nombre)
+}
+
+const getParticipantesGrupo = (id_grupo) => {
+    return model.getParticipantesGrupo(id_grupo)
+}
+
+const getSolicitudesGrupo = (code) => {
+    return model.getSolicitudesGrupo(code)
+}
+
+const getCodeGrupo = (id_lider) => {
+    return model.getCodeGrupo(id_lider)
+}
+
+const quitarDelGrupo = (id_usuario, id_grupo) => {
+    return model.quitarDelGrupo(id_usuario, id_grupo)
+}
+
+
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -332,7 +399,15 @@ contextBridge.exposeInMainWorld("api", {
     mejorMesMorder: mejorMesMorder,
     peorMesMorder: peorMesMorder,
     peorMesPelo: peorMesPelo,
-    mejorMesPelo: mejorMesPelo
+    mejorMesPelo: mejorMesPelo,
+    readConsejos: readConsejos,
+    tieneGrupo: tieneGrupo,
+    solicitudUnirseGrupo: solicitudUnirseGrupo,
+    createGrupo: createGrupo,
+    getParticipantesGrupo: getParticipantesGrupo,
+    getSolicitudesGrupo: getSolicitudesGrupo,
+    getCodeGrupo: getCodeGrupo,
+    quitarDelGrupo: quitarDelGrupo
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})

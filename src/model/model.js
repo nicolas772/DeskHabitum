@@ -52,8 +52,8 @@ const confirmMail = async (email) => {
 }
 
 //QUERYS SESIONES
-const createSesion = async (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, mes_sesion, anno_sesion) => {
-    let query = `INSERT INTO sesions (id_user, inicio, fin, total_time, time_unnas, time_pelo, time_morder, cant_total_unnas, cant_total_pelo, cant_total_morder, mes, anno) VALUES (${id_usuario}, '${inicio}', '${final}', '${total}', '${total_unhas}', '${total_pelo}', '${total_morder}', '${cant_tot_unha}','${cant_tot_pelo}','${cant_tot_objeto}', '${mes_sesion}', '${anno_sesion}')`;
+const createSesion = async (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion) => {
+    let query = `INSERT INTO sesions (id_user, inicio, fin, total_time, time_unnas, time_pelo, time_morder, time_vista, cant_total_unnas, cant_total_pelo, cant_total_morder, cant_total_vista, cant_total_pestaneo, mes, anno) VALUES (${id_usuario}, '${inicio}', '${final}', '${total}', '${total_unhas}', '${total_pelo}', '${total_morder}', '${total_vista}', '${cant_tot_unha}','${cant_tot_pelo}','${cant_tot_objeto}', '${cant_tot_vista}', '${cant_tot_pestaneo}', '${mes_sesion}', '${anno_sesion}')`;
     const res = await conexion.query(query)
 }
 const getSesion = async (id) => {
@@ -365,6 +365,19 @@ const percentageTenSesionPelo = async (userId) => {
     return percentages.reverse()
 }
 
+//QUERYS VISTA
+
+const createVista = async (id_usuario, id_sesion, inicio, final, total_time) => {
+    let query = `INSERT INTO vista (id_user, id_ses, inicio, fin, total_time) VALUES (${id_usuario}, '${id_sesion}','${inicio}', '${final}', '${total_time}')`;
+    const res = await conexion.query(query)
+}
+
+//QUERYS PESTANEO
+
+const createPestaneo = async (id_usuario, id_sesion, inicio, final, total_time) => {
+    let query = `INSERT INTO pestaneo (id_user, id_ses, inicio, fin, total_time) VALUES (${id_usuario}, '${id_sesion}','${inicio}', '${final}', '${total_time}')`;
+    const res = await conexion.query(query)
+}
 
 //QUERYS CONFIG
 
@@ -374,7 +387,7 @@ const postConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fati
     const res = await conexion.query(query)
 }
 
-const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion) => {
+const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak) => {
     let query = `UPDATE config SET 
     morderunha='${morderUnha}', 
     morderobjetos='${morderObjetos}', 
@@ -385,7 +398,11 @@ const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fa
     alertasonora='${alertaSonora}', 
     intervalonotificacion='${intervaloNotificacion}',
     tiemponotificacion='${tiempoNotificacion}',
-    tiponotificacion='${tipoNotificacion}'
+    tiponotificacion='${tipoNotificacion}',
+    duracionpomo='${duracionPomo}',
+    duracionshortbreak='${duracionShortBreak}',
+    duracionlongbreak='${duracionLongBreak}',
+    intervalolongbreak='${intervaloLongBreak}'
     WHERE id_user = ${id_usuario}` ;
     const res = await conexion.query(query)
 }
@@ -397,6 +414,91 @@ const getConfig = async (id_usuario) => {
     return result
 }
 
+
+//QUERYS GRUPOS
+
+const createGrupo = async (id_lider, nombre) => {
+    let query = `insert into grupos (code, lider, participantes, nombre) values(random_string(10), ${id_lider}, array[${id_lider}], '${nombre}') returning id,code`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    id_grupo = result[0]['id']
+    let query2 = `UPDATE users SET grupo = ${id_grupo} where id = ${id_lider}`;
+    const res2 = await conexion.query(query2)
+    return result[0]['code']
+}
+
+const getCodeGrupo = async (id_lider) => {
+    let query = `select code from grupos where lider = ${id_lider}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    console.log(result)
+    return result[0]['code']
+}
+
+// mayor que 0 si es que tiene
+const tieneGrupo = async (id_lider) => {
+    let query = `select * from grupos where lider = ${id_lider}`;
+    const res = await conexion.query(query)
+    const result = res.rowCount
+    return result
+}
+
+
+
+const addParticipante = async (id_usuario, code) => {
+    let query = `UPDATE grupos SET participantes = array_append(participantes, ${id_usuario}) where code = '${code}' returning id`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    id_grupo = result[0]['id']
+    let query2 = `UPDATE users SET grupo = ${id_grupo} where id = ${id_usuario}`;
+    const res2 = await conexion.query(query2)
+    //Quitarlo de los pendientes
+    let query3 = `delete from pendientes where id_user = ${id_usuario} and code = '${code}'`
+    const res3 = await conexion.query(query3)
+
+}
+
+const quitarDelGrupo = async (id_usuario, code) => {
+    let query = `update grupos set participantes = array_remove(participantes, ${id_usuario}) where code = '${code}'`;
+    const res = await conexion.query(query)
+    let query2 = `update users set grupo = null where id = ${id_usuario}`;
+    const res2 = await conexion.query(query2)
+}
+
+const getParticipantesGrupo = async (code) => {
+    let query = `select participantes from grupos where code = '${code}'`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    p = result[0]['participantes']
+    console.log(p)
+    c = '('
+    p.forEach( m => {
+        c = c + m.toString() + ','
+    });
+    c = c.slice(0, -1) 
+    c = c + ')'
+     
+    let query2 = `select id, nombre,apellido from users where id in ${c}`;
+    console.log(query2)
+    const res2 = await conexion.query(query2)
+    const result2 = res2.rows
+    return result2
+}
+
+const solicitudUnirseGrupo = async (id_user, code) => {
+    let query = `insert into pendientes (id_user, code) values(${id_user}, '${code}')`;
+    const res = await conexion.query(query)
+}
+
+const getSolicitudesGrupo = async (code) => {
+    let query = `SELECT users.id, users.nombre, users.apellido FROM users INNER JOIN pendientes ON pendientes.id_user=users.id where code = '${code}'`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result
+}
+
+
+
 module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion,
                  totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesionUnhas, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas,
                   validateUser, postConfig, getConfig, updateConfig, confirmMail,
@@ -404,4 +506,5 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
               createPelo, totalSesionTimePelo, totalTimePelo, countPeloSesion, allSesionsPelo, 
               /*nuevas querys*/  peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo, percentageTenSesionMorder, percentageTenSesionPelo, 
               sesionesMesUnha, sesionesMesMorder, sesionesMesPelo, mejorMesUnhas,
-              peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder }
+              peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder, createVista, createPestaneo,
+              createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo}

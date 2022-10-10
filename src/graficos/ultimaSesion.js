@@ -1,8 +1,8 @@
-ID_USER = 2
+//ID_USER = 2
 id_Usuario = window.api.get_user_id("")
-var id_Sesion, duracion, manias, duraciontotal, duracionunas, duracionpelo, duracionobjetos, id_lastSesion;
-var postura = "10 veces";
-var visual = "Sí"
+let id_Sesion, duracion, manias, duraciontotal, duracionunas, duracionpelo, duracionobjetos, id_lastSesion;
+let postura = "10 veces";
+let visual = "Sí"
 
 async function update_dash_ultima_sesion() {
     //HTML: index , indicador: duracion ultima sesion
@@ -114,14 +114,21 @@ async function update_dash_ultima_sesion() {
 }
 
 //codigo para que se muestre el nombre del usuario activo
+
 async function navbarInit(){
   await window.api.getUserData(id_Usuario).then(result => {
       userData = result[0];
   });
   document.getElementById("usuario-activo").append(userData.nombre)
+  if(userData.liderequipo == "si"){
+    document.getElementById("tipo-usuario").append('Lider de equipo')
+  }else{
+    document.getElementById("tipo-usuario").append('Usuario activo')
+  }
 }
 
 function init(){
+  actualizarNavbar();
   update_dash_ultima_sesion();
   navbarInit()
 }

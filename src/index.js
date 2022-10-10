@@ -3,6 +3,9 @@ const path = require('path')
 const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
 
+
+//model.addParticipante(12, 'BxRNmSQArM').then(r => console.log(r));
+
 let winlogin;
 let win, camera_win;
 
@@ -55,7 +58,7 @@ const createWindow = () => {
       }
     })
     camera_win.loadFile('src/views/camera.html');
-    //camera_win.webContents.openDevTools();
+    camera_win.webContents.openDevTools();
 }
 
 app.on('window-all-closed', () => {
@@ -139,7 +142,7 @@ ipcMain.handle('registrar', (event, obj) => {
 });
 
 function regUser(obj) {
-  const {nombre, apellido, email, password } = obj
+  const {nombre, apellido, email, password, lider } = obj
   model.confirmMail(email).then( existe =>
     {
       if (existe>0) {
@@ -148,7 +151,7 @@ function regUser(obj) {
           body: 'Email ya registrado'
         }).show()
       } else {
-        model.createUser(nombre, apellido, email, password)
+        model.createUser(nombre, apellido, email, password, lider)
         //luego de instertar usuario, se dispara trigger en BD para config por default
         new Notification({
           title:"registro",
