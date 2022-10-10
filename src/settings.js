@@ -9,11 +9,17 @@ const alertaSonora = document.getElementById("alertaSonora")
 const intervaloNotificacion = document.getElementById("intervaloNotificacion")
 const tiempoNotificacion = document.getElementById("tiempoNotificacion")
 const tipoNotificacion = document.getElementById("tipoNotificacion")
+//configuraciones pomodoro
+const duracionPomo = document.getElementById("duracionPomo")
+const duracionShortBreak = document.getElementById("duracionShortBreak")
+const duracionLongBreak = document.getElementById("duracionLongBreak")
+const intervaloLongBreak = document.getElementById("intervaloLongBreak")
 const NOTIFICATION_TITLE = 'Configuración guardada'
 const NOTIFICATION_BODY = 'Si tienes el monitoreo activado, tendrás que reiniciarlo para tu nueva configuración.'
 const CLICK_MESSAGE = 'Notification clicked!'
 
 async function saveSettings(){
+    
     let configList = [
         ID_USER, 
         morderUnha.checked, 
@@ -25,7 +31,11 @@ async function saveSettings(){
         alertaSonora.checked,
         intervaloNotificacion.value,
         tiempoNotificacion.value,
-        tipoNotificacion.value //aqui poner .value quiza, cuando este implementado front
+        tipoNotificacion.value,
+        duracionPomo.value,
+        duracionShortBreak.value,
+        duracionLongBreak.value,
+        intervaloLongBreak.value
     ]
     let CONF = configList.map(function(e){
         switch(e) {
@@ -51,7 +61,11 @@ async function saveSettings(){
         CONF[7],
         CONF[8],
         CONF[9],
-        CONF[10]
+        CONF[10],
+        CONF[11],
+        CONF[12],
+        CONF[13],
+        CONF[14]
     ).then(result => {
         let resultado=result
     })
@@ -71,7 +85,10 @@ async function actualizarSettings(){
     $('#alertaVisual').bootstrapToggle(config.alertavisual) 
     $('#alertaSonora').bootstrapToggle(config.alertasonora)
     $('#tipoNotificacion').val(config.tiponotificacion)
-
+    $('#duracionPomo').val(config.duracionpomo)
+    $('#duracionShortBreak').val(config.duracionshortbreak)
+    $('#duracionLongBreak ').val(config.duracionlongbreak)
+    $('#intervaloLongBreak').val(config.intervalolongbreak)
     if(config.tiponotificacion == 'tiempo'){
         $('#tiempoNotificacion').val(config.tiemponotificacion)
         $('#tipo-intervalo').hide()
