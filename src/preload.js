@@ -386,6 +386,10 @@ const setConsejo = (obj) => {
     let insert = JSON.stringify(obj)
     fs.writeFileSync('./src/data/consejoHandle.json', insert)//vaciar archivo
 }
+const quitarDelGrupo = (id_usuario, id_grupo) => {
+    return model.quitarDelGrupo(id_usuario, id_grupo)
+}
+
 
 const readConsejoFile = () => {
     let rawdata = fs.readFileSync('./src/data/consejoHandle.json');
@@ -458,7 +462,8 @@ contextBridge.exposeInMainWorld("api", {
     pausar_pomodoro: pausar_pomodoro,
     parar_pomodoro: parar_pomodoro,
     leer_pomodoro: leer_pomodoro,
-    fecha_inicio_sesion: fecha_inicio_sesion
+    fecha_inicio_sesion: fecha_inicio_sesion,
+    quitarDelGrupo: quitarDelGrupo
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
