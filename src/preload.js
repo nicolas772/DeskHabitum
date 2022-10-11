@@ -2,6 +2,41 @@ const model = require('./model/model.js')
 const {contextBridge, ipcRenderer} = require("electron");
 var fs = require('fs');
 
+const leer_pomodoro = () => {
+    let rawdata = fs.readFileSync('./src/data/pomodoro.json');
+    return JSON.parse(rawdata);
+}
+
+
+const iniciar_pomodoro = () => {
+    fs.writeFileSync('./src/data/pomodoroHandle.txt', "1", function(err) {
+        if (err) {
+          return console.log(err);
+        }
+    })
+}
+
+const pausar_pomodoro = () => {
+    fs.writeFileSync('./src/data/pomodoroHandle.txt', "0", function(err) {
+        if (err) {
+          return console.log(err);
+        }
+    })
+}
+
+const parar_pomodoro = () => {
+    fs.writeFileSync('./src/data/pomodoroHandle.txt', "2", function(err) {
+        if (err) {
+          return console.log(err);
+        }
+    })
+}
+
+const fecha_inicio_sesion = () => {
+    let inicio = fs.readFileSync('./src/data/inicio_fecha.txt')
+    return new Date(inicio)
+}
+
 const iniciar_camara = (d) => { //esta funcion es para manejar boton iniciar detección general
     //esto lo agrego al iniciar reconocimiento, ya que hay algunos casos en donde luego de detener la deteccion, igual sigue escribiendo datos en el json.
     fs.writeFileSync('./src/data/unhasSesion.json', '[]')//vaciar archivo
@@ -9,6 +44,10 @@ const iniciar_camara = (d) => { //esta funcion es para manejar boton iniciar det
     fs.writeFileSync('./src/data/objetoSesion.json', '[]')//vaciar archivo
     fs.writeFileSync('./src/data/vistaSesion.json', '[]')//vaciar archivo
     fs.writeFileSync('./src/data/pestaneoSesion.json', '[]')//vaciar archivo
+
+    //Se guarda la fecha de inicio de sesion
+    let inicio = new Date
+    fs.writeFileSync('./src/data/inicio_fecha.txt', inicio.toUTCString())
 
     fs.writeFileSync('./src/data/cameraHandle.txt', "1", function(err) {
         if (err) {
@@ -402,7 +441,12 @@ contextBridge.exposeInMainWorld("api", {
     createGrupo: createGrupo,
     getParticipantesGrupo: getParticipantesGrupo,
     getSolicitudesGrupo: getSolicitudesGrupo,
-    getCodeGrupo: getCodeGrupo
+    getCodeGrupo: getCodeGrupo,
+    iniciar_pomodoro: iniciar_pomodoro,
+    pausar_pomodoro: pausar_pomodoro,
+    parar_pomodoro: parar_pomodoro,
+    leer_pomodoro: leer_pomodoro,
+    fecha_inicio_sesion: fecha_inicio_sesion
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
