@@ -39,6 +39,10 @@ function pause_pomodoro(){
 
 function stop_pomodoro(){
 
+    breakTitle.classList.remove('active');
+    longBreakTitle.classList.remove('active')
+    workTitle.classList.add('active');
+
     window.api.parar_pomodoro()
     // change button
     document.getElementById('start').style.display = "block";

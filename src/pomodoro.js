@@ -193,6 +193,35 @@ function pause_pomodoro(){
 
 function stop_pomodoro(){
 
+    tipo = "work"
+
+    corriendo = false;
+
+    pomodoro_iniciado = false;
+
+    //minutos de sesión
+    workTime = 1;
+    breakTime = 1;
+    longBreakTime = 1;
+    seconds = "00"
+
+    objInsert = {
+        "minutes": workTime,
+        "seconds": seconds,
+        "tipo": tipo
+    }
+    data_json = JSON.stringify(objInsert);
+    fs.writeFileSync("./src/data/pomodoro.json", data_json)
+
+    is_break = false
+    en_pausa = false
+
+    //Contador para long break
+    interval_counter = 0
+
+    //Numero de pomodoros antes de que ocurra el long break
+    break_interval = 4;
+
     clearInterval(id);
     pomodoro_iniciado = false;
 
