@@ -9,8 +9,7 @@ let date = new Date();
 let mes_anterior = date.getMonth()
 let mes_actual = date.getMonth()+1
 
-const monthNames = ["Enero", "Febrero", "Marzo", "Abrir", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-];
+const monthNames = ["Enero", "Febrero", "Marzo", "Abrir", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
 async function update_dash_general_equipos() {
   await window.api.getCodeGrupo(ID_LIDER).then(result => {
@@ -53,7 +52,7 @@ async function update_dash_general_equipos() {
           },
           total: {
             show: true,
-            label: 'Septiembre',
+            label: monthNames[mes_actual-1],
             formatter: function (w) {
               // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
               return 
@@ -128,7 +127,7 @@ async function update_dash_general_equipos() {
         },
         total: {
           show: true,
-          label: 'Octubre',
+          label: monthNames[mes_actual-2],
           formatter: function (w) {
             // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
             return 
