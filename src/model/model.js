@@ -44,6 +44,15 @@ const getUserData = async (id) => {
     return result
 }
 
+const updateUserData = async (id_usuario, nombre, apellido, mail) => {
+    let query = `UPDATE users SET 
+    nombre='${nombre}', 
+    apellido='${apellido}', 
+    email='${mail}'
+    WHERE id = ${id_usuario}` ;
+    const res = await conexion.query(query)
+}
+
 const confirmMail = async (email) => {
     let query = `SELECT * FROM users WHERE email = '${email}'`;
     const res = await conexion.query(query)
@@ -507,4 +516,4 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
               /*nuevas querys*/  peorSesionMorder, mejorSesionMorder, peorSesionPelo, mejorSesionPelo, percentageTenSesionMorder, percentageTenSesionPelo, 
               sesionesMesUnha, sesionesMesMorder, sesionesMesPelo, mejorMesUnhas,
               peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder, createVista, createPestaneo,
-              createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo}
+              createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo, updateUserData}

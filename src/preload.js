@@ -90,6 +90,9 @@ const getUserData = (id) => {
     return model.getUserData(id);
 }
 
+const updateUserData = (id_usuario, nombre, apellido, mail) => {
+    return model.updateUserData(id_usuario, nombre, apellido, mail);
+}
 
 const confirmMail = (email) => {
     return model.confirmMail(email);
@@ -401,6 +404,7 @@ contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
     createUser: createUser,
     getUserData: getUserData,
+    updateUserData: updateUserData,
     createSesion: createSesion,
     getSesion: getSesion,
     lastSesion: lastSesion,
