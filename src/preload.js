@@ -466,5 +466,6 @@ contextBridge.exposeInMainWorld("api", {
     quitarDelGrupo: quitarDelGrupo
 })
 
+module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id }
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
 //desde cualquier .js

@@ -1,5 +1,5 @@
 const fs = require('fs')
-const utils_pom = require("./pomodoro_utils.js")
+const utils_pom = require("./preload.js")
 
 
 let id;
@@ -63,6 +63,7 @@ async function pomodoroHandle(){
         }else if (run == '2' && corriendo){
             corriendo = false
             stop_pomodoro();
+
         }
     }
 
@@ -193,7 +194,6 @@ function pause_pomodoro(){
 function stop_pomodoro(){
 
     clearInterval(id);
-
     pomodoro_iniciado = false;
 
     if (!is_break){
