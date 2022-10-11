@@ -105,4 +105,4 @@ dist
 
 .idea/
 
-consejoHandle.json
+./src/data/consejoHandle.json
