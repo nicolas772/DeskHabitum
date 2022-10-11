@@ -1,11 +1,9 @@
-let inicio_sesion
 let fin_sesion
 let total
 let nombre, email, telefono, region, ciudad, atencion, profesional, motivo, obj;
 
 function init_cam(){
     window.api.iniciar_camara("")
-    inicio_sesion = new Date()
 }
 
 async function stop_cam(){
@@ -22,7 +20,8 @@ async function stop_cam(){
         let [total_unhas, total_pelo, total_objeto, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo]  = window.api.obtenerTotal()
 
         //creo sesion en BD
-        fin_sesion = new Date()
+        let inicio_sesion = window.api.fecha_inicio_sesion()
+        let fin_sesion = new Date()
         total =  Math.trunc((fin_sesion - inicio_sesion)/1000) //lo pasa de milisegundos a segundos
         let ini_sesion = inicio_sesion.toISOString()
         let fini_sesion = fin_sesion.toISOString()
