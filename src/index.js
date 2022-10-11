@@ -4,7 +4,7 @@ const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
 
 
-model.tiempoGrupo('BxRNmSQArM', 10).then(r => console.log(r));
+model.totalesGrupo('BxRNmSQArM',10).then(r => console.log(r));
 
 let winlogin;
 let win, camera_win;
@@ -20,12 +20,7 @@ model.totalSesionTimeMorder(64).then(r=>{
   } else {
     console.log("normal")
   }  
-
-
-}
-  
-
-)
+})
 
 
 const createWindow = () => {

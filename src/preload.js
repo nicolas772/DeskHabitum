@@ -358,6 +358,16 @@ const tiempoGrupo = (code, mes) => {
     return model.tiempoGrupo(code, mes)
 }
 
+const totalesGrupo = (code, mes) => {
+    return model.totalesGrupo(code, mes)
+}
+
+const top10Grupo = (code, mes) => {
+    return model.top10Grupo(code, mes)
+}
+
+
+
 
 
 
@@ -425,7 +435,9 @@ contextBridge.exposeInMainWorld("api", {
     quitarDelGrupo: quitarDelGrupo,
     addParticipante: addParticipante,
     quitarSolicitud: quitarSolicitud,
-    tiempoGrupo: tiempoGrupo
+    tiempoGrupo: tiempoGrupo,
+    totalesGrupo: totalesGrupo,
+    top10Grupo: top10Grupo
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})

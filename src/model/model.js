@@ -510,11 +510,49 @@ const tiempoGrupo = async (code, mes) => {
     c = c.slice(0, -1) 
     c = c + ')'
 
-    let query2 = `select sum(total_time) as total_time, sum(time_unnas) as time_unnas, sum(time_pelo) as time_pelo, sum(time_morder) as time_morder, sum(time_vista) as time_vista  from (select * from sesions where id_user in ${c} and mes = ${mes}  order by id desc limit 15) as t1`
+    let query2 = `select sum(total_time) as total_time, sum(time_unnas) as time_unnas, sum(time_pelo) as time_pelo, sum(time_morder) as time_morder, sum(time_vista) as time_vista  from (select * from sesions where id_user in ${c} and mes = ${mes} order by id desc limit 15) as t1`
     const res2 = await conexion.query(query2)
     const result2 = res2.rows
     return result2
 }
+
+
+const totalesGrupo = async (code, mes) => {
+    let query = `select participantes from grupos where code = '${code}'`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    p = result[0]['participantes']
+    c = '('
+    p.forEach( m => {
+        c = c + m.toString() + ','
+    });
+    c = c.slice(0, -1) 
+    c = c + ')'
+
+    let query2 = `select sum(cant_total_unnas) as total_unnas, sum(cant_total_pelo) as total_pelo, sum(cant_total_morder) as total_morder, sum(cant_total_vista) as total_vista, sum(cant_total_pestaneo) as total_pestaneo  from (select * from sesions where id_user in ${c} and mes = ${mes} order by id desc) as t1`
+    const res2 = await conexion.query(query2)
+    const result2 = res2.rows
+    return result2
+}
+
+const top10Grupo = async (code, mes) => {
+    let query = `select participantes from grupos where code = '${code}'`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    p = result[0]['participantes']
+    c = '('
+    p.forEach( m => {
+        c = c + m.toString() + ','
+    });
+    c = c.slice(0, -1) 
+    c = c + ')'
+
+    let query2 = `select * from (select sesions.*, rank() over (partition by id_user order by id desc) from sesions where mes = ${mes}) as t1 where id_user in ${c} and rank < 11`
+    const res2 = await conexion.query(query2)
+    const result2 = res2.rows
+    return result2
+}
+
 
 // select sum(time_unnas) from (select * from sesions where id_user in (2,5) order by id desc limit 15) as t1
 //select * from sesions where id_user in (2,5) and EXTRACT(month from inicio) = 10  order by id desc limit 15
@@ -528,4 +566,4 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
               sesionesMesUnha, sesionesMesMorder, sesionesMesPelo, mejorMesUnhas,
               peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder, createVista, createPestaneo,
               createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo, quitarSolicitud,
-            tiempoGrupo}
+            tiempoGrupo, totalesGrupo, top10Grupo}

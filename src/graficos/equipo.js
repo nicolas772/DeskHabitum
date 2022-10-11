@@ -1,10 +1,16 @@
 let id_grupo, code
 let tiempo_total, tiempo_optimo, tiempo_unnas, tiempo_pelo, tiempo_morder, tiempo_vista, tiempo_postura, tiempo_manias
 let tiempo_total_ant, tiempo_optimo_ant, tiempo_unnas_ant, tiempo_pelo_ant, tiempo_morder_ant, tiempo_vista_ant, tiempo_postura_ant, tiempo_manias_ant
+let equipo_total_manias, equipo_total_vista, equipo_total_postura
+let equipo_10_manias = [0,0,0,0,0,0,0,0,0,0], equipo_10_vista = [0,0,0,0,0,0,0,0,0,0], equipo_postura = [], aux = -1, aux2 = 0
+let numero_participantes
 let ID_LIDER = window.api.get_user_id("")
 let date = new Date();
 let mes_anterior = date.getMonth()
 let mes_actual = date.getMonth()+1
+
+const monthNames = ["Enero", "Febrero", "Marzo", "Abrir", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+];
 
 async function update_dash_general_equipos() {
   await window.api.getCodeGrupo(ID_LIDER).then(result => {
@@ -142,16 +148,65 @@ async function update_dash_general_equipos() {
   var chart_equipo2 = new ApexCharts(document.getElementById("chart_equipo2"), equipo_2);
   chart_equipo2.render();
 
+  //DATOS PARA LOS SGTS GRAFICOS
 
+  
+  await window.api.getParticipantesGrupo(code).then(result => {
+    numero_participantes = result.length
+  })
+
+  //let equipo_10_manias = [0,0,0,0,0,0,0,0,0,0], equipo_10_vista = [0,0,0,0,0,0,0,0,0,0], equipo_postura = [], aux = -1, aux2 = 0
+  let datos;
+  await window.api.top10Grupo(code, mes_actual).then(result => {
+    datos = result
+    aux = datos[0]['id_user']
+    })
+   
+
+  for (let m = 0; m < numero_participantes; m++) {
+    if (aux2>datos.length-1) {
+      break
+    }
+    for (let i = 0; i < 11; i++) {
+      if (aux2>datos.length-1) {
+        break
+      }
+
+      if (aux != datos[aux2]['id_user']) {
+        aux = datos[aux2]['id_user']
+        break
+     }
+     
+     equipo_10_vista[i] = equipo_10_vista[i] + datos[aux2]['cant_total_vista'] + datos[aux2]['cant_total_pestaneo']
+     equipo_10_manias[i] = equipo_10_manias[i] + datos[aux2]['cant_total_unnas'] + datos[aux2]['cant_total_pelo'] + datos[aux2]['cant_total_morder']
+     aux2 = aux2 + 1      
+    }
+
+
+  }
+  equipo_10_manias.reverse()
+  equipo_10_vista.reverse()
+  
+
+  //variables equipo_total_manias, equipo_total_vista, equipo_total_postura
+  await window.api.totalesGrupo(code, mes_actual).then(result => {
+    equipo_total_manias = parseInt(result[0]['total_unnas']) + parseInt(result[0]['total_pelo']) + parseInt(result[0]['total_morder'])
+    equipo_total_vista = parseInt(result[0]['total_vista']) + parseInt(result[0]['total_pestaneo'])
+    //agregar cuando se implemente
+    equipo_total_postura = 0
+
+  })
 
   //-----EQUIPO DASH MANIA
+
+  manias_grupo(equipo_10_manias[0], equipo_total_manias)
 
   var equipo_manias = {
     
     series: [{
     name: 'Total',
     type: 'area',
-    data: [44, 55, 31, 47, 31, 43, 26, 41, 31, 47, 33],
+    data: equipo_10_manias,
   }],
 
     chart: {
@@ -203,12 +258,15 @@ async function update_dash_general_equipos() {
 
 
   //-----equipo dash fatiga visual
+
+  vista_grupo(equipo_10_vista[0], equipo_total_vista)
+
   var equipo_fatiga1 = {
     
     series: [{
     name: 'Total',
     type: 'area',
-    data: [84, 55, 31, 47, 81, 43, 26, 41, 31, 47, 33],
+    data: equipo_10_vista,
   }],
 
     chart: {
@@ -306,6 +364,20 @@ async function update_dash_general_equipos() {
 
   var chart_equipopostura1= new ApexCharts(document.querySelector("#chart_equipopostura1"), equipo_postura1);
   chart_equipopostura1.render();
+}
+
+
+async function manias_grupo(total_equipo_sesion, total_equipo_mes){
+    document.getElementById("ultima-sesion-unhas-grupo").innerHTML = total_equipo_sesion;
+    document.getElementById("total-detecciones-unhas-grupo").innerHTML = total_equipo_mes;
+}
+
+
+
+
+async function vista_grupo(total_equipo_sesion, total_equipo_mes){
+  document.getElementById("ultima-sesion-vista-grupo").innerHTML = total_equipo_sesion;
+  document.getElementById("total-detecciones-vista-grupo").innerHTML = total_equipo_mes;
 }
 
 
