@@ -4,23 +4,12 @@ const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
 
 
-model.cantDeteccionesFatigaPorMinutoTenSesion(2).then(r => console.log(r));
+//model.cantDeteccionesFatigaPorMinutoTenSesion(2).then(r => console.log(r));
 
 let winlogin;
 let win, camera_win;
 
 let ID_USER;
-
-model.totalSesionTimeMorder(64).then(r=>{
-  r = parseInt(r)
-  console.log(r)
-  if (typeof(r)==Object) {
-    console.log(r)
-    console.log("Distinto de string")
-  } else {
-    console.log("normal")
-  }  
-})
 
 
 const createWindow = () => {

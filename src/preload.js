@@ -454,6 +454,18 @@ const datosUltimaSesionPomodoro = (id_user) => {
     return model.datosUltimaSesionPomodoro(id_user)
 }
 
+const ultimaVista = (id_user) => {
+    return model.ultimaVista(id_user)
+}
+
+const totalVista = (id_user) => {
+    return model.totalVista(id_user)
+}
+
+const top10Vista = (id_user) => {
+    return model.top10Vista(id_user)
+}
+
 const readConsejoFile = () => {
     let rawdata = fs.readFileSync('./src/data/consejoHandle.json');
     let consejo = JSON.parse(rawdata);
@@ -549,7 +561,11 @@ contextBridge.exposeInMainWorld("api", {
     countPestaneoSesion: countPestaneoSesion,
     countVistaSesion:countVistaSesion,
     datosUltimaSesionPomodoro: datosUltimaSesionPomodoro,
-    cantDeteccionesFatigaPorMinutoTenSesion: cantDeteccionesFatigaPorMinutoTenSesion
+    cantDeteccionesFatigaPorMinutoTenSesion: cantDeteccionesFatigaPorMinutoTenSesion,
+    datosUltimaSesionPomodoro: datosUltimaSesionPomodoro,
+    ultimaVista: ultimaVista,
+    totalVista: totalVista,
+    top10Vista: top10Vista
 })
 
 module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id }
