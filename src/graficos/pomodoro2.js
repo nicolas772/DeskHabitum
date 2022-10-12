@@ -3,13 +3,14 @@
 var dataHabitosUltimoPomodoro= {
   series: [44,33,22,10],
   chart: {
-    height:300,
+    height:187.7,
     width:400,
   type: 'donut',
+  
 },
 labels: ['Tiempo Onicofagia', 'Tiempo Tricotilomanía', 'Tiempo Morder objetos', 'Tiempo Óptimo'],
 responsive: [{
-  breakpoint: 480,
+  breakpoint: 200,
   options: {
     chart: {
       height:200,
