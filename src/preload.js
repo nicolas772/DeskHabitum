@@ -446,6 +446,18 @@ const datosUltimaSesionPomodoro = (id_user) => {
     return model.datosUltimaSesionPomodoro(id_user)
 }
 
+const ultimaVista = (id_user) => {
+    return model.ultimaVista(id_user)
+}
+
+const totalVista = (id_user) => {
+    return model.totalVista(id_user)
+}
+
+const top10Vista = (id_user) => {
+    return model.top10Vista(id_user)
+}
+
 
 
 
@@ -539,7 +551,10 @@ contextBridge.exposeInMainWorld("api", {
     leer_pomodoro: leer_pomodoro,
     fecha_inicio_sesion: fecha_inicio_sesion,
     quitarDelGrupo: quitarDelGrupo,
-    datosUltimaSesionPomodoro: datosUltimaSesionPomodoro
+    datosUltimaSesionPomodoro: datosUltimaSesionPomodoro,
+    ultimaVista: ultimaVista,
+    totalVista: totalVista,
+    top10Vista: top10Vista
 })
 
 module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id }

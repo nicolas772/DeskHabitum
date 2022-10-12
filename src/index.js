@@ -4,23 +4,17 @@ const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
 
 
-model.datosUltimaSesionPomodoro(25).then(r => console.log(r));
+model.top10Vista(25).then(result => {
+  let datos = result
+  console.log(datos)
+  console.log(datos[0])
+  console.log(datos[0]['total_time'])
+});
 
 let winlogin;
 let win, camera_win;
 
 let ID_USER;
-
-model.totalSesionTimeMorder(64).then(r=>{
-  r = parseInt(r)
-  console.log(r)
-  if (typeof(r)==Object) {
-    console.log(r)
-    console.log("Distinto de string")
-  } else {
-    console.log("normal")
-  }  
-})
 
 
 const createWindow = () => {

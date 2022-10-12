@@ -381,11 +381,34 @@ const createVista = async (id_usuario, id_sesion, inicio, final, total_time) => 
     const res = await conexion.query(query)
 }
 
+
+
 //QUERYS PESTANEO
 
 const createPestaneo = async (id_usuario, id_sesion, inicio, final, total_time) => {
     let query = `INSERT INTO pestaneo (id_user, id_ses, inicio, fin, total_time) VALUES (${id_usuario}, '${id_sesion}','${inicio}', '${final}', '${total_time}')`;
     const res = await conexion.query(query)
+}
+
+const ultimaVista = async (id_usuario) => {
+    let query = `select cant_total_vista+cant_total_pestaneo as total_vision from sesions where id_user = ${id_usuario} order by id desc limit 1`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['total_vision']    
+}
+
+const totalVista = async (id_usuario) => {
+    let query = `select sum(cant_total_vista+cant_total_pestaneo) as total_vision from sesions where id_user = ${id_usuario}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['total_vision']    
+}
+
+const top10Vista = async (id_usuario) => {
+    let query = `select total_time, cant_total_vista+cant_total_pestaneo as total_vista from sesions where id_user = ${id_usuario} order by id desc limit 10`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result   
 }
 
 //QUERYS CONFIG
@@ -638,4 +661,5 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
               sesionesMesUnha, sesionesMesMorder, sesionesMesPelo, mejorMesUnhas,
               peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder, createVista, createPestaneo,
               createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo, quitarSolicitud,
-            tiempoGrupo, totalesGrupo, top10Grupo, /*nuevas*/ getCodeGrupoUser, peorSesionPomodoro, mejorSesionPomodoro, ultimaSesionPomodoro, contarSesionPomodoro, contarMesPomodoro, datosTotalesPomodoro, updateUserData, datosUltimaSesionPomodoro}
+            tiempoGrupo, totalesGrupo, top10Grupo, getCodeGrupoUser, peorSesionPomodoro, mejorSesionPomodoro, ultimaSesionPomodoro, contarSesionPomodoro, contarMesPomodoro, datosTotalesPomodoro, updateUserData, datosUltimaSesionPomodoro,
+        /*nuevas*/ ultimaVista, totalVista, top10Vista}
