@@ -2,11 +2,11 @@ const model = require('./model/model.js')
 const {contextBridge, ipcRenderer} = require("electron");
 var fs = require('fs');
 
+
 const leer_pomodoro = () => {
     let rawdata = fs.readFileSync('./src/data/pomodoro.json');
     return JSON.parse(rawdata);
 }
-
 
 const iniciar_pomodoro = () => {
     fs.writeFileSync('./src/data/pomodoroHandle.txt', "1", function(err) {
@@ -466,6 +466,6 @@ contextBridge.exposeInMainWorld("api", {
     quitarDelGrupo: quitarDelGrupo
 })
 
-module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id }
+module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id, getConfig, parar_pomodoro}
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
 //desde cualquier .js
