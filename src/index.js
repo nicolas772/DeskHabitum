@@ -144,6 +144,7 @@ ipcMain.handle('registrar', (event, obj) => {
 
 function regUser(obj) {
   const {nombre, apellido, email, password, lider } = obj
+  console.log(obj)
   model.confirmMail(email).then( existe =>
     {
       if (existe>0) {
