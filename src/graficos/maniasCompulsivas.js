@@ -159,6 +159,9 @@ async function update_dash_general() {
         xaxis: {
           categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
         },
+        yaxis:{
+          decimalsInFloat: 0,
+        },
         tooltip: {
           y: [
             {
@@ -261,6 +264,9 @@ async function update_dash_general() {
         },
         xaxis: {
           categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+        },
+        yaxis:{
+          decimalsInFloat: 0,
         }
       };
     
@@ -347,6 +353,9 @@ async function update_dash_general() {
       },
       xaxis: {
         categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+      },
+      yaxis:{
+        decimalsInFloat: 0,
       }
     };
     
@@ -569,6 +578,9 @@ async function update_dash_general() {
       },
       xaxis: {
         categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+      },
+      yaxis:{
+        decimalsInFloat: 0,
       }
     };
     
@@ -699,6 +711,7 @@ async function update_dash_general() {
     xaxis: {
       categories: categories_obj,
     },
+
     
     grid: {
       borderColor: '#f1f1f1',

@@ -93,6 +93,11 @@ async function actualizarSettings(){
     $('#duracionLongBreak ').val(config.duracionlongbreak)
     $('#intervaloLongBreak').val(config.intervalolongbreak)
     $('#cantidadPomodoros').val(config.cantidadpomodoros)
+    $('#duracionPomo1').val(config.duracionpomo)
+    $('#duracionShortBreak1').val(config.duracionshortbreak)
+    $('#duracionLongBreak1 ').val(config.duracionlongbreak)
+    $('#intervaloLongBreak1').val(config.intervalolongbreak)
+    $('#cantidadPomodoros1').val(config.cantidadpomodoros)
     if(config.tiponotificacion == 'tiempo'){
         $('#tiempoNotificacion').val(config.tiemponotificacion)
         $('#tipo-intervalo').hide()
