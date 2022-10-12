@@ -618,6 +618,13 @@ const datosTotalesPomodoro = async (userId) => {
     return result[0]    
 }
 
+const datosUltimaSesionPomodoro = async (userId) => {
+    let query = `select total_time, time_unnas, time_pelo, time_morder, time_vista from sesions where id_user = ${userId} and pomodoro = 'si' order by id desc limit 1`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result    
+}
+
 
 
 
@@ -631,4 +638,4 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
               sesionesMesUnha, sesionesMesMorder, sesionesMesPelo, mejorMesUnhas,
               peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder, createVista, createPestaneo,
               createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo, quitarSolicitud,
-            tiempoGrupo, totalesGrupo, top10Grupo, /*nuevas*/ getCodeGrupoUser, peorSesionPomodoro, mejorSesionPomodoro, ultimaSesionPomodoro, contarSesionPomodoro, contarMesPomodoro, datosTotalesPomodoro, updateUserData}
+            tiempoGrupo, totalesGrupo, top10Grupo, /*nuevas*/ getCodeGrupoUser, peorSesionPomodoro, mejorSesionPomodoro, ultimaSesionPomodoro, contarSesionPomodoro, contarMesPomodoro, datosTotalesPomodoro, updateUserData, datosUltimaSesionPomodoro}

@@ -442,6 +442,10 @@ const datosTotalesPomodoro = (id_user) => {
     return model.datosTotalesPomodoro(id_user)
 }
 
+const datosUltimaSesionPomodoro = (id_user) => {
+    return model.datosUltimaSesionPomodoro(id_user)
+}
+
 
 
 
@@ -534,7 +538,8 @@ contextBridge.exposeInMainWorld("api", {
     parar_pomodoro: parar_pomodoro,
     leer_pomodoro: leer_pomodoro,
     fecha_inicio_sesion: fecha_inicio_sesion,
-    quitarDelGrupo: quitarDelGrupo
+    quitarDelGrupo: quitarDelGrupo,
+    datosUltimaSesionPomodoro: datosUltimaSesionPomodoro
 })
 
 module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id }

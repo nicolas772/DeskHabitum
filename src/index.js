@@ -4,7 +4,7 @@ const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
 
 
-//model.getCodeGrupoUser(23).then(r => console.log(r[0]['code']));
+model.datosUltimaSesionPomodoro(25).then(r => console.log(r));
 
 let winlogin;
 let win, camera_win;
