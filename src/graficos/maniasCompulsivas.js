@@ -711,7 +711,7 @@ async function update_dash_general() {
     xaxis: {
       categories: categories_obj,
     },
-    
+
     
     grid: {
       borderColor: '#f1f1f1',
