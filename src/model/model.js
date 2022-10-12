@@ -396,7 +396,7 @@ const postConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fati
     const res = await conexion.query(query)
 }
 
-const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak) => {
+const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak, cantidadPomodoros) => {
     let query = `UPDATE config SET 
     morderunha='${morderUnha}', 
     morderobjetos='${morderObjetos}', 
@@ -411,7 +411,8 @@ const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fa
     duracionpomo='${duracionPomo}',
     duracionshortbreak='${duracionShortBreak}',
     duracionlongbreak='${duracionLongBreak}',
-    intervalolongbreak='${intervaloLongBreak}'
+    intervalolongbreak='${intervaloLongBreak}',
+    cantidadpomodoros='${cantidadPomodoros}'
     WHERE id_user = ${id_usuario}` ;
     const res = await conexion.query(query)
 }
