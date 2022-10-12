@@ -90,6 +90,9 @@ const getUserData = (id) => {
     return model.getUserData(id);
 }
 
+const updateUserData = (id_usuario, nombre, apellido, mail) => {
+    return model.updateUserData(id_usuario, nombre, apellido, mail);
+}
 
 const confirmMail = (email) => {
     return model.confirmMail(email);
@@ -160,8 +163,8 @@ const postConfig = (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisu
     return model.postConfig(id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion)
 }
 
-const updateConfig = (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak) => {
-    return model.updateConfig(id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak)
+const updateConfig = (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak, cantidadPomodoros) => {
+    return model.updateConfig(id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak, cantidadPomodoros)
 }
     
 
@@ -390,6 +393,60 @@ const quitarDelGrupo = (id_usuario, id_grupo) => {
     return model.quitarDelGrupo(id_usuario, id_grupo)
 }
 
+const addParticipante = (id_usuario, code) => {
+    return model.addParticipante(id_usuario, code)
+}
+
+const quitarSolicitud = (id_usuario, code) => {
+    return model.quitarSolicitud(id_usuario, code)
+}
+
+const tiempoGrupo = (code, mes) => {
+    return model.tiempoGrupo(code, mes)
+}
+
+const totalesGrupo = (code, mes) => {
+    return model.totalesGrupo(code, mes)
+}
+
+const top10Grupo = (code, mes) => {
+    return model.top10Grupo(code, mes)
+}
+
+const getCodeGrupoUser = (id_user) => {
+    return model.getCodeGrupoUser(id_user)
+}
+
+const peorSesionPomodoro = (id_user) => {
+    return model.peorSesionPomodoro(id_user)
+}
+
+const mejorSesionPomodoro = (id_user) => {
+    return model.mejorSesionPomodoro(id_user)
+}
+
+const ultimaSesionPomodoro = (id_user) => {
+    return model.ultimaSesionPomodoro(id_user)
+}
+
+const contarSesionPomodoro = (id_user) => {
+    return model.contarSesionPomodoro(id_user)
+}
+
+
+const contarMesPomodoro = (id_user, mes) => {
+    return model.contarMesPomodoro(id_user, mes)
+}
+
+const datosTotalesPomodoro = (id_user) => {
+    return model.datosTotalesPomodoro(id_user)
+}
+
+
+
+
+
+
 
 const readConsejoFile = () => {
     let rawdata = fs.readFileSync('./src/data/consejoHandle.json');
@@ -401,6 +458,7 @@ contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
     createUser: createUser,
     getUserData: getUserData,
+    updateUserData: updateUserData,
     createSesion: createSesion,
     getSesion: getSesion,
     lastSesion: lastSesion,
@@ -456,6 +514,19 @@ contextBridge.exposeInMainWorld("api", {
     getParticipantesGrupo: getParticipantesGrupo,
     getSolicitudesGrupo: getSolicitudesGrupo,
     getCodeGrupo: getCodeGrupo,
+    quitarDelGrupo: quitarDelGrupo,
+    addParticipante: addParticipante,
+    quitarSolicitud: quitarSolicitud,
+    tiempoGrupo: tiempoGrupo,
+    totalesGrupo: totalesGrupo,
+    top10Grupo: top10Grupo,
+    getCodeGrupoUser: getCodeGrupoUser,
+    peorSesionPomodoro: peorSesionPomodoro,
+    mejorSesionPomodoro: mejorSesionPomodoro,
+    ultimaSesionPomodoro: ultimaSesionPomodoro,
+    contarSesionPomodoro: contarSesionPomodoro,
+    contarMesPomodoro: contarMesPomodoro,
+    datosTotalesPomodoro: datosTotalesPomodoro,
     setConsejo: setConsejo,
     readConsejoFile: readConsejoFile,
     iniciar_pomodoro: iniciar_pomodoro,
