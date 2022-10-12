@@ -2,6 +2,41 @@ const model = require('./model/model.js')
 const {contextBridge, ipcRenderer} = require("electron");
 var fs = require('fs');
 
+const leer_pomodoro = () => {
+    let rawdata = fs.readFileSync('./src/data/pomodoro.json');
+    return JSON.parse(rawdata);
+}
+
+
+const iniciar_pomodoro = () => {
+    fs.writeFileSync('./src/data/pomodoroHandle.txt', "1", function(err) {
+        if (err) {
+          return console.log(err);
+        }
+    })
+}
+
+const pausar_pomodoro = () => {
+    fs.writeFileSync('./src/data/pomodoroHandle.txt', "0", function(err) {
+        if (err) {
+          return console.log(err);
+        }
+    })
+}
+
+const parar_pomodoro = () => {
+    fs.writeFileSync('./src/data/pomodoroHandle.txt', "2", function(err) {
+        if (err) {
+          return console.log(err);
+        }
+    })
+}
+
+const fecha_inicio_sesion = () => {
+    let inicio = fs.readFileSync('./src/data/inicio_fecha.txt')
+    return new Date(inicio)
+}
+
 const iniciar_camara = (d) => { //esta funcion es para manejar boton iniciar detección general
     //esto lo agrego al iniciar reconocimiento, ya que hay algunos casos en donde luego de detener la deteccion, igual sigue escribiendo datos en el json.
     fs.writeFileSync('./src/data/unhasSesion.json', '[]')//vaciar archivo
@@ -9,6 +44,10 @@ const iniciar_camara = (d) => { //esta funcion es para manejar boton iniciar det
     fs.writeFileSync('./src/data/objetoSesion.json', '[]')//vaciar archivo
     fs.writeFileSync('./src/data/vistaSesion.json', '[]')//vaciar archivo
     fs.writeFileSync('./src/data/pestaneoSesion.json', '[]')//vaciar archivo
+
+    //Se guarda la fecha de inicio de sesion
+    let inicio = new Date
+    fs.writeFileSync('./src/data/inicio_fecha.txt', inicio.toUTCString())
 
     fs.writeFileSync('./src/data/cameraHandle.txt', "1", function(err) {
         if (err) {
@@ -51,6 +90,9 @@ const getUserData = (id) => {
     return model.getUserData(id);
 }
 
+const updateUserData = (id_usuario, nombre, apellido, mail) => {
+    return model.updateUserData(id_usuario, nombre, apellido, mail);
+}
 
 const confirmMail = (email) => {
     return model.confirmMail(email);
@@ -121,8 +163,8 @@ const postConfig = (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisu
     return model.postConfig(id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion)
 }
 
-const updateConfig = (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak) => {
-    return model.updateConfig(id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak)
+const updateConfig = (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak, cantidadPomodoros) => {
+    return model.updateConfig(id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak, cantidadPomodoros)
 }
     
 
@@ -342,16 +384,81 @@ const getCodeGrupo = (id_lider) => {
     return model.getCodeGrupo(id_lider)
 }
 
+const setConsejo = (obj) => {
+    fs.writeFileSync('./src/data/consejoHandle.json', '')//vaciar archivo
+    let insert = JSON.stringify(obj)
+    fs.writeFileSync('./src/data/consejoHandle.json', insert)//vaciar archivo
+}
 const quitarDelGrupo = (id_usuario, id_grupo) => {
     return model.quitarDelGrupo(id_usuario, id_grupo)
 }
 
+const addParticipante = (id_usuario, code) => {
+    return model.addParticipante(id_usuario, code)
+}
 
+const quitarSolicitud = (id_usuario, code) => {
+    return model.quitarSolicitud(id_usuario, code)
+}
+
+const tiempoGrupo = (code, mes) => {
+    return model.tiempoGrupo(code, mes)
+}
+
+const totalesGrupo = (code, mes) => {
+    return model.totalesGrupo(code, mes)
+}
+
+const top10Grupo = (code, mes) => {
+    return model.top10Grupo(code, mes)
+}
+
+const getCodeGrupoUser = (id_user) => {
+    return model.getCodeGrupoUser(id_user)
+}
+
+const peorSesionPomodoro = (id_user) => {
+    return model.peorSesionPomodoro(id_user)
+}
+
+const mejorSesionPomodoro = (id_user) => {
+    return model.mejorSesionPomodoro(id_user)
+}
+
+const ultimaSesionPomodoro = (id_user) => {
+    return model.ultimaSesionPomodoro(id_user)
+}
+
+const contarSesionPomodoro = (id_user) => {
+    return model.contarSesionPomodoro(id_user)
+}
+
+
+const contarMesPomodoro = (id_user, mes) => {
+    return model.contarMesPomodoro(id_user, mes)
+}
+
+const datosTotalesPomodoro = (id_user) => {
+    return model.datosTotalesPomodoro(id_user)
+}
+
+
+
+
+
+
+
+const readConsejoFile = () => {
+    let rawdata = fs.readFileSync('./src/data/consejoHandle.json');
+    let consejo = JSON.parse(rawdata);
+    return consejo
+}
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
     createUser: createUser,
     getUserData: getUserData,
+    updateUserData: updateUserData,
     createSesion: createSesion,
     getSesion: getSesion,
     lastSesion: lastSesion,
@@ -407,8 +514,29 @@ contextBridge.exposeInMainWorld("api", {
     getParticipantesGrupo: getParticipantesGrupo,
     getSolicitudesGrupo: getSolicitudesGrupo,
     getCodeGrupo: getCodeGrupo,
+    quitarDelGrupo: quitarDelGrupo,
+    addParticipante: addParticipante,
+    quitarSolicitud: quitarSolicitud,
+    tiempoGrupo: tiempoGrupo,
+    totalesGrupo: totalesGrupo,
+    top10Grupo: top10Grupo,
+    getCodeGrupoUser: getCodeGrupoUser,
+    peorSesionPomodoro: peorSesionPomodoro,
+    mejorSesionPomodoro: mejorSesionPomodoro,
+    ultimaSesionPomodoro: ultimaSesionPomodoro,
+    contarSesionPomodoro: contarSesionPomodoro,
+    contarMesPomodoro: contarMesPomodoro,
+    datosTotalesPomodoro: datosTotalesPomodoro,
+    setConsejo: setConsejo,
+    readConsejoFile: readConsejoFile,
+    iniciar_pomodoro: iniciar_pomodoro,
+    pausar_pomodoro: pausar_pomodoro,
+    parar_pomodoro: parar_pomodoro,
+    leer_pomodoro: leer_pomodoro,
+    fecha_inicio_sesion: fecha_inicio_sesion,
     quitarDelGrupo: quitarDelGrupo
 })
 
+module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id }
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})
 //desde cualquier .js

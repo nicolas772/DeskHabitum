@@ -1,111 +1,111 @@
 [
     {
-        "habito": "unhas",
+        "habito": "unha",
         "consejos": [
             {
-                "nivel": 1,
+                "nivel": "Bajo",
                 "data": [
                     {   
-                        "titulo": "unha titulo 1 n1",
-                        "c": "unha consejo 1 n1"
+                        "titulo": "Consejo 1: Técnicas saludables",
+                        "c": "Para evitar morderte las uñas, utiliza técnicas saludables para manejar el estrés, cómo hacer ejercicio o practicar tu hobby favorito.",
+                        "img": "../images/consejos/unha1n1.jpeg",
+                        "p": "Para evitar morderte las uñas, utiliza técnicas saludables para manejar el estrés, cómo hacer ejercicio, practicar tu hobby favorito, y evitar situaciones que te generen algún grado de estrés."
                     },
                     {
-                        "titulo": "unha titulo 2 n1",
-                        "c": "consejo 2 n1 unha"
+                        "titulo": "Consejo 2: Evita posibles vicios",
+                        "c": "Evita aliviar el estrés de maneras poco saludables, como comer en exceso, fumar cigarrillos, beber alcohol, dormir demasiado o no dormir lo suficiente.",
+                        "img": "../images/consejos/unha2n1.jpeg",
+                        "p": "Evita aliviar el estrés de maneras poco saludables, como comer en exceso, fumar cigarrillos, beber alcohol, dormir demasiado o no dormir lo suficiente."
                     }
                 ]
             },
             {
-                "nivel": 2,
+                "nivel": "Medio",
                 "data": [
                     {   
-                        "titulo": "unha titulo 1 n2",
-                        "c": "unha consejo 1 n2"
+                        "titulo": "Consejo 1: Toma conciencia",
+                        "c": "Toma conciencia sobre cuáles son las razones que te estimulan a  llevarte los dedos a la boca, como estudiar, leer, nervios o ansiedad.",
+                        "img": "../images/consejos/unha1n2.jpeg",
+                        "p": "Toma conciencia sobre cuáles son las razones que te estimulan a  llevarte los dedos a la boca, como estudiar, leer, nervios o ansiedad."
                     },
                     {
-                        "titulo": "unha titulo 2 n2",
-                        "c": "unha consejo 2 n2"
+                        "titulo": "Consejo 2: Busca un gustito.",
+                        "c": "Puedes buscar un sustituto, como un caramelo, goma de mascar, comer una fruta, o utilizar pelotas de goma antiestrés.",
+                        "img": "../images/consejos/unha2n2.jpeg",
+                        "p": "Puedes buscar un sustituto, como un caramelo, goma de mascar, comer una fruta, o utilizar pelotas de goma antiestrés. De esta forma estarás ayudando a tu organismo a reducir la ansiedad."
                     },
                     {
-                        "titulo": "unha titulo 3 n2",
-                        "c": "unha consejo 3 n2"
-                    },
-                    {
-                        "titulo": "unha titulo 4 n2",
-                        "c": "unha consejo 4 n2"
+                        "titulo": "Consejo 3: Consigue un esmalte",
+                        "c": "Consigue un esmalte para evitar onicofagia en farmacias o perfumerías, son específicamente creados para esto porque saben y huelen mal.",
+                        "img": "../images/consejos/unha3n2.jpeg",
+                        "p": "Consigue un esmalte para evitar onicofagia. En las farmacias y perfumerías se consiguen esmaltes específicamente creados para evitar la onicofagia, porque saben y huelen mal."
                     }
                 ]
             },
             {
-                "nivel": 3,
+                "nivel": "Alto",
                 "data": [
                     {   
-                        "titulo": "unha titulo 1 n3",
-                        "c": "unha consejo 1 n3"
+                        "titulo": "Consejo 1: Ayuda profesional",
+                        "c": "Si el problema persiste debido a un estado constante de ansiedad o estrés, consultar con un profesional puede ser de gran ayuda.",
+                        "img": "../images/consejos/unha1n3.jpeg",
+                        "p": "Busca ayuda profesional. Si el problema persiste debido a un estado constante de ansiedad o estrés, consultar con un profesional puede ser de gran ayuda. Recuerda que comerte las uñas reiteradamente puede llevar a serios problemas de salud."
                     },
                     {
-                        "titulo": "unha titulo 2 n3",
-                        "c": "unha consejo 2 n3"
+                        "titulo": "Consejo 2: Metas alcanzables",
+                        "c": "Si parece imposible dejar de comerse las uñas, se puede comenzar poco a poco, dejando de hacerlo en una mano por ejemplo, o establecer límites diarios.",
+                        "img": "../images/consejos/unha2n3.jpeg",
+                        "p": "Recuerda ponerte metas alcanzables. Si parece imposible dejar de comerse las uñas, se puede comenzar poco a poco, dejando de hacerlo en una mano por ejemplo, o establecer límites diarios."
                     },
                     {
-                        "titulo": "unha titulo 3 n3",
-                        "c": "unha consejo 3 n3"
+                        "titulo": "Consejo 3: Mastica jengibre.",
+                        "c": "Masticar un pedacito de raíz de jengibre puede servir para disminuir la ansiedad que hace que te muerdas las uñas de manera excesiva.",
+                        "img": "../images/consejos/unha3n3.jpeg",
+                        "p": "Masticar un pedacito de raíz de jengibre previamente lavado. Esto puede servir para disminuir la ansiedad que hace que te muerdas las uñas de manera excesiva."
                     }
                 ]
             }
         ]
     },
     {
-        "habito": "morder objetos",
+        "habito": "morder",
         "consejos": [
             {
-                "nivel": 1,
+                "nivel": "Bajo",
                 "data": [
                     {   
-                        "titulo": "morder titulo 1 n1",
-                        "c": "morder consejo 1 n1"
-                    },
-                    {
-                        "titulo": "morder titulo 2 n1",
-                        "c": "morder consejo 2 n1"
+                        "titulo": "Consejo 1: Disminuye tu estrés",
+                        "c": "Para evitar el estrés una buena opción es practicar técnicas de respiración y relajación. También puedes hacer ejercicio por al menos 30 minutos al día.",
+                        "img": "../images/consejos/morder1n1.jpeg",
+                        "p": "Combate o disminuye el estrés:  Para evitar o combatir el estrés una buena opción es practicar técnicas de respiración y relajación. También puedes hacer ejercicio por al menos 30 minutos al día."
                     }
                 ]
             },
             {
-                "nivel": 2,
+                "nivel": "Medio",
                 "data": [
                     {   
-                        "titulo": "morder titulo 1 n2",
-                        "c": "morder consejo 1 n2"
+                        "titulo": "Consejo 1: Distrae tus manos",
+                        "c": "Para esto puedes usar pelotas o juguetes antiestrés o algún objeto suave que puedas presionar para liberar estrés",
+                        "img": "../images/consejos/morder1n2.jpeg",
+                        "p": "Mantén tus manos ocupadas. Para esto puedes usar pelotas o juguetes antiestrés o algún objeto suave que puedas presionar para liberar estrés."
                     },
                     {
-                        "titulo": "morder titulo 2 n2",
-                        "c": "morder consejo 2 n2"
-                    },
-                    {
-                        "titulo": "morder titulo 3 n2",
-                        "c": "morder consejo 3 n2"
-                    },
-                    {
-                        "titulo": "morder titulo 4 n2",
-                        "c": "morder consejo 4 n2"
+                        "titulo": "Consejo 2: Mastica chicle.",
+                        "c": "Si no puedes controlar el impulso de morder objetos, intenta masticar chicle para evitar morder objetos que puedan ocasionar infecciones o problemas de salud.",
+                        "img": "../images/consejos/morder2n2.jpeg",
+                        "p": "Mastica chicle: Si no puedes controlar el impulso de morder objetos, intenta masticar chicle. De esta manera puedes evitar morder objetos que puedan ocasionar infecciones o problemas de salud, mientras buscas ayuda o desarrollas hábitos más saludables."
                     }
                 ]
             },
             {
-                "nivel": 3,
+                "nivel": "Alto",
                 "data": [
                     {   
-                        "titulo": "morder titulo 1 n3",
-                        "c": "morder consejo 1 n3"
-                    },
-                    {
-                        "titulo": "morder titulo 2 n3",
-                        "c": "morder consejo 2 n3"
-                    },
-                    {
-                        "titulo": "morder titulo 3 n3",
-                        "c": "morder consejo 3 n3"
+                        "titulo": "Consejo 1: Cambia costumbres.",
+                        "c": "Si muerdes cosas por costumbre, podrías considerar asistir a un programa de modificación de conducta, donde te ayudarán a disminuir acciones no adaptativas.",
+                        "img": "../images/consejos/morder1n3.jpeg",
+                        "p": "Si muerdes cosas por costumbre, podrías considerar asistir a un programa de modificación de conducta, donde te ayudarán a reforzar las conductas adaptativas mientras se disminuyen o eliminar las costumbres no adaptativas."
                     }
                 ]
             }
@@ -115,165 +115,207 @@
         "habito": "pelo",
         "consejos": [
             {
-                "nivel": 1,
+                "nivel": "Bajo",
                 "data": [
                     {   
-                        "titulo": "pelo titulo 1 n1",
-                        "c": "pelo consejo 1 n1"
+                        "titulo": "Consejo 1: Ponte guantes.",
+                        "c": "La manía se presenta por tensiones de tu organismo y usar guantes o parches puede ser útil para hacer más consciente el movimiento de tus manos.",
+                        "img": "../images/consejos/pelo1n1.jpeg",
+                        "p": "Ponte guantes o parches en los dedos. Recuerda que la manía se presenta por tensiones de tu organismo y bloquearla con guantes o parches no ayudará completamente a que se libere la tensión, pero pueden ser útiles para hacer más consciente el movimiento de tus manos, para luego buscar otro medio de distracción que libere tus tensiones. "
                     },
                     {
-                        "titulo": "pelo titulo 2 n1",
-                        "c": "pelo consejo 2 n1"
+                        "titulo": "Consejo 2: Haz ejercicio",
+                        "c": "Hacer ejercicio es una forma que ayuda a tu cuerpo a liberar tensiones. Realiza actividad física cuando tengas tiempo.",
+                        "img": "../images/consejos/pelo2n1.jpeg",
+                        "p": "Haz ejercicio. Hacer ejercicio es una forma que ayuda a tu cuerpo a liberar tensiones. Realiza actividad física cuando tengas tiempo."
+                    },
+                    {
+                        "titulo": "Consejo 3: Medita.",
+                        "c": "Para ayudarte a dejar esta manía, te recomendamos meditar para evitar que surja la tensión previa a la manía.",
+                        "img": "../images/consejos/pelo3n1.jpeg",
+                        "p": "Medita. Hemos notado que la manía de arrancarse los cabellos casi no se presenta, felicitaciones. Para ayudarte a dejar esta manía, te recomendamos realizar acciones que eviten que surja la tensión previa a la manía. Por ejemplo, con la meditación, busca alguna que te ayude a aceptar el proceso interno de liberación de tensiones de tu organismo, que te ayuden a estar presente y tranquilo."
                     }
                 ]
             },
             {
-                "nivel": 2,
+                "nivel": "Medio",
                 "data": [
                     {   
-                        "titulo": "pelo titulo 1 n2",
-                        "c": "pelo consejo 1 n2"
+                        "titulo": "Cambio de hábito.",
+                        "c": "Dedica 3 a 5 segundos a realizar un movimiento alternativo, por ejemplo, acariciar los hombros, apretar los puños, o abrir y cerrar las manos repetidamente.",
+                        "img": "../images/consejos/pelo1n2.jpeg",
+                        "p": "Realiza entrenamiento de cambio de hábito. Con el monitoreo y las notificaciones te entrenaremos para realizar el cambio de hábito. Cada vez que recibas una notificación de detección de esta manía, dedica 3 a 5 segundos a realizar un movimiento alternativo, por ejemplo, acariciar los hombros, apretar los puños, abrir y cerrar las manos repetidamente o usar algún objeto de distracción cualquiera. Si logras detenerte antes de arrancarte el pelo, también te recomendamos realizar los movimientos alternativos. Y así tu cerebro se acomodará a estos movimientos para liberar tensiones internas."
                     },
                     {
-                        "titulo": "pelo titulo 2 n2",
-                        "c": "pelo consejo 2 n2"
+                        "titulo": "Consejo 2: Respiración profunda.",
+                        "c": "Te recomendamos realizar ejercicios de respiración consciente y profunda hasta que desaparezca el impulso de arrancarse el pelo",
+                        "img": "../images/consejos/pelo2n2.jpeg",
+                        "p": "Realiza ejercicios de respiración profunda. Hemos notado que la manía en ocasiones se muestra con intensidad, si detenerla pareciera complicado, te recomendamos realizar ejercicios de respiración consciente y profunda hasta que desaparezca el impulso de arrancarse el pelo. Puedes buscar también otras alternativas de meditación."
                     },
                     {
-                        "titulo": "pelo titulo 3 n2",
-                        "c": "pelo consejo 3 n2"
-                    },
-                    {
-                        "titulo": "pelo titulo 4 n2",
-                        "c": "pelo consejo 4 n2"
+                        "titulo": "Consejo 3: Realiza descansos.",
+                        "c": "Te recomendamos que destines un tiempo mayor para liberar tensiones que producen la recaída, puedes meditar, realizar una caminata, hablar con alguien, etc.",
+                        "img": "../images/consejos/pelo3n2.jpeg",
+                        "p": "Realizar descansos. Hemos notado que la manía es persistente en algunos casos, te recomendamos que cuando esto ocurra, destines un tiempo mayor para liberar tensiones que producen la recaída, puedes meditar, realizar una caminata, hablar con alguien, etc."
                     }
                 ]
             },
             {
-                "nivel": 3,
+                "nivel": "Alto",
                 "data": [
                     {   
-                        "titulo": "pelo titulo 1 n3",
-                        "c": "pelo consejo 1 n3"
+                        "titulo": "Consejo 1: Ayuda profesional.",
+                        "c": "Si sientes que necesitas más ayuda, te recomendamos contactar con algún profesional para que realice un diagnóstico y te dé una ayuda complementaria.",
+                        "img": "../images/consejos/pelo1n3.jpeg",
+                        "p": "Contactar a un profesional. Para empezar a realizar el cambio, es necesario primero que veas este proceso como algo natural, una forma de tu organismo, para liberar tensiones, realiza actividades que te ayuden a disminuirla. Si sientes que necesitas más ayuda, te recomendamos contactar con algún profesional para que realice un diagnóstico y te dé una ayuda complementaria."
                     },
                     {
-                        "titulo": "pelo titulo 2 n3",
-                        "c": "pelo consejo 2 n3"
-                    },
-                    {
-                        "titulo": "pelo titulo 3 n3",
-                        "c": "pelo consejo 3 n3"
+                        "titulo": "Consejo 2: No estás solo.",
+                        "c": "Conversar con otras personas en la misma situación ayuda a entender el proceso que estás viviendo, permitiendo aceptarlo y facilitar la sanación interna.",
+                        "img": "../images/consejos/pelo2n3.jpeg",
+                        "p": "Encuentra grupos de ayuda. Existen numerosos grupos en redes sociales con la misma condición tuya, no estás solo. Conversar con otras personas en la misma situación ayuda a entender el proceso que estás viviendo, permitiendo aceptarlo y facilitar la sanación interna."
                     }
                 ]
             }
         ]
     },  
     {
-    "habito": "fatiga ocular",
+    "habito": "fatiga",
     "consejos": [
         {
-            "nivel": 1,
+            "nivel": "Bajo",
             "data": [
                 {   
-                    "titulo": "titulo 1 n1",
-                    "c": "consejo 1 n1"
+                    "titulo": "Consejo 1: Toma descansos.",
+                    "c": "Cuando realices un trabajo minucioso, toma descansos ocasionales y descansa los ojos mirando hacia otra dirección diferente de la pantalla digital.",
+                    "img": "../images/consejos/fatiga1n1.jpeg",
+                    "p": "Toma descansos. Cuando realices un trabajo minucioso, toma descansos ocasionales y descansa los ojos mirando hacia otra dirección diferente de la pantalla digital."
                 },
                 {
-                    "titulo": "titulo 2 n1",
-                    "c": "consejo 2 n1"
+                    "titulo": "Consejo 2: Ajusta tu pantalla.",
+                    "c": "Agranda el tipo de letra para que te resulte más fácil leer. Ajusta el contraste y el brillo a un nivel que te resulte agradable.",
+                    "img": "../images/consejos/fatiga2n1.jpeg",
+                    "p": "Ajusta la configuración de la pantalla. Agranda el tipo de letra para que te resulte más fácil leer. Ajusta el contraste y el brillo a un nivel que te resulte agradable."
                 }
             ]
         },
         {
-            "nivel": 2,
+            "nivel": "Medio",
             "data": [
                 {   
-                    "titulo": "titulo 1 n2",
-                    "c": "consejo 1 n2"
+                    "titulo": "Consejo 1: Descansa la vista",
+                    "c": "Prueba la regla 20-20-20: Cada 20 minutos, mira objetos que estén a unos 20 pies (unos 6 metros) de distancia durante al menos 20 segundos.",
+                    "img": "../images/consejos/fatiga1n2.jpeg",
+                    "p": "Descansa la vista. A lo largo del día, quita los ojos del monitor para descansar la vista. Prueba la regla 20-20-20: Cada 20 minutos, mira objetos que estén a unos 20 pies (unos 6 metros) de distancia durante al menos 20 segundos."
                 },
                 {
-                    "titulo": "titulo 2 n2",
-                    "c": "consejo 2 n2"
+                    "titulo": "Consejo 2: Refresca tus ojos",
+                    "c": "Pestañear produce lágrimas que humedecen y refrescan los ojos. Trata de adoptar la costumbre de pestañear con más frecuencia cuando miras un monitor.",
+                    "img": "../images/consejos/fatiga2n2.jpeg",
+                    "p": "Pestañea con frecuencia para refrescar los ojos. Muchas personas pestañean menos de lo habitual cuando trabajan con una computadora, lo que puede contribuir a la sequedad ocular. Pestañear produce lágrimas que humedecen y refrescan los ojos. Trata de adoptar la costumbre de pestañear con más frecuencia cuando miras un monitor."
                 },
                 {
-                    "titulo": "titulo 3 n2",
-                    "c": "consejo 3 n2"
-                },
-                {
-                    "titulo": "titulo 4 n2",
-                    "c": "consejo 4 n2"
+                    "titulo": "Consejo 3: Cuidado con la luz.",
+                    "c": "El brillo y reflejo excesivo pueden cansar los ojos y dificultar la visión frente al monitor. Evita colocar el monitor directamente frente a una ventana o una pared blanca.",
+                    "img": "../images/consejos/fatiga3n2.jpeg",
+                    "p": "Controla la iluminación y reduce el reflejo. La luz brillante y el reflejo excesivo pueden cansar los ojos y dificultar la visualización de objetos en el monitor. Por lo general, los peores problemas provienen de fuentes que están sobre ti o detrás de ti, incluida la iluminación fluorescente y la luz solar. Considera apagar alguna de las luces del techo o todas ellas. Si necesitas luz para escribir o leer, utiliza una lámpara de escritorio ajustable. Cierra las persianas o cortinas y evita colocar el monitor directamente frente a una ventana o una pared blanca. Coloca un recubrimiento antirreflejo sobre la pantalla."
                 }
             ]
         },
         {
-            "nivel": 3,
+            "nivel": "Alto",
             "data": [
                 {   
-                    "titulo": "titulo 1 n3",
-                    "c": "consejo 1 n3"
+                    "titulo": "Consejo 1: Consulta con tu oculista.",
+                    "c": "Es posible que necesites tratamiento para una enfermedad ocular no diagnosticada.",
+                    "img": "../images/consejos/fatiga1n3.jpeg",
+                    "p": "Consultar con tu oculista: el tratamiento de la fatiga ocular consiste en hacer cambios en los hábitos diarios o en el ambiente. Es posible que necesites tratamiento para una enfermedad ocular no diagnosticada."
                 },
                 {
-                    "titulo": "titulo 2 n3",
-                    "c": "consejo 2 n3"
+                    "titulo": "Consejo 2: Usa lágrimas artificiales",
+                    "c": "Existe una gran variedad de productos que puedes usar. Un médico puede sugerir qué gotas pueden ser mejores en tu caso.",
+                    "img": "../images/consejos/fatiga2n3.jpeg",
+                    "p": "Usa lágrimas artificiales: El médico puede sugerir qué gotas pueden ser mejores en tu caso. Las gotas lubricantes que no contienen conservantes se pueden usar con la frecuencia que necesites. Si las gotas que estás usando contienen conservantes, no las uses más de cuatro veces al día. Evita las gotas para los ojos con un removedor de enrojecimiento, ya que se pueden empeorar los síntomas del ojo seco."
                 },
                 {
-                    "titulo": "titulo 3 n3",
-                    "c": "consejo 3 n3"
+                    "titulo": "Consejo 3: Lentes adecuadas.",
+                    "c": "Si necesitas anteojos y trabajas con una computadora, considera invertir en lentes diseñados específicamente para el trabajo frente a una pantalla.",
+                    "img": "../images/consejos/fatiga3n3.jpeg",
+                    "p": "Elige las gafas adecuadas para ti. Si necesitas anteojos o lentes de contacto y trabajas con una computadora, considera invertir en lentes o lentes de contacto diseñados específicamente para el trabajo con computadoras. Pregúntale a tu optometrista sobre los recubrimientos de lentes y tintes que podrían ayudarte."
                 }
             ]
         }
     ]
     },
     {
-        "habito": "mala postura",
+        "habito": "postura",
         "consejos": [
             {
-                "nivel": 1,
+                "nivel": "Bajo",
                 "data": [
                     {   
-                        "titulo": "postura titulo 1 n1",
-                        "c": "postura consejo 1 n1"
+                        "titulo": "Consejo 1: Escucha a tu cuerpo.",
+                        "c": "Cambia de posición con frecuencia. Camina de a ratos y estira los músculos con suavidad para aliviar la tensión.",
+                        "img": "../images/consejos/postura1n1.jpeg",
+                        "p": "Escucha a tu cuerpo. Si debes permanecer sentado durante un período prolongado, cambia de posición con frecuencia. Camina de a ratos y estira los músculos con suavidad para aliviar la tensión."
                     },
                     {
-                        "titulo": "postura titulo 2 n1",
-                        "c": "postura consejo 2 n1"
+                        "titulo": "Consejo 2: Camina un poco más.",
+                        "c": "Caminar es una muy buena manera de darle movimientos pequeños y rítmicos a los tejidos de la columna y mantenerla saludable.",
+                        "img": "../images/consejos/postura2n1.jpeg",
+                        "p": "Si es posible, camina. Camina afuera de tu casa, no solo hacia la cocina o al baño. Camina antes y después de tus horas normales de trabajo. Camina en tu descanso. Caminar es una muy buena manera de darle movimientos pequeños y rítmicos a los tejidos de la columna y mantenerla saludable."
+                    },
+                    {
+                        "titulo": "Consejo 3: Evita malos asientos.",
+                        "c": "Evita trabajar desde el sofá o desde la mesa de la cocina. Siempre intenta que tu estación de trabajo sea ergonómicamente apropiada.",
+                        "img": "../images/consejos/postura2n1.jpeg",
+                        "p": "Evita trabajar desde el sofá o desde la mesa de la cocina. Siempre intenta que tu estación de trabajo sea ergonómicamente apropiada."
                     }
                 ]
             },
             {
-                "nivel": 2,
+                "nivel": "Medio",
                 "data": [
                     {   
-                        "titulo": "postura titulo 1 n2",
-                        "c": "postura consejo 1 n2"
+                        "titulo": "Consejo 1: Invierte en una silla.",
+                        "c": "Invierte en una buena silla. Para promover una buena postura al sentarte, elige una silla que brinde soporte a la región lumbar.",
+                        "img": "../images/consejos/postura1n2.jpeg",
+                        "p": "Invierte en una buena silla. Para promover una buena postura al sentarte, elige una silla que brinde soporte a la región lumbar. Ajusta la altura de tu silla de manera que los pies descansen planos sobre el piso o sobre un reposapiés y tus muslos estén paralelos al piso."
                     },
                     {
-                        "titulo": "postura titulo 2 n2",
-                        "c": "postura consejo 2 n2"
+                        "titulo": "Consejo 2: Varía tus posturas.",
+                        "c": "Puedes arreglar un lugar en el que trabajes de pie, para que puedas pasar la mitad del tiempo sentado y la otra mitad parado.",
+                        "img": "../images/consejos/postura2n2.jpeg",
+                        "p": "Varía tus posturas mientras estás frente al computador. Puedes arreglar un lugar en el que trabajes de pie (con la computadora a una altura adecuada), para que puedas pasar la mitad del tiempo sentado y la otra mitad parado. Pero cuando estés parado, ten cuidado de no caer en hábitos como poner todo tu peso en alguno de tus brazos."
                     },
                     {
-                        "titulo": "postura titulo 3 n2",
-                        "c": "postura consejo 3 n2"
-                    },
-                    {
-                        "titulo": "postura titulo 4 n2",
-                        "c": "postura consejo 4 n2"
+                        "titulo": "Consejo 3: Eleva tu computadora.",
+                        "c": "Puedes usar algunos libros para elevar un poco la computadora, para que la pantalla esté alineada con tu vista.",
+                        "img": "../images/consejos/postura3n2.jpeg",
+                        "p": "Elevar la computadora si estás sentado. Cuando trabajas sentado, tu cabeza, hombros y cuello no están en la posición más ideal. Puedes usar algunos libros para elevar un poco la laptop o la computadora, para que la pantalla esté alineada con tu vista."
                     }
                 ]
             },
             {
-                "nivel": 3,
+                "nivel": "Alto",
                 "data": [
                     {   
-                        "titulo": "postura titulo 1 n3",
-                        "c": "postura consejo 1 n3"
+                        "titulo": "Consejo 1: Acude a Fisioterapia.",
+                        "c": "Si los dolores de espalda son constantes debido a la mala postura, tal vez tengas que consultar con un fisioterapeuta.",
+                        "img": "../images/consejos/postura1n3.jpeg",
+                        "p": "Acude a Fisioterapia. Si los dolores de espalda son constantes debido a la mala postura, tal vez tengas que consultar con un fisioterapeuta. Los fisioterapeutas pueden utilizar una variedad de tratamientos con calor, ultrasonido, estimulación eléctrica y técnicas de relajación muscular."
                     },
                     {
-                        "titulo": "postura titulo 2 n3",
-                        "c": "postura consejo 2 n3"
+                        "titulo": "Consejo 2: Evita fumar.",
+                        "c": "Fumar reduce el flujo sanguíneo a la parte inferior de la columna vertebral, lo que puede contribuir a la degeneración y lesión de espalda.",
+                        "img": "../images/consejos/postura2n3.jpeg",
+                        "p": "Si fumas, deja de hacerlo. Fumar reduce el flujo sanguíneo a la parte inferior de la columna vertebral, lo que puede contribuir a la degeneración de los discos intervertebrales y a la lenta curación de las lesiones de la espalda. La tos asociada con el tabaco también puede causar dolor de espalda."
                     },
                     {
-                        "titulo": "postura titulo 3 n3",
-                        "c": "postura consejo 3 n3"
+                        "titulo": "Consejo 3: Consulta a tu médico.",
+                        "c": "La Clínica Mayo y otros expertos recomiendan que se acuda a un doctor si además de la molestia en la columna, tiene otros síntomas.",
+                        "img": "../images/consejos/postura3n3.jpeg",
+                        "p": "Consultar a tu médico. La Clínica Mayo y otros expertos recomiendan que se acuda a un doctor si además de la molestia en la columna, tienes problemas intestinales o en la vejiga, fiebre, si te has caído o has sufrido alguna otra lesión, en caso de dolor severo, fuerte o repentino, dolor, debilidad o adormecimiento en las piernas y/o pérdida de peso sin causa aparente."
                     }
                 ]
             }
