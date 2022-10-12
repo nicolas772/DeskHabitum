@@ -4,7 +4,7 @@ const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
 
 
-//model.datosTotalesPomodoro(25).then(r => console.log(r['unna']));
+model.datosUltimaSesionPomodoro(25).then(r => console.log(r));
 
 let winlogin;
 let win, camera_win;

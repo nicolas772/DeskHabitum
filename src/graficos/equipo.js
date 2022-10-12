@@ -223,7 +223,7 @@ async function update_dash_general_equipos() {
     opacity: [0.35, 1],
   },
   colors:['#005B52'],
-  labels: ['Dec 01', 'Dec 02','Dec 03','Dec 04','Dec 05','Dec 06','Dec 07','Dec 08','Dec 09 ','Dec 10','Dec 11'],
+  labels: ['Sesión 01', 'Sesión 02','Sesión 03','Sesión 04','Sesión 05','Sesión 06','Sesión 07','Sesión 08','Sesión 09 ','Sesión 10'],
   markers: {
     size: 0,
   },
@@ -283,7 +283,7 @@ async function update_dash_general_equipos() {
     opacity: [0.35, 1],
   },
   colors:['#005B52'],
-  labels: ['Dec 01', 'Dec 02','Dec 03','Dec 04','Dec 05','Dec 06','Dec 07','Dec 08','Dec 09 ','Dec 10','Dec 11'],
+  labels: ['Sesión 01', 'Sesión 02','Sesión 03','Sesión 04','Sesión 05','Sesión 06','Sesión 07','Sesión 08','Sesión 09 ','Sesión 10'],
   markers: {
     size: 0,
   },

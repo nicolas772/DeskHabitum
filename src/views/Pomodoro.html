@@ -23,6 +23,7 @@
     <!-- CSS -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js"></script>
 
 </head>
 <body class="shrink">
@@ -198,9 +199,14 @@
                     <p style="margin-left:45%">
                         Pomodoro # <span>1</span>
                     </p>
-
-                    
-                </div>
+                    <div class="card bg-light border-success mb-3">
+                        <div class="card-header border-success">¿Primera vez usando pomodoro?</div>
+                            <div class="card-body border-success" style="padding:9px;">
+                            <p style="margin:0px;">Esta técnica te ayudará a administrar mejor el tiempo dedicado a cualquier actividad. Se basa en la utilización de un temporizador para dividir el tiempo en intervalos fijos llamados <strong>pomodoros</strong>, que duran generalmente 25 minutos seguidos de un <strong>descanso corto</strong> de 5 minutos. La idea es tomar <strong>descansos largos</strong> (20-30 minutos) cada 4 pomodoros.
+                            </p>
+                            </div>
+                        </div>
+                    </div>
 
                 <input type="radio" id="tabsilver" name="mytabs">
                 <label for="tabsilver">Gráficos</label>
@@ -208,19 +214,61 @@
                     <h1 style="font-size:1.5rem">Gráficos Pomodoro</h1>
                     <div class="row" >
                         
-                        <div style="width:60%; float:left">
-                            <h4>Aqui algo</h4>
-                           
+                        <div style="width:44%; float:left;">
+                            <h4>Duraciones actuales</h4>
+                            <div class="row" style="padding-bottom:0.5rem; padding-left:0.5rem;margin-top:35px;">
+                                <div class="col-sm-6" >
+                                    <div class="card"  style="width: 12rem;  height: 4rem; ">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Pomodoros totales</h4>
+                                            <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;" id="pom_totales"></h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="card" style="width: 12rem; height: 4rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Pomodoros último mes</h4>
+                                            <h1  style="font-size:1rem; text-align:center; margin-bottom: 0;" id="pom_totales_mes"></h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-top:0.1rem;padding-left:0.5rem;">
+                                <div class="col-sm-6" >
+                                    <div class="card"  style="width: 12rem;  height: 4rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Hábito más detectado</h4>
+                                            <h1  style="font-size:1rem;text-align:center; margin-bottom: 0;" id="pom_peor_mania"></h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="card" style="width: 12rem; height: 4rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline" >Hábito menos detectado</h4>
+    
+                                        <!--<h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">Si <i class="bi bi-check-square" style="color:green;"></i></h1>-->
+                                        <h1  style="font-size:1rem; text-align:center; margin-bottom: 0;" id="pom_mejor_mania"></h1>
+    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div style="width: 40%;float:right">
-                            <h4>Aqui otra cosa</h4>
+                        <div style="width: 56%;float:right">
+                            <h4 style="margin-bottom:10px;">Manías compulsivas</h4>
+                            <div style="margin-left:20px;"id="charHabitosUltimoPomodoro"></div>
                             
                         </div>
 
                     </div>
-                    <div class="row">
-                        <h4>aqui gráfico</h4>
+                    
+                    <div class="row" style="width: 90%; ">
+                        <h4 >Gráfico últimos 10 pomodoros</h4>
+                        <canvas style="margin-left:100px;height: 145px;" id="pom_comparacion" ></canvas>
                     </div>
+                    
 
                     
 
@@ -242,6 +290,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../navbar.js"></script>
+    <script src="../graficos/pomodoro2.js"></script>
     <!--<script src="../renderWebcam.js"></script>-->
     <script type="text/javascript">
         $(document).ready(function(){
