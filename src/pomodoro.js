@@ -1,28 +1,22 @@
 const fs = require('fs')
 const utils_pom = require("./preload.js")
+const {contextBridge, ipcRenderer} = require("electron");
 
-
-let id;
+let id, id_usuario, config;
 let tipo = "work"
 
 let run;
 let corriendo = false;
 
 let pomodoro_iniciado = false;
+let objInsert, data_json;
 
 //minutos de sesión
-let workTime = 1;
-let breakTime = 1;
-let longBreakTime = 1;
+let workTime ;   //DURACION POMO
+let breakTime ;  //DURACION SHORT BREAK
+let longBreakTime ;  // DURACION LONG BREAK
 let seconds = "00"
-
-let objInsert = {
-    "minutes": workTime,
-    "seconds": seconds,
-    "tipo": tipo
-}
-let data_json = JSON.stringify(objInsert);
-fs.writeFileSync("./src/data/pomodoro.json", data_json)
+let pomodoroStopper;
 
 let workMinutes, breakMinutes, longBreakMinutes;
 
@@ -33,8 +27,14 @@ let en_pausa = false
 let interval_counter = 0
 
 //Numero de pomodoros antes de que ocurra el long break
-let break_interval = 4;
 
+let break_interval = 4; //INTERVALO LONG BREAK
+
+
+function get_user_id(){
+    let respuesta = ipcRenderer.sendSync('get-user-id', "")
+    return respuesta   
+}
 
 
 async function pomodoroHandle(){
@@ -43,7 +43,29 @@ async function pomodoroHandle(){
           return console.log(err);
         }
     });//esto es para que siempre inicie apagado
-    let loopHandler = () =>{
+
+    id_usuario = await get_user_id()
+
+    config = await utils_pom.getConfig(id_usuario)
+    config = config[0]
+    console.log(config)
+    workTime = config.duracionpomo
+    breakTime = config.duracionshortbreak
+    longBreakTime = config.duracionlongbreak
+    break_interval = config.intervalolongbreak
+    pomodoroStopper = config.cantidadpomodoros
+
+    objInsert = {
+        "minutes": workTime,
+        "seconds": seconds,
+        "tipo": tipo,
+        "numero": 1,
+        "estado": 2
+    }
+    data_json = JSON.stringify(objInsert);
+    fs.writeFileSync("./src/data/pomodoro.json", data_json)
+
+    async function loopHandler(){
 
         fs.readFile('./src/data/pomodoroHandle.txt', 'utf8', function(err, data) {
             if (err) {
@@ -51,8 +73,20 @@ async function pomodoroHandle(){
             }
             run = data
         });
-
         if (run == '1' && !corriendo){
+
+
+            id_usuario = await get_user_id()
+
+            config = await utils_pom.getConfig(id_usuario)
+            config = config[0]
+
+            workTime = config.duracionpomo
+            breakTime = config.duracionshortbreak
+            longBreakTime = config.duracionlongbreak
+            break_interval = config.intervalolongbreak
+            pomodoroStopper = config.cantidadpomodoros
+
             corriendo = true
             start_pomodoro();
 
@@ -89,7 +123,7 @@ function start_pomodoro() {
     if (!pomodoro_iniciado){
         
         // change the seconds
-        seconds = 20;
+        seconds = 1;
 
         // Minutos de pomodoro, break y long break
         workMinutes = workTime - 1;
@@ -110,7 +144,9 @@ function start_pomodoro() {
         objInsert = {
             "minutes": workMinutes,
             "seconds": seconds,
-            "tipo": tipo
+            "tipo": tipo,
+            "numero": interval_counter + 1,
+            "estado": 1
         }
 
         data_json = JSON.stringify(objInsert);
@@ -125,21 +161,30 @@ function start_pomodoro() {
             workMinutes = workMinutes - 1;
             if(workMinutes === -1 ){
 
-                // COndición para el long break
-                if(interval_counter != 0 && interval_counter % break_interval == 0){
+                if(interval_counter + 1 >= pomodoroStopper){
+                    stop_pomodoro();
+                    utils_pom.parar_pomodoro();
 
+                }
+
+                // COndición para el long break
+                else if(interval_counter != 0 && interval_counter % break_interval == 0){
+                    
                     tipo = "long break"
 
+                    
+                    
                     if(!is_break){
                         stop_cam();
+                        
                     }
                     is_break = true
-
+                    
                     workMinutes = longBreakMinutes;
                     interval_counter ++
                     longBreakCount ++
                     breakCount++
-
+                    
 
                 }
                 
@@ -173,7 +218,7 @@ function start_pomodoro() {
                 }
             }
             // change the seconds
-            seconds = 20;
+            seconds = 1;
         }
 
     }
@@ -188,10 +233,21 @@ function pause_pomodoro(){
 
     clearInterval(id);
 
+    objInsert = {
+        "minutes": workMinutes,
+        "seconds": seconds,
+        "tipo": tipo,
+        "numero": interval_counter + 1,
+        "estado": 0
+    }
+
+    data_json = JSON.stringify(objInsert);
+    fs.writeFileSync("./src/data/pomodoro.json", data_json)
+
     en_pausa = true;
 }
 
-function stop_pomodoro(){
+async function stop_pomodoro(){
 
     tipo = "work"
 
@@ -199,16 +255,24 @@ function stop_pomodoro(){
 
     pomodoro_iniciado = false;
 
-    //minutos de sesión
-    workTime = 1;
-    breakTime = 1;
-    longBreakTime = 1;
-    seconds = "00"
 
+    id_usuario = await get_user_id()
+
+    config = await utils_pom.getConfig(id_usuario)
+    config = config[0]
+
+    workTime = config.duracionpomo
+    breakTime = config.duracionshortbreak
+    longBreakTime = config.duracionlongbreak
+    break_interval = config.intervalolongbreak
+    pomodoroStopper = config.cantidadpomodoros
+    
     objInsert = {
         "minutes": workTime,
         "seconds": seconds,
-        "tipo": tipo
+        "tipo": tipo,
+        "numero": 1,
+        "estado": 2
     }
     data_json = JSON.stringify(objInsert);
     fs.writeFileSync("./src/data/pomodoro.json", data_json)
@@ -218,9 +282,6 @@ function stop_pomodoro(){
 
     //Contador para long break
     interval_counter = 0
-
-    //Numero de pomodoros antes de que ocurra el long break
-    break_interval = 4;
 
     clearInterval(id);
     pomodoro_iniciado = false;
@@ -259,7 +320,8 @@ async function stop_cam(){
         let fini_sesion = fin_sesion.toISOString()
         let mes_sesion = fin_sesion.getMonth() + 1
         let anno_sesion = fin_sesion.getFullYear()
-        await utils_pom.createSesion(ID_USER, ini_sesion, fini_sesion, total, total_unhas, total_pelo, total_objeto, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion); 
+        
+        await utils_pom.createSesion(ID_USER, ini_sesion, fini_sesion, total, total_unhas, total_pelo, total_objeto, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion, "si"); 
         //console.log("paso insert sesion")
         //inserto manias en BD
 
