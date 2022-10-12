@@ -45,7 +45,7 @@ async function get_solicitudes(){
                                 <span class="material-icons-sharp" style="margin-left:40px;" onclick="aceptar_solicitud('${data[i].nombre}')" >check</span>
                             </th>
                             <td>
-                                <span class="material-icons-sharp" style="margin-left:15px;" onclick="rechazar_solicitud('${data[i].id}')">delete</span>
+                                <span class="material-icons-sharp" style="margin-left:15px;" onclick="rechazar_solicitud('${data[i].id}')">close</span>
                             </td>
                         </tr>`
             table.innerHTML+=row
