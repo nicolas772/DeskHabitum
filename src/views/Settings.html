@@ -228,7 +228,7 @@
             
 
             <div class="row">
-                <div style="margin-top:20px; width:45%; float:left">
+                <div id="unirse_a_equipo" style="display:none" style="margin-top:20px; width:45%; float:left">
                     <label >
                         <h2 style="margin-bottom:5px; "> Unirse a equipo</h2>
                         
@@ -240,6 +240,29 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Código de equipo
                                     <input type="text" class="form-control" placeholder="Codigo" id="codigo_equipo">
+        
+                                </li>
+                               
+                            </ul>
+                            
+                        </div>
+                        <div class = "div-boton-cambios">
+                            <button type='button' class="btn btn-outline-primary" style="margin-left:310px;" onclick="unirse_grupo()">Unirse</button> <!--onclick='saveSettings()'-->
+                        </div>
+                    </label>
+                </div>
+                <div id="unido_a_equipo" style="display:none" style="margin-top:20px; width:45%; float:left">
+                    <label >
+                        <h2 style="margin-bottom:5px; "> Unirse a equipo</h2>
+                        
+                        <p style="margin-bottom:5px;"> Ya estás unido a un equipo. El código de tu equipo es:</p>
+                        <div class="row">
+                            <ul class="list-group">
+                                
+                                
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Código de equipo
+                                    <input type="text" class="form-control" placeholder="Codigo" id="codigo_equipo_actual">
         
                                 </li>
                                

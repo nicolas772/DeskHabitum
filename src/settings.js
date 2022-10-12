@@ -103,6 +103,10 @@ async function actualizarSettings(){
     
 }
 
+async function actualizarEquipoDiv(){ //esta funcion actualiza el div del equipo. Si está en un equipo, muestra el id del equipo. Si no esta, le da la opción de ingresar un codigo
+    
+}
+
 function init2(){
     actualizarSettings();
     actualizarNavbar();
