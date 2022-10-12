@@ -52,3 +52,31 @@ let opt_pomodoro = {
 
   let chart_pomodoro = new ApexCharts(document.querySelector("#chart_pomodoro"), opt_pomodoro);
   chart_pomodoro.render();
+
+let ct2 = document.getElementById('pom_comparacion').getContext('2d');
+let pom_comparacion = new Chart(ct2, {
+  type: 'bar',
+  data: {
+      labels: ['Peor pomodoro', 'Último pomodoro', 'Mejor pomodoro'],
+      datasets: [{
+          label: 'Cantidad de detecciones',
+          data: [10, 5,3],
+          backgroundColor: [
+              'rgba(255, 205, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rrgba(255, 99, 132, 0.2)'
+          ],
+          borderColor: [
+              'rgb(255, 205, 86)',
+              'rgb(75, 192, 192)',
+              'rgb(255, 99, 132)'
+          ],
+          borderWidth: 1
+      }]
+  }
+ 
+});
+
+pom_comparacion();
+
+  

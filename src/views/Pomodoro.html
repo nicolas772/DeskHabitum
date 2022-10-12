@@ -23,6 +23,7 @@
     <!-- CSS -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js"></script>
 
 </head>
 <body class="shrink">
@@ -272,10 +273,12 @@
                         </div>
 
                     </div>
-                    <div class="row" style="margin-top:20px;">
-                        <h4>Gráfico últimos 10 pomodoros</h4>
-                        <div id="chart_pomodoro"></div>
-                    </div>
+                    
+                        <div class="row" style="width: 90%; height: 90px;">
+                            <h4 style="margin-top:0.3rem;">Gráfico últimos 10 pomodoros</h4>
+                            <canvas style="margin-left:100px;" id="pom_comparacion" ></canvas>
+                        </div>
+                    
 
                     
 
