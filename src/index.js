@@ -4,7 +4,7 @@ const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
 
 
-//model.cantDeteccionesFatigaPorMinutoTenSesion(2).then(r => console.log(r));
+//model.top10Grupo("wWGscpEeVg",10).then(r => console.log(r));
 
 let winlogin;
 let win, camera_win;
@@ -144,7 +144,6 @@ ipcMain.handle('registrar', (event, obj) => {
 
 function regUser(obj) {
   const {nombre, apellido, email, password, lider } = obj
-  console.log(obj)
   model.confirmMail(email).then( existe =>
     {
       if (existe>0) {
