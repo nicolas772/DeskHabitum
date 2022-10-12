@@ -195,7 +195,7 @@ async function update_dash_general_equipos() {
     equipo_total_postura = 0
 
   })
-
+  total_equipo(equipo_total_manias,equipo_total_vista,equipo_total_postura)
   //-----EQUIPO DASH MANIA
 
   manias_grupo(equipo_10_manias[0], equipo_total_manias)
@@ -371,12 +371,13 @@ async function manias_grupo(total_equipo_sesion, total_equipo_mes){
     document.getElementById("total-detecciones-unhas-grupo").innerHTML = total_equipo_mes;
 }
 
-
-
-
 async function vista_grupo(total_equipo_sesion, total_equipo_mes){
   document.getElementById("ultima-sesion-vista-grupo").innerHTML = total_equipo_sesion;
   document.getElementById("total-detecciones-vista-grupo").innerHTML = total_equipo_mes;
+}
+
+async function total_equipo(total_manias, total_vista, total_postura){
+  document.getElementById("totales_equipo_graficos").innerHTML = total_manias+total_vista+total_postura;
 }
 
 
