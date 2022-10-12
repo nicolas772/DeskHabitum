@@ -454,17 +454,16 @@ const datosUltimaSesionPomodoro = (id_user) => {
     return model.datosUltimaSesionPomodoro(id_user)
 }
 
-
-
-
-
-
-
 const readConsejoFile = () => {
     let rawdata = fs.readFileSync('./src/data/consejoHandle.json');
     let consejo = JSON.parse(rawdata);
     return consejo
 }
+
+const cantDeteccionesFatigaPorMinutoTenSesion = (id_user) => {
+    return model.cantDeteccionesFatigaPorMinutoTenSesion(id_user)
+}
+
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -549,7 +548,8 @@ contextBridge.exposeInMainWorld("api", {
     quitarDelGrupo: quitarDelGrupo,
     countPestaneoSesion: countPestaneoSesion,
     countVistaSesion:countVistaSesion,
-    datosUltimaSesionPomodoro: datosUltimaSesionPomodoro
+    datosUltimaSesionPomodoro: datosUltimaSesionPomodoro,
+    cantDeteccionesFatigaPorMinutoTenSesion: cantDeteccionesFatigaPorMinutoTenSesion
 })
 
 module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id }

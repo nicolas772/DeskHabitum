@@ -637,7 +637,22 @@ const datosUltimaSesionPomodoro = async (userId) => {
     return result    
 }
 
-
+const cantDeteccionesFatigaPorMinutoTenSesion = async (userId) => { //
+    let query = `select total_time, cant_total_vista+cant_total_pestaneo as total_vista from sesions where id_user = ${userId} order by id desc limit 10`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    let fatiga_10_sesiones = result;
+    let fatiga_10_sesiones_avg = []
+    for (let i = 0; i < fatiga_10_sesiones.length; i++) {
+        if(fatiga_10_sesiones[i]['total_time'] != '0'){
+          let calculo = (fatiga_10_sesiones[i]['total_vista'] * 60)/parseInt(fatiga_10_sesiones[i]['total_time'])
+          fatiga_10_sesiones_avg.push(calculo)
+        }else{
+          fatiga_10_sesiones_avg.push(0)
+        } 
+    }
+    return fatiga_10_sesiones_avg
+}
 
 
 
@@ -651,4 +666,4 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
               peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder, createVista, createPestaneo,
               createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo, quitarSolicitud,
             tiempoGrupo, totalesGrupo, top10Grupo, /*nuevas*/ getCodeGrupoUser, peorSesionPomodoro, mejorSesionPomodoro, ultimaSesionPomodoro, contarSesionPomodoro, contarMesPomodoro, datosTotalesPomodoro, updateUserData, countPestaneoSesion, countVistaSesion,
-             datosUltimaSesionPomodoro}
+             datosUltimaSesionPomodoro, cantDeteccionesFatigaPorMinutoTenSesion}

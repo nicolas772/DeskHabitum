@@ -2,6 +2,7 @@ let ID_USER = window.api.get_user_id("")
 var pelos_10_sesiones = [];
 var unhas_10_sesiones = [];
 var objetos_10_sesiones = [];
+var fatiga_10_sesiones = []
 let unha_state, morder_state, pelo_state, fatiga_state, postura_state;
 let unha_color, morder_color, pelo_color, fatiga_color, postura_color;
 let lista_consejos = window.api.readConsejos()
@@ -27,16 +28,18 @@ async function actualizarTips(){
       objetos_10_sesiones = result;
     });
     //let lista_consejos = window.api.readConsejos()
-
+    await window.api.cantDeteccionesFatigaPorMinutoTenSesion(ID_USER).then(result => {
+      fatiga_10_sesiones = result;
+    });
+    
     let unhaAvg = ArrayAvg(unhas_10_sesiones).toFixed(2) //porcentaje promedio del tiempo total que se comio las uñas en las ultimas 10 sesiones
     let morderAvg = ArrayAvg(objetos_10_sesiones).toFixed(2) //porcentaje promedio del tiempo total que mordio un objeto
     let peloAvg = ArrayAvg(pelos_10_sesiones).toFixed(2) //porcentaje promedio del tiempo total que se jalo el pelo en las ultimas sesiones
-    let fatigaAvg = 1 //cantidad promedio que se notifico de fatiga visual por hora al usuario en las ultimas 10 sesiones
+    let fatigaAvg = ArrayAvg(fatiga_10_sesiones) //cantidad promedio que se notifico de fatiga visual por minuto al usuario en las ultimas 10 sesiones
     //esto cambiarlo cuando se implemente el reconocimiento de postura
     let posturaAvg = 7 //cantidad promedio que se notifico de mala postura por hora al usuario en las ultimas 10 sesiones
     /*let unha_state, morder_state, pelo_state, fatiga_state, postura_state;
     let unha_color, morder_color, pelo_color, fatiga_color, postura_color;*/
-    
     if (unhaAvg < 5){
       unha_state = 'Bajo'
       unha_color = 'green'

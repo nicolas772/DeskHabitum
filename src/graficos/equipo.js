@@ -8,8 +8,16 @@ let ID_LIDER = window.api.get_user_id("")
 let date = new Date();
 let mes_anterior = date.getMonth()
 let mes_actual = date.getMonth()+1
-
+let lastSesion, fatigaCount, unhasCount, morderCount, peloCount;
 const monthNames = ["Enero", "Febrero", "Marzo", "Abrir", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+function ArrayAvg(myArray) {
+  var i = 0, summ = 0, ArrayLen = myArray.length;
+  while (i < ArrayLen) {
+      summ = summ + myArray[i++];
+  }
+  return summ / ArrayLen;
+}
 
 async function update_dash_general_equipos() {
   await window.api.getCodeGrupo(ID_LIDER).then(result => {
@@ -359,10 +367,13 @@ async function update_dash_general_equipos() {
       }
     }
   }
-  };
+ };
 
   var chart_equipopostura1= new ApexCharts(document.querySelector("#chart_equipopostura1"), equipo_postura1);
   chart_equipopostura1.render();
+
+  updateNivelEstresManias()
+  updateNivelEstresFatiga()
 }
 
 
@@ -379,5 +390,61 @@ async function vista_grupo(total_equipo_sesion, total_equipo_mes){
   document.getElementById("total-detecciones-vista-grupo").innerHTML = total_equipo_mes;
 }
 
+async function updateNivelEstresManias(){
+  let nivel_cansancio_manias = document.getElementById("nivel_cansancio_manias")
+  let lista_manias = []
+  await window.api.getParticipantesGrupo(code).then(result => {
+    participantes = result
+  })
+  for (let i = 0; i < participantes.length; i++) {
+    await window.api.lastSesion(participantes[i]['id']).then(result => {
+      id_lastSesion = result;
+    });
+    await window.api.countUnhasSesion(id_lastSesion).then(result => {
+      unhasCount = result
+    });
+    await window.api.countPeloSesion(id_lastSesion).then(result => {
+      peloCount = result
+    });
+    await window.api.countMorderSesion(id_lastSesion).then(result => {
+      morderCount = result
+    });
+    lista_manias.push(unhasCount)
+    lista_manias.push(peloCount)
+    lista_manias.push(morderCount)
+  }
+  let avgListaManias = ArrayAvg(lista_manias)
+  if(avgListaManias < 5){
+    nivel_cansancio_manias.innerHTML = "Bajo"
+  }else if(avgListaManias < 10){
+    nivel_cansancio_manias.innerHTML = "Medio"
+  }else {
+    nivel_cansancio_manias.innerHTML = "Alto"
+  }
+}
+
+async function updateNivelEstresFatiga(){
+  let nivel_cansancio_fatiga = document.getElementById("nivel_cansancio_fatiga")
+  let lista_vista = []
+  await window.api.getParticipantesGrupo(code).then(result => {
+    participantes = result
+  })
+  for (let i = 0; i < participantes.length; i++) {
+    
+    await window.api.ultimaVista(participantes[i]['id']).then(result => {
+      fatigaCount = result
+    });
+    lista_vista.push(fatigaCount)
+  }
+
+  let avgListaManias = ArrayAvg(lista_vista)
+  if(avgListaManias < 5){
+    nivel_cansancio_fatiga.innerHTML = "Bajo"
+  }else if(avgListaManias < 10){
+    nivel_cansancio_fatiga.innerHTML = "Medio"
+  }else {
+    nivel_cansancio_fatiga.innerHTML = "Alto"
+  }
+}
 
 window.onload = update_dash_general_equipos;
