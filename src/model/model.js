@@ -44,6 +44,15 @@ const getUserData = async (id) => {
     return result
 }
 
+const updateUserData = async (id_usuario, nombre, apellido, mail) => {
+    let query = `UPDATE users SET 
+    nombre='${nombre}', 
+    apellido='${apellido}', 
+    email='${mail}'
+    WHERE id = ${id_usuario}` ;
+    const res = await conexion.query(query)
+}
+
 const confirmMail = async (email) => {
     let query = `SELECT * FROM users WHERE email = '${email}'`;
     const res = await conexion.query(query)
@@ -387,7 +396,7 @@ const postConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fati
     const res = await conexion.query(query)
 }
 
-const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion) => {
+const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak, cantidadPomodoros) => {
     let query = `UPDATE config SET 
     morderunha='${morderUnha}', 
     morderobjetos='${morderObjetos}', 
@@ -398,7 +407,12 @@ const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fa
     alertasonora='${alertaSonora}', 
     intervalonotificacion='${intervaloNotificacion}',
     tiemponotificacion='${tiempoNotificacion}',
-    tiponotificacion='${tipoNotificacion}'
+    tiponotificacion='${tipoNotificacion}',
+    duracionpomo='${duracionPomo}',
+    duracionshortbreak='${duracionShortBreak}',
+    duracionlongbreak='${duracionLongBreak}',
+    intervalolongbreak='${intervaloLongBreak}',
+    cantidadpomodoros='${cantidadPomodoros}'
     WHERE id_user = ${id_usuario}` ;
     const res = await conexion.query(query)
 }
@@ -617,4 +631,4 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
               sesionesMesUnha, sesionesMesMorder, sesionesMesPelo, mejorMesUnhas,
               peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder, createVista, createPestaneo,
               createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo, quitarSolicitud,
-            tiempoGrupo, totalesGrupo, top10Grupo, /*nuevas*/ getCodeGrupoUser, peorSesionPomodoro, mejorSesionPomodoro, ultimaSesionPomodoro, contarSesionPomodoro, contarMesPomodoro, datosTotalesPomodoro}
+            tiempoGrupo, totalesGrupo, top10Grupo, /*nuevas*/ getCodeGrupoUser, peorSesionPomodoro, mejorSesionPomodoro, ultimaSesionPomodoro, contarSesionPomodoro, contarMesPomodoro, datosTotalesPomodoro, updateUserData}

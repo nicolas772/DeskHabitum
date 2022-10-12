@@ -54,6 +54,23 @@ const createWindow = () => {
     })
     camera_win.loadFile('src/views/camera.html');
     camera_win.webContents.openDevTools();
+
+
+    pomodoro_win = new BrowserWindow({
+      width: 600,
+      height: 600,
+      //show: false,
+      webPreferences: {
+          // nodeIntegration: true,
+          // contextIsolation:true,
+          //devTools:true,
+          preload:path.join(__dirname, 'pomodoro.js')
+          
+      }
+    })
+    
+    pomodoro_win.loadFile('src/views/camera.html');
+    pomodoro_win.webContents.openDevTools();
 }
 
 app.on('window-all-closed', () => {
