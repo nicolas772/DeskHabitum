@@ -72,7 +72,7 @@ async function saveSettings(){
     ).then(result => {
         let resultado=result
     })
-    doNotify();
+    doNotify3();
 }
 
 async function actualizarSettings(){
@@ -114,7 +114,7 @@ function init2(){
 
 window.onload = init2;
 
-function doNotify(){
+function doNotify3(){
     Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
             body: NOTIFICATION_BODY, icon: 'https://cdn-icons-png.flaticon.com/512/244/244060.png'
