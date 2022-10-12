@@ -36,7 +36,7 @@ let ctx = document.getElementById('detecciones_comparacion').getContext('2d');
             labels: ['Peor sesión', 'Última sesión', 'Mejor sesión'],
             datasets: [{
                 label: 'Cantidad de detecciones',
-                data: [parseInt(55),parseInt(33),parseInt(3)],
+                data: [55,22,3],
                 backgroundColor: [
                     'rgba(255, 205, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
