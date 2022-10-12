@@ -87,7 +87,7 @@ async function update_pomodoro(){
   var dataHabitosUltimoPomodoro= {
     series: [pom_tiempo_unna,pom_tiempo_pelo,pom_tiempo_morder,pom_tiempo_optimo],
     chart: {
-      height:300,
+      height:187.7,
       width:400,
     type: 'donut',
   },
