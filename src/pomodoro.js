@@ -269,7 +269,7 @@ async function stop_pomodoro(){
     
     objInsert = {
         "minutes": workTime,
-        "seconds": seconds,
+        "seconds": "00",
         "tipo": tipo,
         "numero": 1,
         "estado": 2
