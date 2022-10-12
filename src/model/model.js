@@ -448,7 +448,7 @@ const getCodeGrupoUser = async (id_user) => {
     let query = `select code from users inner join grupos on users.grupo=grupos.id where users.id=${id_user}`;
     const res = await conexion.query(query)
     const result = res.rows
-    return result[0]['code']
+    return result
 }
 
 // mayor que 0 si es que tiene

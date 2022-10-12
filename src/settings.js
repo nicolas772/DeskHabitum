@@ -103,12 +103,26 @@ async function actualizarSettings(){
     
 }
 
-async function actualizarEquipoDiv(){ //esta funcion actualiza el div del equipo. Si está en un equipo, muestra el id del equipo. Si no esta, le da la opción de ingresar un codigo
+async function actualizarEquipoDiv(){ //esta funcion actualiza el div html del equipo. Si está en un equipo, muestra el id del equipo. Si no esta, le da la opción de ingresar un codigo
+    let codeGrupo
+    $('#unirse_a_equipo').hide()
+    $('#unido_a_equipo').hide()
+    await window.api.getCodeGrupoUser(ID_USER).then(result => {
+        codeGrupo = result;
+    });
+    console.log("code grupo:", codeGrupo)
+    if(codeGrupo.length != 0){
+        $('#unido_a_equipo').show()
+        $('#codigo_equipo_actual').val(codeGrupo[0]['code'])    
+    }else{
+        $('#unirse_a_equipo').show()
+    }
     
 }
 
 function init2(){
     actualizarSettings();
+    actualizarEquipoDiv()
     actualizarNavbar();
 }
 
