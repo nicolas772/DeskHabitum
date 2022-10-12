@@ -48,6 +48,9 @@ let detectado_postura = false;
 //Booleano para el pestañeo intermitente
 let pestañeo_individual = false;
 let booleano_pestañeo = false;
+let hay_cara = false;
+
+
 
 //Variables para la configuración de las notificaciones
 let opcion; 
@@ -61,7 +64,7 @@ let comiendo = false;
 let tiempo_comiendo = 600000;
 
 let cantidad_pestañeos = 0;
-let tiempo_periodo = 5000; //en milisegundos
+let tiempo_periodo = 10000; //en milisegundos
 let frec_normal_pestañeo = 2; // Sin concentrar vista: 20 pestañeos por min / Leyendo: 14 pestañeos por min -> 2 pestañeos por 10 seg
 let corriendo_periodo = false; 
 
@@ -87,8 +90,12 @@ let comiendo_uña, tirando_pelo, mordiendo_objeto, fatigando_vista, mala_postura
 function Periodo_Pestañeo() {
     corriendo_periodo = true
     setTimeout (function(){
+
+        /*if(!hay_cara){
+            clearTimeout(timeout)
+        }*/
         
-        if(cantidad_pestañeos < frec_normal_pestañeo){
+        if(cantidad_pestañeos < frec_normal_pestañeo && hay_cara){
             
             if(opcion == "tiempo" && se_puede_notificar){
                 NotificarPestañeo();
@@ -109,6 +116,7 @@ function Periodo_Pestañeo() {
         corriendo_periodo = false
         cantidad_pestañeos = 0
     }, tiempo_periodo);
+
 }
 
 
@@ -204,7 +212,7 @@ async function getConfig(ID_USER){
 
 
         config_user = result[0];
-        console.log(config_user);
+        //console.log(config_user);
 
         opcion = config_user.tiponotificacion;
 
@@ -451,6 +459,12 @@ async function predict() {
         posesHand = await detectorHand.estimateHands(webcam.canvas);
         //https://github.com/tensorflow/tfjs-models/tree/master/pose-detection
         posesBlaze = await detectorBlaze.estimatePoses(webcam.canvas);
+
+        
+    }
+
+    if (fatiga_visual){
+        cara = await detectorPestañeo.estimateFaces(webcam.canvas);
     }
 
     if (!camara_cargada){
@@ -965,15 +979,15 @@ async function predict() {
 
 /*---------------------------------------------SECCIÓN DE FATIGA VISUAL CON PESTAÑEO----------------------------------------------*/
     if(fatiga_visual){
-        if (!corriendo_periodo){
-            Periodo_Pestañeo()
-        }
+
+        //cara = await detectorPestañeo.estimateFaces(webcam.canvas);
 
         if(booleano_pestañeo){
-        
-            cara = await detectorPestañeo.estimateFaces(webcam.canvas);
             if (cara.length != 0){
-    
+                hay_cara = true
+                if (!corriendo_periodo){
+                    Periodo_Pestañeo()
+                }
                 //Nariz
                 nariz1 = cara[0].keypoints[4]
                 nariz2 = cara[0].keypoints[1]
@@ -1071,7 +1085,11 @@ async function predict() {
                 }
                 
     
+            }else{
+                hay_cara = false
             }
+
+
             
         }
         booleano_pestañeo = true

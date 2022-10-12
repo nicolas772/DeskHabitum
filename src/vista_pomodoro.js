@@ -6,27 +6,21 @@ let longBreakTitle = document.getElementById('long_break');
 
 //FUNCIONES DE LOS BOTONES DE POMODORO
 function start_pomodoro(){
-
     window.api.iniciar_pomodoro()
-
 }
 
 
 
 function pause_pomodoro(){
-
     window.api.pausar_pomodoro()
-
 }
 
 function stop_pomodoro(){
-
     breakTitle.classList.remove('active');
     longBreakTitle.classList.remove('active')
     workTitle.classList.add('active');
 
     window.api.parar_pomodoro()
-
 }
 
 
