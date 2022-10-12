@@ -123,7 +123,7 @@ function start_pomodoro() {
     if (!pomodoro_iniciado){
         
         // change the seconds
-        seconds = 1;
+        seconds = 59;
 
         // Minutos de pomodoro, break y long break
         workMinutes = workTime - 1;
@@ -218,7 +218,7 @@ function start_pomodoro() {
                 }
             }
             // change the seconds
-            seconds = 1;
+            seconds = 59;
         }
 
     }
