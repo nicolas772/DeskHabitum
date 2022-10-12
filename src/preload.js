@@ -366,6 +366,35 @@ const top10Grupo = (code, mes) => {
     return model.top10Grupo(code, mes)
 }
 
+const getCodeGrupoUser = (id_user) => {
+    return model.getCodeGrupoUser(id_user)
+}
+
+const peorSesionPomodoro = (id_user) => {
+    return model.peorSesionPomodoro(id_user)
+}
+
+const mejorSesionPomodoro = (id_user) => {
+    return model.mejorSesionPomodoro(id_user)
+}
+
+const ultimaSesionPomodoro = (id_user) => {
+    return model.ultimaSesionPomodoro(id_user)
+}
+
+const contarSesionPomodoro = (id_user) => {
+    return model.contarSesionPomodoro(id_user)
+}
+
+
+const contarMesPomodoro = (id_user, mes) => {
+    return model.contarMesPomodoro(id_user, mes)
+}
+
+const datosTotalesPomodoro = (id_user) => {
+    return model.datosTotalesPomodoro(id_user)
+}
+
 
 
 
@@ -437,7 +466,14 @@ contextBridge.exposeInMainWorld("api", {
     quitarSolicitud: quitarSolicitud,
     tiempoGrupo: tiempoGrupo,
     totalesGrupo: totalesGrupo,
-    top10Grupo: top10Grupo
+    top10Grupo: top10Grupo,
+    getCodeGrupoUser: getCodeGrupoUser,
+    peorSesionPomodoro: peorSesionPomodoro,
+    mejorSesionPomodoro: mejorSesionPomodoro,
+    ultimaSesionPomodoro: ultimaSesionPomodoro,
+    contarSesionPomodoro: contarSesionPomodoro,
+    contarMesPomodoro: contarMesPomodoro,
+    datosTotalesPomodoro: datosTotalesPomodoro
 })
 
 //SE UTILIZA con la linea window.api.funcion("parametros").then((result) => {....})

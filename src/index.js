@@ -4,7 +4,7 @@ const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
 
 
-model.totalesGrupo('BxRNmSQArM',10).then(r => console.log(r));
+//model.datosTotalesPomodoro(25).then(r => console.log(r['unna']));
 
 let winlogin;
 let win, camera_win;

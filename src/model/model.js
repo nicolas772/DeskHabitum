@@ -52,8 +52,8 @@ const confirmMail = async (email) => {
 }
 
 //QUERYS SESIONES
-const createSesion = async (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion) => {
-    let query = `INSERT INTO sesions (id_user, inicio, fin, total_time, time_unnas, time_pelo, time_morder, time_vista, cant_total_unnas, cant_total_pelo, cant_total_morder, cant_total_vista, cant_total_pestaneo, mes, anno) VALUES (${id_usuario}, '${inicio}', '${final}', '${total}', '${total_unhas}', '${total_pelo}', '${total_morder}', '${total_vista}', '${cant_tot_unha}','${cant_tot_pelo}','${cant_tot_objeto}', '${cant_tot_vista}', '${cant_tot_pestaneo}', '${mes_sesion}', '${anno_sesion}')`;
+const createSesion = async (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion, pom = 'no') => {
+    let query = `INSERT INTO sesions (id_user, inicio, fin, total_time, time_unnas, time_pelo, time_morder, time_vista, cant_total_unnas, cant_total_pelo, cant_total_morder, cant_total_vista, cant_total_pestaneo, mes, anno, pomodoro) VALUES (${id_usuario}, '${inicio}', '${final}', '${total}', '${total_unhas}', '${total_pelo}', '${total_morder}', '${total_vista}', '${cant_tot_unha}','${cant_tot_pelo}','${cant_tot_objeto}', '${cant_tot_vista}', '${cant_tot_pestaneo}', '${mes_sesion}', '${anno_sesion}', '${pom}' )`;
     const res = await conexion.query(query)
 }
 const getSesion = async (id) => {
@@ -430,6 +430,13 @@ const getCodeGrupo = async (id_lider) => {
     return result[0]['code']
 }
 
+const getCodeGrupoUser = async (id_user) => {
+    let query = `select code from users inner join grupos on users.grupo=grupos.id where users.id=${id_user}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['code']
+}
+
 // mayor que 0 si es que tiene
 const tieneGrupo = async (id_lider) => {
     let query = `select * from grupos where lider = ${id_lider}`;
@@ -553,9 +560,53 @@ const top10Grupo = async (code, mes) => {
     return result2
 }
 
+//QUERYS POMODORO
 
-// select sum(time_unnas) from (select * from sesions where id_user in (2,5) order by id desc limit 15) as t1
-//select * from sesions where id_user in (2,5) and EXTRACT(month from inicio) = 10  order by id desc limit 15
+const peorSesionPomodoro = async (userId) => {
+    let query = `select  max(total) from (select (cant_total_unnas + cant_total_pelo + cant_total_vista + cant_total_pestaneo) as total from sesions where id_user = ${userId} and pomodoro ='si') as t1`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['max']    
+}
+
+const mejorSesionPomodoro = async (userId) => {
+    let query = `select  min(total) from (select (cant_total_unnas + cant_total_pelo + cant_total_vista + cant_total_pestaneo) as total from sesions where id_user = ${userId} and pomodoro ='si') as t1`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['min']    
+}
+
+const ultimaSesionPomodoro = async (userId) => {
+    let query = `select (cant_total_unnas + cant_total_pelo + cant_total_vista + cant_total_pestaneo) as total from sesions where id_user = ${userId} and pomodoro ='si' order by id desc limit 1 `;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['total']    
+}
+
+const contarSesionPomodoro = async (userId) => {
+    let query = `select * from sesions where id_user= ${userId} and pomodoro ='si' `;
+    const res = await conexion.query(query)
+    const result = res.rowCount
+    return result    
+}
+
+const contarMesPomodoro = async (userId, mes) => {
+    let query = `select * from sesions where id_user= ${userId} and pomodoro ='si' and mes = ${mes}`;
+    const res = await conexion.query(query)
+    const result = res.rowCount
+    return result    
+}
+
+const datosTotalesPomodoro = async (userId) => {
+    let query = `select sum(cant_total_unnas) as unna, sum(cant_total_pelo) as pelo, sum(cant_total_morder) as morder, sum(cant_total_vista+cant_total_pestaneo) as vision from (select * from sesions where id_user= ${userId} and pomodoro = 'si') as t1`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]    
+}
+
+
+
+
 
 module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion,
                  totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesionUnhas, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas,
@@ -566,4 +617,4 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
               sesionesMesUnha, sesionesMesMorder, sesionesMesPelo, mejorMesUnhas,
               peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder, createVista, createPestaneo,
               createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo, quitarSolicitud,
-            tiempoGrupo, totalesGrupo, top10Grupo}
+            tiempoGrupo, totalesGrupo, top10Grupo, /*nuevas*/ getCodeGrupoUser, peorSesionPomodoro, mejorSesionPomodoro, ultimaSesionPomodoro, contarSesionPomodoro, contarMesPomodoro, datosTotalesPomodoro}
