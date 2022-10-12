@@ -57,11 +57,11 @@
                     <div class="item" id="lider_equipo" style="display:none" >
                         <a href = "liderEquipo.html" id="grupos" >
                             <span class="material-icons-sharp"><i class="fas fa-users"></i></span>
-                            <h3>Líder de equipo</h3>
+                            <h3>Equipo</h3>
                         </a>
                     </div>
                     <div class="item">
-                    <a href = "Tips.html">
+                    <a href = "Tips.html" >
                         <span class="material-icons-sharp">receipt_long</span>
                         <h3>Consejos</h3>
                     </a>
@@ -103,7 +103,7 @@
                     </div>
                     
                     <div class="item">
-                        <a href = "Pomodoro.html" class="active">
+                        <a href = "Pomodoro.html" class = "active">
                             <span class="material-icons-sharp">browse_gallery</span>
                             <h3>Pomodoro</h3>
                         </a>
@@ -182,10 +182,10 @@
                                 <div style="width:63%;float:right;">
                                     <div class="row">
                                         <div style="width:50%; ">
-                                            <a id="reset" href="#"><button><i class="fa-solid fa-arrow-rotate-left"></i></button></a>
+                                            <a id="reset" href="#"><button onclick="stop_pomodoro()"><i class="fa-solid fa-arrow-rotate-left"></i></button></a>
                                         </div>
                                         <div style="width:50%;">
-                                            <a id="pause" href="#"><button><i class="fa fa-pause"></i></button></a>
+                                            <a id="pause" href="#"><button onclick="pause_pomodoro()"><i class="fa fa-pause"></i></button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -228,7 +228,7 @@
                                 <div class="col-sm-6">
                                     <div class="card" style="width: 12rem; height: 4rem;">
                                         <div class="card-body" style="padding:0.4rem">
-                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Pomodoros del último mes</h4>
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Pomodoros último mes</h4>
                                             <h1  style="font-size:1rem; text-align:center; margin-bottom: 0;">5</h1>
                                         </div>
                                     </div>
@@ -264,10 +264,10 @@
 
                     </div>
                     
-                        <div class="row" style="width: 90%; height: 90px;">
-                            <h4 style="margin-top:0.3rem;">Gráfico últimos 10 pomodoros</h4>
-                            <canvas style="margin-left:100px;" id="pom_comparacion" ></canvas>
-                        </div>
+                    <div class="row" style="width: 90%; ">
+                        <h4 >Gráfico últimos 10 pomodoros</h4>
+                        <canvas style="margin-left:100px;height: 145px;" id="pom_comparacion" ></canvas>
+                    </div>
                     
 
                     
@@ -284,7 +284,7 @@
            
         
             
-            <script src="../pomodoro.js"></script>
+            <script src="../vista_pomodoro.js"></script>
 
         </main>
     </div>

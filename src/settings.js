@@ -14,6 +14,7 @@ const duracionPomo = document.getElementById("duracionPomo")
 const duracionShortBreak = document.getElementById("duracionShortBreak")
 const duracionLongBreak = document.getElementById("duracionLongBreak")
 const intervaloLongBreak = document.getElementById("intervaloLongBreak")
+const cantidadPomodoros = document.getElementById("cantidadPomodoros")
 const NOTIFICATION_TITLE = 'Configuración guardada'
 const NOTIFICATION_BODY = 'Si tienes el monitoreo activado, tendrás que reiniciarlo para tu nueva configuración.'
 const CLICK_MESSAGE = 'Notification clicked!'
@@ -35,7 +36,8 @@ async function saveSettings(){
         duracionPomo.value,
         duracionShortBreak.value,
         duracionLongBreak.value,
-        intervaloLongBreak.value
+        intervaloLongBreak.value,
+        cantidadPomodoros.value
     ]
     let CONF = configList.map(function(e){
         switch(e) {
@@ -65,11 +67,12 @@ async function saveSettings(){
         CONF[11],
         CONF[12],
         CONF[13],
-        CONF[14]
+        CONF[14],
+        CONF[15]
     ).then(result => {
         let resultado=result
     })
-    doNotify();
+    doNotify3();
 }
 
 async function actualizarSettings(){
@@ -89,6 +92,12 @@ async function actualizarSettings(){
     $('#duracionShortBreak').val(config.duracionshortbreak)
     $('#duracionLongBreak ').val(config.duracionlongbreak)
     $('#intervaloLongBreak').val(config.intervalolongbreak)
+    $('#cantidadPomodoros').val(config.cantidadpomodoros)
+    $('#duracionPomo1').val(config.duracionpomo)
+    $('#duracionShortBreak1').val(config.duracionshortbreak)
+    $('#duracionLongBreak1 ').val(config.duracionlongbreak)
+    $('#intervaloLongBreak1').val(config.intervalolongbreak)
+    $('#cantidadPomodoros1').val(config.cantidadpomodoros)
     if(config.tiponotificacion == 'tiempo'){
         $('#tiempoNotificacion').val(config.tiemponotificacion)
         $('#tipo-intervalo').hide()
@@ -99,14 +108,32 @@ async function actualizarSettings(){
     
 }
 
+async function actualizarEquipoDiv(){ //esta funcion actualiza el div html del equipo. Si está en un equipo, muestra el id del equipo. Si no esta, le da la opción de ingresar un codigo
+    let codeGrupo
+    $('#unirse_a_equipo').hide()
+    $('#unido_a_equipo').hide()
+    await window.api.getCodeGrupoUser(ID_USER).then(result => {
+        codeGrupo = result;
+    });
+    console.log("code grupo:", codeGrupo)
+    if(codeGrupo.length != 0){
+        $('#unido_a_equipo').show()
+        $('#codigo_equipo_actual').val(codeGrupo[0]['code'])    
+    }else{
+        $('#unirse_a_equipo').show()
+    }
+    
+}
+
 function init2(){
     actualizarSettings();
+    actualizarEquipoDiv()
     actualizarNavbar();
 }
 
 window.onload = init2;
 
-function doNotify(){
+function doNotify3(){
     Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
             body: NOTIFICATION_BODY, icon: 'https://cdn-icons-png.flaticon.com/512/244/244060.png'

@@ -4,7 +4,7 @@ const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
 
 
-//model.addParticipante(12, 'BxRNmSQArM').then(r => console.log(r));
+//model.datosTotalesPomodoro(25).then(r => console.log(r['unna']));
 
 let winlogin;
 let win, camera_win;
@@ -20,12 +20,7 @@ model.totalSesionTimeMorder(64).then(r=>{
   } else {
     console.log("normal")
   }  
-
-
-}
-  
-
-)
+})
 
 
 const createWindow = () => {
@@ -59,6 +54,23 @@ const createWindow = () => {
     })
     camera_win.loadFile('src/views/camera.html');
     camera_win.webContents.openDevTools();
+
+
+    pomodoro_win = new BrowserWindow({
+      width: 600,
+      height: 600,
+      //show: false,
+      webPreferences: {
+          // nodeIntegration: true,
+          // contextIsolation:true,
+          //devTools:true,
+          preload:path.join(__dirname, 'pomodoro.js')
+          
+      }
+    })
+    
+    pomodoro_win.loadFile('src/views/camera.html');
+    pomodoro_win.webContents.openDevTools();
 }
 
 app.on('window-all-closed', () => {

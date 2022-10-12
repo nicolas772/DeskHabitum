@@ -51,7 +51,7 @@
                     <div class="item" id="lider_equipo" style="display:none">
                         <a href = "liderEquipo.html" id="grupos">
                             <span class="material-icons-sharp"><i class="fas fa-users"></i></span>
-                            <h3>Líder de equipo</h3>
+                            <h3>Equipo</h3>
                         </a>
                     </div>
                     <div class="item">
@@ -115,11 +115,11 @@
         <!----END ASIDE---->
         <main>
             
-            <label><h1 style="margin-top:10px;">Configuraciones</h1>
+            <label><h1 style="margin-top:10px;margin-bottom:0px;">Configuraciones</h1>
                 <br/>
-                <h2> Detección automática</h2>
+                <h2 style="margin-bottom:0px;"> Detección automática</h2>
                 <br/>
-                <p> Aquí podrás configurar que hábitos quieres que se detecten.</p>
+                <p style="margin-bottom:0.5rem;"> Aquí podrás configurar que hábitos quieres que se detecten.</p>
                 <div class="row">
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -159,9 +159,9 @@
             </label>
             <label style="visibility: hidden"><div class="col py-1">........</div> </label>
             <label>
-                <h2> Notificaciones</h2>
+                <h2 style="margin-bottom:0px;"> Notificaciones</h2>
                 <br/>
-                <p> Aquí podrás personalizar la forma en que se te notifica.</p>
+                <p style="margin-bottom:0.5rem;"> Aquí podrás personalizar la forma en que se te notifica.</p>
                 <div class="row">
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -224,95 +224,178 @@
            
             
 
-            <br/>
+            
             
 
             <div class="row">
-                <div style="margin-top:20px; width:45%; float:left">
-                    <label >
-                        <h2 style="margin-bottom:5px; "> Unirse a equipo</h2>
-                        
-                        <p style="margin-bottom:5px;"> Aquí podrás unirte a un equipo ingresando el código de invitación de tu líder.</p>
-                        <div class="row">
-                            <ul class="list-group">
-                                
-                                
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Código de equipo
-                                    <input type="text" class="form-control" placeholder="Codigo" id="codigo_equipo">
-        
-                                </li>
-                               
-                            </ul>
+                <div id="unirse_a_equipo" >
+                    <div style="margin-top:20px; width:45%; float:left; " >
+                        <label >
+                            <h2 style="margin-bottom:5px; "> Unirse a equipo</h2>
                             
-                        </div>
+                            <p style="margin-bottom:5px;"> Aquí podrás unirte a un equipo ingresando el código de invitación de tu líder.</p>
+                            <div class="row">
+                                <ul class="list-group">
+                                    
+                                    
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Código de equipo
+                                        <input type="text" class="form-control" placeholder="Codigo" id="codigo_equipo">
+            
+                                    </li>
+                                
+                                </ul>
+                                
+                            </div>
+                            <div class = "div-boton-cambios">
+                                <button type='button' class="btn btn-outline-primary" style="margin-left:310px;" onclick="unirse_grupo()">Unirse</button> <!--onclick='saveSettings()'-->
+                            </div>
+                        </label>
+                    </div>
+                    <div style="width:50%; float:right; ">
+                        <label >
+                            <h2> Pomodoro</h2>
+                            
+                            <p> Aquí podrás personalizar tu Pomodoro.</p>
+                            <div class="row">
+                                <ul class="list-group" >
+                                    <li class="list-group-item d-flex justify-content-between align-items-center" >
+                                        Duración pomodoro [min]
+                                        <div >
+                                            <input id="duracionPomo" type="number" min="1" max="100" step="1" >
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Duración break corto [min]
+                                        <div style="margin-left:30px;">
+                                            <input id="duracionShortBreak" type="number" min="1" max="100" step="1"  >
+                                        </div>
+          
+                                        
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Duración break largo [min]
+                                        <div>
+                                            <input id="duracionLongBreak" type="number" min="1" max="100" step="1">
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Intervalo para break largo 
+                                        <div>
+                                            <input id="intervaloLongBreak" type="number" min="1" max="100" step="1">
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Cantidad de Pomodoros
+                                        <div>
+                                            <input id="cantidadPomodoros" type="number" min="1" max="100" step="1">
+                                        </div>
+                                    </li>
+                                    
+                                    <!--<li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <label class="mr-sm-2" for="inlineFormCustomSelect">Intervalo de Notificacion</label>
+                                        <select class="custom-select mr-sm-2" id="intervaloNotificacion">
+                                            <option selected>Choose...</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </li>-->
+                                </ul>
+                                
+                            </div>
+                        </label>
                         <div class = "div-boton-cambios">
-                            <button type='button' class="btn btn-outline-primary" style="margin-left:310px;" onclick="unirse_grupo()">Unirse</button> <!--onclick='saveSettings()'-->
+                        <button type='button' class="btn btn-outline-primary" style="float: right;" onclick="saveSettings()">Guardar Cambios</button>
                         </div>
-                    </label>
-                </div>
-                <div style="margin-left:10px;width:50%; float:right;">
-                    <label >
-                        <h2> Pomodoro</h2>
-                        
-                        <p> Aquí podrás personalizar tu Pomodoro.</p>
-                        <div class="row">
-                            <ul class="list-group" >
-                                <li class="list-group-item d-flex justify-content-between align-items-center" >
-                                    Duración pomodoro [min]
-                                    <div >
-                                        <input id="duracionPomo" type="number" min="1" max="100" step="1" >
-                                    </div>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Duración break corto [min]
-                                    <div style="margin-left:30px;">
-                                        <input id="duracionShortBreak" type="number" min="1" max="100" step="1"  >
-                                    </div>
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Duración break largo [min]
-                                    <div>
-                                        <input id="duracionLongBreak" type="number" min="1" max="100" step="1">
-                                    </div>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Intervalo para break largo 
-                                    <div>
-                                        <input id="intervaloLongBreak" type="number" min="1" max="100" step="1">
-                                    </div>
-                                </li>
-                                
-                                <!--<li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <label class="mr-sm-2" for="inlineFormCustomSelect">Intervalo de Notificacion</label>
-                                    <select class="custom-select mr-sm-2" id="intervaloNotificacion">
-                                        <option selected>Choose...</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </li>-->
-                            </ul>
-                            
-                        </div>
-                    </label>
-                    <div class = "div-boton-cambios">
-                        <button type='button' class="btn btn-outline-primary" style="float: right;" onclick='saveSettings()'>Guardar Configuraciones</button>
                     </div>
                 </div>
+                <div id="unido_a_equipo" >
+                    <div style="margin-top:20px; width:45%; float:left;">
+                        <label >
+                            <h2 style="margin-bottom:5px; "> Unirse a equipo</h2>
+                            
+                            <p style="margin-bottom:5px;"> Ya estás unido a un equipo. El código de tu equipo es:</p>
+                            <div class="row">
+                                <ul class="list-group">
+                                    
+                                    
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Código de equipo
+                                        <input type="text" class="form-control" placeholder="Codigo" id="codigo_equipo_actual" disabled>
+            
+                                    </li>
+                                
+                                </ul>
+                                
+                            </div>
+            
+                        </label>
+                    </div>
+                    <div style="width:50%; float:right; ">
+                        <label >
+                            <h2> Pomodoro</h2>
+                            
+                            <p> Aquí podrás personalizar tu Pomodoro.</p>
+                            <div class="row">
+                                <ul class="list-group" >
+                                    <li class="list-group-item d-flex justify-content-between align-items-center" >
+                                        Duración pomodoro [min]
+                                        <div >
+                                            <input id="duracionPomo1" type="number" min="1" max="100" step="1" >
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Duración break corto [min]
+                                        <div style="margin-left:30px;">
+                                            <input id="duracionShortBreak1" type="number" min="1" max="100" step="1"  >
+                                        </div>
+                               
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Duración break largo [min]
+                                        <div>
+                                            <input id="duracionLongBreak1" type="number" min="1" max="100" step="1">
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Intervalo para break largo 
+                                        <div>
+                                            <input id="intervaloLongBreak1" type="number" min="1" max="100" step="1">
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Cantidad de Pomodoros
+                                        <div>
+                                            <input id="cantidadPomodoros1" type="number" min="1" max="100" step="1">
+                                        </div>
+                                    </li>
+                                    
+                                    <!--<li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <label class="mr-sm-2" for="inlineFormCustomSelect">Intervalo de Notificacion</label>
+                                        <select class="custom-select mr-sm-2" id="intervaloNotificacion">
+                                            <option selected>Choose...</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </li>-->
+                                </ul>
+                                
+                            </div>
+                        </label>
+                        <div class = "div-boton-cambios">
+                        <button type='button' class="btn btn-outline-primary" style="float: right;" onclick="saveSettings()">Guardar Cambios</button>
+                        </div>
+                    </div>
+                </div>
+                
+                
                 
 
 
             </div>
 
-            
-            
 
 
         </main>
