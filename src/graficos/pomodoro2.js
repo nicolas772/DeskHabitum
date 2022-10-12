@@ -28,36 +28,6 @@ document.getElementById("charHabitosUltimoPomodoro").innerHTML = ''
 var charHabitosUltimoPomodoro = new ApexCharts(document.getElementById("charHabitosUltimoPomodoro"), dataHabitosUltimoPomodoro);
 charHabitosUltimoPomodoro.render();
 
-
-let ctx = document.getElementById('detecciones_comparacion').getContext('2d');
-    let myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Peor sesión', 'Última sesión', 'Mejor sesión'],
-            datasets: [{
-                label: 'Cantidad de detecciones',
-                data: [parseInt(55),parseInt(33),parseInt(3)],
-                backgroundColor: [
-                    'rgba(255, 205, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rrgba(255, 99, 132, 0.2)'
-                ],
-                borderColor: [
-                    'rgb(255, 205, 86)',
-                    'rgb(75, 192, 192)',
-                    'rgb(255, 99, 132)'
-                ],
-                borderWidth: 1
-            }]
-        }
-       
-    });
-
-
-
-
-
-/*
 let opt_pomodoro = {
     series: [{
     name: 'Manías',
