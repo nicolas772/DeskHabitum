@@ -41,16 +41,16 @@ async function update_dash_ultima_sesion() {
     document.getElementById("Card-Postura").innerHTML = postura
 
     //HTML: index , indicador: detección fatiga visual
-    /*await window.api.countPestaneoSesion(id_lastSesion).then(result => {
+    await window.api.countPestaneoSesion(id_lastSesion).then(result => {
       pestaneoCount = result
     });
-    await window.api.countVisualSesion(id_lastSesion).then(result => {
+    await window.api.countVistaSesion(id_lastSesion).then(result => {
       if(result == 0 && pestaneoCount == 0){
         visual = "No"
       }else{
         visual = "Si"
       }
-    });*/
+    });
     
     document.getElementById("Card-Visual").innerHTML = visual
 

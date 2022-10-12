@@ -231,6 +231,18 @@ const countUnhasSesion = async (sesionId) => {
     const result = res.rowCount
     return result    
 }
+const countPestaneoSesion = async (sesionId) => {
+    let query = `select * from pestaneo where id_ses = ${sesionId}`;
+    const res = await conexion.query(query)
+    const result = res.rowCount
+    return result    
+}
+const countVistaSesion = async (sesionId) => {
+    let query = `select * from vista where id_ses = ${sesionId}`;
+    const res = await conexion.query(query)
+    const result = res.rowCount
+    return result    
+}
 
 const allSesionsUnhas = async (userId) => {
     let query = `select * from unnas where id_user = ${userId}`;
@@ -631,4 +643,4 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
               sesionesMesUnha, sesionesMesMorder, sesionesMesPelo, mejorMesUnhas,
               peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder, createVista, createPestaneo,
               createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo, quitarSolicitud,
-            tiempoGrupo, totalesGrupo, top10Grupo, /*nuevas*/ getCodeGrupoUser, peorSesionPomodoro, mejorSesionPomodoro, ultimaSesionPomodoro, contarSesionPomodoro, contarMesPomodoro, datosTotalesPomodoro, updateUserData}
+            tiempoGrupo, totalesGrupo, top10Grupo, /*nuevas*/ getCodeGrupoUser, peorSesionPomodoro, mejorSesionPomodoro, ultimaSesionPomodoro, contarSesionPomodoro, contarMesPomodoro, datosTotalesPomodoro, updateUserData, countPestaneoSesion, countVistaSesion}

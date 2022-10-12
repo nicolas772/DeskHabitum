@@ -117,6 +117,14 @@ const getUnhas = (id) => {
     return model.getUnhas(id);
 }*/
 
+const countPestaneoSesion = (sesionId) => {
+    return model.countPestaneoSesion(sesionId)
+}
+
+const countVistaSesion = (sesionId) => {
+    return model.countVistaSesion(sesionId)
+}
+
 const countUnhasSesion = (sesionId) => {
     return model.countUnhasSesion(sesionId)
 }
@@ -534,7 +542,9 @@ contextBridge.exposeInMainWorld("api", {
     parar_pomodoro: parar_pomodoro,
     leer_pomodoro: leer_pomodoro,
     fecha_inicio_sesion: fecha_inicio_sesion,
-    quitarDelGrupo: quitarDelGrupo
+    quitarDelGrupo: quitarDelGrupo,
+    countPestaneoSesion: countPestaneoSesion,
+    countVistaSesion:countVistaSesion
 })
 
 module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id }
