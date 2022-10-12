@@ -48,12 +48,12 @@ async function pomodoroHandle(){
 
     config = await utils_pom.getConfig(id_usuario)
     config = config[0]
-
+    console.log(config)
     workTime = config.duracionpomo
     breakTime = config.duracionshortbreak
     longBreakTime = config.duracionlongbreak
     break_interval = config.intervalolongbreak
-    pomodoroStopper = 2 //config.
+    pomodoroStopper = config.cantidadpomodoros
 
     objInsert = {
         "minutes": workTime,
@@ -85,6 +85,7 @@ async function pomodoroHandle(){
             breakTime = config.duracionshortbreak
             longBreakTime = config.duracionlongbreak
             break_interval = config.intervalolongbreak
+            pomodoroStopper = config.cantidadpomodoros
 
             corriendo = true
             start_pomodoro();
@@ -264,6 +265,7 @@ async function stop_pomodoro(){
     breakTime = config.duracionshortbreak
     longBreakTime = config.duracionlongbreak
     break_interval = config.intervalolongbreak
+    pomodoroStopper = config.cantidadpomodoros
     
     objInsert = {
         "minutes": workTime,
@@ -318,7 +320,8 @@ async function stop_cam(){
         let fini_sesion = fin_sesion.toISOString()
         let mes_sesion = fin_sesion.getMonth() + 1
         let anno_sesion = fin_sesion.getFullYear()
-        await utils_pom.createSesion(ID_USER, ini_sesion, fini_sesion, total, total_unhas, total_pelo, total_objeto, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion); 
+        
+        await utils_pom.createSesion(ID_USER, ini_sesion, fini_sesion, total, total_unhas, total_pelo, total_objeto, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion, "si"); 
         //console.log("paso insert sesion")
         //inserto manias en BD
 
