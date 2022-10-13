@@ -35,9 +35,9 @@ async function actualizarTips(){
     let unhaAvg = ArrayAvg(unhas_10_sesiones).toFixed(2) //porcentaje promedio del tiempo total que se comio las uñas en las ultimas 10 sesiones
     let morderAvg = ArrayAvg(objetos_10_sesiones).toFixed(2) //porcentaje promedio del tiempo total que mordio un objeto
     let peloAvg = ArrayAvg(pelos_10_sesiones).toFixed(2) //porcentaje promedio del tiempo total que se jalo el pelo en las ultimas sesiones
-    let fatigaAvg = ArrayAvg(fatiga_10_sesiones) //cantidad promedio que se notifico de fatiga visual por minuto al usuario en las ultimas 10 sesiones
+    let fatigaAvg = ArrayAvg(fatiga_10_sesiones).toFixed(2) //cantidad promedio que se notifico de fatiga visual por minuto al usuario en las ultimas 10 sesiones
     //esto cambiarlo cuando se implemente el reconocimiento de postura
-    let posturaAvg = 7 //cantidad promedio que se notifico de mala postura por hora al usuario en las ultimas 10 sesiones
+    let posturaAvg = 3 //cantidad promedio que se notifico de mala postura por hora al usuario en las ultimas 10 sesiones
     /*let unha_state, morder_state, pelo_state, fatiga_state, postura_state;
     let unha_color, morder_color, pelo_color, fatiga_color, postura_color;*/
     if (unhaAvg < 5){
@@ -264,18 +264,23 @@ async function actualizarTips(){
     
     document.getElementById("unha-state").append(unha_state)
     document.getElementById("unha-state").style.color = unha_color;
+    document.getElementById("unha-number").append(unhaAvg)
     //document.getElementById("unha-avg").append(unhaAvg+"%")
     document.getElementById("morder-state").append(morder_state)
     document.getElementById("morder-state").style.color = morder_color;
+    document.getElementById("morder-number").append(morderAvg)
     //document.getElementById("morder-avg").append(morderAvg+"%")
     document.getElementById("pelo-state").append(pelo_state)
     document.getElementById("pelo-state").style.color = pelo_color;
+    document.getElementById("pelo-number").append(peloAvg)
     //document.getElementById("pelo-avg").append(peloAvg+"%")
     document.getElementById("fatiga-state").append(fatiga_state)
     document.getElementById("fatiga-state").style.color = fatiga_color;
+    document.getElementById("fatiga-number").append(fatigaAvg)
     //document.getElementById("fatiga-avg").append(fatigaAvg+" notificaciones por hora")
     document.getElementById("postura-state").append(postura_state)
     document.getElementById("postura-state").style.color = postura_color;
+    document.getElementById("postura-number").append(posturaAvg)
     //document.getElementById("postura-avg").append(posturaAvg+" notificaciones por hora")
 }
 
