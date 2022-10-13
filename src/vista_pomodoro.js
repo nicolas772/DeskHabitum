@@ -13,6 +13,7 @@ function start_pomodoro(){
 
 function pause_pomodoro(){
     window.api.pausar_pomodoro()
+    
 }
 
 function stop_pomodoro(){
@@ -21,6 +22,7 @@ function stop_pomodoro(){
     workTitle.classList.add('active');
 
     window.api.parar_pomodoro()
+    window.location.reload();
 }
 
 

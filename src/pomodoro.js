@@ -30,6 +30,8 @@ let interval_counter = 0
 
 let break_interval = 4; //INTERVALO LONG BREAK
 
+let apretado = false;
+
 
 function get_user_id(){
     let respuesta = ipcRenderer.sendSync('get-user-id', "")
@@ -45,7 +47,7 @@ async function pomodoroHandle(){
     });//esto es para que siempre inicie apagado
 
     id_usuario = await get_user_id()
-
+    
     config = await utils_pom.getConfig(id_usuario)
     config = config[0]
     console.log(config)
@@ -96,6 +98,7 @@ async function pomodoroHandle(){
 
         }else if (run == '2' && corriendo){
             corriendo = false
+            apretado = true
             stop_pomodoro();
 
         }
@@ -286,8 +289,9 @@ async function stop_pomodoro(){
     clearInterval(id);
     pomodoro_iniciado = false;
 
-    if (!is_break){
+    if (!is_break || apretado){
         stop_cam();
+        apretado = false
     }
     
 }
