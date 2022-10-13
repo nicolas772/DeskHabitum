@@ -62,8 +62,11 @@ const confirmMail = async (email) => {
 
 //QUERYS SESIONES
 const createSesion = async (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion, pom = 'no') => {
-    let query = `INSERT INTO sesions (id_user, inicio, fin, total_time, time_unnas, time_pelo, time_morder, time_vista, cant_total_unnas, cant_total_pelo, cant_total_morder, cant_total_vista, cant_total_pestaneo, mes, anno, pomodoro) VALUES (${id_usuario}, '${inicio}', '${final}', '${total}', '${total_unhas}', '${total_pelo}', '${total_morder}', '${total_vista}', '${cant_tot_unha}','${cant_tot_pelo}','${cant_tot_objeto}', '${cant_tot_vista}', '${cant_tot_pestaneo}', '${mes_sesion}', '${anno_sesion}', '${pom}' )`;
-    const res = await conexion.query(query)
+    if (total>0) {
+        let query = `INSERT INTO sesions (id_user, inicio, fin, total_time, time_unnas, time_pelo, time_morder, time_vista, cant_total_unnas, cant_total_pelo, cant_total_morder, cant_total_vista, cant_total_pestaneo, mes, anno, pomodoro) VALUES (${id_usuario}, '${inicio}', '${final}', '${total}', '${total_unhas}', '${total_pelo}', '${total_morder}', '${total_vista}', '${cant_tot_unha}','${cant_tot_pelo}','${cant_tot_objeto}', '${cant_tot_vista}', '${cant_tot_pestaneo}', '${mes_sesion}', '${anno_sesion}', '${pom}' )`;
+        const res = await conexion.query(query)
+    }
+
 }
 const getSesion = async (id) => {
     let query = `SELECT * FROM sesions WHERE id = ${id}`;
@@ -516,6 +519,33 @@ const quitarDelGrupo = async (id_usuario, code) => {
     const res2 = await conexion.query(query2)
 }
 
+
+const eliminarGrupo = async (code) => {
+    console.log(code)
+    let query = `select participantes from grupos where code = '${code}'`;
+    console.log(query)
+    const res = await conexion.query(query)
+    const result = res.rows
+
+    p = result[0]['participantes']
+    console.log(p)
+    c = '('
+    p.forEach( m => {
+        c = c + m.toString() + ','
+    });
+    c = c.slice(0, -1) 
+    c = c + ')'
+    console.log(c)   
+    let query1 = `delete from grupos where code = '${code}'`;
+    const res1 = await conexion.query(query1)
+    let query2 = `update users set grupo = null where id in ${c}`;
+    const res2 = await conexion.query(query2)
+    
+
+    console.log("fin")
+    
+}
+
 const getParticipantesGrupo = async (code) => {
     let query = `select participantes from grupos where code = '${code}'`;
     const res = await conexion.query(query)
@@ -527,6 +557,7 @@ const getParticipantesGrupo = async (code) => {
     });
     c = c.slice(0, -1) 
     c = c + ')'
+
      
     let query2 = `select id, nombre,apellido from users where id in ${c}`;
     const res2 = await conexion.query(query2)
@@ -689,4 +720,4 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
               peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder, createVista, createPestaneo,
               createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo, quitarSolicitud,
             tiempoGrupo, totalesGrupo, top10Grupo, /*nuevas*/ getCodeGrupoUser, peorSesionPomodoro, mejorSesionPomodoro, ultimaSesionPomodoro, contarSesionPomodoro, contarMesPomodoro, datosTotalesPomodoro, updateUserData, countPestaneoSesion, countVistaSesion,
-             datosUltimaSesionPomodoro, cantDeteccionesFatigaPorMinutoTenSesion, ultimaVista, totalVista, top10Vista}
+             datosUltimaSesionPomodoro, cantDeteccionesFatigaPorMinutoTenSesion, ultimaVista, totalVista, top10Vista, eliminarGrupo}

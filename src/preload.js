@@ -466,6 +466,10 @@ const top10Vista = (id_user) => {
     return model.top10Vista(id_user)
 }
 
+const eliminarGrupo = (code) => {
+    return model.eliminarGrupo(code)
+}
+
 const readConsejoFile = () => {
     let rawdata = fs.readFileSync('./src/data/consejoHandle.json');
     let consejo = JSON.parse(rawdata);
@@ -565,7 +569,8 @@ contextBridge.exposeInMainWorld("api", {
     datosUltimaSesionPomodoro: datosUltimaSesionPomodoro,
     ultimaVista: ultimaVista,
     totalVista: totalVista,
-    top10Vista: top10Vista
+    top10Vista: top10Vista,
+    eliminarGrupo: eliminarGrupo
 })
 
 module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id, getConfig, parar_pomodoro}

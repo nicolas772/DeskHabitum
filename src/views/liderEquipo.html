@@ -131,7 +131,7 @@
                         <div  role="group" aria-label="Basic example" style="padding-left:8.3rem;padding-top:0.85rem;">
                             <a href="formulario_equipo.html" style="margin-left:50px;"><button type='button' class="btn btn-outline-primary" href="" style="color:#005b52; border-color:#005b52;border-width:2px;" onmouseover="this.style.backgroundColor='#005b52';this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='#005b52';" >Editar</button></a>
                             
-                            <button id='btnstop' type='button' class="btn btn-outline-primary" onclick='javascript:(0)'style="color:#005b52; border-color:#005b52;border-width:2px;" onmouseover="this.style.backgroundColor='#005b52';this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='#005b52';" >Eliminar</button>
+                            <button id='boton_eliminar_grupo' type='button' class="btn btn-outline-primary" onclick="eliminar_grupo()" style="color:#005b52; border-color:#005b52;border-width:2px;" onmouseover="this.style.backgroundColor='#005b52';this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='#005b52';" >Eliminar</button>
                         </div>
                     </div>
                 </div>
@@ -253,8 +253,10 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../navbar.js"></script>
+    <script src="../test_handleButtons.js"></script>  
     <script src="../handleGrupos.js"></script>
-    <script src="../graficos/equipo.js"></script>    
+    <script src="../graficos/equipo.js"></script> 
+ 
     <!--<script src="../renderWebcam.js"></script>-->
     <script type="text/javascript">
         $(document).ready(function(){

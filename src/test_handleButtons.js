@@ -1,3 +1,4 @@
+
 let fin_sesion
 let total
 let nombre, email, telefono, region, ciudad, atencion, profesional, motivo, obj;
@@ -88,5 +89,13 @@ function crear_grupo(){
     nombre = document.getElementById("nombre_equipo")
     window.api.createGrupo(ID, nombre.value)
     doNotify2()
+}
+
+async function eliminar_grupo(){
+    let id_new = window.api.get_user_id("")
+    let code_new = await window.api.getCodeGrupo(id_new)
+    await window.api.eliminarGrupo(code_new).then(r => window.location.href= "liderEquipo2.html")
+    //document.getElementById("boton_eliminar_grupo").setAttribute("href", "liderEquipo2.html")
+    
 }
 
