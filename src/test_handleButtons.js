@@ -28,7 +28,7 @@ async function stop_cam(){
         let fini_sesion = fin_sesion.toISOString()
         let mes_sesion = fin_sesion.getMonth() + 1
         let anno_sesion = fin_sesion.getFullYear()
-        await window.api.createSesion(ID_USER, ini_sesion, fini_sesion, total, total_unhas, total_pelo, total_objeto, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion); 
+        await window.api.createSesion(ID_USER, ini_sesion, fini_sesion, total, total_unhas, total_pelo, total_objeto, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion, "no"); 
         //console.log("paso insert sesion")
         //inserto manias en BD
 
