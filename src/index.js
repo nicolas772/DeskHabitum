@@ -4,7 +4,7 @@ const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
 
 
-//model.cantDeteccionesFatigaPorMinutoTenSesion(2).then(r => console.log(r));
+//model.eliminarGrupo("hXhix7Ornk").then(r => console.log());
 
 let winlogin;
 let win, camera_win;
@@ -177,6 +177,7 @@ function toReg(){
   winlogin.close();
 }
 
+
 ipcMain.handle('moveToLogin', (event, obj) => {
   toLogin();
 });
@@ -185,6 +186,7 @@ function toLogin(){
   loginWindow();
   winreg.close();
 }
+
 
 
 //Funcion para crear nueva camara desde boton "comenzar"

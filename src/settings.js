@@ -15,30 +15,62 @@ const duracionShortBreak = document.getElementById("duracionShortBreak")
 const duracionLongBreak = document.getElementById("duracionLongBreak")
 const intervaloLongBreak = document.getElementById("intervaloLongBreak")
 const cantidadPomodoros = document.getElementById("cantidadPomodoros")
+const duracionPomo1 = document.getElementById("duracionPomo1")
+const duracionShortBreak1 = document.getElementById("duracionShortBreak1")
+const duracionLongBreak1 = document.getElementById("duracionLongBreak1")
+const intervaloLongBreak1 = document.getElementById("intervaloLongBreak1")
+const cantidadPomodoros1 = document.getElementById("cantidadPomodoros1")
 const NOTIFICATION_TITLE = 'Configuración guardada'
 const NOTIFICATION_BODY = 'Si tienes el monitoreo activado, tendrás que reiniciarlo para tu nueva configuración.'
 const CLICK_MESSAGE = 'Notification clicked!'
+let configList
 
 async function saveSettings(){
-    
-    let configList = [
-        ID_USER, 
-        morderUnha.checked, 
-        morderObjetos.checked,
-        jalarPelo.checked,
-        fatigaVisual.checked,
-        malaPostura.checked,
-        alertaVisual.checked,
-        alertaSonora.checked,
-        intervaloNotificacion.value,
-        tiempoNotificacion.value,
-        tipoNotificacion.value,
-        duracionPomo.value,
-        duracionShortBreak.value,
-        duracionLongBreak.value,
-        intervaloLongBreak.value,
-        cantidadPomodoros.value
-    ]
+    let codeGrupo1
+
+    await window.api.getCodeGrupoUser(ID_USER).then(result => {
+        codeGrupo1 = result;
+    });
+    if(codeGrupo1.length != 0){
+        configList = [
+            ID_USER, 
+            morderUnha.checked, 
+            morderObjetos.checked,
+            jalarPelo.checked,
+            fatigaVisual.checked,
+            malaPostura.checked,
+            alertaVisual.checked,
+            alertaSonora.checked,
+            intervaloNotificacion.value,
+            tiempoNotificacion.value,
+            tipoNotificacion.value,
+            duracionPomo1.value,
+            duracionShortBreak1.value,
+            duracionLongBreak1.value,
+            intervaloLongBreak1.value,
+            cantidadPomodoros1.value
+        ]   
+    }else{
+        configList = [
+            ID_USER, 
+            morderUnha.checked, 
+            morderObjetos.checked,
+            jalarPelo.checked,
+            fatigaVisual.checked,
+            malaPostura.checked,
+            alertaVisual.checked,
+            alertaSonora.checked,
+            intervaloNotificacion.value,
+            tiempoNotificacion.value,
+            tipoNotificacion.value,
+            duracionPomo.value,
+            duracionShortBreak.value,
+            duracionLongBreak.value,
+            intervaloLongBreak.value,
+            cantidadPomodoros.value
+        ]
+    }
+
     let CONF = configList.map(function(e){
         switch(e) {
             case true:
@@ -91,6 +123,11 @@ async function actualizarSettings(){
     $('#duracionPomo').val(config.duracionpomo)
     $('#duracionShortBreak').val(config.duracionshortbreak)
     $('#duracionLongBreak ').val(config.duracionlongbreak)
+    $('#intervaloLongBreak').val(config.intervalolongbreak)
+    $('#cantidadPomodoros').val(config.cantidadpomodoros)
+    $('#duracionPomo').val(config.duracionpomo)
+    $('#duracionShortBreak').val(config.duracionshortbreak)
+    $('#duracionLongBreak').val(config.duracionlongbreak)
     $('#intervaloLongBreak').val(config.intervalolongbreak)
     $('#cantidadPomodoros').val(config.cantidadpomodoros)
     $('#duracionPomo1').val(config.duracionpomo)
