@@ -2,13 +2,10 @@ let workTitle = document.getElementById('work');
 let breakTitle = document.getElementById('break');
 let longBreakTitle = document.getElementById('long_break');
 
-
-
 //FUNCIONES DE LOS BOTONES DE POMODORO
 function start_pomodoro(){
     window.api.iniciar_pomodoro()
 }
-
 
 
 function pause_pomodoro(){
@@ -35,6 +32,10 @@ async function timerHandle(){
         document.getElementById('minutes').innerHTML = data_pomodoro.minutes;
         document.getElementById('seconds').innerHTML = data_pomodoro.seconds;
         document.getElementById('num_pomodoro').innerHTML = data_pomodoro.numero;
+
+        if (data_pomodoro.recarga == 1){
+            window.location.reload();
+        }
 
         // CORRIENDO
         if (data_pomodoro.estado == 1){

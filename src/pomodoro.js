@@ -38,6 +38,31 @@ function get_user_id(){
     return respuesta   
 }
 
+function recargar_vista(){
+    objInsert = {
+        "minutes": workMinutes,
+        "seconds": seconds,
+        "tipo": tipo,
+        "numero": 1,
+        "estado": 2,
+        "recarga": 1
+    }
+    data_json = JSON.stringify(objInsert);
+    fs.writeFileSync("./src/data/pomodoro.json", data_json);
+    setTimeout (function(){
+        objInsert = {
+            "minutes": workMinutes,
+            "seconds": seconds,
+            "tipo": tipo,
+            "numero": 1,
+            "estado": 2,
+            "recarga": 0
+        }
+        data_json = JSON.stringify(objInsert);
+        fs.writeFileSync("./src/data/pomodoro.json", data_json);
+    }, 100);
+}
+
 
 async function pomodoroHandle(){
     fs.writeFileSync('./src/data/pomodoroHandle.txt', "0", function(err) {
@@ -62,7 +87,8 @@ async function pomodoroHandle(){
         "seconds": seconds,
         "tipo": tipo,
         "numero": 1,
-        "estado": 2
+        "estado": 2,
+        "recarga": 0
     }
     data_json = JSON.stringify(objInsert);
     fs.writeFileSync("./src/data/pomodoro.json", data_json)
@@ -149,7 +175,8 @@ function start_pomodoro() {
             "seconds": seconds,
             "tipo": tipo,
             "numero": interval_counter + 1,
-            "estado": 1
+            "estado": 1,
+            "recarga": 0
         }
 
         data_json = JSON.stringify(objInsert);
@@ -165,9 +192,9 @@ function start_pomodoro() {
             if(workMinutes === -1 ){
 
                 if(interval_counter + 1 >= pomodoroStopper){
-                    stop_pomodoro();
                     utils_pom.parar_pomodoro();
-
+                    stop_pomodoro();
+                    
                 }
 
                 // COndición para el long break
@@ -179,7 +206,7 @@ function start_pomodoro() {
                     
                     if(!is_break){
                         stop_cam();
-                        
+                        recargar_vista();
                     }
                     is_break = true
                     
@@ -197,6 +224,7 @@ function start_pomodoro() {
                     tipo = "break"
                     if(!is_break){
                         stop_cam();
+                        recargar_vista();
                     }
                     // start break
                     is_break = true
@@ -241,7 +269,8 @@ function pause_pomodoro(){
         "seconds": seconds,
         "tipo": tipo,
         "numero": interval_counter + 1,
-        "estado": 0
+        "estado": 0,
+        "recarga": 0
     }
 
     data_json = JSON.stringify(objInsert);
@@ -270,12 +299,15 @@ async function stop_pomodoro(){
     break_interval = config.intervalolongbreak
     pomodoroStopper = config.cantidadpomodoros
     
+    workMinutes = workTime
+    seconds = "00"
     objInsert = {
         "minutes": workTime,
         "seconds": "00",
         "tipo": tipo,
         "numero": 1,
-        "estado": 2
+        "estado": 2,
+        "recarga": 0
     }
     data_json = JSON.stringify(objInsert);
     fs.writeFileSync("./src/data/pomodoro.json", data_json)
@@ -291,6 +323,7 @@ async function stop_pomodoro(){
 
     if (!is_break || apretado){
         stop_cam();
+        recargar_vista();
         apretado = false
     }
     
