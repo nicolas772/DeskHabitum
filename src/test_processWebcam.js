@@ -8,7 +8,7 @@ const faceLandmarksDetection = require('@tensorflow-models/face-landmarks-detect
 const crud = require('./model/model.js')
 const fs = require('fs');
 //Notificaciones
-const {NotificarUña, NotificarPelo, NotificarObjeto, NotificarPestañeo, NotificarVisual, CamaraCargada} = require('./notificaciones.js');
+const {NotificarUña, NotificarPelo, NotificarObjeto, NotificarPestañeo, NotificarVisual, NotificarNariz, CamaraCargada} = require('./notificaciones.js');
 
 const {ipcRenderer} = require("electron");
 var ID_USER = get_user_id()
@@ -25,6 +25,7 @@ let tricotilomania = false; //arrancar pelos
 let morder_objetos = false; //detectar mordidas
 let postura = false;
 let fatiga_visual = false;
+let mucofagia = true; // CORREGIR
 
 //Variable para controlar la ejecución de la webcam
 let webcam, run;
@@ -37,6 +38,7 @@ let intervalo_pelo = 1000;
 let intervalo_objeto = 2000;
 let intervalo_vista = 1500;
 let intervalo_postura = 2000;
+let intervalo_nariz = 2000;
 
 //Booleanos que se activan cuando se cumplen los intervalos de tiempo
 let detectado_uña = false;
@@ -44,12 +46,12 @@ let detectado_pelo = false;
 let detectado_objeto = false;
 let detectado_vista = false;
 let detectado_postura = false;
+let detectado_nariz = false;
 
 //Booleano para el pestañeo intermitente
 let pestañeo_individual = false;
 let booleano_pestañeo = false;
 let hay_cara = false;
-
 
 
 //Variables para la configuración de las notificaciones
@@ -78,13 +80,14 @@ let corriendo_pelo = false;
 let corriendo_objeto = false;
 let corriendo_vista = false;
 let corriendo_postura = false;
+let corriendo_nariz = false;
 
 //Variables de timestamp
-let inicio_uña, inicio_pelo, inicio_objeto, inicio_vista, inicio_postura;
-let fin_uña, fin_pelo, fin_objeto, fin_vista, fin_postura;
+let inicio_uña, inicio_pelo, inicio_objeto, inicio_vista, inicio_postura, inicio_nariz;
+let fin_uña, fin_pelo, fin_objeto, fin_vista, fin_postura, fin_nariz;
 
 //Booleanos que indican si se está realizando dicho mal habito
-let comiendo_uña, tirando_pelo, mordiendo_objeto, fatigando_vista, mala_postura;
+let comiendo_uña, tirando_pelo, mordiendo_objeto, fatigando_vista, mala_postura, urgando_nariz;
 
 
 function Periodo_Pestañeo() {
@@ -109,7 +112,6 @@ function Periodo_Pestañeo() {
                     cantidad_detecciones = 0;
                 }
             }
-            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@BASE DE DATOS
             let inicio_pestaneo = new Date()
             actualizarJson('pestaneo', inicio_pestaneo, inicio_pestaneo)
         }
@@ -200,11 +202,13 @@ async function getConfig(ID_USER){
         corriendo_objeto = false;
         corriendo_vista = false;
         corriendo_postura = false;
+        corriendo_nariz = false;
         detectado_uña = false;
         detectado_pelo = false;
         detectado_objeto = false;
         detectado_vista = false;
         detectado_postura = false;
+        detectado_nariz = false;
         corriendo_periodo = false
         cantidad_mordidas = 0;
         cantidad_detecciones = 0;
@@ -409,7 +413,7 @@ async function init_model() {
     modeloBlaze = poseDetection.SupportedModels.BlazePose;
     detectorBlaze = await poseDetection.createDetector(modeloBlaze, {runtime : 'tfjs', modelType : 'full'});
 
-    if (onicofagia || tricotilomania || fatiga_visual){
+    if (onicofagia || tricotilomania || fatiga_visual || mucofagia){
         modeloHand = handPoseDetection.SupportedModels.MediaPipeHands;
         detectorHand = await handPoseDetection.createDetector(modeloHand, {runtime : 'tfjs', solutionPath: "https://cdn.jsdelivr.net/npm/@mediapipe/hands",  modelType : 'full'});
 
@@ -455,7 +459,7 @@ async function predict() {
     let posesHand, posesBlaze, bocaCenter_x, bocaCenter_y;
     //https://github.com/tensorflow/tfjs-models/tree/master/hand-pose-detection
 
-    if (onicofagia || tricotilomania || fatiga_visual){
+    if (onicofagia || tricotilomania || fatiga_visual || mucofagia){
         posesHand = await detectorHand.estimateHands(webcam.canvas);
         //https://github.com/tensorflow/tfjs-models/tree/master/pose-detection
         posesBlaze = await detectorBlaze.estimatePoses(webcam.canvas);
@@ -476,10 +480,10 @@ async function predict() {
     tirando_pelo = false
     mordiendo_objeto = false
     fatigando_vista = false
+    urgando_nariz = false
+    mala_postura = false
 
-
-    
-    if ( (onicofagia || tricotilomania || fatiga_visual) && posesBlaze.length != 0 && posesHand.length != 0 /* && (posesBlaze[0].keypoints3D[19].score >= 0.8 || posesBlaze[0].keypoints3D[20].score >= 0.8)*/){
+    if ( (onicofagia || tricotilomania || fatiga_visual || mucofagia) && posesBlaze.length != 0 && posesHand.length != 0 /* && (posesBlaze[0].keypoints3D[19].score >= 0.8 || posesBlaze[0].keypoints3D[20].score >= 0.8)*/){
 
         //BLAZE POSE
 
@@ -492,9 +496,11 @@ async function predict() {
 
         ojoLeft_Outer = posesBlaze[0].keypoints[3]
         ojoLeft = posesBlaze[0].keypoints[2]
+        ojoLeft_Inner = posesBlaze[0].keypoints[1]
 
         ojoRight_Outer = posesBlaze[0].keypoints[6]
         ojoRight = posesBlaze[0].keypoints[5]
+        ojoRight_Inner = posesBlaze[0].keypoints[4]
 
         ojoLeft3D = posesBlaze[0].keypoints3D[2]
         ojoRight3D = posesBlaze[0].keypoints3D[5]
@@ -974,6 +980,51 @@ async function predict() {
                 }
             }
         }
+
+/*-----------------------------------------------SECCIÓN DE MUCOFAGIA-----------------------------------------------*/
+        if(mucofagia){
+            let radio_nariz;
+
+            radio_ojoLeft = distancia_puntos(ojoLeft_Outer.x, ojoLeft_Outer.y, ojoLeft_Inner.x, ojoLeft_Inner.y)
+            radio_ojoRight = distancia_puntos(ojoRight_Outer.x, ojoRight_Outer.y, ojoRight_Inner.x, ojoRight_Inner.y)
+
+            dist_nariz_tip = distancia_puntos(tipIndice.x, tipIndice.y, nariz.x, nariz.y)
+
+            if (radio_ojoLeft > radio_ojoRight){
+                radio_nariz = radio_ojoLeft
+            } else {
+                radio_nariz = radio_ojoRight
+            }
+            
+            if (tipIndice.y < bocaCenter_y && dist_nariz_tip >= 0 && radio_nariz >= dist_nariz_tip){
+                if (!corriendo_nariz){
+                    inicio_nariz = new Date;
+                }
+                console.log("MUCOFAGIA")
+                urgando_nariz = true;
+                corriendo_nariz = true;
+
+            }
+
+            if (posesHand.length == 2 && !corriendo_nariz){
+
+                dist_nariz_tip = distancia_puntos(tipIndice2.x, tipIndice2.y, nariz.x, nariz.y)
+
+                if (tipIndice2.y < bocaCenter_y && dist_nariz_tip >= 0 && radio_nariz >= dist_nariz_tip){
+                    if (!corriendo_nariz){
+                        inicio_nariz = new Date;
+                    }
+                    
+                    console.log("MUCOFAGIA")
+                    urgando_nariz = true;
+                    corriendo_nariz = true;
+    
+                }
+
+            }
+        }
+
+
     }
     
 
@@ -1469,7 +1520,7 @@ async function predict() {
     }
 
     //Termina la detección
-    if (!(comiendo_uña || tirando_pelo || mordiendo_objeto || fatigando_vista) && (corriendo_uña || corriendo_pelo || corriendo_objeto || corriendo_vista)){
+    if (!(comiendo_uña || tirando_pelo || mordiendo_objeto || fatigando_vista || urgando_nariz) && (corriendo_uña || corriendo_pelo || corriendo_objeto || corriendo_vista || corriendo_nariz)){
 
         if (corriendo_uña && detectado_uña){
             corriendo_uña = false;
@@ -1509,6 +1560,15 @@ async function predict() {
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_vista, fin_vista);
             actualizarJson('vista', inicio_vista, fin_vista)
+        }
+
+        if (corriendo_nariz && detectado_nariz){
+            corriendo_nariz = false;
+            detectado_nariz = false;
+            fin_nariz = new Date;
+
+            //@@@@@@@@@@@@@@@@@@BASE DE DATOOOOOOOOOOOOOOOOOSSSSSS
+            console.log(inicio_nariz, fin_nariz);
         }
     }
 
@@ -1570,6 +1630,19 @@ async function predict() {
 
                 if (se_puede_notificar){
                     NotificarVisual();
+                    CountDownEntreNotificaciones();
+                }
+            }
+
+        }
+
+        if (corriendo_nariz && !detectado_nariz){
+            if (fecha_ahora - inicio_nariz >= intervalo_nariz){
+
+                detectado_nariz = true;
+
+                if (se_puede_notificar){
+                    NotificarNariz();
                     CountDownEntreNotificaciones();
                 }
             }
@@ -1646,6 +1719,22 @@ async function predict() {
 
                 if (cantidad_detecciones == cantidad_notificacion){
                     NotificarVisual();
+                    cantidad_detecciones = 0;
+                    
+                }
+            }
+        }
+
+        if (corriendo_nariz && !detectado_nariz){
+    
+            if (fecha_ahora - inicio_nariz >= intervalo_nariz){
+
+                detectado_nariz = true;
+
+                cantidad_detecciones++;
+
+                if (cantidad_detecciones == cantidad_notificacion){
+                    NotificarNariz();
                     cantidad_detecciones = 0;
                     
                 }
