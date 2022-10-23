@@ -8,7 +8,7 @@ const faceLandmarksDetection = require('@tensorflow-models/face-landmarks-detect
 const crud = require('./model/model.js')
 const fs = require('fs');
 //Notificaciones
-const {NotificarUña, NotificarPelo, NotificarObjeto, NotificarPestañeo, NotificarVisual, NotificarNariz, CamaraCargada} = require('./notificaciones.js');
+const {NotificarUña, NotificarPelo, NotificarObjeto, NotificarPestañeo, NotificarVisual, NotificarNariz, NotificarPostura, CamaraCargada} = require('./notificaciones.js');
 
 const {ipcRenderer} = require("electron");
 var ID_USER = get_user_id()
@@ -23,7 +23,7 @@ let config_user
 let onicofagia = false; //comer uñas
 let tricotilomania = false; //arrancar pelos
 let morder_objetos = false; //detectar mordidas
-let postura = false;
+let postura = false; // detectar postura
 let fatiga_visual = false;
 let mucofagia = true; // CORREGIR
 
@@ -37,7 +37,7 @@ let intervalo_uña = 2000;
 let intervalo_pelo = 1000;
 let intervalo_objeto = 2000;
 let intervalo_vista = 1500;
-let intervalo_postura = 2000;
+let intervalo_postura = 5000;
 let intervalo_nariz = 2000;
 
 //Booleanos que se activan cuando se cumplen los intervalos de tiempo
@@ -413,7 +413,7 @@ async function init_model() {
     modeloBlaze = poseDetection.SupportedModels.BlazePose;
     detectorBlaze = await poseDetection.createDetector(modeloBlaze, {runtime : 'tfjs', modelType : 'full'});
 
-    if (onicofagia || tricotilomania || fatiga_visual || mucofagia){
+    if (onicofagia || tricotilomania || fatiga_visual || mucofagia ){
         modeloHand = handPoseDetection.SupportedModels.MediaPipeHands;
         detectorHand = await handPoseDetection.createDetector(modeloHand, {runtime : 'tfjs', solutionPath: "https://cdn.jsdelivr.net/npm/@mediapipe/hands",  modelType : 'full'});
 
@@ -459,10 +459,15 @@ async function predict() {
     let posesHand, posesBlaze, bocaCenter_x, bocaCenter_y;
     //https://github.com/tensorflow/tfjs-models/tree/master/hand-pose-detection
 
-    if (onicofagia || tricotilomania || fatiga_visual || mucofagia){
+    
+    posesBlaze = await detectorBlaze.estimatePoses(webcam.canvas);
+    if (onicofagia || tricotilomania || fatiga_visual || mucofagia || postura){
+
         posesHand = await detectorHand.estimateHands(webcam.canvas);
         //https://github.com/tensorflow/tfjs-models/tree/master/pose-detection
-        posesBlaze = await detectorBlaze.estimatePoses(webcam.canvas);
+        
+
+
 
         
     }
@@ -470,6 +475,7 @@ async function predict() {
     if (fatiga_visual){
         cara = await detectorPestañeo.estimateFaces(webcam.canvas);
     }
+    
 
     if (!camara_cargada){
         CamaraCargada();
@@ -1024,7 +1030,57 @@ async function predict() {
             }
         }
 
+    
 
+
+
+
+    }
+
+    /*-----------------------------------------------SECCIÓN DE POSTURA-----------------------------------------------*/
+
+    if(postura && posesBlaze.length != 0){
+        hombro_izquierdo = posesBlaze[0].keypoints[11]
+        hombro_derecho =  posesBlaze[0].keypoints[12]
+
+        hombro_promedio_X = (hombro_izquierdo.x + hombro_derecho.x) / 2.0
+        hombro_promedio_Y = (hombro_izquierdo.y + hombro_derecho.y) / 2.0
+
+
+        mejilla_izquierda = posesBlaze[0].keypoints[7]
+        mejilla_derecha = posesBlaze[0].keypoints[8]
+
+        mejilla_promedio_X = (mejilla_izquierda.x + mejilla_derecha.x) / 2.0
+        mejilla_promedio_Y = (mejilla_izquierda.y + mejilla_izquierda.y) / 2.0
+
+        vertical = distancia_puntos(hombro_promedio_X, hombro_promedio_Y, mejilla_promedio_X, mejilla_promedio_Y)
+        horizontal = distancia_puntos(hombro_izquierdo.x, hombro_izquierdo.y, hombro_derecho.x, hombro_derecho.y)
+        proporcion_nueva = vertical / horizontal    
+        
+        
+        //Si se mira de frente y se comete mala postura
+        if (proporcion_nueva < 0.496){
+
+            if(!corriendo_postura){
+                inicio_postura = new Date;
+            }
+            
+            console.log("MALA POSTURA")
+            mala_postura = true;
+            corriendo_postura = true;
+        
+        //Si está de perfil y se comete mala postura
+        }else if(proporcion_nueva > 0.73 && vertical < 89.5){
+
+            if(!corriendo_postura){
+                inicio_postura = new Date;
+            }
+
+            console.log("MALA POSTURA")
+            mala_postura = true;
+            corriendo_postura = true;
+
+        }
     }
     
 
@@ -1520,7 +1576,7 @@ async function predict() {
     }
 
     //Termina la detección
-    if (!(comiendo_uña || tirando_pelo || mordiendo_objeto || fatigando_vista || urgando_nariz) && (corriendo_uña || corriendo_pelo || corriendo_objeto || corriendo_vista || corriendo_nariz)){
+    if (!(comiendo_uña || tirando_pelo || mordiendo_objeto || fatigando_vista || urgando_nariz || mala_postura) && (corriendo_uña || corriendo_pelo || corriendo_objeto || corriendo_vista || corriendo_nariz || corriendo_postura)){
 
         if (corriendo_uña && detectado_uña){
             corriendo_uña = false;
@@ -1569,6 +1625,15 @@ async function predict() {
 
             //@@@@@@@@@@@@@@@@@@BASE DE DATOOOOOOOOOOOOOOOOOSSSSSS
             console.log(inicio_nariz, fin_nariz);
+        }
+
+        if (corriendo_postura && detectado_postura){
+            corriendo_postura = false;
+            detectado_postura = false;
+            fin_postura = new Date;
+
+            //AQUI GUARDAR EN BASE DE DATOS
+            console.log(inicio_postura, fin_postura);
         }
     }
 
@@ -1648,6 +1713,20 @@ async function predict() {
             }
 
         }
+
+        if (corriendo_postura && !detectado_postura){
+            if (fecha_ahora - inicio_postura >= intervalo_postura){
+
+                detectado_postura = true;
+
+                if (se_puede_notificar){
+                    NotificarPostura();
+                    CountDownEntreNotificaciones();
+                }
+            }
+
+        }
+
 
     //---------------------------NOTIFICACIONES ENTRE CANTIDADES DE RECONOCIMIENTOS---------------------------
     } else if (opcion == "reconocimientos"){
@@ -1735,6 +1814,21 @@ async function predict() {
 
                 if (cantidad_detecciones == cantidad_notificacion){
                     NotificarNariz();
+                    cantidad_detecciones = 0;
+                    
+                }
+            }
+        }
+        if (corriendo_postura && !detectado_postura){
+    
+            if (fecha_ahora - inicio_postura >= intervalo_postura){
+
+                detectado_postura = true;
+
+                cantidad_detecciones++;
+
+                if (cantidad_detecciones == cantidad_notificacion){
+                    NotificarPostura();
                     cantidad_detecciones = 0;
                     
                 }
