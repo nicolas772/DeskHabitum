@@ -624,11 +624,397 @@
                 <input type="radio" id="tablast2" name="mytabs">
                 <label for="tablast2">Rinotilexomanía</label>
                 <div class="tab">
+                    <div class="row">
+                        <div style="width:60%; float:left">
+                            <h1 style="padding-top:5px;">Reportes Rinotilexomanía</h1>
+                        </div>
+                        <div style="width: 40%;float:right">
+                            <div class="radio2"> 
+                                <input class="radio__input" type="radio" value="option1" name="myRadio" id="checkrinorec" checked="checked">
+                                <label class="radio__label" for="checkrinorec">Resumen</label>
+                                
+                                
+                                <input class="radio__input" type="radio" value="option2" name="myRadio" id="checkrinomes">
+                                <label class="radio__label" for="checkrinomes">Por sesión</label>
+                                
+                                <input class="radio__input" type="radio" value="option3" name="myRadio" id="checkrinoanio">
+                                <label class="radio__label" for="checkrinoanio">Por mes</label>
+                            </div>
+                        </div>
+                       
+                    </div>
+
+                    <div class="row" id="rinorec">
+                        <h1>Últimas sesiones</h1>
+                        <div class="row">
+                            <div style="width:40%; float:left">
+                                <h1 style="font-size:1rem; margin-top:0.3rem; margin-bottom:2rem;"  > Cantidad de detecciones</h1>
+    
+                                <div class="col-sm-6">
+                                    <div class="card"  style="width: 18rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones última sesión</h4>
+                                            <h1 id ="ultima-sesion-trico" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1> <!-- Cambiar datos trico-->
+    
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="card" style="width: 18rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones totales</h4>
+                                            <h1 id ="total-detecciones-trico" style="font-size:1rem; text-align:center; margin-bottom: 0;"></h1> <!-- Cambiar datos trico -->
+    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 60%;float:right">
+                                <div class="col-sm-6" >
+                                <h1 style="font-size:1rem; margin-top:0.3rem" > Porcentaje distracción total</h1>
+                                <div id="#chart_trico1" style="margin:auto; width:40%;padding-left:1rem"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h1 style="font-size:1rem; margin-top:0.3rem"> Porcentaje distracción últimas 10 sesiones </h1>
+                            <div id="chart_trico2" style="margin:auto; padding:1rem"></div>
+                        </div>
+                        
+                        
+                    </div>
+
+                    <div class="row" id="rinomes">
+                        <h1>Evolución por sesión</h1>
+                        <div class="row">
+                            <div style="width:33%; float:left">
+                                <h4>Peor sesión</h4>
+                                <div class="card">
+                                    <div class="card-header p-3 pt-2">
+                                      <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                                        <i class="material-icons opacity-10">person_remove</i>
+                                      </div>
+                                      <div class="text-end pt-1">
+                                        <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                        <h4 class="mb-0" id="peor_ses_trico"></h4>
+                                      </div>
+                                    </div>
+                                                                        
+                                  </div>
+                            </div>
+                            <div style="width: 66%;float:right">
+                                <div class="row">
+                                    <div style="width:50%; float:left">
+                                        <h4>Última sesión</h4>
+                                        <div class="card">
+                                            <div class="card-header p-3 pt-2">
+                                              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                                                <i class="material-icons opacity-10">person</i>
+                                              </div>
+                                              <div class="text-end pt-1">
+                                                <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                                <h4 class="mb-0" id="ult_ses_trico"></h4>
+                                              </div>
+                                            </div>                                           
+                                            
+                                          </div>
+                                    </div>
+                                    <div style="width: 50%;float:right">
+                                        <h4>Mejor sesión</h4>
+                                        <div class="card">
+                                            <div class="card-header p-3 pt-2">
+                                              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                                                <i class="material-icons opacity-10">person_add</i>
+                                              </div>
+                                              <div class="text-end pt-1">
+                                                <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                                <h4 class="mb-0" id="mejor_ses_trico"></h4>
+                                              </div>
+                                            </div>                                           
+                                            
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        </br>                        
+                        <div class="row" style="width: 90%; ">
+                            <h4 style="margin-top:0.3rem;"></h4>
+                            <canvas style="margin-left:100px;" id="trico_comparacion" ></canvas>
+                        </div>                        
+                    </div>
+
+                    <div class="row" id="rinoanio">
+                        <h1></h1>
+                        <div class="row">
+                            <div style="width:33%; float:left">
+                                <h4>Peor mes</h4>
+                                <div class="card">
+                                    <div class="card-header p-3 pt-2">
+                                      <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                                        <i class="material-icons opacity-10">person_remove</i>
+                                      </div>
+                                      <div class="text-end pt-1">
+                                        <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                        <h4 class="mb-0" id="peor_mes_trico"></h4>
+                                      </div>
+                                    </div>                                  
+                                    
+                                  </div>
+                            </div>
+                            <div style="width: 66%;float:right">
+                                <div class="row">
+                                    <div style="width:50%; float:left">
+                                        <h4>Mes Actual</h4>
+                                        <div class="card">
+                                            <div class="card-header p-3 pt-2">
+                                              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                                                <i class="material-icons opacity-10">person</i>
+                                              </div>
+                                              <div class="text-end pt-1">
+                                                <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                                <h4 class="mb-0" id="ult_mes_trico"></h4>
+                                              </div>
+                                            </div>                                          
+                                            
+                                          </div>
+                                    </div>
+                                    <div style="width: 50%;float:right">
+                                        <h4>Mejor mes</h4>
+                                        <div class="card">
+                                            <div class="card-header p-3 pt-2">
+                                              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                                                <i class="material-icons opacity-10">person_add</i>
+                                              </div>
+                                              <div class="text-end pt-1">
+                                                <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                                <h4 class="mb-0" id="mejor_mes_trico"></h4>
+                                              </div>
+                                            </div>                                          
+                                            
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--GRAFICO ANUAL DE TRICOTILOMANiA -->
+                      </br>
+                        <div class="row">
+                            <h1 style="margin-top:0.3rem;"> Evolución mensual por sesión</h1>
+                            <!--<h1 style="font-size:1rem; margin-top:0.3rem"> Tiempo de distracción, monitoreo y total </h1>-->
+                            <div id="chart_tricomes" style="margin:auto; padding:1rem"></div>
+                        </div>
+
+                        
+
+                        
+
+                    </div>
+
+                    
+            
+                  
+                    
                 </div>
 
                 <input type="radio" id="tablast3" name="mytabs">
                 <label for="tablast3">Dermatilomanía</label>
                 <div class="tab">
+                    <div class="row">
+                        <div style="width:60%; float:left">
+                            <h1 style="padding-top:5px;">Reportes Dermatilomanía</h1>
+                        </div>
+                        <div style="width: 40%;float:right">
+                            <div class="radio2"> 
+                                <input class="radio__input" type="radio" value="option1" name="myRadio" id="checkdermarec" checked="checked">
+                                <label class="radio__label" for="checkdermarec">Resumen</label>
+                                
+                                
+                                <input class="radio__input" type="radio" value="option2" name="myRadio" id="checkdermames">
+                                <label class="radio__label" for="checkdermames">Por sesión</label>
+                                
+                                <input class="radio__input" type="radio" value="option3" name="myRadio" id="checkdermaanio">
+                                <label class="radio__label" for="checkdermaanio">Por mes</label>
+                            </div>
+                        </div>
+                       
+                    </div>
+
+                    <div class="row" id="dermarec">
+                        <h1>Últimas sesiones</h1>
+                        <div class="row">
+                            <div style="width:40%; float:left">
+                                <h1 style="font-size:1rem; margin-top:0.3rem; margin-bottom:2rem;"  > Cantidad de detecciones</h1>
+    
+                                <div class="col-sm-6">
+                                    <div class="card"  style="width: 18rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones última sesión</h4>
+                                            <h1 id ="ultima-sesion-trico" style="font-size:1rem;text-align:center; margin-bottom: 0;"></h1> <!-- Cambiar datos trico-->
+    
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="card" style="width: 18rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones totales</h4>
+                                            <h1 id ="total-detecciones-trico" style="font-size:1rem; text-align:center; margin-bottom: 0;"></h1> <!-- Cambiar datos trico -->
+    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 60%;float:right">
+                                <div class="col-sm-6" >
+                                <h1 style="font-size:1rem; margin-top:0.3rem" > Porcentaje distracción total</h1>
+                                <div id="#chart_trico1" style="margin:auto; width:40%;padding-left:1rem"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h1 style="font-size:1rem; margin-top:0.3rem"> Porcentaje distracción últimas 10 sesiones </h1>
+                            <div id="chart_trico2" style="margin:auto; padding:1rem"></div>
+                        </div>
+                        
+                        
+                    </div>
+
+                    <div class="row" id="dermames">
+                        <h1>Evolución por sesión</h1>
+                        <div class="row">
+                            <div style="width:33%; float:left">
+                                <h4>Peor sesión</h4>
+                                <div class="card">
+                                    <div class="card-header p-3 pt-2">
+                                      <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                                        <i class="material-icons opacity-10">person_remove</i>
+                                      </div>
+                                      <div class="text-end pt-1">
+                                        <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                        <h4 class="mb-0" id="peor_ses_trico"></h4>
+                                      </div>
+                                    </div>
+                                                                        
+                                  </div>
+                            </div>
+                            <div style="width: 66%;float:right">
+                                <div class="row">
+                                    <div style="width:50%; float:left">
+                                        <h4>Última sesión</h4>
+                                        <div class="card">
+                                            <div class="card-header p-3 pt-2">
+                                              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                                                <i class="material-icons opacity-10">person</i>
+                                              </div>
+                                              <div class="text-end pt-1">
+                                                <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                                <h4 class="mb-0" id="ult_ses_trico"></h4>
+                                              </div>
+                                            </div>                                           
+                                            
+                                          </div>
+                                    </div>
+                                    <div style="width: 50%;float:right">
+                                        <h4>Mejor sesión</h4>
+                                        <div class="card">
+                                            <div class="card-header p-3 pt-2">
+                                              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                                                <i class="material-icons opacity-10">person_add</i>
+                                              </div>
+                                              <div class="text-end pt-1">
+                                                <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                                <h4 class="mb-0" id="mejor_ses_trico"></h4>
+                                              </div>
+                                            </div>                                           
+                                            
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        </br>                        
+                        <div class="row" style="width: 90%; ">
+                            <h4 style="margin-top:0.3rem;"></h4>
+                            <canvas style="margin-left:100px;" id="trico_comparacion" ></canvas>
+                        </div>                        
+                    </div>
+
+                    <div class="row" id="dermaanio">
+                        <h1></h1>
+                        <div class="row">
+                            <div style="width:33%; float:left">
+                                <h4>Peor mes</h4>
+                                <div class="card">
+                                    <div class="card-header p-3 pt-2">
+                                      <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                                        <i class="material-icons opacity-10">person_remove</i>
+                                      </div>
+                                      <div class="text-end pt-1">
+                                        <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                        <h4 class="mb-0" id="peor_mes_trico"></h4>
+                                      </div>
+                                    </div>                                  
+                                    
+                                  </div>
+                            </div>
+                            <div style="width: 66%;float:right">
+                                <div class="row">
+                                    <div style="width:50%; float:left">
+                                        <h4>Mes Actual</h4>
+                                        <div class="card">
+                                            <div class="card-header p-3 pt-2">
+                                              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                                                <i class="material-icons opacity-10">person</i>
+                                              </div>
+                                              <div class="text-end pt-1">
+                                                <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                                <h4 class="mb-0" id="ult_mes_trico"></h4>
+                                              </div>
+                                            </div>                                          
+                                            
+                                          </div>
+                                    </div>
+                                    <div style="width: 50%;float:right">
+                                        <h4>Mejor mes</h4>
+                                        <div class="card">
+                                            <div class="card-header p-3 pt-2">
+                                              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                                                <i class="material-icons opacity-10">person_add</i>
+                                              </div>
+                                              <div class="text-end pt-1">
+                                                <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                                <h4 class="mb-0" id="mejor_mes_trico"></h4>
+                                              </div>
+                                            </div>                                          
+                                            
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--GRAFICO ANUAL DE TRICOTILOMANiA -->
+                      </br>
+                        <div class="row">
+                            <h1 style="margin-top:0.3rem;"> Evolución mensual por sesión</h1>
+                            <!--<h1 style="font-size:1rem; margin-top:0.3rem"> Tiempo de distracción, monitoreo y total </h1>-->
+                            <div id="chart_tricomes" style="margin:auto; padding:1rem"></div>
+                        </div>
+
+                        
+
+                        
+
+                    </div>
+
+                    
+            
+                  
+                    
                 </div>
 
             </div>

@@ -832,6 +832,116 @@ checkobjanio.addEventListener('click', function handleClick() {
   }
 });
 
+
+//---cambio pestanias rino
+const rinorec = document.getElementById('rinorec');
+const rinomes = document.getElementById('rinomes');
+const rinoanio = document.getElementById('rinoanio');
+
+const checkrinorec = document.getElementById('checkrinorec');
+const checkrinomes = document.getElementById('checkrinomes');
+const checkrinoanio = document.getElementById('checkrinoanio');
+
+checkrinorec.addEventListener('click', function handleClick() {
+  if (checkrinorec.checked) {
+    rinorec.style.display = 'block';
+    rinomes.style.display = 'none';
+    rinoanio.style.display = 'none';
+    rinorec.style.visibility = 'visible';
+    rinomes.style.visibility = 'hidden';
+    rinoanio.style.visibility = 'hidden';
+    
+  } else {
+    rinorec.style.display = 'none';
+    rinorec.style.visibility = 'hidden';
+  }
+});
+
+checkrinomes.addEventListener('click', function handleClick() {
+  if (checkrinomes.checked) {
+    rinorec.style.display = 'none';
+    rinomes.style.display = 'block';
+    rinoanio.style.display = 'none';
+    rinorec.style.visibility = 'hidden';
+    rinomes.style.visibility = 'visible';
+    rinoanio.style.visibility = 'hidden';
+  } else {
+    rinomes.style.display = 'none';
+    rinomes.style.visibility = 'hidden';
+  }
+});
+
+checkrinoanio.addEventListener('click', function handleClick() {
+  if (checkrinoanio.checked) {
+    rinorec.style.display = 'none';
+    rinomes.style.display = 'none';
+    rinoanio.style.display = 'block';
+    rinorec.style.visibility = 'hidden';
+    rinomes.style.visibility = 'hidden';
+    rinoanio.style.visibility = 'visible';
+    
+  } else {
+    rinoanio.style.display = 'none';
+    rinoanio.style.visibility = 'hidden';
+  }
+});
+
+//---pestanias derma
+const dermarec = document.getElementById('dermarec');
+const dermames = document.getElementById('dermames');
+const dermaanio = document.getElementById('dermaanio');
+
+const checkdermarec = document.getElementById('checkdermarec');
+const checkdermames = document.getElementById('checkdermames');
+const checkdermaanio = document.getElementById('checkdermaanio');
+
+checkdermarec.addEventListener('click', function handleClick() {
+  if (checkdermarec.checked) {
+    dermarec.style.display = 'block';
+    dermames.style.display = 'none';
+    dermaanio.style.display = 'none';
+    dermarec.style.visibility = 'visible';
+    dermames.style.visibility = 'hidden';
+    dermaanio.style.visibility = 'hidden';
+    
+  } else {
+    dermarec.style.display = 'none';
+    dermarec.style.visibility = 'hidden';
+  }
+});
+
+checkdermames.addEventListener('click', function handleClick() {
+  if (checkdermames.checked) {
+    dermarec.style.display = 'none';
+    dermames.style.display = 'block';
+    dermaanio.style.display = 'none';
+    dermarec.style.visibility = 'hidden';
+    dermames.style.visibility = 'visible';
+    dermaanio.style.visibility = 'hidden';
+  } else {
+    dermames.style.display = 'none';
+    dermames.style.visibility = 'hidden';
+  }
+});
+
+checkdermaanio.addEventListener('click', function handleClick() {
+  if (checkdermaanio.checked) {
+    dermarec.style.display = 'none';
+    dermames.style.display = 'none';
+    dermaanio.style.display = 'block';
+    dermarec.style.visibility = 'hidden';
+    dermames.style.visibility = 'hidden';
+    dermaanio.style.visibility = 'visible';
+    
+  } else {
+    dermaanio.style.display = 'none';
+    dermaanio.style.visibility = 'hidden';
+  }
+});
+
+
+//----------
+
 function init4(){
   update_dash_general()
   actualizarNavbar();
