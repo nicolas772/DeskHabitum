@@ -482,13 +482,14 @@ async function predict() {
         camara_cargada = true;
     }
 
+    
     comiendo_uña = false 
     tirando_pelo = false
     mordiendo_objeto = false
     fatigando_vista = false
     urgando_nariz = false
     mala_postura = false
-
+    
     if ( (onicofagia || tricotilomania || fatiga_visual || mucofagia) && posesBlaze.length != 0 && posesHand.length != 0 /* && (posesBlaze[0].keypoints3D[19].score >= 0.8 || posesBlaze[0].keypoints3D[20].score >= 0.8)*/){
 
         //BLAZE POSE
@@ -1586,6 +1587,9 @@ async function predict() {
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_uña, fin_uña);
             actualizarJson('unha', inicio_uña, fin_uña)
+        }else{
+            corriendo_uña = false;
+
         }
 
         if (corriendo_pelo && detectado_pelo){
@@ -1596,6 +1600,9 @@ async function predict() {
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_pelo, fin_pelo);
             actualizarJson('pelo', inicio_pelo, fin_pelo)
+        }else{
+            corriendo_pelo = false;
+
         }
 
         if (corriendo_objeto && detectado_objeto && !comiendo){
@@ -1606,6 +1613,9 @@ async function predict() {
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_objeto, fin_objeto);
             actualizarJson('objeto', inicio_objeto, fin_objeto)
+        }else{
+            corriendo_objeto= false;
+
         }
 
         if (corriendo_vista && detectado_vista){
@@ -1616,6 +1626,9 @@ async function predict() {
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_vista, fin_vista);
             actualizarJson('vista', inicio_vista, fin_vista)
+        }else{
+            corriendo_vista = false;
+
         }
 
         if (corriendo_nariz && detectado_nariz){
@@ -1625,6 +1638,9 @@ async function predict() {
 
             //@@@@@@@@@@@@@@@@@@BASE DE DATOOOOOOOOOOOOOOOOOSSSSSS
             console.log(inicio_nariz, fin_nariz);
+        }else{
+            corriendo_nariz = false;
+
         }
 
         if (corriendo_postura && detectado_postura){
@@ -1634,6 +1650,9 @@ async function predict() {
 
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_postura, fin_postura);
+        }else{
+            corriendo_postura = false;
+
         }
     }
 
