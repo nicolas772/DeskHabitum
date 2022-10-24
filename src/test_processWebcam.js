@@ -47,6 +47,10 @@ let detectado_postura = false;
 
 //Booleano para el pestañeo intermitente
 let pestañeo_individual = false;
+let booleano_pestañeo = false;
+let hay_cara = false;
+
+
 
 //Variables para la configuración de las notificaciones
 let opcion; 
@@ -60,7 +64,7 @@ let comiendo = false;
 let tiempo_comiendo = 600000;
 
 let cantidad_pestañeos = 0;
-let tiempo_periodo = 5000; //en milisegundos
+let tiempo_periodo = 10000; //en milisegundos
 let frec_normal_pestañeo = 2; // Sin concentrar vista: 20 pestañeos por min / Leyendo: 14 pestañeos por min -> 2 pestañeos por 10 seg
 let corriendo_periodo = false; 
 
@@ -86,8 +90,12 @@ let comiendo_uña, tirando_pelo, mordiendo_objeto, fatigando_vista, mala_postura
 function Periodo_Pestañeo() {
     corriendo_periodo = true
     setTimeout (function(){
+
+        /*if(!hay_cara){
+            clearTimeout(timeout)
+        }*/
         
-        if(cantidad_pestañeos < frec_normal_pestañeo){
+        if(cantidad_pestañeos < frec_normal_pestañeo && hay_cara){
             
             if(opcion == "tiempo" && se_puede_notificar){
                 NotificarPestañeo();
@@ -108,6 +116,7 @@ function Periodo_Pestañeo() {
         corriendo_periodo = false
         cantidad_pestañeos = 0
     }, tiempo_periodo);
+
 }
 
 
@@ -203,7 +212,7 @@ async function getConfig(ID_USER){
 
 
         config_user = result[0];
-        console.log(config_user);
+        //console.log(config_user);
 
         opcion = config_user.tiponotificacion;
 
@@ -425,7 +434,7 @@ async function init_model() {
     webcam.play();
     document.getElementById("HOLA").appendChild(webcam.canvas);
 
-    window.requestAnimationFrame(loop);
+    setTimeout (function(){window.requestAnimationFrame(loop)}, 5000);
 
 }
 
@@ -450,6 +459,12 @@ async function predict() {
         posesHand = await detectorHand.estimateHands(webcam.canvas);
         //https://github.com/tensorflow/tfjs-models/tree/master/pose-detection
         posesBlaze = await detectorBlaze.estimatePoses(webcam.canvas);
+
+        
+    }
+
+    if (fatiga_visual){
+        cara = await detectorPestañeo.estimateFaces(webcam.canvas);
     }
 
     if (!camara_cargada){
@@ -964,111 +979,120 @@ async function predict() {
 
 /*---------------------------------------------SECCIÓN DE FATIGA VISUAL CON PESTAÑEO----------------------------------------------*/
     if(fatiga_visual){
-        if (!corriendo_periodo){
-            Periodo_Pestañeo()
-        }
-            
-        cara = await detectorPestañeo.estimateFaces(webcam.canvas);
-        if (cara.length != 0){
 
-            //Nariz
-            nariz1 = cara[0].keypoints[4]
-            nariz2 = cara[0].keypoints[1]
-            narizUP = cara[0].keypoints[6]
-            narizLOW = cara[0].keypoints[5]
+        //cara = await detectorPestañeo.estimateFaces(webcam.canvas);
 
-            //frente
-            f1 = cara[0].keypoints[107]
-            f2 = cara[0].keypoints[336]
-
-            //Parpados
-            parpado_superior_160 = cara[0].keypoints[160]
-            parpado_superior_158 = cara[0].keypoints[158]
-            parpado_superior_385 = cara[0].keypoints[385]
-            parpado_superior_387 = cara[0].keypoints[387]
-
-
-            parpado_inferior_144 = cara[0].keypoints[144]
-            parpado_inferior_153 = cara[0].keypoints[153]
-            parpado_inferior_380 = cara[0].keypoints[380]
-            parpado_inferior_373 = cara[0].keypoints[373]
-
-            parpado_extremo_33 = cara[0].keypoints[33]
-            parpado_extremo_133 = cara[0].keypoints[133]
-            parpado_extremo_362 = cara[0].keypoints[362]
-            parpado_extremo_263 = cara[0].keypoints[263]
-
-
-            //Proporción para determinar parpadeo en ojo derecho
-            derecho = (distancia_puntos(parpado_superior_160.x, parpado_superior_160.y,parpado_inferior_144.x, parpado_inferior_144.y)
-            + distancia_puntos(parpado_superior_158.x, parpado_superior_158.y,parpado_inferior_153.x, parpado_inferior_153.y)
-            ) / (2 * distancia_puntos(parpado_extremo_33.x, parpado_extremo_33.y, parpado_extremo_133.x, parpado_extremo_133.y))
-
-            //Proporción para determinar parpadeo en ojo izquierdo
-            izquierdo = (distancia_puntos(parpado_superior_385.x, parpado_superior_385.y,parpado_inferior_380.x, parpado_inferior_380.y)
-            + distancia_puntos(parpado_superior_387.x, parpado_superior_387.y,parpado_inferior_373.x, parpado_inferior_373.y)
-            ) / (2 * distancia_puntos(parpado_extremo_362.x, parpado_extremo_362.y, parpado_extremo_263.x, parpado_extremo_263.y))
-
-        
-            //Unidad para definir cercanía a la pantalla en base a dos coordenadas de la frente
-            dist_frente = distancia_puntos(f1.x, f1.y, f2.x, f2.y)
-
-            //Condición para que bajar cabeza no se detecte como pestañeo
-            condicion_abajo_arriba = distancia_puntos(nariz1.x, nariz1.y, nariz2.x, nariz2.y) / distancia_puntos(f1.x, f1.y, f2.x, f2.y)
-
-            //Proporción para que levantar cabeza no se detecte como pestañeo
-            proporcion = distancia_puntos(f1.x, f1.y, f2.x, f2.y) / distancia_puntos(narizUP.x, narizUP.y, narizLOW.x, narizLOW.y)
-
-            //proporcion < 1.35
-            if(!pestañeo_individual){
-                if(derecho <= 0.255 && izquierdo <= 0.255 && condicion_abajo_arriba > 0.18  && dist_frente < 28){
-                    pestañeo_individual = true
-                    console.log("Parpadeando frente")
-                    cantidad_pestañeos += 1
-    
-                }else if(derecho <= 0.23 && izquierdo <= 0.23 && condicion_abajo_arriba > 0.18  && dist_frente >= 28){
-                    pestañeo_individual = true
-                    console.log("Parpadeando cerca frente")
-                    cantidad_pestañeos += 1
-    
-                }else if(derecho <= 0.32 && izquierdo <= 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente < 28){
-                    pestañeo_individual = true
-                    console.log("Parpadeando abajo")
-                    cantidad_pestañeos += 1
-    
-                }else if(derecho <= 0.32 && izquierdo <= 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente >= 28){
-                    pestañeo_individual = true
-                    console.log("Parpadeando abajo cerca")
-                    cantidad_pestañeos += 1
-    
-                }else if(derecho <= 0.35 && izquierdo <= 0.35 && condicion_abajo_arriba > 0.1 && condicion_abajo_arriba < 0.15 && dist_frente < 28){
-                    pestañeo_individual = true
-                    console.log("Parpadeando muy abajo")
-                    cantidad_pestañeos += 1
+        if(booleano_pestañeo){
+            if (cara.length != 0){
+                hay_cara = true
+                if (!corriendo_periodo){
+                    Periodo_Pestañeo()
                 }
-
-            }if (derecho > 0.255 && izquierdo > 0.255 && condicion_abajo_arriba > 0.18  && dist_frente < 28){
-                pestañeo_individual = false
-
-            }else if(derecho > 0.23 && izquierdo > 0.23 && condicion_abajo_arriba > 0.18  && dist_frente >= 28){
-                pestañeo_individual = false
-
-
-            }else if(derecho > 0.32 && izquierdo > 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente < 28){
-                pestañeo_individual = false
-
-
-            }else if(derecho > 0.32 && izquierdo > 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente >= 28){
-                pestañeo_individual = false
-
-
-            }else if(derecho > 0.35 && izquierdo > 0.35 && condicion_abajo_arriba > 0.1 && condicion_abajo_arriba < 0.15 && dist_frente < 28){
-                pestañeo_individual = false
-
-            }
+                //Nariz
+                nariz1 = cara[0].keypoints[4]
+                nariz2 = cara[0].keypoints[1]
+                narizUP = cara[0].keypoints[6]
+                narizLOW = cara[0].keypoints[5]
+    
+                //frente
+                f1 = cara[0].keypoints[107]
+                f2 = cara[0].keypoints[336]
+    
+                //Parpados
+                parpado_superior_160 = cara[0].keypoints[160]
+                parpado_superior_158 = cara[0].keypoints[158]
+                parpado_superior_385 = cara[0].keypoints[385]
+                parpado_superior_387 = cara[0].keypoints[387]
+    
+    
+                parpado_inferior_144 = cara[0].keypoints[144]
+                parpado_inferior_153 = cara[0].keypoints[153]
+                parpado_inferior_380 = cara[0].keypoints[380]
+                parpado_inferior_373 = cara[0].keypoints[373]
+    
+                parpado_extremo_33 = cara[0].keypoints[33]
+                parpado_extremo_133 = cara[0].keypoints[133]
+                parpado_extremo_362 = cara[0].keypoints[362]
+                parpado_extremo_263 = cara[0].keypoints[263]
+    
+    
+                //Proporción para determinar parpadeo en ojo derecho
+                derecho = (distancia_puntos(parpado_superior_160.x, parpado_superior_160.y,parpado_inferior_144.x, parpado_inferior_144.y)
+                + distancia_puntos(parpado_superior_158.x, parpado_superior_158.y,parpado_inferior_153.x, parpado_inferior_153.y)
+                ) / (2 * distancia_puntos(parpado_extremo_33.x, parpado_extremo_33.y, parpado_extremo_133.x, parpado_extremo_133.y))
+    
+                //Proporción para determinar parpadeo en ojo izquierdo
+                izquierdo = (distancia_puntos(parpado_superior_385.x, parpado_superior_385.y,parpado_inferior_380.x, parpado_inferior_380.y)
+                + distancia_puntos(parpado_superior_387.x, parpado_superior_387.y,parpado_inferior_373.x, parpado_inferior_373.y)
+                ) / (2 * distancia_puntos(parpado_extremo_362.x, parpado_extremo_362.y, parpado_extremo_263.x, parpado_extremo_263.y))
+    
             
+                //Unidad para definir cercanía a la pantalla en base a dos coordenadas de la frente
+                dist_frente = distancia_puntos(f1.x, f1.y, f2.x, f2.y)
+    
+                //Condición para que bajar cabeza no se detecte como pestañeo
+                condicion_abajo_arriba = distancia_puntos(nariz1.x, nariz1.y, nariz2.x, nariz2.y) / distancia_puntos(f1.x, f1.y, f2.x, f2.y)
+    
+                //Proporción para que levantar cabeza no se detecte como pestañeo
+                proporcion = distancia_puntos(f1.x, f1.y, f2.x, f2.y) / distancia_puntos(narizUP.x, narizUP.y, narizLOW.x, narizLOW.y)
+    
+                //proporcion < 1.35
+                if(!pestañeo_individual){
+                    if(derecho <= 0.255 && izquierdo <= 0.255 && condicion_abajo_arriba > 0.18  && dist_frente < 28){
+                        pestañeo_individual = true
+                        console.log("Parpadeando frente")
+                        cantidad_pestañeos += 1
+        
+                    }else if(derecho <= 0.23 && izquierdo <= 0.23 && condicion_abajo_arriba > 0.18  && dist_frente >= 28){
+                        pestañeo_individual = true
+                        console.log("Parpadeando cerca frente")
+                        cantidad_pestañeos += 1
+        
+                    }else if(derecho <= 0.32 && izquierdo <= 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente < 28){
+                        pestañeo_individual = true
+                        console.log("Parpadeando abajo")
+                        cantidad_pestañeos += 1
+        
+                    }else if(derecho <= 0.32 && izquierdo <= 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente >= 28){
+                        pestañeo_individual = true
+                        console.log("Parpadeando abajo cerca")
+                        cantidad_pestañeos += 1
+        
+                    }else if(derecho <= 0.35 && izquierdo <= 0.35 && condicion_abajo_arriba > 0.1 && condicion_abajo_arriba < 0.15 && dist_frente < 28){
+                        pestañeo_individual = true
+                        console.log("Parpadeando muy abajo")
+                        cantidad_pestañeos += 1
+                    }
+    
+                }if (derecho > 0.255 && izquierdo > 0.255 && condicion_abajo_arriba > 0.18  && dist_frente < 28){
+                    pestañeo_individual = false
+    
+                }else if(derecho > 0.23 && izquierdo > 0.23 && condicion_abajo_arriba > 0.18  && dist_frente >= 28){
+                    pestañeo_individual = false
+    
+    
+                }else if(derecho > 0.32 && izquierdo > 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente < 28){
+                    pestañeo_individual = false
+    
+    
+                }else if(derecho > 0.32 && izquierdo > 0.32 && condicion_abajo_arriba > 0.15 && condicion_abajo_arriba < 0.17 && dist_frente >= 28){
+                    pestañeo_individual = false
+    
+    
+                }else if(derecho > 0.35 && izquierdo > 0.35 && condicion_abajo_arriba > 0.1 && condicion_abajo_arriba < 0.15 && dist_frente < 28){
+                    pestañeo_individual = false
+    
+                }
+                
+    
+            }else{
+                hay_cara = false
+            }
 
+
+            
         }
+        booleano_pestañeo = true
 
     }
 

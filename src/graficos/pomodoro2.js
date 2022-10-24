@@ -1,110 +1,155 @@
 
 //----------GRAFICO POMODORO
-var dataHabitosUltimoPomodoro= {
-  series: [44,33,22,10],
-  chart: {
-    height:300,
-    width:400,
-  type: 'donut',
-},
-labels: ['Tiempo Onicofagia', 'Tiempo Tricotilomanía', 'Tiempo Morder objetos', 'Tiempo Óptimo'],
-responsive: [{
-  breakpoint: 480,
-  options: {
-    chart: {
-      height:200,
+let ID_USER = window.api.get_user_id("")
+let pom_totales, pom_ultimo_mes, peor_pom, mejor_pom, ultimo_pom
+let habita_mas, habito_menos
+let date = new Date();
+let mes_anterior = date.getMonth()
+let mes_actual = date.getMonth()+1
+let datos_manias, arr_manias = [], mejor_mania, peor_mania
+let pom_tiempo_optimo, pom_tiempo_pelo, pom_tiempo_morder, pom_tiempo_unna, pom_tiempo_total
 
-    },
-    legend: {
-      position: 'bottom',
-      verticalAlign: 'bottom',
-      align:'left'
-    }
+async function update_pomodoro(){
+  await window.api.contarSesionPomodoro(ID_USER).then(result => {
+    pom_totales = result
+  })
+  await window.api.contarMesPomodoro(ID_USER, mes_actual).then(result => {
+    pom_ultimo_mes = result
+  })
+  
+  document.getElementById("pom_totales").innerHTML = pom_totales
+  document.getElementById("pom_totales_mes").innerHTML = pom_ultimo_mes
+  await window.api.datosTotalesPomodoro(ID_USER).then(result=>{
+    datos_manias = result
+  })
+
+  
+  arr_manias.push(parseInt(datos_manias['unna']))
+  arr_manias.push(parseInt(datos_manias['pelo']))
+  arr_manias.push(parseInt(datos_manias['morder']))
+  arr_manias.push(parseInt(datos_manias['vision']))
+  let max = 0, min, index_max, index_min
+  max = Math.max.apply(Math,arr_manias)
+  min = Math.min.apply(Math,arr_manias)
+  index_max = arr_manias.indexOf(max)
+  index_min = arr_manias.indexOf(min)
+  switch (index_max) {
+    case 0:
+      peor_mania = "Onicofagia"
+      break;
+    case 1:
+      peor_mania = "Tricotilomania"
+      break;
+    case 2:
+      peor_mania = "Morder Objetos"
+      break;
+    case 3:
+      peor_mania = "Vista"
+      break;    
+    default:
+      break;
   }
-}]
-};
+  switch (index_min) {
+    case 0:
+      mejor_mania = "Onicofagia"
+      break;
+    case 1:
+      mejor_mania = "Tricotilomania"
+      break;
+    case 2:
+      mejor_mania = "Morder Objetos"
+      break;
+    case 3:
+      mejor_mania = "Vista"
+      break;    
+    default:
+      break;
+  }
 
-document.getElementById("charHabitosUltimoPomodoro").innerHTML = ''
-var charHabitosUltimoPomodoro = new ApexCharts(document.getElementById("charHabitosUltimoPomodoro"), dataHabitosUltimoPomodoro);
-charHabitosUltimoPomodoro.render();
+  document.getElementById("pom_peor_mania").innerHTML = peor_mania
+  document.getElementById("pom_mejor_mania").innerHTML = mejor_mania
 
-let opt_pomodoro = {
-    series: [{
-    name: 'Manías',
-    data: [44, 55, 57, 56, 61, 58, 63, 60, 66,22]
-  }, {
-    name: 'Fatiga Visual',
-    data: [76, 85, 101, 98, 87, 105, 91, 114, 94,33]
-  }, {
-    name: 'Postura',
-    data: [35, 41, 36, 26, 45, 48, 52, 53, 41,44]
-  }],
+  await window.api.datosUltimaSesionPomodoro(ID_USER).then(result => {
+    pom_tiempo_total = parseInt(result[0]['total_time'])
+    pom_tiempo_unna = parseInt(result[0]['time_unnas'])
+    pom_tiempo_pelo = parseInt(result[0]['time_pelo'])
+    pom_tiempo_morder = parseInt(result[0]['time_morder'])
+    pom_tiempo_optimo = pom_tiempo_total-pom_tiempo_unna-pom_tiempo_pelo-pom_tiempo_morder
+    console.log('tiempo pelo'+pom_tiempo_pelo.toString())
+  })
+
+  pom_tiempo_optimo = parseInt((pom_tiempo_optimo/pom_tiempo_total)*100)
+  pom_tiempo_unna = parseInt((pom_tiempo_unna/pom_tiempo_total)*100)
+  pom_tiempo_pelo = parseInt((pom_tiempo_pelo/pom_tiempo_total)*100)
+  pom_tiempo_morder = parseInt((pom_tiempo_morder/pom_tiempo_total)*100)
+
+
+  var dataHabitosUltimoPomodoro= {
+    series: [pom_tiempo_unna,pom_tiempo_pelo,pom_tiempo_morder,pom_tiempo_optimo],
     chart: {
-    type: 'bar',
-    height: 345
+      height:187.7,
+      width:400,
+    type: 'donut',
   },
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      columnWidth: '35%',
-      endingShape: 'rounded'
-    },
-  },
-  dataLabels: {
-    enabled: false
-  },
-  stroke: {
-    show: true,
-    width: 1,
-    colors: ['transparent']
-  },
-  xaxis: {
-    categories: ['Sesion 1', 'Sesion 2', 'Sesion 3', 'Sesion 4', 'Sesion 5', 'Sesion 6', 'Sesion 7', 'Sesion 8', 'Sesion 9','Sesion 10'],
-  },
-  yaxis: {
-    title: {
-      text: '# Detecciones'
-    }
-  },
-  fill: {
-    opacity: 1
-  },
-  tooltip: {
-    y: {
-      formatter: function (val) {
-        return "" + val + "  detecciones"
+  labels: ['Tiempo Onicofagia', 'Tiempo Tricotilomanía', 'Tiempo Morder objetos', 'Tiempo Óptimo'],
+  responsive: [{
+    breakpoint: 480,
+    options: {
+      chart: {
+        height:200,
+
+      },
+      legend: {
+        position: 'bottom',
+        verticalAlign: 'bottom',
+        align:'left'
       }
     }
-  }
+  }]
   };
 
-  let chart_pomodoro = new ApexCharts(document.querySelector("#chart_pomodoro"), opt_pomodoro);
-  chart_pomodoro.render();
+  document.getElementById("charHabitosUltimoPomodoro").innerHTML = ''
+  var charHabitosUltimoPomodoro = new ApexCharts(document.getElementById("charHabitosUltimoPomodoro"), dataHabitosUltimoPomodoro);
+  charHabitosUltimoPomodoro.render();
 
-let ct2 = document.getElementById('pom_comparacion').getContext('2d');
-let pom_comparacion = new Chart(ct2, {
-  type: 'bar',
-  data: {
-      labels: ['Peor pomodoro', 'Último pomodoro', 'Mejor pomodoro'],
-      datasets: [{
-          label: 'Cantidad de detecciones',
-          data: [10, 5,3],
-          backgroundColor: [
-              'rgba(255, 205, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rrgba(255, 99, 132, 0.2)'
-          ],
-          borderColor: [
-              'rgb(255, 205, 86)',
-              'rgb(75, 192, 192)',
-              'rgb(255, 99, 132)'
-          ],
-          borderWidth: 1
-      }]
-  }
- 
-});
+  await window.api.peorSesionPomodoro(ID_USER).then(result =>{
+    peor_pom = result
+  })
+  await window.api.mejorSesionPomodoro(ID_USER).then(result =>{
+    mejor_pom = result
+  })
+  await window.api.ultimaSesionPomodoro(ID_USER).then(result =>{
+    ultimo_pom = result
+  })
 
-pom_comparacion();
+  let ct2 = document.getElementById('pom_comparacion').getContext('2d');
+  let pom_comparacion = new Chart(ct2, {
+    type: 'bar',
+    data: {
+        labels: ['Peor pomodoro', 'Último pomodoro', 'Mejor pomodoro'],
+        datasets: [{
+            label: 'Cantidad de detecciones',
+            data: [peor_pom, ultimo_pom, mejor_pom],
+            backgroundColor: [
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rrgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(255, 99, 132)'
+            ],
+            borderWidth: 1
+        }]
+    }
+  
+  }); 
 
+  //pom_comparacion;
+
+}
+
+
+window.onload = update_pomodoro
   

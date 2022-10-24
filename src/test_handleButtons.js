@@ -1,11 +1,10 @@
-let inicio_sesion
+
 let fin_sesion
 let total
 let nombre, email, telefono, region, ciudad, atencion, profesional, motivo, obj;
 
 function init_cam(){
     window.api.iniciar_camara("")
-    inicio_sesion = new Date()
 }
 
 async function stop_cam(){
@@ -22,13 +21,14 @@ async function stop_cam(){
         let [total_unhas, total_pelo, total_objeto, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo]  = window.api.obtenerTotal()
 
         //creo sesion en BD
-        fin_sesion = new Date()
+        let inicio_sesion = window.api.fecha_inicio_sesion()
+        let fin_sesion = new Date()
         total =  Math.trunc((fin_sesion - inicio_sesion)/1000) //lo pasa de milisegundos a segundos
         let ini_sesion = inicio_sesion.toISOString()
         let fini_sesion = fin_sesion.toISOString()
         let mes_sesion = fin_sesion.getMonth() + 1
         let anno_sesion = fin_sesion.getFullYear()
-        await window.api.createSesion(ID_USER, ini_sesion, fini_sesion, total, total_unhas, total_pelo, total_objeto, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion); 
+        await window.api.createSesion(ID_USER, ini_sesion, fini_sesion, total, total_unhas, total_pelo, total_objeto, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion, "no"); 
         //console.log("paso insert sesion")
         //inserto manias en BD
 
@@ -89,5 +89,13 @@ function crear_grupo(){
     nombre = document.getElementById("nombre_equipo")
     window.api.createGrupo(ID, nombre.value)
     doNotify2()
+}
+
+async function eliminar_grupo(){
+    let id_new = window.api.get_user_id("")
+    let code_new = await window.api.getCodeGrupo(id_new)
+    await window.api.eliminarGrupo(code_new).then(r => window.location.href= "liderEquipo2.html")
+    //document.getElementById("boton_eliminar_grupo").setAttribute("href", "liderEquipo2.html")
+    
 }
 

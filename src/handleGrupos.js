@@ -1,28 +1,42 @@
-async function aceptar_solicitud(nombresolicitante){
-    
-    let myNotification = new Notification(nombresolicitante, {
-        body: 'acepta solicitud'
-      });
+async function get_code_grupo(){
+    let ID = await window.api.get_user_id("")
+    let code = await window.api.getCodeGrupo(ID)    
+    document.getElementById('codigo_vista_lider').textContent = code       
 }
-async function rechazar_solicitud(id_solicitante){
-    var idsolstring=id_solicitante.toString()
-    let myNotification2 = new Notification(idsolstring, {
-        body: 'rechaza solicitud'
+
+
+
+async function aceptar_solicitud(id_user){
+    let ID = await window.api.get_user_id("")
+    let code = await window.api.getCodeGrupo(ID)
+
+    
+    let myNotification = new Notification('SOLICITUD', {
+        body: 'Participante aceptado'
       });
+    let aceptar = await window.api.addParticipante(id_user, code)
+    window.location.reload();
+}
+
+async function rechazar_solicitud(id_user){
+    let ID = await window.api.get_user_id("")
+    let code = await window.api.getCodeGrupo(ID)
+    let myNotification2 = new Notification('SOLICITUD', {
+        body: 'Participante rechazado'
+      });
+    let rechazar = window.api.quitarSolicitud(id_user, code)
+    window.location.reload()
       
 }
 
 async function eliminar_miembro(id_miembro){
-    
     let ID = await window.api.get_user_id("")
-    let code = await window.api.getCodeGrupo(ID)
-    let myNotification2 = new Notification(id_miembro, {
-        body: code
-      });
-    
-    let sacar = await window.api.quitarDelGrupo(id_miembro,code)
-    
-      
+    let code = await window.api.getCodeGrupo(ID)    
+    let myNotification2 = new Notification('SOLICITUD', {
+        body: 'Participante eliminado'
+      });    
+    let eliminar = await window.api.quitarDelGrupo(id_miembro,code)
+    window.location.reload();     
 }
 
 async function get_solicitudes(){ 
@@ -42,7 +56,7 @@ async function get_solicitudes(){
                             <td>${data[i].nombre}</td>
                             <td>${data[i].apellido}</td>
                             <th scope="row">
-                                <span class="material-icons-sharp" style="margin-left:40px;" onclick="aceptar_solicitud('${data[i].nombre}')" >check</span>
+                                <span class="material-icons-sharp" style="margin-left:40px;" onclick="aceptar_solicitud('${data[i].id}')" >check</span>
                             </th>
                             <td>
                                 <span class="material-icons-sharp" style="margin-left:15px;" onclick="rechazar_solicitud('${data[i].id}')">close</span>
@@ -57,9 +71,7 @@ async function get_solicitudes(){
 async function get_participantes(){ 
     let ID = await window.api.get_user_id("")
     let code = await window.api.getCodeGrupo(ID)
-    var arreglo = await window.api.getParticipantesGrupo(code)
-
-            
+    var arreglo = await window.api.getParticipantesGrupo(code)            
     buildTable(arreglo)
     function buildTable(data)
     {
@@ -81,6 +93,7 @@ async function get_participantes(){
 
 
 async function cargar_grupos(){
+    get_code_grupo()
     get_solicitudes()
     get_participantes()
 

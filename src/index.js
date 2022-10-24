@@ -4,28 +4,12 @@ const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
 
 
-//model.addParticipante(12, 'BxRNmSQArM').then(r => console.log(r));
+//model.eliminarGrupo("hXhix7Ornk").then(r => console.log());
 
 let winlogin;
 let win, camera_win;
 
 let ID_USER;
-
-model.totalSesionTimeMorder(64).then(r=>{
-  r = parseInt(r)
-  console.log(r)
-  if (typeof(r)==Object) {
-    console.log(r)
-    console.log("Distinto de string")
-  } else {
-    console.log("normal")
-  }  
-
-
-}
-  
-
-)
 
 
 const createWindow = () => {
@@ -59,6 +43,23 @@ const createWindow = () => {
     })
     camera_win.loadFile('src/views/camera.html');
     camera_win.webContents.openDevTools();
+
+
+    pomodoro_win = new BrowserWindow({
+      width: 600,
+      height: 600,
+      show: false,
+      webPreferences: {
+          // nodeIntegration: true,
+          // contextIsolation:true,
+          //devTools:true,
+          preload:path.join(__dirname, 'pomodoro.js')
+          
+      }
+    })
+    
+    pomodoro_win.loadFile('src/views/camera.html');
+    pomodoro_win.webContents.openDevTools();
 }
 
 app.on('window-all-closed', () => {
@@ -176,6 +177,7 @@ function toReg(){
   winlogin.close();
 }
 
+
 ipcMain.handle('moveToLogin', (event, obj) => {
   toLogin();
 });
@@ -184,6 +186,7 @@ function toLogin(){
   loginWindow();
   winreg.close();
 }
+
 
 
 //Funcion para crear nueva camara desde boton "comenzar"
