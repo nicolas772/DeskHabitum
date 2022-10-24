@@ -138,61 +138,83 @@
         <main style="z-index:1">
             <div class="mytabs">
                 <input type="radio" id="tabfree" name="mytabs" checked="checked">
-                <label for="tabfree" style="width:100%;"><h1>Dashboard Postura</h1></label>
-                <div class="tab">
-                    <div class="row" >
-                        <div style="width:50%; float:left">
-                            <h1 style="font-size:1rem; margin-top:0.3rem"> Cantidad de correcciones </h1>
-                            <div class="col-sm-6">
-                                <div class="card"  style="width: 20rem; margin:1.5rem;">
-                                    <div class="card-body" style="padding:0.4rem">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de correcciones última sesión</h4>
-                                        <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;">1</h1>
+                <label for="tabfree" style="width:100%;padding-bottom:0;margin-bottom:0;"><h1 style="margin-bottom:0;">Dashboard Postura</h1></label>
+                <div class="tab" style="margin-top:0;padding-top:0;">
+                    <div class="radio2" style="margin-left:630px;"> 
+                        <input class="radio__input" type="radio" value="option1" name="myRadio" id="checktricorec2" checked="checked">
+                        <label class="radio__label" for="checktricorec2">Resumen</label>
+                        
+                        <input class="radio__input" type="radio" value="option2" name="myRadio" id="checktricomes2">
+                        <label class="radio__label" for="checktricomes2">Por mes</label>
+                        
+                    </div>
+
+                    <div class="row" id="tricorec2" >
+                        <div class="row">
+                            <div style="width:50%; float:left">
+                                <h1 style="font-size:1rem; margin-top:0.3rem"> Cantidad de correcciones </h1>
+                                <div class="col-sm-6">
+                                    <div class="card"  style="width: 20rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de correcciones última sesión</h4>
+                                            <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;">1</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="card" style="width: 20rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de correcciones totales</h4>
+                                            <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">27</h1>
+    
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="card" style="width: 20rem; margin:1.5rem;">
-                                    <div class="card-body" style="padding:0.4rem">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de correcciones totales</h4>
-                                        <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">27</h1>
-
+                            <div style="width: 50%;float:right; padding-top:10px;">
+                                <h1 style="font-size:1rem; margin-top:0.3rem"> Cantidad de correcciones graves </h1>
+                                <div class="col-sm-6">
+                                    <div class="card" style="width: 20rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de posturas graves última sesión</h4>
+                                            <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">0</h1>
+    
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="card" style="width: 20rem; margin:1.5rem;">
+                                        <div class="card-body" style="padding:0.4rem">
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de posturas graves totales</h4>
+                                            <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">1</h1>
+    
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div style="width: 50%;float:right; padding-top:10px;">
-                            <h1 style="font-size:1rem; margin-top:0.3rem"> Cantidad de correcciones graves </h1>
-                            <div class="col-sm-6">
-                                <div class="card" style="width: 20rem; margin:1.5rem;">
-                                    <div class="card-body" style="padding:0.4rem">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de posturas graves última sesión</h4>
-                                        <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">0</h1>
+                        
 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="card" style="width: 20rem; margin:1.5rem;">
-                                    <div class="card-body" style="padding:0.4rem">
-                                        <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de posturas graves totales</h4>
-                                        <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">1</h1>
 
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="row">
+                            <h1 style="font-size:1rem; margin-top:0.3rem"> Detecciones últimas 10 sesiones</h1>
+                            <div id="chart_fatm" style="margin:auto; padding:1rem"></div>
                         </div>
                     </div>
-                    
 
-                    
-                    <div class="row">
-                        <h1 style="font-size:1rem; margin-top:0.3rem"> Detecciones últimas 10 sesiones</h1>
-                        <div id="chart_fatm" style="margin:auto; padding:1rem"></div>
+                    <div class="row" id="tricomes2">
+                        <h1>AQUI mes</h1>
                     </div>
+                    
+
+                    
+                    
+
+                    
 
 
 
+                    
                 </div>
 
                 

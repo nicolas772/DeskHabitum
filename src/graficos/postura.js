@@ -3,59 +3,58 @@ let ID_USER = window.api.get_user_id("")
 
 //--cambiar 2-> postura
 
-const checkobjrec2 = document.getElementById('checkobjrec2');
-const checkobjmes2 = document.getElementById('checkobjmes2');
-const checkobjanio2 = document.getElementById('checkobjanio2');
+const tricorec2 = document.getElementById('tricorec2');
+const tricomes2 = document.getElementById('tricomes2');
+const tricoanio2 = document.getElementById('tricoanio2');
 
-const objrec2 = document.getElementById('objrec2');
-const objmes2 = document.getElementById('objmes2');
-const objanio2 = document.getElementById('objanio2');
+const checktricorec2 = document.getElementById('checktricorec2');
+const checktricomes2 = document.getElementById('checktricomes2');
+const checktricoanio2 = document.getElementById('checktricoanio2');
 
-
-
-checkobjrec2.addEventListener('click', function handleClick() {
-  if (checkobjrec2.checked) {
-    objrec2.style.display = 'block';
-    objmes2.style.display = 'none';
-    objanio2.style.display = 'none';
-    objrec2.style.visibility = 'visible';
-    objmes2.style.visibility = 'hidden';
-    objanio2.style.visibility = 'hidden';
+checktricorec2.addEventListener('click', function handleClick() {
+  if (checktricorec2.checked) {
+    tricorec2.style.display = 'block';
+    tricomes2.style.display = 'none';
+    tricoanio2.style.display = 'none';
+    tricorec2.style.visibility = 'visible';
+    tricomes2.style.visibility = 'hidden';
+    tricoanio2.style.visibility = 'hidden';
     
   } else {
-    objrec2.style.display = 'none';
-    objrec2.style.visibility = 'hidden';
+    tricorec2.style.display = 'none';
+    tricorec2.style.visibility = 'hidden';
   }
 });
 
-checkobjmes2.addEventListener('click', function handleClick() {
-  if (checkobjmes2.checked) {
-    objrec2.style.display = 'none';
-    objmes2.style.display = 'block';
-    objanio2.style.display = 'none';
-    objrec2.style.visibility = 'hidden';
-    objmes2.style.visibility = 'visible';
-    objanio2.style.visibility = 'hidden';
+checktricomes2.addEventListener('click', function handleClick() {
+  if (checktricomes2.checked) {
+    tricorec2.style.display = 'none';
+    tricomes2.style.display = 'block';
+    tricoanio2.style.display = 'none';
+    tricorec2.style.visibility = 'hidden';
+    tricomes2.style.visibility = 'visible';
+    tricoanio2.style.visibility = 'hidden';
   } else {
-    objmes2.style.display = 'none';
-    objmes2.style.visibility = 'hidden';
+    tricomes2.style.display = 'none';
+    tricomes2.style.visibility = 'hidden';
   }
 });
 
-checkobjanio2.addEventListener('click', function handleClick() {
-  if (checkobjanio2.checked) {
-    objrec2.style.display = 'none';
-    objmes2.style.display = 'none';
-    objanio2.style.display = 'block';
-    objrec2.style.visibility = 'hidden';
-    objmes2.style.visibility = 'hidden';
-    objanio2.style.visibility = 'visible';
+checktricoanio2.addEventListener('click', function handleClick() {
+  if (checktricoanio2.checked) {
+    tricorec2.style.display = 'none';
+    tricomes2.style.display = 'none';
+    tricoanio2.style.display = 'block';
+    tricorec2.style.visibility = 'hidden';
+    tricomes2.style.visibility = 'hidden';
+    tricoanio2.style.visibility = 'visible';
     
   } else {
-    objanio2.style.display = 'none';
-    objanio2.style.visibility = 'hidden';
+    tricoanio2.style.display = 'none';
+    tricoanio2.style.visibility = 'hidden';
   }
 });
+
 
 /*
 function init4(){
