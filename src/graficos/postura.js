@@ -1,5 +1,11 @@
 let ID_USER = window.api.get_user_id("")
+//---------------GRAFICO-----------
 
+
+
+
+
+//---------------------------
 
 //--cambiar 2-> postura
 
