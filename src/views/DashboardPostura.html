@@ -17,6 +17,7 @@
     <link rel="stylesheet" href = "./style.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js"></script>
 
 
 
@@ -198,7 +199,10 @@
 
                         <div class="row">
                             <h1 style="font-size:1rem; margin-top:0.3rem"> Detecciones últimas 10 sesiones</h1>
-                            <div id="chart_fatm" style="margin:auto; padding:1rem"></div>
+                            <div class="row" style="width: 90%; ">
+                                <h4 style="margin-top:0.3rem;"></h4>
+                                <canvas style="margin-left:100px;" id="pos_comparacion" ></canvas>
+                            </div> 
                         </div>
                     </div>
 

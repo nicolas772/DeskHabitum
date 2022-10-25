@@ -70,3 +70,85 @@ function init4(){
 window.onload = init4;
 
 */
+
+var pos_res = {
+  series: [{
+  name: 'Bubble1',
+  data: generateData(new Date('11 Feb 2017 GMT').getTime(), 20, {
+    min: 10,
+    max: 60
+  })
+},
+{
+  name: 'Bubble2',
+  data: generateData(new Date('11 Feb 2017 GMT').getTime(), 20, {
+    min: 10,
+    max: 60
+  })
+},
+{
+  name: 'Bubble3',
+  data: generateData(new Date('11 Feb 2017 GMT').getTime(), 20, {
+    min: 10,
+    max: 60
+  })
+},
+{
+  name: 'Bubble4',
+  data: generateData(new Date('11 Feb 2017 GMT').getTime(), 20, {
+    min: 10,
+    max: 60
+  })
+}],
+  chart: {
+    height: 350,
+    type: 'bubble',
+},
+dataLabels: {
+    enabled: false
+},
+fill: {
+    opacity: 0.8
+},
+title: {
+    text: 'Simple Bubble Chart'
+},
+xaxis: {
+    tickAmount: 12,
+    type: 'category',
+},
+yaxis: {
+    max: 70
+}
+};
+
+var chart = new ApexCharts(document.querySelector("#chart"), options);
+chart.render();
+
+
+let pos_res = document.getElementById('pos_comparacion').getContext('2d');
+let posres = new Chart(pos_res, {
+    type: 'bar',
+    data: {
+        labels: ['Peor mes', 'Último mes', 'Mejor mes'],
+        datasets: [{
+            label: 'Cantidad de detecciones',
+            data: [29,25,16],
+            backgroundColor: [
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rrgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(255, 99, 132)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+      indexAxis: 'y',
+    }       
+});
+posres();
