@@ -723,6 +723,71 @@ async function update_dash_general() {
 
     myChart();
     ob_comparacion();
+    
+    //graficos rino
+    //resumen
+    var rino_resumen = {
+      series: [60, 40], 
+      chart: {
+        width: 380,
+        type: 'pie',
+      },
+      labels: ['Tiempo manía', 'Tiempo Óptimo'],
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 300
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }]
+    };
+    
+    var rino1 = new ApexCharts(document.querySelector("#rino1"), rino_resumen);
+    rino1.render();
+
+    //10 sesiones
+    var rino10 = {
+      series: [{
+        name: "% rinotilexomanía",
+        data: [2,3,4,5,1,1,2,4,5,10]
+      }],
+      chart: {
+        height: 240,
+        type: 'line',
+        zoom: {
+          enabled: false
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: 'straight'
+      },
+      title: {
+        text: '% rinotilexomanía últimas 10 sesiones.',
+        align: 'left'
+      },
+      grid: {
+        row: {
+          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+          opacity: 0.5
+        },
+      },
+      xaxis: {
+        categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+      },
+      yaxis:{
+        decimalsInFloat: 0,
+      }
+    };
+    
+    var chart_rino2 = new ApexCharts(document.querySelector("#chart_rino2"), rino10);
+    chart_rino2.render();
 }
 
 const tricorec = document.getElementById('tricorec');
