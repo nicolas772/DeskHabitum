@@ -1012,16 +1012,19 @@ let ct2 = document.getElementById('rino_comparacion').getContext('2d');
                 label: 'Cantidad de detecciones',
                 data: [22, 7,11],// data: [parseInt(peor_ses_obj), parseInt(ultima_ses_morder),parseInt(mejor_ses_obj)]
                 backgroundColor: [
-                    'rgba(255, 205, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rrgba(255, 99, 132, 0.2)'
+                    'rgba(58, 198, 143, 0.2)', //'rgba(255, 205, 86, 0.2)'
+                    'rgba(58, 198, 143, 0.2)', //'rgba(75, 192, 192, 0.2)'
+                    'rgba(58, 198, 143, 0.2)' //'rrgba(255, 99, 132, 0.2)' 
                 ],
                 borderColor: [
-                    'rgb(255, 205, 86)',
-                    'rgb(75, 192, 192)',
-                    'rgb(255, 99, 132)'
+                    'rgb(0, 91, 82)', //'rgb(255, 205, 86)'
+                    'rgb(0, 91, 82)', //'rgb(75, 192, 192)'
+                    'rgb(0, 91, 82)' //'rgb(255, 99, 132)'
                 ],
-                borderWidth: 1
+                borderWidth: 1,
+                yaxis:{
+                  decimalsInFloat: 0,
+                }
             }]
         }
        
@@ -1190,18 +1193,21 @@ let ct3 = document.getElementById('derma_comparacion').getContext('2d');
             labels: ['Peor sesión', 'Última sesión', 'Mejor sesión'],
             datasets: [{
                 label: 'Cantidad de detecciones',
-                data: [5, 2,3],// data: [parseInt(peor_ses_obj), parseInt(ultima_ses_morder),parseInt(mejor_ses_obj)]
+                data: [5, 2, 3],// data: [parseInt(peor_ses_obj), parseInt(ultima_ses_morder),parseInt(mejor_ses_obj)]
                 backgroundColor: [
-                    'rgba(255, 205, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rrgba(255, 99, 132, 0.2)'
+                  'rgba(58, 198, 143, 0.2)', //'rgba(255, 205, 86, 0.2)'
+                  'rgba(58, 198, 143, 0.2)', //'rgba(75, 192, 192, 0.2)'
+                  'rgba(58, 198, 143, 0.2)' //'rrgba(255, 99, 132, 0.2)' 
                 ],
                 borderColor: [
-                    'rgb(255, 205, 86)',
-                    'rgb(75, 192, 192)',
-                    'rgb(255, 99, 132)'
+                    'rgb(0, 91, 82)', //'rgb(255, 205, 86)'
+                    'rgb(0, 91, 82)', //'rgb(75, 192, 192)'
+                    'rgb(0, 91, 82)' //'rgb(255, 99, 132)'
                 ],
-                borderWidth: 1
+                borderWidth: 1,
+                yaxis:{
+                  decimalsInFloat: false,
+                }
             }]
         }
        
