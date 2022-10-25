@@ -643,6 +643,27 @@ body.shrink .message-count{
     visibility: hidden;
 }
 
+#rinorec {
+    visibility: visible;
+}
+#rinomes{
+    visibility: hidden;
+}
+
+#rinoanio{
+    visibility: hidden;
+}
+#dermarec {
+    visibility: visible;
+}
+#dermames{
+    visibility: hidden;
+}
+
+#dermaanio{
+    visibility: hidden;
+}
+
 #objrec {
     visibility: visible;
 }
