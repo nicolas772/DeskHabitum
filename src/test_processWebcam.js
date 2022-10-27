@@ -33,9 +33,9 @@ let camara_cargada = false;
 
 //Intervalo de tiempo antes de mandar notificación por cada mal habito y consolidar la detección
 let intervalo_uña = 2000;
-let intervalo_pelo = 1000;
+let intervalo_pelo = 100;
 let intervalo_objeto = 2000;
-let intervalo_vista = 1500;
+let intervalo_vista = 500;
 let intervalo_postura = 2000;
 
 //Booleanos que se activan cuando se cumplen los intervalos de tiempo
@@ -64,7 +64,7 @@ let comiendo = false;
 let tiempo_comiendo = 600000;
 
 let cantidad_pestañeos = 0;
-let tiempo_periodo = 10000; //en milisegundos
+let tiempo_periodo = 1000000; //en milisegundos
 let frec_normal_pestañeo = 2; // Sin concentrar vista: 20 pestañeos por min / Leyendo: 14 pestañeos por min -> 2 pestañeos por 10 seg
 let corriendo_periodo = false; 
 
@@ -1479,6 +1479,8 @@ async function predict() {
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_uña, fin_uña);
             actualizarJson('unha', inicio_uña, fin_uña)
+        }else{
+            corriendo_uña = false
         }
 
         if (corriendo_pelo && detectado_pelo){
@@ -1489,6 +1491,8 @@ async function predict() {
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_pelo, fin_pelo);
             actualizarJson('pelo', inicio_pelo, fin_pelo)
+        }else{
+            corriendo_pelo = false
         }
 
         if (corriendo_objeto && detectado_objeto && !comiendo){
@@ -1499,6 +1503,8 @@ async function predict() {
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_objeto, fin_objeto);
             actualizarJson('objeto', inicio_objeto, fin_objeto)
+        }else{
+            corriendo_objeto = false;
         }
 
         if (corriendo_vista && detectado_vista){
@@ -1509,6 +1515,8 @@ async function predict() {
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_vista, fin_vista);
             actualizarJson('vista', inicio_vista, fin_vista)
+        }else{
+            corriendo_vista = false;
         }
     }
 
