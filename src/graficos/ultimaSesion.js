@@ -25,6 +25,7 @@ async function update_dash_ultima_sesion() {
     //a futuro, se debe sumar a la var manias las otras manias (pelo y morder objetos)
     await window.api.countUnhasSesion(id_lastSesion).then(result => {
         manias = result;
+        console.log(manias)
     });
 
     await window.api.countPeloSesion(id_lastSesion).then(result => {
