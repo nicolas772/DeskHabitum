@@ -105,6 +105,7 @@ async function saveSettings(){
         let resultado=result
     })
     doNotify3();
+    //window.api.notificar(NOTIFICATION_TITLE, NOTIFICATION_BODY, 'https://cdn-icons-png.flaticon.com/512/244/244060.png')
 }
 
 async function actualizarSettings(){
@@ -170,13 +171,27 @@ function init2(){
 
 window.onload = init2;
 
+const cargarSonido = function (fuente) {
+    const sonido = document.createElement("audio");
+    sonido.src = fuente;
+    sonido.setAttribute("preload", "auto");
+    sonido.setAttribute("controls", "none");
+    sonido.style.display = "none"; // <-- oculto
+    document.body.appendChild(sonido);
+    return sonido;
+};
+
 function doNotify3(){
     Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
-            body: NOTIFICATION_BODY, icon: 'https://cdn-icons-png.flaticon.com/512/244/244060.png'
+            body: NOTIFICATION_BODY, 
+            icon: 'https://cdn-icons-png.flaticon.com/512/244/244060.png',
+            silent: true
         })
         .onclick = () => document.getElementById("output").innerText = CLICK_MESSAGE
     })
+    let sonido = cargarSonido('../sounds/sound1.mp3');
+    sonido.play();
 }
 
 //funcion que permite cambiar las opciones de intervalo de notificacion

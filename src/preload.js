@@ -2,7 +2,6 @@ const model = require('./model/model.js')
 const {contextBridge, ipcRenderer} = require("electron");
 var fs = require('fs');
 
-
 const leer_pomodoro = () => {
     let rawdata = fs.readFileSync('./src/data/pomodoro.json');
     return JSON.parse(rawdata);
@@ -480,6 +479,14 @@ const cantDeteccionesFatigaPorMinutoTenSesion = (id_user) => {
     return model.cantDeteccionesFatigaPorMinutoTenSesion(id_user)
 }
 
+//Manejo de notificaciones (settings de notificaciones)
+
+/*const notificar = (titulo, cuerpo, icono) => {
+    new Notification(titulo, { body: cuerpo, icon: icono, silent: true })
+    player.play('./sounds/sound1.mp3', function(err){
+        if (err) throw err
+    })
+}*/
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
