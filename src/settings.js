@@ -9,6 +9,8 @@ const alertaSonora = document.getElementById("alertaSonora")
 const intervaloNotificacion = document.getElementById("intervaloNotificacion")
 const tiempoNotificacion = document.getElementById("tiempoNotificacion")
 const tipoNotificacion = document.getElementById("tipoNotificacion")
+const sonidoNotificacionMania = document.getElementById("sonidoNotificacionMania")
+const sonidoNotificacionGeneral = document.getElementById("sonidoNotificacionGeneral")
 //configuraciones pomodoro
 const duracionPomo = document.getElementById("duracionPomo")
 const duracionShortBreak = document.getElementById("duracionShortBreak")
@@ -48,7 +50,9 @@ async function saveSettings(){
             duracionShortBreak1.value,
             duracionLongBreak1.value,
             intervaloLongBreak1.value,
-            cantidadPomodoros1.value
+            cantidadPomodoros1.value,
+            sonidoNotificacionGeneral.value,
+            sonidoNotificacionMania.value
         ]   
     }else{
         configList = [
@@ -67,7 +71,9 @@ async function saveSettings(){
             duracionShortBreak.value,
             duracionLongBreak.value,
             intervaloLongBreak.value,
-            cantidadPomodoros.value
+            cantidadPomodoros.value,
+            sonidoNotificacionGeneral.value,
+            sonidoNotificacionMania.value
         ]
     }
 
@@ -100,12 +106,13 @@ async function saveSettings(){
         CONF[12],
         CONF[13],
         CONF[14],
-        CONF[15]
+        CONF[15],
+        CONF[16],
+        CONF[17]
     ).then(result => {
         let resultado=result
     })
     doNotify3();
-    //window.api.notificar(NOTIFICATION_TITLE, NOTIFICATION_BODY, 'https://cdn-icons-png.flaticon.com/512/244/244060.png')
 }
 
 async function actualizarSettings(){

@@ -57,4 +57,5 @@ function CamaraCargada(){
     })
 }
 
+
 module.exports = { NotificarUña, NotificarPelo, NotificarObjeto, NotificarPestañeo, NotificarVisual, CamaraCargada}
