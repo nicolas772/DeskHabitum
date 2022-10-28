@@ -2,15 +2,35 @@ let ID_USER = window.api.get_user_id("")
 //---------------GRAFICO-----------
 const data = {
   datasets: [{
-    label: 'First Dataset',
+    label: 'Tiempos de mala postura detectados',
     data: [{
+      x: 1,  //DEJAR ESTE DATO PARA ESTABLECER EL ALTO (Y), QUE (X)
+      y: 60,
+      r: 0
+    },
+    {
+      x: 1,  //hay que sumar 1 a la sesión para que no quede en eje y
+      y: 25, //minuto de la sesion en la que se detecto la mala postura
+      r: 5 //tiempo en minutos que estuvo con mala postura
+    }, 
+    {
+      x: 1,  //hay que sumar 1 a la sesión para que no quede en eje y
+      y: 45, //minuto de la sesion en la que se detecto la mala postura
+      r: 8 //tiempo en minutos que estuvo con mala postura
+    }, 
+    {
       x: 2,  //hay que sumar 1 a la sesión para que no quede en eje y
-      y: 20,
-      r: 30
+      y: 20, //minuto de la sesion en la que se detecto la mala postura
+      r: 3 //tiempo en minutos que estuvo con mala postura
     }, {
       x: 3,
       y: 10,
-      r: 10
+      r: 5
+    },
+    {
+      x: 10,  //DEJAR ESTE DATO PARA ESTABLECER EL ANCHO DE LAS 10 SESIONES 
+      y: 5,
+      r: 0
     }],
     backgroundColor: 'rgb(255, 99, 132)'
   }]
@@ -20,9 +40,13 @@ const data = {
 const ctx_p = document.getElementById('chart_postura').getContext('2d');
 
 const chart_postura = new Chart(ctx_p, {
+  label:'sesiones',
   type: 'bubble',
   data: data,
-  options: {}
+  options: {},
+  yaxis:{
+    decimalsInFloat: false,
+  }
 });
 /*
 const chart_postura = new Chart(ctx_p, {
@@ -63,20 +87,16 @@ type: 'bar',
 
 const tricorec2 = document.getElementById('tricorec2');
 const tricomes2 = document.getElementById('tricomes2');
-const tricoanio2 = document.getElementById('tricoanio2');
 
 const checktricorec2 = document.getElementById('checktricorec2');
 const checktricomes2 = document.getElementById('checktricomes2');
-const checktricoanio2 = document.getElementById('checktricoanio2');
 
 checktricorec2.addEventListener('click', function handleClick() {
   if (checktricorec2.checked) {
     tricorec2.style.display = 'block';
     tricomes2.style.display = 'none';
-    tricoanio2.style.display = 'none';
     tricorec2.style.visibility = 'visible';
     tricomes2.style.visibility = 'hidden';
-    tricoanio2.style.visibility = 'hidden';
     
   } else {
     tricorec2.style.display = 'none';
@@ -88,30 +108,14 @@ checktricomes2.addEventListener('click', function handleClick() {
   if (checktricomes2.checked) {
     tricorec2.style.display = 'none';
     tricomes2.style.display = 'block';
-    tricoanio2.style.display = 'none';
     tricorec2.style.visibility = 'hidden';
     tricomes2.style.visibility = 'visible';
-    tricoanio2.style.visibility = 'hidden';
   } else {
     tricomes2.style.display = 'none';
     tricomes2.style.visibility = 'hidden';
   }
 });
 
-checktricoanio2.addEventListener('click', function handleClick() {
-  if (checktricoanio2.checked) {
-    tricorec2.style.display = 'none';
-    tricomes2.style.display = 'none';
-    tricoanio2.style.display = 'block';
-    tricorec2.style.visibility = 'hidden';
-    tricomes2.style.visibility = 'hidden';
-    tricoanio2.style.visibility = 'visible';
-    
-  } else {
-    tricoanio2.style.display = 'none';
-    tricoanio2.style.visibility = 'hidden';
-  }
-});
 
 
 /*

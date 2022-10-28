@@ -638,6 +638,13 @@ body.shrink .message-count{
 #tricomes{
     visibility: hidden;
 }
+#tricorec2 {
+    visibility: visible;
+}
+#tricomes2{
+    visibility: hidden;
+}
+
 
 #tricoanio{
     visibility: hidden;
