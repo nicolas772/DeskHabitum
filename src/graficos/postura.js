@@ -1,7 +1,59 @@
 let ID_USER = window.api.get_user_id("")
 //---------------GRAFICO-----------
+const data = {
+  datasets: [{
+    label: 'First Dataset',
+    data: [{
+      x: 2,  //hay que sumar 1 a la sesión para que no quede en eje y
+      y: 20,
+      r: 30
+    }, {
+      x: 3,
+      y: 10,
+      r: 10
+    }],
+    backgroundColor: 'rgb(255, 99, 132)'
+  }]
+};
 
 
+const ctx_p = document.getElementById('chart_postura').getContext('2d');
+
+const chart_postura = new Chart(ctx_p, {
+  type: 'bubble',
+  data: data,
+  options: {}
+});
+/*
+const chart_postura = new Chart(ctx_p, {
+type: 'bar',
+        data: {
+            labels: ['Peor sesión', 'Última sesión', 'Mejor sesión'],
+            datasets: [{
+                label: 'Cantidad de detecciones',
+                data: [5, 2, 3],// data: [parseInt(peor_ses_obj), parseInt(ultima_ses_morder),parseInt(mejor_ses_obj)]
+                backgroundColor: [
+                  'rgba(58, 198, 143, 0.2)', //'rgba(255, 205, 86, 0.2)'
+                  'rgba(58, 198, 143, 0.2)', //'rgba(75, 192, 192, 0.2)'
+                  'rgba(58, 198, 143, 0.2)' //'rrgba(255, 99, 132, 0.2)' 
+                ],
+                borderColor: [
+                    'rgb(0, 91, 82)', //'rgb(255, 205, 86)'
+                    'rgb(0, 91, 82)', //'rgb(75, 192, 192)'
+                    'rgb(0, 91, 82)' //'rgb(255, 99, 132)'
+                ],
+                borderWidth: 1,
+                yaxis:{
+                  decimalsInFloat: false,
+                }
+            }]
+        }
+       
+    });
+  
+
+
+*/
 
 
 
