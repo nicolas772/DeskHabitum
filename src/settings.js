@@ -128,6 +128,8 @@ async function actualizarSettings(){
     $('#alertaVisual').bootstrapToggle(config.alertavisual) 
     $('#alertaSonora').bootstrapToggle(config.alertasonora)
     $('#tipoNotificacion').val(config.tiponotificacion)
+    $('#sonidoNotificacionMania').val(config.sonidonotificacionmania)
+    $('#sonidoNotificacionGeneral').val(config.sonidonotificaciongeneral)
     $('#duracionPomo').val(config.duracionpomo)
     $('#duracionShortBreak').val(config.duracionshortbreak)
     $('#duracionLongBreak ').val(config.duracionlongbreak)
