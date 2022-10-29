@@ -16,6 +16,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href = "./style.css">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/solid.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/svg-with-js.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href = "./perfil.css">
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
 </head>
 <body class="shrink">
@@ -41,7 +47,7 @@
                         </a>
                     </div>
                     <div class="item">
-                    <a href = "Profile.html">
+                    <a href = "Profile.html" >
                         <span class="material-icons-sharp">person_outline</span>
                         <h3>Perfil</h3>
                     </a>
@@ -53,7 +59,7 @@
                         </a>
                     </div>
                     <div class="item">
-                    <a href = "Tips.html" class="active">
+                    <a href = "Tips.html">
                         <span class="material-icons-sharp">receipt_long</span>
                         <h3>Consejos</h3>
                     </a>
@@ -81,14 +87,14 @@
                     </div>
                     
                     <div class="item">
-                        <a href = "formulario.html" >
+                        <a href = "Profesionales.html">
                             <span class="material-icons-sharp"><i class="fas fa-user-md"></i></span>
                             <h3>Contacto Profesional</h3>
                         </a>
                     </div>
-                    
+
                     <div class="item">
-                        <a class ="sub-btn">
+                        <a class ="sub-btn active">
                             <span class="material-icons-sharp"><i class="fas fa-dice-d6"></i><i class="fas fa-angle-right dropdown fa-sm" ></i></span>
                             <h3>Herramientas</h3>
                         </a>
@@ -98,18 +104,17 @@
                                 <h3>Pomodoro</h3>
                             </a>
                             
-                            <a href = "Respiracion.html" class="sub-item" style="margin-top:5px;">
+                            <a href = "Respiracion.html" class="sub-item" style="margin-top:10px;">
                                 <!--<span class="material-icons-sharp">airline_seat_recline_normal</span>-->
                                 <span class="material-icons-sharp"><i class="fas fa-wind"></i></span>
                                 <h3>Respiración profunda</h3>
                             </a>
-
                             <a href = "Tuevolucion.html" class="sub-item" style="margin-top:5px;">
                                 <!--<span class="material-icons-sharp">airline_seat_recline_normal</span>-->
                                 <span class="material-icons-sharp"><i class="fas fa-sign-language"></i></span>
                                 <h3>Tu evolución</h3>
                             </a>
-                            
+
                         </div>
                     </div>
                     
@@ -119,6 +124,7 @@
                         <h3>Configuraciones</h3>
                     </a>
                     </div>
+                    
     
                     <div id="cerrar-sesion" class="item">
                     <a href = "#">
@@ -131,20 +137,12 @@
         </aside>
         <!----END ASIDE---->
         <main style="z-index:1">
-            <div class="row">
-                <h1 id="tips2-titulo" style="padding-top:1rem;"></h1>
-                <img id="tips2-imagen" width="200" height="200" align="left" style="width:50%;float:left;margin-top:10px;margin-left:200px; "class="card-img-top" alt="Card image cap">
-                <p id="tips2-parrafo" style="font-size:18px;padding-top:10px;color:black; text-align: justify; text-justify: inter-word;" ></p>
-                <a href="Tips.html">
-                    <button type='button' class="btn btn-outline-primary" style="margin-left:650px;color:#052941;border-color: #3ac68f;border-width: 2px; " onmouseover="this.style.backgroundColor='#89b5ba'" onmouseout="this.style.backgroundColor=''" >VOLVER A CONSEJOS</button>
-                </a>
-            </div>
-
+            <h1> Tu evolución</h1>
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../navbar.js"></script>
-    <script src="../tips2.js"></script>
+    <script src="../profile.js"></script>
     <!--<script src="../renderWebcam.js"></script>-->
     <script type="text/javascript">
         $(document).ready(function(){
