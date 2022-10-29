@@ -142,7 +142,7 @@ function Preguntar_Comiendo(){
         })
         .onclick = () => CountDownComiendo()
     })
-    let path = '../sounds/'+config_user.sonidonotificaciongeneral+'.mp3'
+    let path = '../sounds/'+config_user.sonidonotificacionmania+'.mp3'
     let sonido = cargarSonido2(path);
     sonido.play();
 }
