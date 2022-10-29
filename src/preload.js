@@ -480,6 +480,41 @@ const cantDeteccionesFatigaPorMinutoTenSesion = (id_user) => {
     return model.cantDeteccionesFatigaPorMinutoTenSesion(id_user)
 }
 
+const ultimaPiel = (id_user) => {
+    return model.ultimaPiel(id_user)
+}
+
+const totalPiel = (id_user) => {
+    return model.totalPiel(id_user)
+}
+
+const peorSesionPiel = (id_user) => {
+    return model.peorSesionPiel(id_user)
+}
+
+const mejorSesionPiel = (id_user) => {
+    return model.mejorSesionPiel(id_user)
+}
+
+const ultimaNariz = (id_user) => {
+    return model.ultimaNariz(id_user)
+}
+
+const totalNariz = (id_user) => {
+    return model.totalNariz(id_user)
+}
+
+const peorSesionNariz = (id_user) => {
+    return model.peorSesionNariz(id_user)
+}
+
+const mejorSesionNariz = (id_user) => {
+    return model.mejorSesionNariz(id_user)
+}
+
+
+
+
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -570,7 +605,15 @@ contextBridge.exposeInMainWorld("api", {
     ultimaVista: ultimaVista,
     totalVista: totalVista,
     top10Vista: top10Vista,
-    eliminarGrupo: eliminarGrupo
+    eliminarGrupo: eliminarGrupo,
+    ultimaPiel: ultimaPiel,
+    totalPiel: totalPiel,
+    peorSesionPiel: peorSesionPiel,
+    mejorSesionPiel: mejorSesionPiel,
+    ultimaNariz: ultimaNariz,
+    totalNariz: totalNariz,
+    peorSesionNariz: peorSesionNariz,
+    mejorSesionNariz: mejorSesionNariz
 })
 
 module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id, getConfig, parar_pomodoro}
