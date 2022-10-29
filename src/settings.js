@@ -190,7 +190,10 @@ const cargarSonido = function (fuente) {
     return sonido;
 };
 
-function doNotify3(){
+async function doNotify3(){
+    await window.api.getConfig(ID_USER).then(result => {
+        config = result[0];
+    });
     Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
             body: NOTIFICATION_BODY, 
@@ -199,7 +202,8 @@ function doNotify3(){
         })
         .onclick = () => document.getElementById("output").innerText = CLICK_MESSAGE
     })
-    let sonido = cargarSonido('../sounds/sound1.mp3');
+    let path = '../sounds/'+config.sonidonotificaciongeneral+'.mp3'
+    let sonido = cargarSonido(path);
     sonido.play();
 }
 
