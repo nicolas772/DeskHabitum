@@ -434,7 +434,7 @@ const postConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fati
     const res = await conexion.query(query)
 }
 
-const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak, cantidadPomodoros, sonidoNotificacionGeneral, sonidoNotificacionMania) => {
+const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak, cantidadPomodoros, sonidoNotificacionGeneral, temaNotificacionMania, alertaSonoraGeneral, unhaSound, morderSound, peloSound, fatigaSound, posturaSound) => {
     let query = `UPDATE config SET 
     morderunha='${morderUnha}', 
     morderobjetos='${morderObjetos}', 
@@ -452,7 +452,13 @@ const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fa
     intervalolongbreak='${intervaloLongBreak}',
     cantidadpomodoros='${cantidadPomodoros}',
     sonidonotificaciongeneral='${sonidoNotificacionGeneral}',
-    sonidonotificacionmania='${sonidoNotificacionMania}'
+    temanotificacionmania='${temaNotificacionMania}',
+    alertasonorageneral='${alertaSonoraGeneral}',
+    unhasound='${unhaSound}',
+    mordersound='${morderSound}',
+    pelosound='${peloSound}',
+    fatigasound='${fatigaSound}',
+    posturasound='${posturaSound}'
     WHERE id_user = ${id_usuario}` ;
     const res = await conexion.query(query)
 }

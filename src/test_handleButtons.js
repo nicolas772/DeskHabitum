@@ -70,7 +70,6 @@ let cargarSonido1 = function (fuente) {
 };
 
 async function doNotify(id_usuario, cuerpo){
-    console.log("entra a do notifi")
     await window.api.getConfig(id_usuario).then(result => {
         config = result[0];
     });
@@ -79,10 +78,13 @@ async function doNotify(id_usuario, cuerpo){
             body: cuerpo, icon: 'https://cdn-icons-png.flaticon.com/512/244/244060.png', silent: true
         })
     })
-    let path = '../sounds/'+config.sonidonotificaciongeneral+'.mp3'
-    let sonido = cargarSonido1(path);
-    sonido.play();
+    if (config.alertasonorageneral == 'on'){
+        let path = '../sounds/'+config.sonidonotificaciongeneral+'.mp3'
+        let sonido = cargarSonido1(path);
+        sonido.play();
+    }
 }
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }

@@ -4,13 +4,19 @@ const morderObjetos = document.getElementById("morderObjetos")
 const jalarPelo = document.getElementById("jalarPelo")
 const fatigaVisual = document.getElementById("fatigaVisual")
 const malaPostura = document.getElementById("malaPostura")
+const alertaSonoraGeneral = document.getElementById("alertaSonoraGeneral")//nuevo
+const sonidoNotificacionGeneral = document.getElementById("sonidoNotificacionGeneral")
 const alertaVisual = document.getElementById("alertaVisual")
 const alertaSonora = document.getElementById("alertaSonora")
+const tipoNotificacion = document.getElementById("tipoNotificacion")
 const intervaloNotificacion = document.getElementById("intervaloNotificacion")
 const tiempoNotificacion = document.getElementById("tiempoNotificacion")
-const tipoNotificacion = document.getElementById("tipoNotificacion")
-const sonidoNotificacionMania = document.getElementById("sonidoNotificacionMania")
-const sonidoNotificacionGeneral = document.getElementById("sonidoNotificacionGeneral")
+const temaNotificacionMania = document.getElementById("temaNotificacionMania")//cambiar sonidoNotificacionMania por temaNotificacionMania
+const unhaSound = document.getElementById("unhaSound")//nuevo
+const morderSound = document.getElementById("morderSound")//nuevo
+const peloSound = document.getElementById("peloSound")//nuevo
+const fatigaSound = document.getElementById("fatigaSound")//nuevo
+const posturaSound = document.getElementById("posturaSound")//nuevo
 //configuraciones pomodoro
 const duracionPomo = document.getElementById("duracionPomo")
 const duracionShortBreak = document.getElementById("duracionShortBreak")
@@ -52,7 +58,13 @@ async function saveSettings(){
             intervaloLongBreak1.value,
             cantidadPomodoros1.value,
             sonidoNotificacionGeneral.value,
-            sonidoNotificacionMania.value
+            temaNotificacionMania.value,//modificar este en bd
+            alertaSonoraGeneral.checked,//agregar de aqui en adelante en bd
+            unhaSound.value,
+            morderSound.value,
+            peloSound.value,
+            fatigaSound.value,
+            posturaSound.value
         ]   
     }else{
         configList = [
@@ -73,7 +85,13 @@ async function saveSettings(){
             intervaloLongBreak.value,
             cantidadPomodoros.value,
             sonidoNotificacionGeneral.value,
-            sonidoNotificacionMania.value
+            temaNotificacionMania.value,
+            alertaSonoraGeneral.checked,//agregar de aqui en adelante en bd
+            unhaSound.value,
+            morderSound.value,
+            peloSound.value,
+            fatigaSound.value,
+            posturaSound.value
         ]
     }
 
@@ -108,7 +126,13 @@ async function saveSettings(){
         CONF[14],
         CONF[15],
         CONF[16],
-        CONF[17]
+        CONF[17],
+        CONF[18],
+        CONF[19],
+        CONF[20],
+        CONF[21],
+        CONF[22],
+        CONF[23]
     ).then(result => {
         let resultado=result
     })
@@ -128,7 +152,7 @@ async function actualizarSettings(){
     $('#alertaVisual').bootstrapToggle(config.alertavisual) 
     $('#alertaSonora').bootstrapToggle(config.alertasonora)
     $('#tipoNotificacion').val(config.tiponotificacion)
-    $('#sonidoNotificacionMania').val(config.sonidonotificacionmania)
+    $('#temaNotificacionMania').val(config.temanotificacionmania)
     $('#sonidoNotificacionGeneral').val(config.sonidonotificaciongeneral)
     $('#duracionPomo').val(config.duracionpomo)
     $('#duracionShortBreak').val(config.duracionshortbreak)
@@ -145,6 +169,14 @@ async function actualizarSettings(){
     $('#duracionLongBreak1 ').val(config.duracionlongbreak)
     $('#intervaloLongBreak1').val(config.intervalolongbreak)
     $('#cantidadPomodoros1').val(config.cantidadpomodoros)
+    $('#alertaSonoraGeneral').bootstrapToggle(config.alertasonorageneral)
+    $('#unhaSound').val(config.unhasound)
+    $('#morderSound').val(config.mordersound)
+    $('#peloSound').val(config.pelosound)
+    $('#fatigaSound').val(config.fatigasound)
+    $('#posturaSound').val(config.posturasound)
+    
+    
     if(config.tiponotificacion == 'tiempo'){
         $('#tiempoNotificacion').val(config.tiemponotificacion)
         $('#tipo-intervalo').hide()
@@ -202,9 +234,11 @@ async function doNotify3(){
         })
         .onclick = () => document.getElementById("output").innerText = CLICK_MESSAGE
     })
-    let path = '../sounds/'+config.sonidonotificaciongeneral+'.mp3'
-    let sonido = cargarSonido(path);
-    sonido.play();
+    if (config.alertasonorageneral == 'on'){
+        let path = '../sounds/'+config.sonidonotificaciongeneral+'.mp3'
+        let sonido = cargarSonido(path);
+        sonido.play();
+    }
 }
 
 //funcion que permite cambiar las opciones de intervalo de notificacion

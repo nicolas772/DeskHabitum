@@ -17,9 +17,12 @@ async function doNotify(titulo, cuerpo){
         body: cuerpo,
         silent: true
     });
-    let path = '../sounds/'+config.sonidonotificaciongeneral+'.mp3'
-    let sonido = cargarSonido(path);
-    sonido.play();
+    if (config.alertasonorageneral == 'on'){
+        let path = '../sounds/'+config.sonidonotificaciongeneral+'.mp3'
+        let sonido = cargarSonido(path);
+        sonido.play();
+    }
+    
 }
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

@@ -165,15 +165,9 @@
                 <div class="row">
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Alerta visual
+                            Alerta sonora general
                             <div class ="botoncito">
-                                <input type="checkbox" id="alertaVisual" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Alerta sonora
-                            <div class ="botoncito">
-                                <input type="checkbox" id="alertaSonora" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                                <input type="checkbox" id="alertaSonoraGeneral" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -184,11 +178,16 @@
                             </select>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Sonido de Notificaciones de Manías
-                            <select class="form-control" id="sonidoNotificacionMania">
-                                <option value="sound1">Alerta 1</option>
-                                <option value="sound2">Alerta 2</option>
-                            </select>
+                            Alerta visual mania
+                            <div class ="botoncito">
+                                <input type="checkbox" id="alertaVisual" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Alerta sonora mania
+                            <div class ="botoncito">
+                                <input type="checkbox" id="alertaSonora" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                            </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Intervalo de notificación
@@ -220,6 +219,91 @@
                                 </select>
                             </li>
                         </div>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Tema Notificaciones de Manías
+                            <select class="form-control" id="temaNotificacionMania">
+                                <option value="personalizado">Personalizado</option>
+                                <option value="tema1">Tema 1</option>
+                                <option value="tema2">Tema 2</option>
+                            </select>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Sonido alerta Morderse las uñas
+                            <select class="form-control" id="unhaSound">
+                                <option value="sound1t1">Sonido 1</option>
+                                <option value="sound2t1">Sonido 2</option>
+                                <option value="sound3t1">Sonido 3</option>
+                                <option value="sound4t1">Sonido 4</option>
+                                <option value="sound5t1">Sonido 5</option>
+                                <option value="sound1t2">Sonido 6</option>
+                                <option value="sound2t2">Sonido 7</option>
+                                <option value="sound3t2">Sonido 8</option>
+                                <option value="sound4t2">Sonido 9</option>
+                                <option value="sound5t2">Sonido 10</option>
+                            </select>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Sonido alerta Morder objetos
+                            <select class="form-control" id="morderSound">
+                                <option value="sound1t1">Sonido 1</option>
+                                <option value="sound2t1">Sonido 2</option>
+                                <option value="sound3t1">Sonido 3</option>
+                                <option value="sound4t1">Sonido 4</option>
+                                <option value="sound5t1">Sonido 5</option>
+                                <option value="sound1t2">Sonido 6</option>
+                                <option value="sound2t2">Sonido 7</option>
+                                <option value="sound3t2">Sonido 8</option>
+                                <option value="sound4t2">Sonido 9</option>
+                                <option value="sound5t2">Sonido 10</option>
+                            </select>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Sonido alerta Jalarse el pelo
+                            <select class="form-control" id="peloSound">
+                                <option value="sound1t1">Sonido 1</option>
+                                <option value="sound2t1">Sonido 2</option>
+                                <option value="sound3t1">Sonido 3</option>
+                                <option value="sound4t1">Sonido 4</option>
+                                <option value="sound5t1">Sonido 5</option>
+                                <option value="sound1t2">Sonido 6</option>
+                                <option value="sound2t2">Sonido 7</option>
+                                <option value="sound3t2">Sonido 8</option>
+                                <option value="sound4t2">Sonido 9</option>
+                                <option value="sound5t2">Sonido 10</option>
+                            </select>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Sonido alerta fatiga visual
+                            <select class="form-control" id="fatigaSound">
+                                <option value="sound1t1">Sonido 1</option>
+                                <option value="sound2t1">Sonido 2</option>
+                                <option value="sound3t1">Sonido 3</option>
+                                <option value="sound4t1">Sonido 4</option>
+                                <option value="sound5t1">Sonido 5</option>
+                                <option value="sound1t2">Sonido 6</option>
+                                <option value="sound2t2">Sonido 7</option>
+                                <option value="sound3t2">Sonido 8</option>
+                                <option value="sound4t2">Sonido 9</option>
+                                <option value="sound5t2">Sonido 10</option>
+                            </select>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Sonido alerta Mala postura
+                            <select class="form-control" id="posturaSound">
+                                <option value="sound1t1">Sonido 1</option>
+                                <option value="sound2t1">Sonido 2</option>
+                                <option value="sound3t1">Sonido 3</option>
+                                <option value="sound4t1">Sonido 4</option>
+                                <option value="sound5t1">Sonido 5</option>
+                                <option value="sound1t2">Sonido 6</option>
+                                <option value="sound2t2">Sonido 7</option>
+                                <option value="sound3t2">Sonido 8</option>
+                                <option value="sound4t2">Sonido 9</option>
+                                <option value="sound5t2">Sonido 10</option>
+                            </select>
+                        </li>
+                        
+                        
                         
                         <!--<li class="list-group-item d-flex justify-content-between align-items-center">
                             <label class="mr-sm-2" for="inlineFormCustomSelect">Intervalo de Notificacion</label>

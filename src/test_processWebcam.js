@@ -135,16 +135,19 @@ let cargarSonido2 = function (fuente) {
     return sonido;
 };
 
-function Preguntar_Comiendo(){
+function Preguntar_Comiendo(){ //esta notificación siempre se muestra, ya que se perderia una funcionalidad si no la mostramos
     Notification.requestPermission().then(function (result){
         new Notification("¿ESTÁS COMIENDO?", { 
             body: "CLICKEA ESTA NOTIFICACIÓN SI ESTÁS COMIENDO, PARA DETENER LA DETECCIÓN DE MORDIDA DE OBJETOS", icon: 'https://media.istockphoto.com/photos/woman-holding-slice-of-bread-with-question-mark-sign-picture-id1166079452?k=20&m=1166079452&s=612x612&w=0&h=JJJIj2EEn-8VV2aihn3tg0-Y281p2hH-0O3GC71UO2k='
         })
         .onclick = () => CountDownComiendo()
     })
-    let path = '../sounds/'+config_user.sonidonotificacionmania+'.mp3'
-    let sonido = cargarSonido2(path);
-    sonido.play();
+    if (config.alertasonora == 'on'){
+        let path = '../sounds/'+config_user.mordersound+'.mp3'
+        let sonido = cargarSonido2(path);
+        sonido.play();
+    }
+    
 }
 
 function CountDownEntreNotificaciones() {
