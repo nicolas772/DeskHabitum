@@ -39,7 +39,7 @@ async function aceptar_solicitud(id_user){
         body: 'Participante aceptado'
       });*/
     let aceptar = await window.api.addParticipante(id_user, code)
-    await sleep(1000); //esto lo hago para que al recargar, no se corte el sonido de la notificacion
+    await sleep(2000); //esto lo hago para que al recargar, no se corte el sonido de la notificacion
     window.location.reload();
 }
 
@@ -51,7 +51,7 @@ async function rechazar_solicitud(id_user){
         body: 'Participante rechazado'
       });*/
     let rechazar = window.api.quitarSolicitud(id_user, code)
-    await sleep(1000);//esto lo hago para que al recargar, no se corte el sonido de la notificacion
+    await sleep(2000);//esto lo hago para que al recargar, no se corte el sonido de la notificacion
     window.location.reload()
       
 }
@@ -64,7 +64,7 @@ async function eliminar_miembro(id_miembro){
         body: 'Participante eliminado'
       }); */  
     let eliminar = await window.api.quitarDelGrupo(id_miembro,code)
-    await sleep(1000);//esto lo hago para que al recargar, no se corte el sonido de la notificacion
+    await sleep(2000);//esto lo hago para que al recargar, no se corte el sonido de la notificacion
     window.location.reload();     
 }
 

@@ -479,14 +479,6 @@ const cantDeteccionesFatigaPorMinutoTenSesion = (id_user) => {
     return model.cantDeteccionesFatigaPorMinutoTenSesion(id_user)
 }
 
-//Manejo de notificaciones (settings de notificaciones)
-
-/*const notificar = (titulo, cuerpo, icono) => {
-    new Notification(titulo, { body: cuerpo, icon: icono, silent: true })
-    player.play('./sounds/sound1.mp3', function(err){
-        if (err) throw err
-    })
-}*/
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
