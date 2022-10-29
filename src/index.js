@@ -32,7 +32,7 @@ const createWindow = () => {
     camera_win = new BrowserWindow({
       width: 600,
       height: 600,
-      show: false,
+      //show: false,
       webPreferences: {
           // nodeIntegration: true,
           // contextIsolation:true,

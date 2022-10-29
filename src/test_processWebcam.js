@@ -98,14 +98,14 @@ function Periodo_Pestañeo() {
         if(cantidad_pestañeos < frec_normal_pestañeo && hay_cara){
             
             if(opcion == "tiempo" && se_puede_notificar){
-                NotificarPestañeo();
+                NotificarPestañeo(config_user);
                 CountDownEntreNotificaciones();
             }
 
             else if (opcion == "reconocimientos"){
                 cantidad_detecciones++;
                 if (cantidad_detecciones == cantidad_notificacion){
-                    NotificarPestañeo();
+                    NotificarPestañeo(config_user);
                     cantidad_detecciones = 0;
                 }
             }
@@ -468,7 +468,7 @@ async function predict() {
     }
 
     if (!camara_cargada){
-        CamaraCargada();
+        CamaraCargada(config_user);
         camara_cargada = true;
     }
 
@@ -1530,7 +1530,7 @@ async function predict() {
                 detectado_uña = true;
 
                 if (se_puede_notificar){
-                    NotificarUña();
+                    NotificarUña(config_user);
                     CountDownEntreNotificaciones();
                 }
             }
@@ -1543,7 +1543,7 @@ async function predict() {
                 detectado_pelo= true;
 
                 if (se_puede_notificar){
-                    NotificarPelo();
+                    NotificarPelo(config_user);
                     CountDownEntreNotificaciones();
                 }
             }
@@ -1562,7 +1562,7 @@ async function predict() {
                     detectado_objeto = true;
                     
                     if (se_puede_notificar && cantidad_pregunta != cantidad_mordidas){
-                        NotificarObjeto();
+                        NotificarObjeto(config_user);
                         CountDownEntreNotificaciones();
                     }
 
@@ -1577,7 +1577,7 @@ async function predict() {
                 detectado_vista = true;
 
                 if (se_puede_notificar){
-                    NotificarVisual();
+                    NotificarVisual(config_user);
                     CountDownEntreNotificaciones();
                 }
             }
@@ -1596,7 +1596,7 @@ async function predict() {
                 cantidad_detecciones++;
 
                 if (cantidad_detecciones == cantidad_notificacion){
-                    NotificarUña();
+                    NotificarUña(config_user);
                     cantidad_detecciones = 0;
                     
                 }
@@ -1612,7 +1612,7 @@ async function predict() {
                 cantidad_detecciones++;
 
                 if (cantidad_detecciones == cantidad_notificacion){
-                    NotificarPelo();
+                    NotificarPelo(config_user);
                     cantidad_detecciones = 0;
                 }
             }
@@ -1637,7 +1637,7 @@ async function predict() {
 
                     console.log(cantidad_detecciones, cantidad_notificacion, cantidad_pregunta, cantidad_mordidas)
                     if (cantidad_detecciones == cantidad_notificacion){
-                        NotificarObjeto();
+                        NotificarObjeto(config_user);
                         cantidad_detecciones = 0;
                     }
                 }
@@ -1653,7 +1653,7 @@ async function predict() {
                 cantidad_detecciones++;
 
                 if (cantidad_detecciones == cantidad_notificacion){
-                    NotificarVisual();
+                    NotificarVisual(config_user);
                     cantidad_detecciones = 0;
                     
                 }
