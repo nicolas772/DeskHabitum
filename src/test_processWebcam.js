@@ -125,6 +125,16 @@ function CountDownComiendo() {
     setTimeout (function(){comiendo = false; cantidad_mordidas = 0}, tiempo_comiendo);
 }
 
+let cargarSonido2 = function (fuente) {
+    const sonido = document.createElement("audio");
+    sonido.src = fuente;
+    sonido.setAttribute("preload", "auto");
+    sonido.setAttribute("controls", "none");
+    sonido.style.display = "none"; // <-- oculto
+    document.body.appendChild(sonido);
+    return sonido;
+};
+
 function Preguntar_Comiendo(){
     Notification.requestPermission().then(function (result){
         new Notification("¿ESTÁS COMIENDO?", { 
@@ -132,6 +142,9 @@ function Preguntar_Comiendo(){
         })
         .onclick = () => CountDownComiendo()
     })
+    let path = '../sounds/'+config_user.sonidonotificaciongeneral+'.mp3'
+    let sonido = cargarSonido2(path);
+    sonido.play();
 }
 
 function CountDownEntreNotificaciones() {
