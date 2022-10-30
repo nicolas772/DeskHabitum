@@ -251,3 +251,36 @@ tipoNotificacion.addEventListener('change', (event) => {
         $('#tipo-intervalo').show()
     }
 });
+
+//funcion que permite bloquear las opciones cuando se elige un tema particular
+temaNotificacionMania.addEventListener('change', (event) => {
+    if (event.target.value == 'tema1'){
+        $('#unhaSound').val('sound1t1')
+        $('#morderSound').val('sound2t1')
+        $('#peloSound').val('sound3t1')
+        $('#fatigaSound').val('sound4t1')
+        $('#posturaSound').val('sound5t1')
+        $('#unhaSound').prop( "disabled", true );
+        $('#morderSound').prop( "disabled", true );
+        $('#peloSound').prop( "disabled", true );
+        $('#fatigaSound').prop( "disabled", true );
+        $('#posturaSound').prop( "disabled", true );
+    }else if(event.target.value == 'tema2'){
+        $('#unhaSound').val('sound1t2')
+        $('#morderSound').val('sound2t2')
+        $('#peloSound').val('sound3t2')
+        $('#fatigaSound').val('sound4t2')
+        $('#posturaSound').val('sound5t2')
+        $('#unhaSound').prop( "disabled", true );
+        $('#morderSound').prop( "disabled", true );
+        $('#peloSound').prop( "disabled", true );
+        $('#fatigaSound').prop( "disabled", true );
+        $('#posturaSound').prop( "disabled", true );
+    }else if(event.target.value == 'personalizado'){
+        $('#unhaSound').prop( "disabled", false);
+        $('#morderSound').prop( "disabled", false);
+        $('#peloSound').prop( "disabled", false);
+        $('#fatigaSound').prop( "disabled", false);
+        $('#posturaSound').prop( "disabled", false);
+    }
+});
