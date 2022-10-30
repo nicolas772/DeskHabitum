@@ -184,7 +184,21 @@ async function actualizarSettings(){
         $('#intervaloNotificacion').val(config.intervalonotificacion)
         $('#tipo-tiempo').hide()
     }
-    
+
+    if(config.temanotificacionmania == 'personalizado'){
+        $('#unhaSound').prop( "disabled", false);
+        $('#morderSound').prop( "disabled", false);
+        $('#peloSound').prop( "disabled", false);
+        $('#fatigaSound').prop( "disabled", false);
+        $('#posturaSound').prop( "disabled", false);
+    }else{
+        $('#unhaSound').prop( "disabled", true );
+        $('#morderSound').prop( "disabled", true );
+        $('#peloSound').prop( "disabled", true );
+        $('#fatigaSound').prop( "disabled", true );
+        $('#posturaSound').prop( "disabled", true );
+    }
+
 }
 
 async function actualizarEquipoDiv(){ //esta funcion actualiza el div html del equipo. Si está en un equipo, muestra el id del equipo. Si no esta, le da la opción de ingresar un codigo
@@ -283,4 +297,40 @@ temaNotificacionMania.addEventListener('change', (event) => {
         $('#fatigaSound').prop( "disabled", false);
         $('#posturaSound').prop( "disabled", false);
     }
+});
+
+sonidoNotificacionGeneral.addEventListener('change', (event) => {
+    let path = '../sounds/'+event.target.value+'.mp3'
+    let sonido = cargarSonido(path);
+    sonido.play();
+});
+
+unhaSound.addEventListener('change', (event) => {
+    let path = '../sounds/'+event.target.value+'.mp3'
+    let sonido = cargarSonido(path);
+    sonido.play();
+});
+
+morderSound.addEventListener('change', (event) => {
+    let path = '../sounds/'+event.target.value+'.mp3'
+    let sonido = cargarSonido(path);
+    sonido.play();
+});
+
+peloSound.addEventListener('change', (event) => {
+    let path = '../sounds/'+event.target.value+'.mp3'
+    let sonido = cargarSonido(path);
+    sonido.play();
+});
+
+fatigaSound.addEventListener('change', (event) => {
+    let path = '../sounds/'+event.target.value+'.mp3'
+    let sonido = cargarSonido(path);
+    sonido.play();
+});
+
+posturaSound.addEventListener('change', (event) => {
+    let path = '../sounds/'+event.target.value+'.mp3'
+    let sonido = cargarSonido(path);
+    sonido.play();
 });
