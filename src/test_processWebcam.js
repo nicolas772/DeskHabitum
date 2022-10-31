@@ -25,7 +25,8 @@ let tricotilomania = false; //arrancar pelos
 let morder_objetos = false; //detectar mordidas
 let postura = false; // detectar postura
 let fatiga_visual = false;
-let mucofagia = true; // CORREGIR
+let mucofagia = false; // CORREGIR
+let dermatilomania = true;
 
 //Variable para controlar la ejecución de la webcam
 let webcam, run;
@@ -34,11 +35,12 @@ let camara_cargada = false;
 
 //Intervalo de tiempo antes de mandar notificación por cada mal habito y consolidar la detección
 let intervalo_uña = 2000;
-let intervalo_pelo = 1000;
+let intervalo_pelo = 200;
 let intervalo_objeto = 2000;
 let intervalo_vista = 1500;
 let intervalo_postura = 5000;
 let intervalo_nariz = 2000;
+let intervalo_pellizco = 1000;
 
 //Booleanos que se activan cuando se cumplen los intervalos de tiempo
 let detectado_uña = false;
@@ -47,6 +49,7 @@ let detectado_objeto = false;
 let detectado_vista = false;
 let detectado_postura = false;
 let detectado_nariz = false;
+let detectado_pellizco = false;
 
 //Booleano para el pestañeo intermitente
 let pestañeo_individual = false;
@@ -81,13 +84,14 @@ let corriendo_objeto = false;
 let corriendo_vista = false;
 let corriendo_postura = false;
 let corriendo_nariz = false;
+let corriendo_pellizco = false;
 
 //Variables de timestamp
-let inicio_uña, inicio_pelo, inicio_objeto, inicio_vista, inicio_postura, inicio_nariz;
-let fin_uña, fin_pelo, fin_objeto, fin_vista, fin_postura, fin_nariz;
+let inicio_uña, inicio_pelo, inicio_objeto, inicio_vista, inicio_postura, inicio_nariz, inicio_pellizco;
+let fin_uña, fin_pelo, fin_objeto, fin_vista, fin_postura, fin_nariz, fin_pellizco;
 
 //Booleanos que indican si se está realizando dicho mal habito
-let comiendo_uña, tirando_pelo, mordiendo_objeto, fatigando_vista, mala_postura, urgando_nariz;
+let comiendo_uña, tirando_pelo, mordiendo_objeto, fatigando_vista, mala_postura, urgando_nariz, pellizcando_cara;
 
 
 function Periodo_Pestañeo() {
@@ -203,13 +207,15 @@ async function getConfig(ID_USER){
         corriendo_vista = false;
         corriendo_postura = false;
         corriendo_nariz = false;
+        corriendo_pellizco = false;
         detectado_uña = false;
         detectado_pelo = false;
         detectado_objeto = false;
         detectado_vista = false;
         detectado_postura = false;
         detectado_nariz = false;
-        corriendo_periodo = false
+        detectado_pellizco = false;
+        corriendo_periodo = false;
         cantidad_mordidas = 0;
         cantidad_detecciones = 0;
         cantidad_pestañeos = 0;
@@ -327,6 +333,22 @@ function mano_pinza(pulgar, indice, medio, muñeca){
     return false
 }
 
+function pinza_pellizco(pulgar, indice, muñeca){
+    coeficiente = 0.055
+    distancia_muñeca = 0.1
+
+    pulgar_indice = distancia_puntos3D(pulgar.x, pulgar.y, pulgar.z, indice.x, indice.y, indice.z)
+    indice_muñeca = distancia_puntos3D(indice.x, indice.y, indice.z, muñeca.x, muñeca.y, muñeca.z)
+    //positivo hacia cara el indice
+
+
+    if(indice_muñeca > distancia_muñeca && pulgar_indice < coeficiente && indice.z < 0.045 ){
+        return true
+    }
+    return false
+
+}
+
 function print_mordida(b_x1, b_x2, b_y1, b_y2,    x_i, x_d, x_m,    y_u, y_m, y_l){
 
     //En caso de que la mordida se detecte en la punta superior del objeto
@@ -413,7 +435,7 @@ async function init_model() {
     modeloBlaze = poseDetection.SupportedModels.BlazePose;
     detectorBlaze = await poseDetection.createDetector(modeloBlaze, {runtime : 'tfjs', modelType : 'full'});
 
-    if (onicofagia || tricotilomania || fatiga_visual || mucofagia ){
+    if (onicofagia || tricotilomania || fatiga_visual || mucofagia || dermatilomania ){
         modeloHand = handPoseDetection.SupportedModels.MediaPipeHands;
         detectorHand = await handPoseDetection.createDetector(modeloHand, {runtime : 'tfjs', solutionPath: "https://cdn.jsdelivr.net/npm/@mediapipe/hands",  modelType : 'full'});
 
@@ -460,8 +482,20 @@ async function predict() {
     //https://github.com/tensorflow/tfjs-models/tree/master/hand-pose-detection
 
     
-    posesBlaze = await detectorBlaze.estimatePoses(webcam.canvas);
-    if (onicofagia || tricotilomania || fatiga_visual || mucofagia || postura){
+    
+
+    if (onicofagia || tricotilomania || fatiga_visual || mucofagia || postura || dermatilomania){
+
+        posesBlaze = await detectorBlaze.estimatePoses(webcam.canvas);
+        //https://github.com/tensorflow/tfjs-models/tree/master/pose-detection
+        
+
+
+
+        
+    }
+
+    if (onicofagia || tricotilomania || fatiga_visual || mucofagia || dermatilomania){
 
         posesHand = await detectorHand.estimateHands(webcam.canvas);
         //https://github.com/tensorflow/tfjs-models/tree/master/pose-detection
@@ -490,7 +524,7 @@ async function predict() {
     urgando_nariz = false
     mala_postura = false
     
-    if ( (onicofagia || tricotilomania || fatiga_visual || mucofagia) && posesBlaze.length != 0 && posesHand.length != 0 /* && (posesBlaze[0].keypoints3D[19].score >= 0.8 || posesBlaze[0].keypoints3D[20].score >= 0.8)*/){
+    if ( (onicofagia || tricotilomania || fatiga_visual || mucofagia || dermatilomania) && posesBlaze.length != 0 && posesHand.length != 0 /* && (posesBlaze[0].keypoints3D[19].score >= 0.8 || posesBlaze[0].keypoints3D[20].score >= 0.8)*/){
 
         //BLAZE POSE
 
@@ -1029,6 +1063,39 @@ async function predict() {
                 }
 
             }
+        }
+        
+        if(dermatilomania){
+
+            // REFERENCIA: https://imgur.com/a/Z4ykQd2
+            if(pinza_pellizco(tipPulgar3D, tipIndice3D, muñeca3D)){
+
+                centro_elipse_x = (ojoLeft_Inner.x + ojoRight_Inner.x + nariz.x)/3
+                centro_elipse_y = (ojoLeft_Inner.y + ojoRight_Inner.y + nariz.y)/3
+
+                beta = distancia_puntos(bocaLeft.x, bocaLeft.y, bocaRight.x, bocaRight.y)
+                alfa = distancia_puntos(orejaLeft.x, orejaLeft.y, orejaRight.x, orejaRight.y)
+
+                b = (bocaLeft.y + bocaRight.y) / 2 - (ojoLeft_Inner.y + ojoRight_Inner.y) / 2 + 3 * beta
+
+                x = tipIndice.x - centro_elipse_x
+                y = tipIndice.y - centro_elipse_y
+
+                if ( x**2 / alfa ** 2 + y ** 2 / b ** 2 <= 1 ){
+                    
+                    console.log("DERMATILOMANIA")
+                }
+
+
+
+                
+
+
+
+                
+
+            }
+            
         }
 
     

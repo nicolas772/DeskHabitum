@@ -8,6 +8,7 @@ const NOTIFICATION_BODY_PESTAÑEO = 'Estás pestañeando muy poco, esto puede af
 const NOTIFICATION_BODY_VISUAL = 'Restregarte los ojos es dañino para tu visión. Seria bueno que dejaras de hacerlo :-)'
 const NOTIFICATION_BODY_NARIZ = 'Urgarte la nariz es malo para tu salud. Seria bueno que dejaras de hacerlo :-)'
 const NOTIFICATION_BODY_POSTURA = 'Sentarte de manera incorrecta es malo para tu salud. Seria bueno que dejaras de hacerlo :-)'
+const NOTIFICATION_BODY_PELLIZCO = 'Pellizcarte la piel es malo para tu salud. Seria bueno que dejaras de hacerlo :-)'
 const NOTIFICATION_BODY_CAMARA = 'Reconocimiento iniciado'
 
 function NotificarUña(){
@@ -67,6 +68,14 @@ function NotificarPostura(){
     })
 }
 
+function NotificarPellizco(){
+    Notification.requestPermission().then(function (result){
+        new Notification(NOTIFICATION_TITLE, { 
+            body: NOTIFICATION_BODY_PELLIZCO, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
+        })
+    })
+}
+
 
 function CamaraCargada(){
     Notification.requestPermission().then(function (result){
@@ -76,4 +85,4 @@ function CamaraCargada(){
     })
 }
 
-module.exports = { NotificarUña, NotificarPelo, NotificarObjeto, NotificarPestañeo, NotificarVisual, NotificarNariz, NotificarPostura, CamaraCargada}
+module.exports = { NotificarUña, NotificarPelo, NotificarObjeto, NotificarPestañeo, NotificarVisual, NotificarNariz, NotificarPostura, NotificarPellizco ,CamaraCargada}

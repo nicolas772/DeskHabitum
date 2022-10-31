@@ -62,7 +62,8 @@ const createWindow = () => {
     pomodoro_win.webContents.openDevTools();
 
     win.once('closed', () => {
-      app.quit()
+      pomodoro_win.close()
+      camera_win.close()
     })
 }
 
