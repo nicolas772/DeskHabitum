@@ -751,10 +751,13 @@ async function update_dash_general() {
         tiempo_nariz = result;
       }     
     })
+
+
+    //resumen
     document.getElementById("ultima-sesion-nariz").innerHTML = ultima_ses_nariz;
     document.getElementById("total-detecciones-nariz").innerHTML = total_nariz;
-    document.getElementById("peor_mes_obj").innerHTML = obj_mes_peor;
 
+    //por sesion
     document.getElementById("peor_ses_nariz").innerHTML = peor_ses_nariz;
     document.getElementById("ult_ses_nariz").innerHTML = ultima_ses_nariz;
     document.getElementById("mejor_ses_nariz").innerHTML = mejor_ses_nariz;
@@ -851,18 +854,50 @@ async function update_dash_general() {
 
 
     //--
+    let nariz_mes_act;
+    let nariz_mes_peor, nariz_mes_peor_arr = [];
+    let nariz_mes_mejor, nariz_mes_mejor_arr = [];
+    let categories_nariz = [];
+    await window.api.sesionesMesNariz(ID_USER, date.getMonth()+1, date.getFullYear()).then(result => {
+      nariz_mes_act = result;
+    })
+
+    await window.api.mejorMesNariz(ID_USER,date.getMonth()+1,date.getFullYear()).then(result => {
+      nariz_mes_mejor = result;
+    })
+    
+    await window.api.peorMesNariz(ID_USER,date.getMonth()+1,date.getFullYear()).then(result => {
+      nariz_mes_peor = result;
+    })
+
+
+
+
+
+    document.getElementById("peor_mes_nariz").innerHTML = nariz_mes_peor;
+    document.getElementById("ult_mes_nariz").innerHTML = nariz_mes_act.reduce((a, b) => a + b, 0);
+    document.getElementById("mejor_mes_nariz").innerHTML = nariz_mes_mejor;
+
+    for (let index = 0; index < nariz_mes_act.length; index++) {
+      nariz_mes_peor_arr[index] = peor_ses_nariz;
+      nariz_mes_mejor_arr[index] = mejor_ses_nariz;
+      categories_nariz[index] = index+1;  
+         
+    }
+
+
     var rino_mes = {
       series: [{
         name: "Detecciones mes actual",
-        data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+        data: nariz_mes_act
       },
       {
         name: "Mejor record",
-        data: [11,11,11,11,11,11,11,11,11,11,11,11]
+        data: nariz_mes_mejor_arr
       },
       {
         name: 'Peor record',
-        data: [87, 87, 87, 87, 87, 87, 87, 87, 87,87,87,87]
+        data: nariz_mes_peor_arr
       }
     ],
       chart: {
@@ -896,9 +931,7 @@ async function update_dash_general() {
       }
     },
     xaxis: {
-      categories: ['01 Jan', '02 Jan', '03 Jan', '04 Jan', '05 Jan', '06 Jan', '07 Jan', '08 Jan', '09 Jan',
-        '10 Jan', '11 Jan', '12 Jan'
-      ],
+      categories: categories_nariz,
     },
     tooltip: {
       y: [
@@ -934,10 +967,40 @@ async function update_dash_general() {
     chart_rinomes.render();
 
     //---------PESTAÑA DERMA-----
+    await window.api.ultimaPiel(ID_USER).then(result => {
+      ultima_ses_piel = result;
+    })
+    await window.api.totalPiel(ID_USER).then(result => {
+      total_piel = result;
+    })
+    await window.api.peorSesionPiel(ID_USER).then(result => {
+      peor_ses_piel = result;
+    })
+    await window.api.mejorSesionPiel(ID_USER).then(result => {
+      mejor_ses_piel= result;
+    })
+    await window.api.percentageTenSesionPiel(ID_USER).then(result => {
+      piel_10_sesiones = result;
+    })
+    await window.api.totalTimePiel(ID_USER).then(result => {
+      if(parseInt(result)>0) {
+        tiempo_piel = result;
+      }     
+    })
+
+
+    //resumen
+    document.getElementById("ultima-sesion-piel").innerHTML = ultima_ses_piel;
+    document.getElementById("total-detecciones-piel").innerHTML = total_piel;
+
+    //por sesion
+    document.getElementById("peor_ses_piel").innerHTML = peor_ses_piel;
+    document.getElementById("ult_ses_piel").innerHTML = ultima_ses_piel;
+    document.getElementById("mejor_ses_piel").innerHTML = mejor_ses_piel;
 
 
     var options_derma1 = {
-      series: [10, 80],  //series: [parseInt(tiempo_morder), parseInt(tiempo_optimo)], 
+      series: [parseInt(tiempo_piel), parseInt(tiempo_optimo)],  //series: [parseInt(tiempo_morder), parseInt(tiempo_optimo)], 
       chart: {
         width: 380,
         type: 'pie',
@@ -962,7 +1025,7 @@ async function update_dash_general() {
     var options_derma2 = {
       series: [{
         name: "% Dermatilomanía",
-        data: [1,2,3,4,5,6,7,8,5,2] //data: objetos_10_sesiones
+        data: piel_10_sesiones //data: objetos_10_sesiones
       }],
       chart: {
         height: 240,
@@ -1005,7 +1068,7 @@ async function update_dash_general() {
                 labels: ['Peor sesión', 'Última sesión', 'Mejor sesión'],
                 datasets: [{
                     label: 'Cantidad de detecciones',
-                    data: [5, 2, 3],// data: [parseInt(peor_ses_obj), parseInt(ultima_ses_morder),parseInt(mejor_ses_obj)]
+                    data: [peor_ses_piel, ultima_ses_piel, mejor_ses_piel],// data: [parseInt(peor_ses_obj), parseInt(ultima_ses_morder),parseInt(mejor_ses_obj)]
                     backgroundColor: [
                       'rgba(58, 198, 143, 0.2)', //'rgba(255, 205, 86, 0.2)'
                       'rgba(58, 198, 143, 0.2)', //'rgba(75, 192, 192, 0.2)'
@@ -1026,21 +1089,52 @@ async function update_dash_general() {
         });
       
 
+    let piel_mes_act;
+    let piel_mes_peor, piel_mes_peor_arr = [];
+    let piel_mes_mejor, piel_mes_mejor_arr = [];
+    let categories_piel = [];
+    await window.api.sesionesMesPiel(ID_USER, date.getMonth()+1, date.getFullYear()).then(result => {
+      piel_mes_act = result;
+    })
+
+    await window.api.mejorMesPiel(ID_USER,date.getMonth()+1,date.getFullYear()).then(result => {
+      piel_mes_mejor = result;
+    })
+    
+    await window.api.peorMesPiel(ID_USER,date.getMonth()+1,date.getFullYear()).then(result => {
+      piel_mes_peor = result;
+    })
+
+
+
+
+
+    document.getElementById("peor_mes_piel").innerHTML = piel_mes_peor;
+    document.getElementById("ult_mes_piel").innerHTML = piel_mes_act.reduce((a, b) => a + b, 0);
+    document.getElementById("mejor_mes_piel").innerHTML = piel_mes_mejor;
+
+    for (let index = 0; index < piel_mes_act.length; index++) {
+      piel_mes_peor_arr[index] = peor_ses_piel;
+      piel_mes_mejor_arr[index] = mejor_ses_piel;
+      categories_piel[index] = index+1;  
+         
+    }
+
 
 
 
     var derma_mes = {
       series: [{
         name: "Detecciones mes actual",
-        data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+        data: piel_mes_act
       },
       {
         name: "Mejor record",
-        data: [11,11,11,11,11,11,11,11,11,11,11,11]
+        data: piel_mes_mejor_arr
       },
       {
         name: 'Peor record',
-        data: [87, 87, 87, 87, 87, 87, 87, 87, 87,87,87,87]
+        data: piel_mes_peor_arr
       }
     ],
       chart: {
@@ -1074,9 +1168,7 @@ async function update_dash_general() {
       }
     },
     xaxis: {
-      categories: ['01 Jan', '02 Jan', '03 Jan', '04 Jan', '05 Jan', '06 Jan', '07 Jan', '08 Jan', '09 Jan',
-        '10 Jan', '11 Jan', '12 Jan'
-      ],
+      categories: categories_piel,
     },
     tooltip: {
       y: [
