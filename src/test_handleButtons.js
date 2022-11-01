@@ -113,3 +113,6 @@ async function eliminar_grupo(){
     
 }
 
+function takePhoto () {
+    console.log("tomar foto")
+}
