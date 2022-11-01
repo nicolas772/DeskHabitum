@@ -512,6 +512,48 @@ const mejorSesionNariz = (id_user) => {
     return model.mejorSesionNariz(id_user)
 }
 
+const percentageTenSesionNariz = (id_user) => {
+    return model.percentageTenSesionNariz(id_user)
+}
+
+const percentageTenSesionPiel = (id_user) => {
+    return model.percentageTenSesionPiel(id_user)
+}
+
+const totalTimeNariz = (id_user) => {
+    return model.totalTimeNariz(id_user)
+}
+
+const mejorMesNariz = (id_user) => {
+    return model.mejorMesNariz(id_user)
+}
+
+const mejorMesPiel = (id_user) => {
+    return model.mejorMesPiel(id_user)
+}
+
+const peorMesNariz = (id_user) => {
+    return model.peorMesNariz(id_user)
+}
+
+const peorMesPiel = (id_user) => {
+    return model.peorMesPiel(id_user)
+}
+
+const totalTimePiel = (id_user) => {
+    return model.totalTimePiel(id_user)
+}
+
+const sesionesMesNariz = (userId, mes, año) => {
+    return model.sesionesMesNariz(userId, mes, año)
+}
+
+const sesionesMesPiel = (userId, mes, año) => {
+    return model.sesionesMesPiel(userId, mes, año)
+}
+
+
+
 
 
 
@@ -613,7 +655,17 @@ contextBridge.exposeInMainWorld("api", {
     ultimaNariz: ultimaNariz,
     totalNariz: totalNariz,
     peorSesionNariz: peorSesionNariz,
-    mejorSesionNariz: mejorSesionNariz
+    mejorSesionNariz: mejorSesionNariz,
+    percentageTenSesionPiel: percentageTenSesionPiel,
+    percentageTenSesionNariz: percentageTenSesionNariz,
+    totalTimeNariz: totalTimeNariz,
+    totalTimePiel: totalTimePiel,
+    mejorMesNariz: mejorMesNariz,
+    mejorMesPiel: mejorMesPiel,
+    peorMesNariz: peorMesNariz,
+    peorMesPiel: peorMesNariz,
+    sesionesMesPiel: sesionesMesPiel,
+    sesionesMesNariz: sesionesMesPiel
 })
 
 module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id, getConfig, parar_pomodoro}
