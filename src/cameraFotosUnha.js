@@ -1,58 +1,21 @@
-/*const electron = require('electron');
-const dialog = electron.remote.dialog;
-const { dialog } = require('electron')
 const fs = require('fs');
-let photoData;
-let video;*/
+const {contextBridge, ipcRenderer} = require("electron");
 const tmImage = require('@teachablemachine/image');
-let webcam
-
-/*function savePhoto (filePath) {
-  if (filePath) {
-    fs.writeFile(filePath, photoData, 'base64', (err) => {
-      if (err) alert(`There was a problem saving the photo: ${err.message}`);
-      photoData = null;
-    });
-  }
-}
-
-function initialize () {
-  video = window.document.querySelector('video');
-  let errorCallback = (error) => {
-    console.log(`There was an error connecting to the video stream: ${error.message}`);
-  };
-
-  window.navigator.webkitGetUserMedia({video: true}, (localMediaStream) => {
-    video.src = window.URL.createObjectURL(localMediaStream);
-  }, errorCallback);
-}
-
-function takePhoto () {
-  let canvas = window.document.querySelector('canvas');
-  canvas.getContext('2d').drawImage(video, 0, 0, 800, 600);
-  photoData = canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
-  dialog.showSaveDialog({
-    title: "Save the photo",
-    defaultPath: 'myfacebomb.png',
-    buttonLabel: 'Save photo'
-  }, savePhoto);
-}*/
+let camara, photoData
 
 async function init_camera() {
     let flip = true;
-    let width = 224;
-    let height = 224;
-    webcam = new tmImage.Webcam(width, height, flip);
-    await webcam.setup(); // request access to the webcam
-    webcam.play();
-    document.getElementById("HOLA").appendChild(webcam.canvas);
-
+    let width = 400;
+    let height = 400;
+    camara = new tmImage.Webcam(width, height, flip);
+    await camara.setup(); // request access to the webcam
+    camara.play();
+    document.getElementById("HOLA").appendChild(camara.canvas);
     setTimeout (function(){window.requestAnimationFrame(loop)}, 5000);
-
 }
 
 async function loop() {
-    webcam.update(); // update the webcam frame
+    camara.update(); // update the webcam frame
     /*if (!corriendo){
         webcam.stop()
         document.getElementById("HOLA").innerHTML = "";
@@ -61,4 +24,30 @@ async function loop() {
     window.setTimeout(loop, 0.1)
 }
 
+function takePhoto () {
+    console.log("tomar foto")
+
+}
+
+contextBridge.exposeInMainWorld("api3", {
+    takePhoto: takePhoto
+})
+
+// Load init
 window.onload = init_camera();
+
+function takePhoto () {
+    //camara.pause();
+    var context = camara.canvas.getContext('2d');
+    camara.canvas.width = 400;
+    camara.canvas.height = 400;
+    context.drawImage(camara.webcam, 0, 0, 600, 400);
+    let foto = camara.canvas.toDataURL(); //Esta es la foto, en base 64
+
+    let enlace = document.createElement('a'); // Crear un <a>
+    //enlace.setAttribute("diplay", "none");
+    enlace.download = "foto_parzibyte.me.png";
+    enlace.href = foto;
+    enlace.click();
+    //camara.play();
+}

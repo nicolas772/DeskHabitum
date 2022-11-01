@@ -272,3 +272,4 @@ function createWindowCameraUnhas() {
  //winCameraUnha.webContents.openDevTools();
  winCameraUnha.loadFile('src/views/cameraFotosUnha.html')
 }
+
