@@ -4,6 +4,8 @@ const morderObjetos = document.getElementById("morderObjetos")
 const jalarPelo = document.getElementById("jalarPelo")
 const fatigaVisual = document.getElementById("fatigaVisual")
 const malaPostura = document.getElementById("malaPostura")
+const pellizcarPiel = document.getElementById("pellizcarPiel")
+const hurgarNariz = document.getElementById("hurgarNariz")
 const alertaSonoraGeneral = document.getElementById("alertaSonoraGeneral")//nuevo
 const sonidoNotificacionGeneral = document.getElementById("sonidoNotificacionGeneral")
 const alertaVisual = document.getElementById("alertaVisual")
@@ -17,6 +19,8 @@ const morderSound = document.getElementById("morderSound")//nuevo
 const peloSound = document.getElementById("peloSound")//nuevo
 const fatigaSound = document.getElementById("fatigaSound")//nuevo
 const posturaSound = document.getElementById("posturaSound")//nuevo
+const pielSound = document.getElementById("pielSound")//nuevo
+const narizSound = document.getElementById("narizSound")//nuevo
 //configuraciones pomodoro
 const duracionPomo = document.getElementById("duracionPomo")
 const duracionShortBreak = document.getElementById("duracionShortBreak")
@@ -64,7 +68,11 @@ async function saveSettings(){
             morderSound.value,
             peloSound.value,
             fatigaSound.value,
-            posturaSound.value
+            posturaSound.value,
+            pielSound.value,
+            narizSound.value,
+            pellizcarPiel.checked,
+            hurgarNariz.checked
         ]   
     }else{
         configList = [
@@ -91,7 +99,11 @@ async function saveSettings(){
             morderSound.value,
             peloSound.value,
             fatigaSound.value,
-            posturaSound.value
+            posturaSound.value,
+            pielSound.value,
+            narizSound.value,
+            pellizcarPiel.checked,
+            hurgarNariz.checked
         ]
     }
 
@@ -132,7 +144,11 @@ async function saveSettings(){
         CONF[20],
         CONF[21],
         CONF[22],
-        CONF[23]
+        CONF[23],
+        CONF[24],
+        CONF[25],
+        CONF[26],
+        CONF[27]
     ).then(result => {
         let resultado=result
     })
@@ -149,6 +165,8 @@ async function actualizarSettings(){
     $('#jalarPelo').bootstrapToggle(config.jalarpelo) 
     $('#fatigaVisual').bootstrapToggle(config.fatigavisual) 
     $('#malaPostura').bootstrapToggle(config.malapostura) 
+    $('#pellizcarPiel').bootstrapToggle(config.pellizcarpiel) 
+    $('#hurgarNariz').bootstrapToggle(config.hurgarnariz) 
     $('#alertaVisual').bootstrapToggle(config.alertavisual) 
     $('#alertaSonora').bootstrapToggle(config.alertasonora)
     $('#tipoNotificacion').val(config.tiponotificacion)
@@ -175,6 +193,8 @@ async function actualizarSettings(){
     $('#peloSound').val(config.pelosound)
     $('#fatigaSound').val(config.fatigasound)
     $('#posturaSound').val(config.posturasound)
+    $('#pielSound').val(config.pielsound)
+    $('#narizSound').val(config.narizsound)
     
     
     if(config.tiponotificacion == 'tiempo'){
@@ -191,12 +211,16 @@ async function actualizarSettings(){
         $('#peloSound').prop( "disabled", false);
         $('#fatigaSound').prop( "disabled", false);
         $('#posturaSound').prop( "disabled", false);
+        $('#pielSound').prop( "disabled", false);
+        $('#narizSound').prop( "disabled", false);
     }else{
         $('#unhaSound').prop( "disabled", true );
         $('#morderSound').prop( "disabled", true );
         $('#peloSound').prop( "disabled", true );
         $('#fatigaSound').prop( "disabled", true );
         $('#posturaSound').prop( "disabled", true );
+        $('#pielSound').prop( "disabled", true);
+        $('#narizSound').prop( "disabled", true);
     }
 
 }
@@ -274,28 +298,38 @@ temaNotificacionMania.addEventListener('change', (event) => {
         $('#peloSound').val('sound3t1')
         $('#fatigaSound').val('sound4t1')
         $('#posturaSound').val('sound5t1')
+        $('#pielSound').val('sound6t1')
+        $('#narizSound').val('sound7t1')
         $('#unhaSound').prop( "disabled", true );
         $('#morderSound').prop( "disabled", true );
         $('#peloSound').prop( "disabled", true );
         $('#fatigaSound').prop( "disabled", true );
         $('#posturaSound').prop( "disabled", true );
+        $('#pielSound').prop( "disabled", true );
+        $('#narizSound').prop( "disabled", true );
     }else if(event.target.value == 'tema2'){
         $('#unhaSound').val('sound1t2')
         $('#morderSound').val('sound2t2')
         $('#peloSound').val('sound3t2')
         $('#fatigaSound').val('sound4t2')
         $('#posturaSound').val('sound5t2')
+        $('#pielSound').val('sound6t2')
+        $('#narizSound').val('sound7t2')
         $('#unhaSound').prop( "disabled", true );
         $('#morderSound').prop( "disabled", true );
         $('#peloSound').prop( "disabled", true );
         $('#fatigaSound').prop( "disabled", true );
         $('#posturaSound').prop( "disabled", true );
+        $('#pielSound').prop( "disabled", true );
+        $('#narizSound').prop( "disabled", true );
     }else if(event.target.value == 'personalizado'){
         $('#unhaSound').prop( "disabled", false);
         $('#morderSound').prop( "disabled", false);
         $('#peloSound').prop( "disabled", false);
         $('#fatigaSound').prop( "disabled", false);
         $('#posturaSound').prop( "disabled", false);
+        $('#pielSound').prop( "disabled", false);
+        $('#narizSound').prop( "disabled", false);
     }
 });
 
@@ -330,6 +364,18 @@ fatigaSound.addEventListener('change', (event) => {
 });
 
 posturaSound.addEventListener('change', (event) => {
+    let path = '../sounds/'+event.target.value+'.mp3'
+    let sonido = cargarSonido(path);
+    sonido.play();
+});
+
+pielSound.addEventListener('change', (event) => {
+    let path = '../sounds/'+event.target.value+'.mp3'
+    let sonido = cargarSonido(path);
+    sonido.play();
+});
+
+narizSound.addEventListener('change', (event) => {
     let path = '../sounds/'+event.target.value+'.mp3'
     let sonido = cargarSonido(path);
     sonido.play();
