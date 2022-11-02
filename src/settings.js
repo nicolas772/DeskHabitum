@@ -21,6 +21,7 @@ const fatigaSound = document.getElementById("fatigaSound")//nuevo
 const posturaSound = document.getElementById("posturaSound")//nuevo
 const pielSound = document.getElementById("pielSound")//nuevo
 const narizSound = document.getElementById("narizSound")//nuevo
+const humanoSound = document.getElementById("humanoSound")//este no se guarda, es solo para el manejo de sonidos
 //configuraciones pomodoro
 const duracionPomo = document.getElementById("duracionPomo")
 const duracionShortBreak = document.getElementById("duracionShortBreak")
@@ -206,21 +207,28 @@ async function actualizarSettings(){
     }
 
     if(config.temanotificacionmania == 'personalizado'){
-        $('#unhaSound').prop( "disabled", false);
+        /*$('#unhaSound').prop( "disabled", false);
         $('#morderSound').prop( "disabled", false);
         $('#peloSound').prop( "disabled", false);
         $('#fatigaSound').prop( "disabled", false);
         $('#posturaSound').prop( "disabled", false);
         $('#pielSound').prop( "disabled", false);
-        $('#narizSound').prop( "disabled", false);
-    }else{
-        $('#unhaSound').prop( "disabled", true );
+        $('#narizSound').prop( "disabled", false);*/
+        $('#divSonidos').show();
+        $('#divHumanoVoice').hide();
+    }else if(config.temanotificacionmania == 'tema4'){
+        /*$('#unhaSound').prop( "disabled", true );
         $('#morderSound').prop( "disabled", true );
         $('#peloSound').prop( "disabled", true );
         $('#fatigaSound').prop( "disabled", true );
         $('#posturaSound').prop( "disabled", true );
         $('#pielSound').prop( "disabled", true);
-        $('#narizSound').prop( "disabled", true);
+        $('#narizSound').prop( "disabled", true);*/
+        $('#divSonidos').hide();
+        $('#divHumanoVoice').show();
+    }else{
+        $('#divSonidos').hide();
+        $('#divHumanoVoice').hide();
     }
 
 }
@@ -300,13 +308,8 @@ temaNotificacionMania.addEventListener('change', (event) => {
         $('#posturaSound').val('sound5t1')
         $('#pielSound').val('sound6t1')
         $('#narizSound').val('sound7t1')
-        $('#unhaSound').prop( "disabled", true );
-        $('#morderSound').prop( "disabled", true );
-        $('#peloSound').prop( "disabled", true );
-        $('#fatigaSound').prop( "disabled", true );
-        $('#posturaSound').prop( "disabled", true );
-        $('#pielSound').prop( "disabled", true );
-        $('#narizSound').prop( "disabled", true );
+        $('#divSonidos').hide();
+        $('#divHumanoVoice').hide();
     }else if(event.target.value == 'tema2'){
         $('#unhaSound').val('sound1t2')
         $('#morderSound').val('sound2t2')
@@ -315,24 +318,35 @@ temaNotificacionMania.addEventListener('change', (event) => {
         $('#posturaSound').val('sound5t2')
         $('#pielSound').val('sound6t2')
         $('#narizSound').val('sound7t2')
-        $('#unhaSound').prop( "disabled", true );
-        $('#morderSound').prop( "disabled", true );
-        $('#peloSound').prop( "disabled", true );
-        $('#fatigaSound').prop( "disabled", true );
-        $('#posturaSound').prop( "disabled", true );
-        $('#pielSound').prop( "disabled", true );
-        $('#narizSound').prop( "disabled", true );
-    }else if(event.target.value == 'personalizado'){
-        $('#unhaSound').prop( "disabled", false);
-        $('#morderSound').prop( "disabled", false);
-        $('#peloSound').prop( "disabled", false);
-        $('#fatigaSound').prop( "disabled", false);
-        $('#posturaSound').prop( "disabled", false);
-        $('#pielSound').prop( "disabled", false);
-        $('#narizSound').prop( "disabled", false);
+        $('#divSonidos').hide();
+        $('#divHumanoVoice').hide();
+    }else if(event.target.value == 'tema3'){        
+        $('#unhaSound').val('sound1t3')
+        $('#morderSound').val('sound2t3')
+        $('#peloSound').val('sound3t3')
+        $('#fatigaSound').val('sound4t3')
+        $('#posturaSound').val('sound5t3')
+        $('#pielSound').val('sound6t3')
+        $('#narizSound').val('sound7t3')
+        $('#divSonidos').hide();
+        $('#divHumanoVoice').hide();
+    }else if(event.target.value == 'tema4'){
+        $('#unhaSound').val('sound1t4')
+        $('#morderSound').val('sound1t4')
+        $('#peloSound').val('sound1t4')
+        $('#fatigaSound').val('sound1t4')
+        $('#posturaSound').val('sound1t4')
+        $('#pielSound').val('sound1t4')
+        $('#narizSound').val('sound1t4')
+        $('#divSonidos').hide();
+        $('#divHumanoVoice').show();
+    }else if(event.target.value == 'personalizado'){       
+        $('#divHumanoVoice').hide();
+        $('#divSonidos').show();
     }
 });
 
+//esto es para reproducir el sonido cuando se cambia de opcion
 sonidoNotificacionGeneral.addEventListener('change', (event) => {
     let path = '../sounds/'+event.target.value+'.mp3'
     let sonido = cargarSonido(path);
@@ -379,4 +393,27 @@ narizSound.addEventListener('change', (event) => {
     let path = '../sounds/'+event.target.value+'.mp3'
     let sonido = cargarSonido(path);
     sonido.play();
+});
+
+humanoSound.addEventListener('change', (event) => {
+    let path = '../sounds/'+event.target.value+'.mp3'
+    let sonido = cargarSonido(path);
+    sonido.play();
+    if(event.target.value == 'sound1t4'){
+        $('#unhaSound').val('sound1t4')
+        $('#morderSound').val('sound1t4')
+        $('#peloSound').val('sound1t4')
+        $('#fatigaSound').val('sound1t4')
+        $('#posturaSound').val('sound1t4')
+        $('#pielSound').val('sound1t4')
+        $('#narizSound').val('sound1t4')
+    }else{
+        $('#unhaSound').val('sound2t4')
+        $('#morderSound').val('sound2t4')
+        $('#peloSound').val('sound2t4')
+        $('#fatigaSound').val('sound2t4')
+        $('#posturaSound').val('sound2t4')
+        $('#pielSound').val('sound2t4')
+        $('#narizSound').val('sound2t4')
+    }
 });

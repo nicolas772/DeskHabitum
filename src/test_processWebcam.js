@@ -164,7 +164,7 @@ function CountDownEntreNotificaciones() {
     setTimeout (function(){se_puede_notificar = true}, tiempo_entre_notificaciones);
 }
 
-function CountDownFotoMano() {
+function setTimeout_FotoMano() {
     se_puede_notificar = false;
     setTimeout (function(){
 
@@ -172,7 +172,7 @@ function CountDownFotoMano() {
         flag = true
 
     }, tiempo_entre_notificaciones);
-}
+}t
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
