@@ -148,6 +148,16 @@ function CountDownEntreNotificaciones() {
     setTimeout (function(){se_puede_notificar = true}, tiempo_entre_notificaciones);
 }
 
+function CountDownFotoMano() {
+    se_puede_notificar = false;
+    setTimeout (function(){
+
+        corriendo = false
+        flag = true
+
+    }, tiempo_entre_notificaciones);
+}
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -303,10 +313,13 @@ async function camaraHandle(){ //funcion que va leyendo el archivo cameraHandle 
                 flag = true
             }else{
                 capturando_foto = true
+                setTimeout_FotoMano();
             }
         }
     }
 }
+
+
 
 
 //Funciones para calcular la distancia entre dos puntos
@@ -359,6 +372,14 @@ function magnitud(punto){
 }
 
 function mano_abierta(pulgar, indice, medio, anular, meñique, muñeca){
+
+
+    coef_pulgar = 1.52
+    coef_indice = 1.72
+    coef_medio = 1.73
+    coef_anular = 1.7
+    coef_meñique = 1.55
+    coef_horizontal = 1.1
     
     magnitud_pulgar = magnitud(pulgar) 
     magnitud_indice = magnitud(indice)
@@ -368,9 +389,13 @@ function mano_abierta(pulgar, indice, medio, anular, meñique, muñeca){
     magnitud_muñeca = magnitud(muñeca)
 
     pulgar_muñeca = distancia_puntos3D(pulgar.x / magnitud_pulgar, pulgar.y / magnitud_pulgar, pulgar.z / magnitud_pulgar, muñeca.x / magnitud_muñeca, muñeca.y / magnitud_muñeca, muñeca.z / magnitud_muñeca)
+    
     indice_muñeca = distancia_puntos3D(indice.x / magnitud_indice , indice.y / magnitud_indice, indice.z / magnitud_indice, muñeca.x / magnitud_muñeca, muñeca.y / magnitud_muñeca, muñeca.z / magnitud_muñeca)
+    
     medio_muñeca = distancia_puntos3D(medio.x / magnitud_medio, medio.y / magnitud_medio, medio.z / magnitud_medio, muñeca.x / magnitud_muñeca, muñeca.y / magnitud_muñeca, muñeca.z / magnitud_muñeca)
+    
     anular_muñeca = distancia_puntos3D(anular.x / magnitud_anular, anular.y / magnitud_anular, anular.z / magnitud_anular, muñeca.x / magnitud_muñeca, muñeca.y / magnitud_muñeca, muñeca.z / magnitud_muñeca)
+   
     meñique_muñeca = distancia_puntos3D(meñique.x / magnitud_meñique, meñique.y / magnitud_meñique, meñique.z / magnitud_meñique, muñeca.x / magnitud_muñeca, muñeca.y / magnitud_muñeca, muñeca.z / magnitud_muñeca)
 
     pulgar_meñique = distancia_puntos3D(pulgar.x / magnitud_pulgar, pulgar.y / magnitud_pulgar, pulgar.z / magnitud_pulgar, meñique.x / magnitud_meñique, meñique.y / magnitud_meñique, meñique.z / magnitud_meñique)
@@ -381,8 +406,16 @@ function mano_abierta(pulgar, indice, medio, anular, meñique, muñeca){
     console.log("medio_muñeca:", medio_muñeca)
     console.log("anular_muñeca:", anular_muñeca)
     console.log("meñique_muñeca:", meñique_muñeca)
-    console.log("pulgar_meñique:", pulgar_meñique)
+    console.log("pulgar_meñique:", pulgar_meñique) 
 
+
+    if (pulgar_muñeca >= coef_pulgar && indice_muñeca >= coef_indice && medio_muñeca >= coef_medio && anular_muñeca >= coef_anular && meñique_muñeca >= coef_meñique && pulgar_meñique >= coef_horizontal){
+
+        console.log("MANO ABIERTA")
+        return true
+    }
+
+    return false
 
 }
 
@@ -664,17 +697,18 @@ async function predict() {
             tipMenique2 = posesHand[1].keypoints[20]
             tipMenique2_3D = posesHand[1].keypoints3D[20]
 
+            console.log(tipIndice3D.z >= 0 , tipIndice2_3D.z >= 0)
+
         }
 
 
-        mano_abierta(tipPulgar3D, tipIndice3D, tipMedio3D, tipAnular3D, tipMenique3D, muñeca3D)
-        
-
-        if(capturando_foto && posesHand.length == 2 && tipIndice3D.y >= 0 && tipIndice3D.y >= 0 ){
+        if(capturando_foto && posesHand.length == 2 && tipIndice3D.z >= 0 && tipIndice2_3D.z >= 0 && mano_abierta(tipPulgar3D, tipIndice3D, tipMedio3D, tipAnular3D, tipMenique3D, muñeca3D) && mano_abierta(tipPulgar2_3D, tipIndice2_3D, tipMedio2_3D, tipAnular2_3D, tipMenique2_3D, muñeca3D)){
             
+
+
         }
 
-        /*-----------------------------------------------SECCIÓN DE FATIGA VISUAL CON MANO----------------------------------------------*/
+/*-----------------------------------------------SECCIÓN DE FATIGA VISUAL CON MANO----------------------------------------------*/
         if(fatiga_visual && !capturando_foto){
 
             radio_ojoLeft = distancia_puntos(ojoLeft_Outer.x, ojoLeft_Outer.y, ojoLeft.x, ojoLeft.y)
