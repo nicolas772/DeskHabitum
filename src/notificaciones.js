@@ -35,7 +35,11 @@ async function doNotify(tipo_notif, config, cuerpo, icono, mania){ //tipo_notif 
                 path = '../sounds/'+config.fatigasound+'.mp3'
             }else if (mania == 'postura'){
                 path = '../sounds/'+config.posturasound+'.mp3'
-            }      
+            }else if (mania == 'piel'){
+                path = '../sounds/'+config.pielsound+'.mp3'
+            }else if (mania == 'nariz'){
+                path = '../sounds/'+config.narizsound+'.mp3'
+            }       
             sonido = cargarSonido(path);
             sonido.play();
         }
@@ -107,44 +111,40 @@ async function NotificarVisual(config){
     await doNotify('mania', config, NOTIFICATION_BODY_VISUAL, 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg', 'fatiga')
 }
 
-async function CamaraCargada(config){
+async function NotificarPostura(){
     /*Notification.requestPermission().then(function (result){
-function NotificarNariz(){
-    Notification.requestPermission().then(function (result){
+        new Notification(NOTIFICATION_TITLE, { 
+            body: NOTIFICATION_BODY_POSTURA, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
+        })
+    })*/
+    await doNotify('mania', config, NOTIFICATION_BODY_POSTURA, 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg', 'postura')
+}
+
+async function NotificarPellizco(){
+    /*Notification.requestPermission().then(function (result){
+        new Notification(NOTIFICATION_TITLE, { 
+            body: NOTIFICATION_BODY_PELLIZCO, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
+        })
+    })*/
+    await doNotify('mania', config, NOTIFICATION_BODY_PELLIZCO, 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg', 'piel')
+}
+
+async function NotificarNariz(){
+    /*Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
             body: NOTIFICATION_BODY_NARIZ, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
         })
-    })
-    Notification.requestPermission().then(function (result){
+    })*/
+    await doNotify('mania', config, NOTIFICATION_BODY_NARIZ, 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg', 'nariz')
+}
+
+async function CamaraCargada(config){
+    /*Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
             body: NOTIFICATION_BODY_CAMARA, icon: 'https://webcam-test.com/ico/webcam.svg'
         })
     })*/
     await doNotify('general', config, NOTIFICATION_BODY_CAMARA, 'https://webcam-test.com/ico/webcam.svg', '')
-}
-
-function NotificarPostura(){
-    Notification.requestPermission().then(function (result){
-        new Notification(NOTIFICATION_TITLE, { 
-            body: NOTIFICATION_BODY_POSTURA, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
-        })
-    })
-}
-
-function NotificarPellizco(){
-    Notification.requestPermission().then(function (result){
-        new Notification(NOTIFICATION_TITLE, { 
-            body: NOTIFICATION_BODY_PELLIZCO, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
-        })
-    })
-}
-
-function NotificarNariz(){
-    Notification.requestPermission().then(function (result){
-        new Notification(NOTIFICATION_TITLE, { 
-            body: NOTIFICATION_BODY_NARIZ, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
-        })
-    })
 }
 
 
