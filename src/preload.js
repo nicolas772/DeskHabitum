@@ -479,6 +479,83 @@ const cantDeteccionesFatigaPorMinutoTenSesion = (id_user) => {
     return model.cantDeteccionesFatigaPorMinutoTenSesion(id_user)
 }
 
+const ultimaPiel = (id_user) => {
+    return model.ultimaPiel(id_user)
+}
+
+const totalPiel = (id_user) => {
+    return model.totalPiel(id_user)
+}
+
+const peorSesionPiel = (id_user) => {
+    return model.peorSesionPiel(id_user)
+}
+
+const mejorSesionPiel = (id_user) => {
+    return model.mejorSesionPiel(id_user)
+}
+
+const ultimaNariz = (id_user) => {
+    return model.ultimaNariz(id_user)
+}
+
+const totalNariz = (id_user) => {
+    return model.totalNariz(id_user)
+}
+
+const peorSesionNariz = (id_user) => {
+    return model.peorSesionNariz(id_user)
+}
+
+const mejorSesionNariz = (id_user) => {
+    return model.mejorSesionNariz(id_user)
+}
+
+const percentageTenSesionNariz = (id_user) => {
+    return model.percentageTenSesionNariz(id_user)
+}
+
+const percentageTenSesionPiel = (id_user) => {
+    return model.percentageTenSesionPiel(id_user)
+}
+
+const totalTimeNariz = (id_user) => {
+    return model.totalTimeNariz(id_user)
+}
+
+const mejorMesNariz = (id_user) => {
+    return model.mejorMesNariz(id_user)
+}
+
+const mejorMesPiel = (id_user) => {
+    return model.mejorMesPiel(id_user)
+}
+
+const peorMesNariz = (id_user) => {
+    return model.peorMesNariz(id_user)
+}
+
+const peorMesPiel = (id_user) => {
+    return model.peorMesPiel(id_user)
+}
+
+const totalTimePiel = (id_user) => {
+    return model.totalTimePiel(id_user)
+}
+
+const sesionesMesNariz = (userId, mes, año) => {
+    return model.sesionesMesNariz(userId, mes, año)
+}
+
+const sesionesMesPiel = (userId, mes, año) => {
+    return model.sesionesMesPiel(userId, mes, año)
+}
+
+
+
+
+
+
 
 contextBridge.exposeInMainWorld("api", {
     getUsuarios: getUsuarios,
@@ -569,7 +646,25 @@ contextBridge.exposeInMainWorld("api", {
     ultimaVista: ultimaVista,
     totalVista: totalVista,
     top10Vista: top10Vista,
-    eliminarGrupo: eliminarGrupo
+    eliminarGrupo: eliminarGrupo,
+    ultimaPiel: ultimaPiel,
+    totalPiel: totalPiel,
+    peorSesionPiel: peorSesionPiel,
+    mejorSesionPiel: mejorSesionPiel,
+    ultimaNariz: ultimaNariz,
+    totalNariz: totalNariz,
+    peorSesionNariz: peorSesionNariz,
+    mejorSesionNariz: mejorSesionNariz,
+    percentageTenSesionPiel: percentageTenSesionPiel,
+    percentageTenSesionNariz: percentageTenSesionNariz,
+    totalTimeNariz: totalTimeNariz,
+    totalTimePiel: totalTimePiel,
+    mejorMesNariz: mejorMesNariz,
+    mejorMesPiel: mejorMesPiel,
+    peorMesNariz: peorMesNariz,
+    peorMesPiel: peorMesNariz,
+    sesionesMesPiel: sesionesMesPiel,
+    sesionesMesNariz: sesionesMesPiel
 })
 
 module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id, getConfig, parar_pomodoro}

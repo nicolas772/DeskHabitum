@@ -638,8 +638,36 @@ body.shrink .message-count{
 #tricomes{
     visibility: hidden;
 }
+#tricorec2 {
+    visibility: visible;
+}
+#tricomes2{
+    visibility: hidden;
+}
+
 
 #tricoanio{
+    visibility: hidden;
+}
+
+#rinorec {
+    visibility: visible;
+}
+#rinomes{
+    visibility: hidden;
+}
+
+#rinoanio{
+    visibility: hidden;
+}
+#dermarec {
+    visibility: visible;
+}
+#dermames{
+    visibility: hidden;
+}
+
+#dermaanio{
     visibility: hidden;
 }
 

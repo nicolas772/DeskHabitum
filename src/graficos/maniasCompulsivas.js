@@ -12,12 +12,20 @@ var total_unha = 0;
 var pelos_10_sesiones = [];
 var unhas_10_sesiones = [];
 var objetos_10_sesiones = [];
+var piel_10_sesiones = []
+var nariz_10_sesiones = []
 
 var tiempo_unha = 0
+var tiempo_nariz = 0
+var tiempo_piel = 0
 var tiempo_optimo = 0
 
 let ultima_ses_trico, total_trico;
 let peor_ses_trico, mejor_ses_trico;
+let ultima_ses_nariz, total_nariz;
+let peor_ses_nariz, mejor_ses_nariz;
+let ultima_ses_piel, total_piel;
+let peor_ses_piel, mejor_ses_piel;
 let ultima_ses_morder, total_morder_objeto;
 let peor_ses_obj, mejor_ses_obj;
 
@@ -289,7 +297,7 @@ async function update_dash_general() {
        
     //Html: dashboard, pestana: Onicofagia, dato: Cantidad detecciones ultima sesion
     document.getElementById("ultima-sesion-trico").innerHTML =  ultima_ses_trico;   
-;
+
 
     //Html: dashboard, pestana: Onicofagia, dato: Cantidad detecciones totales
     document.getElementById("total-detecciones-trico").innerHTML = total_trico;
@@ -721,6 +729,484 @@ async function update_dash_general() {
     var chart_obmes = new ApexCharts(document.getElementById("chart_obmes"), ob_mes);
     chart_obmes.render();
 
+    //---------PESTAÑA RINO------
+
+    await window.api.ultimaNariz(ID_USER).then(result => {
+      ultima_ses_nariz = result;
+    })
+    await window.api.totalNariz(ID_USER).then(result => {
+      total_nariz = result;
+    })
+    await window.api.peorSesionNariz(ID_USER).then(result => {
+      peor_ses_nariz = result;
+    })
+    await window.api.mejorSesionNariz(ID_USER).then(result => {
+      mejor_ses_nariz = result;
+    })
+    await window.api.percentageTenSesionNariz(ID_USER).then(result => {
+      nariz_10_sesiones = result;
+    })
+    await window.api.totalTimeNariz(ID_USER).then(result => {
+      if(parseInt(result)>0) {
+        tiempo_nariz = result;
+      }     
+    })
+
+
+    //resumen
+    document.getElementById("ultima-sesion-nariz").innerHTML = ultima_ses_nariz;
+    document.getElementById("total-detecciones-nariz").innerHTML = total_nariz;
+
+    //por sesion
+    document.getElementById("peor_ses_nariz").innerHTML = peor_ses_nariz;
+    document.getElementById("ult_ses_nariz").innerHTML = ultima_ses_nariz;
+    document.getElementById("mejor_ses_nariz").innerHTML = mejor_ses_nariz;
+
+    var options_rino1 = {
+      series: [parseInt(tiempo_nariz), parseInt(tiempo_optimo)],  //series: [parseInt(tiempo_morder), parseInt(tiempo_optimo)], 
+      chart: {
+        width: 380,
+        type: 'pie',
+      },
+      labels: ['Tiempo Rinotilexomanía', 'Tiempo Óptimo'],
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 300
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }]
+    };
+
+    var chart_rino1 = new ApexCharts(document.getElementById("#chart_rino1"), options_rino1);
+    chart_rino1.render();
+
+    var options_rino2 = {
+      series: [{
+        name: "% Rinotilexomanía",
+        data: nariz_10_sesiones //data: objetos_10_sesiones
+      }],
+      chart: {
+        height: 240,
+        type: 'line',
+        zoom: {
+          enabled: false
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: 'straight'
+      },
+      title: {
+        text: '% Rinotilexomanía últimas 10 sesiones.',
+        align: 'left'
+      },
+      grid: {
+        row: {
+          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+          opacity: 0.5
+        },
+      },
+      xaxis: {
+        categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+      },
+      yaxis:{
+        decimalsInFloat: 0,
+      }
+    };
+
+    var chart_rino2 = new ApexCharts(document.getElementById("#chart_rino2"), options_rino2);
+    chart_rino2.render();
+    //--
+    let ct2 = document.getElementById('rino_comparacion').getContext('2d');
+        let rino_comparacion = new Chart(ct2, {
+            type: 'bar',
+            data: {
+                labels: ['Peor sesión', 'Última sesión', 'Mejor sesión'],
+                datasets: [{
+                    label: 'Cantidad de detecciones',
+                    data: [peor_ses_nariz, ultima_ses_nariz, mejor_ses_nariz],// data: [parseInt(peor_ses_obj), parseInt(ultima_ses_morder),parseInt(mejor_ses_obj)]
+                    backgroundColor: [
+                        'rgba(58, 198, 143, 0.2)', //'rgba(255, 205, 86, 0.2)'
+                        'rgba(58, 198, 143, 0.2)', //'rgba(75, 192, 192, 0.2)'
+                        'rgba(58, 198, 143, 0.2)' //'rrgba(255, 99, 132, 0.2)' 
+                    ],
+                    borderColor: [
+                        'rgb(0, 91, 82)', //'rgb(255, 205, 86)'
+                        'rgb(0, 91, 82)', //'rgb(75, 192, 192)'
+                        'rgb(0, 91, 82)' //'rgb(255, 99, 132)'
+                    ],
+                    borderWidth: 1,
+                    yaxis:{
+                      decimalsInFloat: 0,
+                    }
+                }]
+            }
+          
+        });
+      
+
+
+    //--
+    let nariz_mes_act;
+    let nariz_mes_peor, nariz_mes_peor_arr = [];
+    let nariz_mes_mejor, nariz_mes_mejor_arr = [];
+    let categories_nariz = [];
+    await window.api.sesionesMesNariz(ID_USER, date.getMonth()+1, date.getFullYear()).then(result => {
+      nariz_mes_act = result;
+    })
+
+    await window.api.mejorMesNariz(ID_USER,date.getMonth()+1,date.getFullYear()).then(result => {
+      nariz_mes_mejor = result;
+    })
+    
+    await window.api.peorMesNariz(ID_USER,date.getMonth()+1,date.getFullYear()).then(result => {
+      nariz_mes_peor = result;
+    })
+
+
+
+
+
+    document.getElementById("peor_mes_nariz").innerHTML = nariz_mes_peor;
+    document.getElementById("ult_mes_nariz").innerHTML = nariz_mes_act.reduce((a, b) => a + b, 0);
+    document.getElementById("mejor_mes_nariz").innerHTML = nariz_mes_mejor;
+
+    for (let index = 0; index < nariz_mes_act.length; index++) {
+      nariz_mes_peor_arr[index] = peor_ses_nariz;
+      nariz_mes_mejor_arr[index] = mejor_ses_nariz;
+      categories_nariz[index] = index+1;  
+         
+    }
+
+
+    var rino_mes = {
+      series: [{
+        name: "Detecciones mes actual",
+        data: nariz_mes_act
+      },
+      {
+        name: "Mejor record",
+        data: nariz_mes_mejor_arr
+      },
+      {
+        name: 'Peor record',
+        data: nariz_mes_peor_arr
+      }
+    ],
+      chart: {
+      height: 350,
+      type: 'line',
+      zoom: {
+        enabled: false
+      },
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      width: [5, 7, 5],
+      curve: 'straight',
+      dashArray: [0, 8, 5]
+    },
+    title: {
+      text: 'Page Statistics',
+      align: 'left'
+    },
+    legend: {
+      tooltipHoverFormatter: function(val, opts) {
+        return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
+      }
+    },
+    markers: {
+      size: 0,
+      hover: {
+        sizeOffset: 6
+      }
+    },
+    xaxis: {
+      categories: categories_nariz,
+    },
+    tooltip: {
+      y: [
+        {
+          title: {
+            formatter: function (val) {
+              return val + " (mins)"
+            }
+          }
+        },
+        {
+          title: {
+            formatter: function (val) {
+              return val + " per session"
+            }
+          }
+        },
+        {
+          title: {
+            formatter: function (val) {
+              return val;
+            }
+          }
+        }
+      ]
+    },
+    grid: {
+      borderColor: '#f1f1f1',
+    }
+    };
+
+    var chart_rinomes = new ApexCharts(document.querySelector("#chart_rinomes"), rino_mes);
+    chart_rinomes.render();
+
+    //---------PESTAÑA DERMA-----
+    await window.api.ultimaPiel(ID_USER).then(result => {
+      ultima_ses_piel = result;
+    })
+    await window.api.totalPiel(ID_USER).then(result => {
+      total_piel = result;
+    })
+    await window.api.peorSesionPiel(ID_USER).then(result => {
+      peor_ses_piel = result;
+    })
+    await window.api.mejorSesionPiel(ID_USER).then(result => {
+      mejor_ses_piel= result;
+    })
+    await window.api.percentageTenSesionPiel(ID_USER).then(result => {
+      piel_10_sesiones = result;
+    })
+    await window.api.totalTimePiel(ID_USER).then(result => {
+      if(parseInt(result)>0) {
+        tiempo_piel = result;
+      }     
+    })
+
+
+    //resumen
+    document.getElementById("ultima-sesion-piel").innerHTML = ultima_ses_piel;
+    document.getElementById("total-detecciones-piel").innerHTML = total_piel;
+
+    //por sesion
+    document.getElementById("peor_ses_piel").innerHTML = peor_ses_piel;
+    document.getElementById("ult_ses_piel").innerHTML = ultima_ses_piel;
+    document.getElementById("mejor_ses_piel").innerHTML = mejor_ses_piel;
+
+
+    var options_derma1 = {
+      series: [parseInt(tiempo_piel), parseInt(tiempo_optimo)],  //series: [parseInt(tiempo_morder), parseInt(tiempo_optimo)], 
+      chart: {
+        width: 380,
+        type: 'pie',
+      },
+      labels: ['Tiempo Dermatilomanía', 'Tiempo Óptimo'],
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 300
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }]
+    };
+
+    var chart_derma1 = new ApexCharts(document.getElementById("#chart_derma1"), options_derma1);
+    chart_derma1.render();
+
+    var options_derma2 = {
+      series: [{
+        name: "% Dermatilomanía",
+        data: piel_10_sesiones //data: objetos_10_sesiones
+      }],
+      chart: {
+        height: 240,
+        type: 'line',
+        zoom: {
+          enabled: false
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: 'straight'
+      },
+      title: {
+        text: '% Dermatilomanía últimas 10 sesiones.',
+        align: 'left'
+      },
+      grid: {
+        row: {
+          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+          opacity: 0.5
+        },
+      },
+      xaxis: {
+        categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+      },
+      yaxis:{
+        decimalsInFloat: 0,
+      }
+    };
+
+    var chart_derma2 = new ApexCharts(document.getElementById("#chart_derma2"), options_derma2);
+    chart_derma2.render();
+
+    let ct3 = document.getElementById('derma_comparacion').getContext('2d');
+        let derma_comparacion = new Chart(ct3, {
+            type: 'bar',
+            data: {
+                labels: ['Peor sesión', 'Última sesión', 'Mejor sesión'],
+                datasets: [{
+                    label: 'Cantidad de detecciones',
+                    data: [peor_ses_piel, ultima_ses_piel, mejor_ses_piel],// data: [parseInt(peor_ses_obj), parseInt(ultima_ses_morder),parseInt(mejor_ses_obj)]
+                    backgroundColor: [
+                      'rgba(58, 198, 143, 0.2)', //'rgba(255, 205, 86, 0.2)'
+                      'rgba(58, 198, 143, 0.2)', //'rgba(75, 192, 192, 0.2)'
+                      'rgba(58, 198, 143, 0.2)' //'rrgba(255, 99, 132, 0.2)' 
+                    ],
+                    borderColor: [
+                        'rgb(0, 91, 82)', //'rgb(255, 205, 86)'
+                        'rgb(0, 91, 82)', //'rgb(75, 192, 192)'
+                        'rgb(0, 91, 82)' //'rgb(255, 99, 132)'
+                    ],
+                    borderWidth: 1,
+                    yaxis:{
+                      decimalsInFloat: false,
+                    }
+                }]
+            }
+          
+        });
+      
+
+    let piel_mes_act;
+    let piel_mes_peor, piel_mes_peor_arr = [];
+    let piel_mes_mejor, piel_mes_mejor_arr = [];
+    let categories_piel = [];
+    await window.api.sesionesMesPiel(ID_USER, date.getMonth()+1, date.getFullYear()).then(result => {
+      piel_mes_act = result;
+    })
+
+    await window.api.mejorMesPiel(ID_USER,date.getMonth()+1,date.getFullYear()).then(result => {
+      piel_mes_mejor = result;
+    })
+    
+    await window.api.peorMesPiel(ID_USER,date.getMonth()+1,date.getFullYear()).then(result => {
+      piel_mes_peor = result;
+    })
+
+
+
+
+
+    document.getElementById("peor_mes_piel").innerHTML = piel_mes_peor;
+    document.getElementById("ult_mes_piel").innerHTML = piel_mes_act.reduce((a, b) => a + b, 0);
+    document.getElementById("mejor_mes_piel").innerHTML = piel_mes_mejor;
+
+    for (let index = 0; index < piel_mes_act.length; index++) {
+      piel_mes_peor_arr[index] = peor_ses_piel;
+      piel_mes_mejor_arr[index] = mejor_ses_piel;
+      categories_piel[index] = index+1;  
+         
+    }
+
+
+
+
+    var derma_mes = {
+      series: [{
+        name: "Detecciones mes actual",
+        data: piel_mes_act
+      },
+      {
+        name: "Mejor record",
+        data: piel_mes_mejor_arr
+      },
+      {
+        name: 'Peor record',
+        data: piel_mes_peor_arr
+      }
+    ],
+      chart: {
+      height: 350,
+      type: 'line',
+      zoom: {
+        enabled: false
+      },
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      width: [5, 7, 5],
+      curve: 'straight',
+      dashArray: [0, 8, 5]
+    },
+    title: {
+      text: 'Page Statistics',
+      align: 'left'
+    },
+    legend: {
+      tooltipHoverFormatter: function(val, opts) {
+        return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
+      }
+    },
+    markers: {
+      size: 0,
+      hover: {
+        sizeOffset: 6
+      }
+    },
+    xaxis: {
+      categories: categories_piel,
+    },
+    tooltip: {
+      y: [
+        {
+          title: {
+            formatter: function (val) {
+              return val + " (mins)"
+            }
+          }
+        },
+        {
+          title: {
+            formatter: function (val) {
+              return val + " per session"
+            }
+          }
+        },
+        {
+          title: {
+            formatter: function (val) {
+              return val;
+            }
+          }
+        }
+      ]
+    },
+    grid: {
+      borderColor: '#f1f1f1',
+    }
+    };
+
+    var chart_dermames = new ApexCharts(document.querySelector("#chart_dermames"), derma_mes);
+    chart_dermames.render();
+
+
+    //----------
+
+
     myChart();
     ob_comparacion();
 }
@@ -831,6 +1317,122 @@ checkobjanio.addEventListener('click', function handleClick() {
     objanio.style.visibility = 'hidden';
   }
 });
+
+
+//---cambio pestanias rino
+const rinorec = document.getElementById('rinorec');
+const rinomes = document.getElementById('rinomes');
+const rinoanio = document.getElementById('rinoanio');
+
+const checkrinorec = document.getElementById('checkrinorec');
+const checkrinomes = document.getElementById('checkrinomes');
+const checkrinoanio = document.getElementById('checkrinoanio');
+
+checkrinorec.addEventListener('click', function handleClick() {
+  if (checkrinorec.checked) {
+    rinorec.style.display = 'block';
+    rinomes.style.display = 'none';
+    rinoanio.style.display = 'none';
+    rinorec.style.visibility = 'visible';
+    rinomes.style.visibility = 'hidden';
+    rinoanio.style.visibility = 'hidden';
+    
+  } else {
+    rinorec.style.display = 'none';
+    rinorec.style.visibility = 'hidden';
+  }
+});
+
+checkrinomes.addEventListener('click', function handleClick() {
+  if (checkrinomes.checked) {
+    rinorec.style.display = 'none';
+    rinomes.style.display = 'block';
+    rinoanio.style.display = 'none';
+    rinorec.style.visibility = 'hidden';
+    rinomes.style.visibility = 'visible';
+    rinoanio.style.visibility = 'hidden';
+  } else {
+    rinomes.style.display = 'none';
+    rinomes.style.visibility = 'hidden';
+  }
+});
+
+checkrinoanio.addEventListener('click', function handleClick() {
+  if (checkrinoanio.checked) {
+    rinorec.style.display = 'none';
+    rinomes.style.display = 'none';
+    rinoanio.style.display = 'block';
+    rinorec.style.visibility = 'hidden';
+    rinomes.style.visibility = 'hidden';
+    rinoanio.style.visibility = 'visible';
+    
+  } else {
+    rinoanio.style.display = 'none';
+    rinoanio.style.visibility = 'hidden';
+  }
+});
+
+//---pestanias derma
+const dermarec = document.getElementById('dermarec');
+const dermames = document.getElementById('dermames');
+const dermaanio = document.getElementById('dermaanio');
+
+const checkdermarec = document.getElementById('checkdermarec');
+const checkdermames = document.getElementById('checkdermames');
+const checkdermaanio = document.getElementById('checkdermaanio');
+
+checkdermarec.addEventListener('click', function handleClick() {
+  if (checkdermarec.checked) {
+    dermarec.style.display = 'block';
+    dermames.style.display = 'none';
+    dermaanio.style.display = 'none';
+    dermarec.style.visibility = 'visible';
+    dermames.style.visibility = 'hidden';
+    dermaanio.style.visibility = 'hidden';
+    
+  } else {
+    dermarec.style.display = 'none';
+    dermarec.style.visibility = 'hidden';
+  }
+});
+
+checkdermames.addEventListener('click', function handleClick() {
+  if (checkdermames.checked) {
+    dermarec.style.display = 'none';
+    dermames.style.display = 'block';
+    dermaanio.style.display = 'none';
+    dermarec.style.visibility = 'hidden';
+    dermames.style.visibility = 'visible';
+    dermaanio.style.visibility = 'hidden';
+  } else {
+    dermames.style.display = 'none';
+    dermames.style.visibility = 'hidden';
+  }
+});
+
+checkdermaanio.addEventListener('click', function handleClick() {
+  if (checkdermaanio.checked) {
+    dermarec.style.display = 'none';
+    dermames.style.display = 'none';
+    dermaanio.style.display = 'block';
+    dermarec.style.visibility = 'hidden';
+    dermames.style.visibility = 'hidden';
+    dermaanio.style.visibility = 'visible';
+    
+  } else {
+    dermaanio.style.display = 'none';
+    dermaanio.style.visibility = 'hidden';
+  }
+});
+
+
+
+
+
+
+
+
+
 
 function init4(){
   update_dash_general()
