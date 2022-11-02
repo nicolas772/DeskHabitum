@@ -172,7 +172,7 @@ function setTimeout_FotoMano() {
         flag = true
 
     }, tiempo_entre_notificaciones);
-}t
+}
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
