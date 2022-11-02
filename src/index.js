@@ -32,7 +32,7 @@ const createWindow = () => {
     camera_win = new BrowserWindow({
       width: 600,
       height: 600,
-      show: false,
+      //show: false,
       webPreferences: {
           // nodeIntegration: true,
           // contextIsolation:true,
@@ -61,7 +61,14 @@ const createWindow = () => {
     pomodoro_win.loadFile('src/views/camera.html');
     pomodoro_win.webContents.openDevTools();
     createWindowCameraUnhas()
+
+    win.once('closed', () => {
+      pomodoro_win.close()
+      camera_win.close()
+    })
 }
+
+
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

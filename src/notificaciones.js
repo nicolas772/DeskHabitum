@@ -6,6 +6,9 @@ const NOTIFICATION_BODY_PELO = 'Jalarte el pelo es malo para tu salud. Seria bue
 const NOTIFICATION_BODY_OBJETO = 'Morder objetos es malo para tu salud. Seria bueno que dejaras de hacerlo :-)'
 const NOTIFICATION_BODY_PESTAÑEO = 'Estás pestañeando muy poco, esto puede afectar a tu vista! Toma un descanso :-)'
 const NOTIFICATION_BODY_VISUAL = 'Restregarte los ojos es dañino para tu visión. Seria bueno que dejaras de hacerlo :-)'
+const NOTIFICATION_BODY_NARIZ = 'Urgarte la nariz es malo para tu salud. Seria bueno que dejaras de hacerlo :-)'
+const NOTIFICATION_BODY_POSTURA = 'Sentarte de manera incorrecta es malo para tu salud. Seria bueno que dejaras de hacerlo :-)'
+const NOTIFICATION_BODY_PELLIZCO = 'Pellizcarte la piel es malo para tu salud. Seria bueno que dejaras de hacerlo :-)'
 const NOTIFICATION_BODY_CAMARA = 'Reconocimiento iniciado'
 
 const cargarSonido = function (fuente) { //esta funcion sirve para reproducir sonido en notificación
@@ -106,6 +109,13 @@ async function NotificarVisual(config){
 
 async function CamaraCargada(config){
     /*Notification.requestPermission().then(function (result){
+function NotificarNariz(){
+    Notification.requestPermission().then(function (result){
+        new Notification(NOTIFICATION_TITLE, { 
+            body: NOTIFICATION_BODY_NARIZ, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
+        })
+    })
+    Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
             body: NOTIFICATION_BODY_CAMARA, icon: 'https://webcam-test.com/ico/webcam.svg'
         })
@@ -113,5 +123,21 @@ async function CamaraCargada(config){
     await doNotify('general', config, NOTIFICATION_BODY_CAMARA, 'https://webcam-test.com/ico/webcam.svg', '')
 }
 
+function NotificarPostura(){
+    Notification.requestPermission().then(function (result){
+        new Notification(NOTIFICATION_TITLE, { 
+            body: NOTIFICATION_BODY_POSTURA, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
+        })
+    })
+}
 
-module.exports = { NotificarUña, NotificarPelo, NotificarObjeto, NotificarPestañeo, NotificarVisual, CamaraCargada}
+function NotificarPellizco(){
+    Notification.requestPermission().then(function (result){
+        new Notification(NOTIFICATION_TITLE, { 
+            body: NOTIFICATION_BODY_PELLIZCO, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
+        })
+    })
+}
+
+
+module.exports = { NotificarUña, NotificarPelo, NotificarObjeto, NotificarPestañeo, NotificarVisual, NotificarNariz, NotificarPostura, NotificarPellizco ,CamaraCargada}
