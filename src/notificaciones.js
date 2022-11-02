@@ -139,5 +139,13 @@ function NotificarPellizco(){
     })
 }
 
+function NotificarNariz(){
+    Notification.requestPermission().then(function (result){
+        new Notification(NOTIFICATION_TITLE, { 
+            body: NOTIFICATION_BODY_NARIZ, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
+        })
+    })
+}
+
 
 module.exports = { NotificarUña, NotificarPelo, NotificarObjeto, NotificarPestañeo, NotificarVisual, NotificarNariz, NotificarPostura, NotificarPellizco ,CamaraCargada}
