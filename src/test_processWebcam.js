@@ -223,9 +223,26 @@ function actualizarJson(tipo, inicio, fin){
         lista_pestaneo.push(objInsert)
         let data_pestaneo = JSON.stringify(lista_pestaneo);
         fs.writeFileSync("./src/data/pestaneoSesion.json", data_pestaneo)
+    }else if (tipo== 'nariz'){
+        let rawdata5 = fs.readFileSync('./src/data/narizSesion.json');
+        let lista_nariz = JSON.parse(rawdata5);
+        lista_nariz.push(objInsert)
+        let data_nariz = JSON.stringify(lista_nariz);
+        fs.writeFileSync("./src/data/narizSesion.json", data_nariz)
+    }else if (tipo== 'postura'){
+        let rawdata6 = fs.readFileSync('./src/data/posturaSesion.json');
+        let lista_postura = JSON.parse(rawdata6);
+        lista_postura.push(objInsert)
+        let data_postura = JSON.stringify(lista_postura);
+        fs.writeFileSync("./src/data/posturaSesion.json", data_postura)
+    }else if (tipo== 'pellizco'){
+        let rawdata7 = fs.readFileSync('./src/data/pellizcoSesion.json');
+        let lista_pellizco = JSON.parse(rawdata7);
+        lista_pellizco.push(objInsert)
+        let data_pellizco = JSON.stringify(lista_pellizco);
+        fs.writeFileSync("./src/data/pellizcoSesion.json", data_pellizco)
     }
 }
-
 async function getConfig(ID_USER){
     ID_USER = get_user_id()
     await crud.getConfig(ID_USER).then(result => {
@@ -1790,6 +1807,7 @@ async function predict() {
 
             //@@@@@@@@@@@@@@@@@@BASE DE DATOOOOOOOOOOOOOOOOOSSSSSS
             console.log(inicio_nariz, fin_nariz);
+            actualizarJson('nariz', inicio_nariz, fin_nariz)
         }else{
             corriendo_nariz = false;
 
@@ -1801,6 +1819,7 @@ async function predict() {
             fin_postura = new Date;
 
             //AQUI GUARDAR EN BASE DE DATOS
+            actualizarJson('postura', inicio_postura, fin_postura)
             console.log(inicio_postura, fin_postura);
         }else{
             corriendo_postura = false;
@@ -1814,6 +1833,7 @@ async function predict() {
 
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_pellizco, fin_pellizco);
+            actualizarJson('pellizco', inicio_pellizco, fin_pellizco)
         }else{
             corriendo_pellizco = false;
 
