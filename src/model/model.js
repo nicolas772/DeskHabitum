@@ -61,9 +61,9 @@ const confirmMail = async (email) => {
 }
 
 //QUERYS SESIONES
-const createSesion = async (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion, pom) => {
+const createSesion = async (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, total_vista, total_postura, total_pellizco, total_nariz, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, cant_tot_postura, cant_tot_pellizco, cant_tot_nariz, mes_sesion, anno_sesion, pom) => {
     if (total>0) {
-        let query = `INSERT INTO sesions (id_user, inicio, fin, total_time, time_unnas, time_pelo, time_morder, time_vista, cant_total_unnas, cant_total_pelo, cant_total_morder, cant_total_vista, cant_total_pestaneo, mes, anno, pomodoro) VALUES (${id_usuario}, '${inicio}', '${final}', '${total}', '${total_unhas}', '${total_pelo}', '${total_morder}', '${total_vista}', '${cant_tot_unha}','${cant_tot_pelo}','${cant_tot_objeto}', '${cant_tot_vista}', '${cant_tot_pestaneo}', '${mes_sesion}', '${anno_sesion}', '${pom}' )`;
+        let query = `INSERT INTO sesions (id_user, inicio, fin, total_time, time_unnas, time_pelo, time_morder, time_vista, time_postura, time_piel, time_nariz, cant_total_unnas, cant_total_pelo, cant_total_morder, cant_total_vista, cant_total_pestaneo, cant_total_postura, cant_total_piel, cant_total_nariz, mes, anno, pomodoro) VALUES (${id_usuario}, '${inicio}', '${final}', '${total}', '${total_unhas}', '${total_pelo}', '${total_morder}', '${total_vista}', '${total_postura}', '${total_pellizco}', '${total_nariz}', '${cant_tot_unha}','${cant_tot_pelo}','${cant_tot_objeto}', '${cant_tot_vista}', '${cant_tot_pestaneo}', '${cant_tot_postura}', '${cant_tot_pellizco}', '${cant_tot_nariz}', '${mes_sesion}', '${anno_sesion}', '${pom}' )`;
         const res = await conexion.query(query)
     }
 
@@ -890,7 +890,11 @@ const cantDeteccionesFatigaPorMinutoTenSesion = async (userId) => { //
     return fatiga_10_sesiones_avg
 }
 
-
+//QUERYS Postura
+const createPostura = async (id_usuario, id_sesion, inicio, final, total_time) => {
+    let query = `INSERT INTO postura (id_user, id_ses, inicio, fin, total_time) VALUES (${id_usuario}, '${id_sesion}','${inicio}', '${final}', '${total_time}')`;
+    const res = await conexion.query(query)
+}
 
 module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesion, lastSesion,
                  totalTimeSesions, countUnhasSesion, allSesionsUnhas, percentageTenSesionUnhas, totalSesionTimeUnhas, durationSesion, totalTimeUnhas, createUnhas,
@@ -904,4 +908,4 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
             tiempoGrupo, totalesGrupo, top10Grupo, getCodeGrupoUser, peorSesionPomodoro, mejorSesionPomodoro, ultimaSesionPomodoro, contarSesionPomodoro, contarMesPomodoro, datosTotalesPomodoro, updateUserData, countPestaneoSesion, countVistaSesion,
              datosUltimaSesionPomodoro, cantDeteccionesFatigaPorMinutoTenSesion, ultimaVista, totalVista, top10Vista, eliminarGrupo,
             /*nuevas*/ createNariz, ultimaNariz, totalNariz, peorSesionNariz, mejorSesionNariz, createPiel, ultimaPiel, totalPiel, peorSesionPiel, mejorSesionPiel, percentageTenSesionPiel, percentageTenSesionNariz, totalTimeNariz, totalTimePiel,
-            mejorMesNariz, mejorMesPiel, peorMesNariz, peorMesPiel, sesionesMesNariz, sesionesMesPiel}
+            mejorMesNariz, mejorMesPiel, peorMesNariz, peorMesPiel, sesionesMesNariz, sesionesMesPiel, createPostura}

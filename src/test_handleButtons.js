@@ -18,7 +18,7 @@ async function stop_cam(){
         window.api.cerrar_camara("")
 
         //calculo de totales por mania
-        let [total_unhas, total_pelo, total_objeto, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo]  = window.api.obtenerTotal()
+        let [total_unhas, total_pelo, total_objeto, total_vista, total_postura, total_pellizco, total_nariz, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, cant_tot_postura, cant_tot_pellizco, cant_tot_nariz]  = window.api.obtenerTotal()
 
         //creo sesion en BD
         let inicio_sesion = window.api.fecha_inicio_sesion()
@@ -28,7 +28,7 @@ async function stop_cam(){
         let fini_sesion = fin_sesion.toISOString()
         let mes_sesion = fin_sesion.getMonth() + 1
         let anno_sesion = fin_sesion.getFullYear()
-        await window.api.createSesion(ID_USER, ini_sesion, fini_sesion, total, total_unhas, total_pelo, total_objeto, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion, "no"); 
+        await window.api.createSesion(ID_USER, ini_sesion, fini_sesion, total, total_unhas, total_pelo, total_objeto, total_vista, total_postura, total_pellizco, total_nariz, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, cant_tot_postura, cant_tot_pellizco, cant_tot_nariz, mes_sesion, anno_sesion, "no"); 
         //console.log("paso insert sesion")
         //inserto manias en BD
 

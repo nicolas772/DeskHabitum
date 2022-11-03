@@ -96,8 +96,8 @@ const updateUserData = (id_usuario, nombre, apellido, mail) => {
 const confirmMail = (email) => {
     return model.confirmMail(email);
 }
-const createSesion = (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion, pom) => {
-    return model.createSesion(id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion, pom)
+const createSesion = (id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, total_vista, total_postura, total_pellizco, total_nariz, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, cant_tot_postura, cant_tot_pellizco, cant_tot_nariz, mes_sesion, anno_sesion, pom) => {
+    return model.createSesion(id_usuario, inicio, final, total, total_unhas, total_pelo, total_morder, total_vista, total_postura, total_pellizco, total_nariz, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, cant_tot_postura, cant_tot_pellizco, cant_tot_nariz, mes_sesion, anno_sesion, pom)
 }
 
 const getSesion = (id) => {
@@ -200,6 +200,12 @@ const insertManias = (id_usuario) => {
     let lista_vista = JSON.parse(rawdata3);
     let rawdata4 = fs.readFileSync('./src/data/pestaneoSesion.json');
     let lista_pestaneo = JSON.parse(rawdata4);
+    let rawdata5 = fs.readFileSync('./src/data/posturaSesion.json');
+    let lista_postura = JSON.parse(rawdata5);
+    let rawdata6 = fs.readFileSync('./src/data/pellizcoSesion.json');
+    let lista_pellizco = JSON.parse(rawdata6);
+    let rawdata7 = fs.readFileSync('./src/data/narizSesion.json');
+    let lista_nariz = JSON.parse(rawdata7);
     
     lista_unhas.map(u => {
         model.lastSesion(id_usuario).then(res => model.createUnhas(id_usuario, res, u.inicio, u.final, u.total))
@@ -225,7 +231,23 @@ const insertManias = (id_usuario) => {
         model.lastSesion(id_usuario).then(res => model.createPestaneo(id_usuario, res, u.inicio, u.final, u.total))
     })
     fs.writeFileSync('./src/data/pestaneoSesion.json', '[]')//vaciar archivo
+
+    lista_postura.map(u => {
+        model.lastSesion(id_usuario).then(res => model.createPostura(id_usuario, res, u.inicio, u.final, u.total))
+    })
+    fs.writeFileSync('./src/data/posturaSesion.json', '[]')//vaciar archivo
+
+    lista_pellizco.map(u => {
+        model.lastSesion(id_usuario).then(res => model.createPiel(id_usuario, res, u.inicio, u.final, u.total))
+    })
+    fs.writeFileSync('./src/data/pellizcoSesion.json', '[]')//vaciar archivo
+
+    lista_nariz.map(u => {
+        model.lastSesion(id_usuario).then(res => model.createNariz(id_usuario, res, u.inicio, u.final, u.total))
+    })
+    fs.writeFileSync('./src/data/narizSesion.json', '[]')//vaciar archivo
 }
+
  //calculo de totales por mania, para insertar en la tabla sesion al momento de detener la deteccion
 const obtenerTotal = () => {
     let rawdata = fs.readFileSync('./src/data/unhasSesion.json');
@@ -238,8 +260,14 @@ const obtenerTotal = () => {
     let lista_vista = JSON.parse(rawdata3);
     let rawdata4 = fs.readFileSync('./src/data/pestaneoSesion.json');
     let lista_pestaneo = JSON.parse(rawdata4);
-    let tot_unha = 0, tot_objeto = 0, tot_pelo = 0, tot_vista = 0; //tiempo total de la mania en la sesion (se omite a pestaneo, no llevaremos esa cuenta)
-    let cant_tot_unha = 1, cant_tot_objeto = 1, cant_tot_pelo = 1, cant_tot_vista = 1, cant_tot_pestaneo = 1; //cantidad total de reconocimientos
+    let rawdata5 = fs.readFileSync('./src/data/posturaSesion.json');
+    let lista_postura = JSON.parse(rawdata5);
+    let rawdata6 = fs.readFileSync('./src/data/pellizcoSesion.json');
+    let lista_pellizco = JSON.parse(rawdata6);
+    let rawdata7 = fs.readFileSync('./src/data/narizSesion.json');
+    let lista_nariz = JSON.parse(rawdata7);
+    let tot_unha = 0, tot_objeto = 0, tot_pelo = 0, tot_vista = 0, tot_postura = 0, tot_pellizco = 0, tot_nariz = 0; //tiempo total de la mania en la sesion (se omite a pestaneo, no llevaremos esa cuenta)
+    let cant_tot_unha = 1, cant_tot_objeto = 1, cant_tot_pelo = 1, cant_tot_vista = 1, cant_tot_pestaneo = 1, cant_tot_postura = 1, cant_tot_pellizco = 1, cant_tot_nariz = 1; //cantidad total de reconocimientos
     lista_unhas.map(u => {
         tot_unha = tot_unha + parseInt(u.total)
         cant_tot_unha += 1
@@ -260,11 +288,26 @@ const obtenerTotal = () => {
         cant_tot_vista += 1
     })
 
+    lista_postura.map(u => {
+        tot_postura = tot_postura + parseInt(u.total)
+        cant_tot_postura += 1
+    })
+
+    lista_pellizco.map(u => {
+        tot_pellizco = tot_pellizco + parseInt(u.total)
+        cant_tot_pellizco += 1
+    })
+
+    lista_nariz.map(u => {
+        tot_nariz = tot_nariz + parseInt(u.total)
+        cant_tot_nariz += 1
+    })
+
     lista_pestaneo.map(u => {
         cant_tot_pestaneo += 1
     })
-     
-    return [Math.trunc(tot_unha), Math.trunc(tot_pelo), Math.trunc(tot_objeto), Math.trunc(tot_vista), cant_tot_unha-1, cant_tot_pelo-1, cant_tot_objeto-1, cant_tot_vista-1, cant_tot_pestaneo-1]
+    
+    return [Math.trunc(tot_unha), Math.trunc(tot_pelo), Math.trunc(tot_objeto), Math.trunc(tot_vista), Math.trunc(tot_postura), Math.trunc(tot_pellizco), Math.trunc(tot_nariz), cant_tot_unha-1, cant_tot_pelo-1, cant_tot_objeto-1, cant_tot_vista-1, cant_tot_pestaneo-1, cant_tot_postura-1, cant_tot_pellizco-1, cant_tot_nariz-1]
 }
 
 const leerCameraHandle = () => {
