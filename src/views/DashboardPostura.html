@@ -141,44 +141,44 @@
                 <input type="radio" id="tabfree" name="mytabs" checked="checked">
                 <label for="tabfree" style="width:100%;padding-bottom:0;margin-bottom:0;"><h1 style="margin-bottom:0;">Dashboard Postura</h1></label>
                 <div class="tab" style="margin-top:0;padding-top:0;">
-                    <div class="radio2" style="margin-left:630px;"> 
+                    <div class="radio2" style="margin-left:630px; height: 29px;"> 
                         <input class="radio__input" type="radio" value="option1" name="myRadio" id="checktricorec2" checked="checked">
-                        <label class="radio__label" for="checktricorec2">Resumen</label>
+                        <label class="radio__label" for="checktricorec2" style="padding:4px;font-size:14px;">Resumen</label>
                         
                         <input class="radio__input" type="radio" value="option2" name="myRadio" id="checktricomes2">
-                        <label class="radio__label" for="checktricomes2">Por mes</label>
+                        <label class="radio__label" for="checktricomes2" style="padding:4px;font-size:14px;">Por mes</label>
                         
                     </div>
 
                     <div class="row" id="tricorec2" >
                         <div class="row">
-                            <div style="width:50%; float:left">
-                                <h1 style="font-size:1rem; margin-top:0.3rem"> Cantidad de correcciones </h1>
+                            <div style="width:50%; float:left;padding-top:10px;">
+                                <h1 style="font-size:1rem; margin-top:0.3rem"> Ultima sesión</h1>
                                 <div class="col-sm-6">
                                     <div class="card"  style="width: 20rem; margin:1.5rem;">
                                         <div class="card-body" style="padding:0.4rem">
-                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de correcciones última sesión</h4>
-                                            <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;">1</h1>
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de correcciones</h4>
+                                            <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;">2</h1>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="card" style="width: 20rem; margin:1.5rem;">
                                         <div class="card-body" style="padding:0.4rem">
-                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de correcciones totales</h4>
-                                            <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">27</h1>
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Tiempo con mala postura</h4>
+                                            <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">27<span> minutos</span></h1>
     
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div style="width: 50%;float:right; padding-top:10px;">
-                                <h1 style="font-size:1rem; margin-top:0.3rem"> Cantidad de correcciones graves </h1>
+                                <h1 style="font-size:1rem; margin-top:0.3rem"> Ultimas 10 sesiones</h1>
                                 <div class="col-sm-6">
                                     <div class="card" style="width: 20rem; margin:1.5rem;">
                                         <div class="card-body" style="padding:0.4rem">
-                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de posturas graves última sesión</h4>
-                                            <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">0</h1>
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones totales</h4>
+                                            <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">33</h1>
     
                                         </div>
                                     </div>
@@ -186,8 +186,8 @@
                                 <div class="col-sm-6">
                                     <div class="card" style="width: 20rem; margin:1.5rem;">
                                         <div class="card-body" style="padding:0.4rem">
-                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de posturas graves totales</h4>
-                                            <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">1</h1>
+                                            <h4 class="card-title" style="text-align:center; text-decoration:underline">Tiempo con mala postura </h4>
+                                            <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">93<span> minutos</span></h1>
     
                                         </div>
                                     </div>
@@ -199,15 +199,74 @@
 
                         <div class="row">
                             <h1 style="font-size:1rem; margin-top:0.3rem"> Detecciones últimas 10 sesiones</h1>
-                            <div class="row" style="width: 90%; ">
-                                <h4 style="margin-top:0.3rem;"></h4>
-                                <canvas style="margin-left:100px;" id="pos_comparacion" ></canvas>
-                            </div> 
+                            <div style="height:340px;width:340px;margin-left:200px;">
+                                <canvas id="chart_postura" width="100" height="100"></canvas>
+                            </div>
+                            
+                            <!--<div id="chart_postura" style="margin:auto; padding:1rem"></div>-->
+                            
                         </div>
                     </div>
 
                     <div class="row" id="tricomes2">
-                        <h1>AQUI mes</h1>
+                        
+                        <div class="row" style="padding-top:10px;">
+                            <div style="width:33%; float:left">
+                                <h4 style="font-size:14px;"><span>Septiembre</span></h4>
+                                <div class="card">
+                                    <div class="card-header p-3 pt-2">
+                                      <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                                        <i class="material-icons opacity-10">person</i>
+                                      </div>
+                                      <div class="text-end pt-1">
+                                        <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                        <h4 class="mb-0" id="peor_ses_trico">5</h4>
+                                      </div>
+                                    </div>
+                                                                        
+                                  </div>
+                            </div>
+                            <div style="width: 66%;float:right">
+                                <div class="row">
+                                    <div style="width:50%; float:left">
+                                        <h4><span>Octubre</span></h4>
+                                        <div class="card">
+                                            <div class="card-header p-3 pt-2">
+                                              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                                                <i class="material-icons opacity-10">person</i>
+                                              </div>
+                                              <div class="text-end pt-1">
+                                                <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                                <h4 class="mb-0" id="ult_ses_trico">2</h4>
+                                              </div>
+                                            </div>                                           
+                                            
+                                          </div>
+                                    </div>
+                                    <div style="width: 50%;float:right">
+                                        <h4><span>Noviembre</span></h4>
+                                        <div class="card">
+                                            <div class="card-header p-3 pt-2">
+                                              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                                                <i class="material-icons opacity-10">person</i>
+                                              </div>
+                                              <div class="text-end pt-1">
+                                                <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
+                                                <h4 class="mb-0" id="mejor_ses_trico">3</h4>
+                                              </div>
+                                            </div>                                           
+                                            
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div style="height:400px;width:400px;margin-left:200px;padding-top:30px;">
+                            <canvas id="chart_posturames" width="100" height="100"></canvas>
+                        </div>
+                        
                     </div>
                     
 
@@ -226,8 +285,8 @@
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="../graficos/postura.js"></script>
     <script src="../navbar.js"></script>
+    <script src="../graficos/postura.js"></script>
     <!--<script src="../renderWebcam.js"></script>-->
     <script type="text/javascript">
         $(document).ready(function(){
@@ -243,4 +302,6 @@
     </script>
     
 </body>
+
+
 </html>

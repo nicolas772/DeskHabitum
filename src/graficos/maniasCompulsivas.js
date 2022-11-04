@@ -1004,6 +1004,366 @@ checkdermaanio.addEventListener('click', function handleClick() {
   }
 });
 
+//---------PESTAÑA RINO------
+
+var options_rino1 = {
+  series: [20, 80],  //series: [parseInt(tiempo_morder), parseInt(tiempo_optimo)], 
+  chart: {
+    width: 380,
+    type: 'pie',
+  },
+  labels: ['Tiempo Rinotilexomanía', 'Tiempo Óptimo'],
+  responsive: [{
+    breakpoint: 480,
+    options: {
+      chart: {
+        width: 300
+      },
+      legend: {
+        position: 'bottom'
+      }
+    }
+  }]
+};
+
+var chart_rino1 = new ApexCharts(document.getElementById("#chart_rino1"), options_rino1);
+chart_rino1.render();
+
+var options_rino2 = {
+  series: [{
+    name: "% Rinotilexomanía",
+    data: [1,2,3,4,5,6,7,8,5,2] //data: objetos_10_sesiones
+  }],
+  chart: {
+    height: 240,
+    type: 'line',
+    zoom: {
+      enabled: false
+    }
+  },
+  dataLabels: {
+    enabled: false
+  },
+  stroke: {
+    curve: 'straight'
+  },
+  title: {
+    text: '% Rinotilexomanía últimas 10 sesiones.',
+    align: 'left'
+  },
+  grid: {
+    row: {
+      colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+      opacity: 0.5
+    },
+  },
+  xaxis: {
+    categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+  },
+  yaxis:{
+    decimalsInFloat: 0,
+  }
+};
+
+var chart_rino2 = new ApexCharts(document.getElementById("#chart_rino2"), options_rino2);
+chart_rino2.render();
+//--
+let ct2 = document.getElementById('rino_comparacion').getContext('2d');
+    let rino_comparacion = new Chart(ct2, {
+        type: 'bar',
+        data: {
+            labels: ['Peor sesión', 'Última sesión', 'Mejor sesión'],
+            datasets: [{
+                label: 'Cantidad de detecciones',
+                data: [22, 7,11],// data: [parseInt(peor_ses_obj), parseInt(ultima_ses_morder),parseInt(mejor_ses_obj)]
+                backgroundColor: [
+                    'rgba(58, 198, 143, 0.2)', //'rgba(255, 205, 86, 0.2)'
+                    'rgba(58, 198, 143, 0.2)', //'rgba(75, 192, 192, 0.2)'
+                    'rgba(58, 198, 143, 0.2)' //'rrgba(255, 99, 132, 0.2)' 
+                ],
+                borderColor: [
+                    'rgb(0, 91, 82)', //'rgb(255, 205, 86)'
+                    'rgb(0, 91, 82)', //'rgb(75, 192, 192)'
+                    'rgb(0, 91, 82)' //'rgb(255, 99, 132)'
+                ],
+                borderWidth: 1,
+                yaxis:{
+                  decimalsInFloat: 0,
+                }
+            }]
+        }
+       
+    });
+  
+
+
+//--
+var rino_mes = {
+  series: [{
+    name: "Detecciones mes actual",
+    data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+  },
+  {
+    name: "Mejor record",
+    data: [11,11,11,11,11,11,11,11,11,11,11,11]
+  },
+  {
+    name: 'Peor record',
+    data: [87, 87, 87, 87, 87, 87, 87, 87, 87,87,87,87]
+  }
+],
+  chart: {
+  height: 350,
+  type: 'line',
+  zoom: {
+    enabled: false
+  },
+},
+dataLabels: {
+  enabled: false
+},
+stroke: {
+  width: [5, 7, 5],
+  curve: 'straight',
+  dashArray: [0, 8, 5]
+},
+title: {
+  text: 'Page Statistics',
+  align: 'left'
+},
+legend: {
+  tooltipHoverFormatter: function(val, opts) {
+    return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
+  }
+},
+markers: {
+  size: 0,
+  hover: {
+    sizeOffset: 6
+  }
+},
+xaxis: {
+  categories: ['01 Jan', '02 Jan', '03 Jan', '04 Jan', '05 Jan', '06 Jan', '07 Jan', '08 Jan', '09 Jan',
+    '10 Jan', '11 Jan', '12 Jan'
+  ],
+},
+tooltip: {
+  y: [
+    {
+      title: {
+        formatter: function (val) {
+          return val + " (mins)"
+        }
+      }
+    },
+    {
+      title: {
+        formatter: function (val) {
+          return val + " per session"
+        }
+      }
+    },
+    {
+      title: {
+        formatter: function (val) {
+          return val;
+        }
+      }
+    }
+  ]
+},
+grid: {
+  borderColor: '#f1f1f1',
+}
+};
+
+var chart_rinomes = new ApexCharts(document.querySelector("#chart_rinomes"), rino_mes);
+chart_rinomes.render();
+
+
+
+
+
+
+
+//---------PESTAÑA DERMA-----
+
+
+var options_derma1 = {
+  series: [10, 80],  //series: [parseInt(tiempo_morder), parseInt(tiempo_optimo)], 
+  chart: {
+    width: 380,
+    type: 'pie',
+  },
+  labels: ['Tiempo Dermatilomanía', 'Tiempo Óptimo'],
+  responsive: [{
+    breakpoint: 480,
+    options: {
+      chart: {
+        width: 300
+      },
+      legend: {
+        position: 'bottom'
+      }
+    }
+  }]
+};
+
+var chart_derma1 = new ApexCharts(document.getElementById("#chart_derma1"), options_derma1);
+chart_derma1.render();
+
+var options_derma2 = {
+  series: [{
+    name: "% Dermatilomanía",
+    data: [1,2,3,4,5,6,7,8,5,2] //data: objetos_10_sesiones
+  }],
+  chart: {
+    height: 240,
+    type: 'line',
+    zoom: {
+      enabled: false
+    }
+  },
+  dataLabels: {
+    enabled: false
+  },
+  stroke: {
+    curve: 'straight'
+  },
+  title: {
+    text: '% Dermatilomanía últimas 10 sesiones.',
+    align: 'left'
+  },
+  grid: {
+    row: {
+      colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+      opacity: 0.5
+    },
+  },
+  xaxis: {
+    categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+  },
+  yaxis:{
+    decimalsInFloat: 0,
+  }
+};
+
+var chart_derma2 = new ApexCharts(document.getElementById("#chart_derma2"), options_derma2);
+chart_derma2.render();
+
+let ct3 = document.getElementById('derma_comparacion').getContext('2d');
+    let derma_comparacion = new Chart(ct3, {
+        type: 'bar',
+        data: {
+            labels: ['Peor sesión', 'Última sesión', 'Mejor sesión'],
+            datasets: [{
+                label: 'Cantidad de detecciones',
+                data: [5, 2, 3],// data: [parseInt(peor_ses_obj), parseInt(ultima_ses_morder),parseInt(mejor_ses_obj)]
+                backgroundColor: [
+                  'rgba(58, 198, 143, 0.2)', //'rgba(255, 205, 86, 0.2)'
+                  'rgba(58, 198, 143, 0.2)', //'rgba(75, 192, 192, 0.2)'
+                  'rgba(58, 198, 143, 0.2)' //'rrgba(255, 99, 132, 0.2)' 
+                ],
+                borderColor: [
+                    'rgb(0, 91, 82)', //'rgb(255, 205, 86)'
+                    'rgb(0, 91, 82)', //'rgb(75, 192, 192)'
+                    'rgb(0, 91, 82)' //'rgb(255, 99, 132)'
+                ],
+                borderWidth: 1,
+                yaxis:{
+                  decimalsInFloat: false,
+                }
+            }]
+        }
+       
+    });
+  
+
+
+
+
+var derma_mes = {
+  series: [{
+    name: "Detecciones mes actual",
+    data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+  },
+  {
+    name: "Mejor record",
+    data: [11,11,11,11,11,11,11,11,11,11,11,11]
+  },
+  {
+    name: 'Peor record',
+    data: [87, 87, 87, 87, 87, 87, 87, 87, 87,87,87,87]
+  }
+],
+  chart: {
+  height: 350,
+  type: 'line',
+  zoom: {
+    enabled: false
+  },
+},
+dataLabels: {
+  enabled: false
+},
+stroke: {
+  width: [5, 7, 5],
+  curve: 'straight',
+  dashArray: [0, 8, 5]
+},
+title: {
+  text: 'Page Statistics',
+  align: 'left'
+},
+legend: {
+  tooltipHoverFormatter: function(val, opts) {
+    return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
+  }
+},
+markers: {
+  size: 0,
+  hover: {
+    sizeOffset: 6
+  }
+},
+xaxis: {
+  categories: ['01 Jan', '02 Jan', '03 Jan', '04 Jan', '05 Jan', '06 Jan', '07 Jan', '08 Jan', '09 Jan',
+    '10 Jan', '11 Jan', '12 Jan'
+  ],
+},
+tooltip: {
+  y: [
+    {
+      title: {
+        formatter: function (val) {
+          return val + " (mins)"
+        }
+      }
+    },
+    {
+      title: {
+        formatter: function (val) {
+          return val + " per session"
+        }
+      }
+    },
+    {
+      title: {
+        formatter: function (val) {
+          return val;
+        }
+      }
+    }
+  ]
+},
+grid: {
+  borderColor: '#f1f1f1',
+}
+};
+
+var chart_dermames = new ApexCharts(document.querySelector("#chart_dermames"), derma_mes);
+chart_dermames.render();
+
 
 //----------
 

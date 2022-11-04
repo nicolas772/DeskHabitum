@@ -19,7 +19,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/solid.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/svg-with-js.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href = "./perfil.css">
+    <link rel="stylesheet" href = "./respiracion.css">
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
@@ -134,13 +134,29 @@
             </div>
         </aside>
         <!----END ASIDE---->
-        <main style="z-index:1">
-            <h1> Respiración profunda</h1>
+        <main style="z-index:1;height: 600px;">
+            <h1 style="margin-bottom:50px;"> Respiración profunda</h1>
+            
+            <div class="container" id="container" style="height:0px;margin-left:250px;margin-top:100px;" >
+                <div class="circle"></div>
+            
+                <p id="text"></p>
+            
+                <div class="pointer-container">
+                    <span class="pointer"></span>
+                </div>
+            
+                <div class="gradient-circle" ></div>
+            </div>
+            
+            
+
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../navbar.js"></script>
-    <script src="../profile.js"></script>
+    <!--<script src="../profile.js"></script>-->
+    <script src="../respiracion.js"></script>
     <!--<script src="../renderWebcam.js"></script>-->
     <script type="text/javascript">
         $(document).ready(function(){
