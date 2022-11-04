@@ -111,7 +111,7 @@ async function NotificarVisual(config){
     await doNotify('mania', config, NOTIFICATION_BODY_VISUAL, 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg', 'fatiga')
 }
 
-async function NotificarPostura(){
+async function NotificarPostura(config){
     /*Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
             body: NOTIFICATION_BODY_POSTURA, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
@@ -120,7 +120,7 @@ async function NotificarPostura(){
     await doNotify('mania', config, NOTIFICATION_BODY_POSTURA, 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg', 'postura')
 }
 
-async function NotificarPellizco(){
+async function NotificarPellizco(config){
     /*Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
             body: NOTIFICATION_BODY_PELLIZCO, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
@@ -129,7 +129,7 @@ async function NotificarPellizco(){
     await doNotify('mania', config, NOTIFICATION_BODY_PELLIZCO, 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg', 'piel')
 }
 
-async function NotificarNariz(){
+async function NotificarNariz(config){
     /*Notification.requestPermission().then(function (result){
         new Notification(NOTIFICATION_TITLE, { 
             body: NOTIFICATION_BODY_NARIZ, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
