@@ -2,7 +2,7 @@
 let fin_sesion
 let total
 let nombre, email, telefono, region, ciudad, atencion, profesional, motivo, obj;
-
+let config
 function init_cam(){
     window.api.iniciar_camara("")
 }
@@ -59,36 +59,50 @@ function contactar_profesional(){
     }
 }
 
+let cargarSonido1 = function (fuente) {
+    const sonido = document.createElement("audio");
+    sonido.src = fuente;
+    sonido.setAttribute("preload", "auto");
+    sonido.setAttribute("controls", "none");
+    sonido.style.display = "none"; // <-- oculto
+    document.body.appendChild(sonido);
+    return sonido;
+};
 
-function doNotify(){
+async function doNotify(id_usuario, cuerpo){
+    await window.api.getConfig(id_usuario).then(result => {
+        config = result[0];
+    });
     Notification.requestPermission().then(function (result){
         new Notification("GRUPO", { 
-            body: "Solicitud de unión Enviada", icon: 'https://cdn-icons-png.flaticon.com/512/244/244060.png'
+            body: cuerpo, icon: 'https://cdn-icons-png.flaticon.com/512/244/244060.png', silent: true
         })
     })
+    if (config.alertasonorageneral == 'on'){
+        let path = '../sounds/'+config.sonidonotificaciongeneral+'.mp3'
+        let sonido = cargarSonido1(path);
+        sonido.play();
+    }
 }
 
-function doNotify2(){
-    Notification.requestPermission().then(function (result){
-        new Notification("GRUPO", { 
-            body: "Creación de grupo exitosa", icon: 'https://cdn-icons-png.flaticon.com/512/244/244060.png'
-        })
-    })
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
-
 
 function unirse_grupo(){
     let ID = window.api.get_user_id("")
     code = document.getElementById("codigo_equipo")
     window.api.solicitudUnirseGrupo(ID, code.value)
-    doNotify()
+    doNotify(ID, "Solicitud de unión Enviada")
+    sleep(1000)
 }
 
 function crear_grupo(){
     let ID = window.api.get_user_id("")
     nombre = document.getElementById("nombre_equipo")
     window.api.createGrupo(ID, nombre.value)
-    doNotify2()
+    doNotify(ID, "Creación de grupo exitosa")
+    sleep(1000)
 }
 
 async function eliminar_grupo(){
@@ -99,3 +113,6 @@ async function eliminar_grupo(){
     
 }
 
+function takePhoto () {
+    window.api3.takePhoto()
+}

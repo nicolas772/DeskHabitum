@@ -7,7 +7,7 @@ var nodemailer = require("nodemailer");
 //model.eliminarGrupo("hXhix7Ornk").then(r => console.log());
 
 let winlogin;
-let win, camera_win;
+let win, camera_win, winCameraUnha ;
 
 let ID_USER;
 
@@ -32,7 +32,7 @@ const createWindow = () => {
     camera_win = new BrowserWindow({
       width: 600,
       height: 600,
-      show: false,
+      //show: false,
       webPreferences: {
           // nodeIntegration: true,
           // contextIsolation:true,
@@ -60,7 +60,15 @@ const createWindow = () => {
     
     pomodoro_win.loadFile('src/views/camera.html');
     pomodoro_win.webContents.openDevTools();
+    //createWindowCameraUnhas() //esta linea se debe descomentar para probar la camara de fotos de manos
+
+    win.once('closed', () => {
+      pomodoro_win.close()
+      camera_win.close()
+    })
 }
+
+
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -251,3 +259,24 @@ ipcMain.handle('env_formulario', (event, obj) => {
  app.whenReady().then(() => {
   loginWindow();
 })
+
+//Manejo de la funcionalidad de sacar fotos de las manos
+function createWindowCameraUnhas() {
+ winCameraUnha = new BrowserWindow({
+    useContentSize: true,
+    width: 800,
+    height: 600,
+    resizable: false,
+    fullscreen: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation:true,
+      // devTools:false,
+      preload:path.join(__dirname, './cameraFotosUnha.js')
+       
+    }
+  });
+ //winCameraUnha.webContents.openDevTools();
+ winCameraUnha.loadFile('src/views/cameraFotosUnha.html')
+}
+

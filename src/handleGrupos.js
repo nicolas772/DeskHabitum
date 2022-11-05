@@ -1,41 +1,73 @@
+let ID_USER = window.api.get_user_id("")
+const cargarSonido = function (fuente) { //esta funcion sirve para reproducir sonido en notificación
+    const sonido = document.createElement("audio");
+    sonido.src = fuente;
+    sonido.setAttribute("preload", "auto");
+    sonido.setAttribute("controls", "none");
+    sonido.style.display = "none"; // <-- oculto
+    document.body.appendChild(sonido);
+    return sonido;
+};
+
+async function doNotify(titulo, cuerpo){
+    await window.api.getConfig(ID_USER).then(result => {
+        config = result[0];
+    });
+    let myNotification = new Notification(titulo, {
+        body: cuerpo,
+        silent: true
+    });
+    if (config.alertasonorageneral == 'on'){
+        let path = '../sounds/'+config.sonidonotificaciongeneral+'.mp3'
+        let sonido = cargarSonido(path);
+        sonido.play();
+    }
+    
+}
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 async function get_code_grupo(){
     let ID = await window.api.get_user_id("")
     let code = await window.api.getCodeGrupo(ID)    
     document.getElementById('codigo_vista_lider').textContent = code       
 }
 
-
-
 async function aceptar_solicitud(id_user){
     let ID = await window.api.get_user_id("")
     let code = await window.api.getCodeGrupo(ID)
 
-    
-    let myNotification = new Notification('SOLICITUD', {
+    await doNotify('SOLICITUD', 'Participante aceptado')    
+    /*let myNotification = new Notification('SOLICITUD', {
         body: 'Participante aceptado'
-      });
+      });*/
     let aceptar = await window.api.addParticipante(id_user, code)
+    await sleep(2000); //esto lo hago para que al recargar, no se corte el sonido de la notificacion
     window.location.reload();
 }
 
 async function rechazar_solicitud(id_user){
     let ID = await window.api.get_user_id("")
     let code = await window.api.getCodeGrupo(ID)
-    let myNotification2 = new Notification('SOLICITUD', {
+    await doNotify('SOLICITUD', 'Participante Rechazado')  
+    /*let myNotification2 = new Notification('SOLICITUD', {
         body: 'Participante rechazado'
-      });
+      });*/
     let rechazar = window.api.quitarSolicitud(id_user, code)
+    await sleep(2000);//esto lo hago para que al recargar, no se corte el sonido de la notificacion
     window.location.reload()
       
 }
 
 async function eliminar_miembro(id_miembro){
     let ID = await window.api.get_user_id("")
-    let code = await window.api.getCodeGrupo(ID)    
-    let myNotification2 = new Notification('SOLICITUD', {
+    let code = await window.api.getCodeGrupo(ID) 
+    await doNotify('SOLICITUD', 'Participante eliminado')     
+    /*let myNotification2 = new Notification('SOLICITUD', {
         body: 'Participante eliminado'
-      });    
+      }); */  
     let eliminar = await window.api.quitarDelGrupo(id_miembro,code)
+    await sleep(2000);//esto lo hago para que al recargar, no se corte el sonido de la notificacion
     window.location.reload();     
 }
 

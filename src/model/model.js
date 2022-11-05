@@ -158,6 +158,28 @@ const sesionesMesPelo = async (userId, mes, año) => {
     return totales_sesiones
 }
 
+const sesionesMesNariz = async (userId, mes, año) => {
+    let query = `select cant_total_nariz from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    var totales_sesiones = [] 
+    result.forEach(element => {
+        totales_sesiones.push(parseInt(element['cant_total_nariz']))
+    });
+    return totales_sesiones
+}
+
+const sesionesMesPiel = async (userId, mes, año) => {
+    let query = `select cant_total_piel from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    var totales_sesiones = [] 
+    result.forEach(element => {
+        totales_sesiones.push(parseInt(element['cant_total_piel']))
+    });
+    return totales_sesiones
+}
+
 
 const mejorMesUnhas=  async (userId) => {
     let query = `select min(cant_total_unnas) from total_mensual where id_user = ${userId}`;
@@ -199,6 +221,36 @@ const mejorMesMorder = async (userId) => {
 
 const peorMesMorder = async (userId) => {
     let query = `select max(cant_total_morder) from total_mensual where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['max']
+}
+
+const mejorMesNariz = async (userId) => {
+    let query = `select min(cant_total_nariz) from total_mensual where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['min']
+}
+
+
+const peorMesNariz = async (userId) => {
+    let query = `select max(cant_total_nariz) from total_mensual where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['max']
+}
+
+const mejorMesPiel = async (userId) => {
+    let query = `select min(cant_total_piel) from total_mensual where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['min']
+}
+
+
+const peorMesPiel = async (userId) => {
+    let query = `select max(cant_total_piel) from total_mensual where id_user = ${userId}`;
     const res = await conexion.query(query)
     const result = res.rows
     return result[0]['max']
@@ -426,6 +478,125 @@ const top10Vista = async (id_usuario) => {
     return result   
 }
 
+
+//QUERYS NARIZ
+const createNariz = async (id_usuario, id_sesion, inicio, final, total_time) => {
+    let query = `INSERT INTO nariz (id_user, id_ses, inicio, fin, total_time) VALUES (${id_usuario}, '${id_sesion}','${inicio}', '${final}', '${total_time}')`;
+    const res = await conexion.query(query)
+}
+
+const ultimaNariz = async (id_usuario) => {
+    let query = `select cant_total_nariz from sesions where id_user = ${id_usuario} order by id desc limit 1`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['cant_total_nariz']    
+}
+
+const totalNariz = async (id_usuario) => {
+    let query = `select sum(cant_total_nariz) as total_nariz from sesions where id_user = ${id_usuario}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['total_nariz']    
+}
+
+const peorSesionNariz = async (userId) => {
+    let query = `select max(valor) from (select id_ses, count(*) as valor from nariz where id_user = ${userId} group by id_ses) as subquery`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['max']    
+}
+
+const mejorSesionNariz = async (userId) => {
+    let query = `select min(valor) from (select id_ses, count(*) as valor from nariz where id_user = ${userId} group by id_ses) as subquery`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['min']    
+}
+
+const totalTimeNariz = async (userId) => {
+    let query = `select sum(total_time) from nariz where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['sum']    
+}
+
+const percentageTenSesionNariz = async (userId) => { 
+    var percentages = []  
+    let query = `select total_time, time_nariz from sesions where id_user = ${userId} order by id desc limit 10`;
+    const data = await conexion.query(query)
+    const result = data.rows
+    for (let i = 0; i < result.length; i++) {
+        if (result[i]['total_time'] == 0) { 
+            let p = 0  
+            percentages.push(p)       
+        }else{ 
+            let p = result[i]['time_nariz']/result[i]['total_time']
+            p = p*100
+            percentages.push(p)
+        }
+    }
+    return percentages.reverse()
+}
+
+//QUERYS PIEL
+const createPiel = async (id_usuario, id_sesion, inicio, final, total_time) => {
+    let query = `INSERT INTO piel (id_user, id_ses, inicio, fin, total_time) VALUES (${id_usuario}, '${id_sesion}','${inicio}', '${final}', '${total_time}')`;
+    const res = await conexion.query(query)
+}
+
+const ultimaPiel = async (id_usuario) => {
+    let query = `select cant_total_piel from sesions where id_user = ${id_usuario} order by id desc limit 1`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['cant_total_piel']    
+}
+
+const totalPiel = async (id_usuario) => {
+    let query = `select sum(cant_total_piel) as total_piel from sesions where id_user = ${id_usuario}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['total_piel']    
+}
+
+const peorSesionPiel = async (userId) => {
+    let query = `select max(valor) from (select id_ses, count(*) as valor from piel where id_user = ${userId} group by id_ses) as subquery`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['max']    
+}
+
+const mejorSesionPiel = async (userId) => {
+    let query = `select min(valor) from (select id_ses, count(*) as valor from piel where id_user = ${userId} group by id_ses) as subquery`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['min']    
+}
+
+const totalTimePiel = async (userId) => {
+    let query = `select sum(total_time) from piel where id_user = ${userId}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['sum']    
+}
+
+const percentageTenSesionPiel = async (userId) => { 
+    var percentages = []  
+    let query = `select total_time, time_piel from sesions where id_user = ${userId} order by id desc limit 10`;
+    const data = await conexion.query(query)
+    const result = data.rows
+    for (let i = 0; i < result.length; i++) {
+        if (result[i]['total_time'] == 0) { 
+            let p = 0  
+            percentages.push(p)       
+        }else{ 
+            let p = result[i]['time_piel']/result[i]['total_time']
+            p = p*100
+            percentages.push(p)
+        }
+    }
+    return percentages.reverse()
+}
+
 //QUERYS CONFIG
 
 const postConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion) => {
@@ -434,7 +605,7 @@ const postConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fati
     const res = await conexion.query(query)
 }
 
-const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak, cantidadPomodoros) => {
+const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak, cantidadPomodoros, sonidoNotificacionGeneral, temaNotificacionMania, alertaSonoraGeneral, unhaSound, morderSound, peloSound, fatigaSound, posturaSound, pielSound, narizSound, pellizcarPiel, hurgarNariz) => {
     let query = `UPDATE config SET 
     morderunha='${morderUnha}', 
     morderobjetos='${morderObjetos}', 
@@ -450,11 +621,22 @@ const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fa
     duracionshortbreak='${duracionShortBreak}',
     duracionlongbreak='${duracionLongBreak}',
     intervalolongbreak='${intervaloLongBreak}',
-    cantidadpomodoros='${cantidadPomodoros}'
+    cantidadpomodoros='${cantidadPomodoros}',
+    sonidonotificaciongeneral='${sonidoNotificacionGeneral}',
+    temanotificacionmania='${temaNotificacionMania}',
+    alertasonorageneral='${alertaSonoraGeneral}',
+    unhasound='${unhaSound}',
+    mordersound='${morderSound}',
+    pelosound='${peloSound}',
+    fatigasound='${fatigaSound}',
+    posturasound='${posturaSound}',
+    pielsound='${pielSound}',
+    narizsound='${narizSound}',
+    pellizcarpiel='${pellizcarPiel}',
+    hurgarnariz='${hurgarNariz}'
     WHERE id_user = ${id_usuario}` ;
     const res = await conexion.query(query)
 }
-
 const getConfig = async (id_usuario) => {
     let query = `SELECT * FROM config WHERE id_user = ${id_usuario}`;
     const res = await conexion.query(query)
@@ -719,5 +901,7 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
               sesionesMesUnha, sesionesMesMorder, sesionesMesPelo, mejorMesUnhas,
               peorMesUnhas, mejorMesPelo, peorMesPelo, mejorMesMorder, peorMesMorder, createVista, createPestaneo,
               createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo, quitarSolicitud,
-            tiempoGrupo, totalesGrupo, top10Grupo, /*nuevas*/ getCodeGrupoUser, peorSesionPomodoro, mejorSesionPomodoro, ultimaSesionPomodoro, contarSesionPomodoro, contarMesPomodoro, datosTotalesPomodoro, updateUserData, countPestaneoSesion, countVistaSesion,
-             datosUltimaSesionPomodoro, cantDeteccionesFatigaPorMinutoTenSesion, ultimaVista, totalVista, top10Vista, eliminarGrupo}
+            tiempoGrupo, totalesGrupo, top10Grupo, getCodeGrupoUser, peorSesionPomodoro, mejorSesionPomodoro, ultimaSesionPomodoro, contarSesionPomodoro, contarMesPomodoro, datosTotalesPomodoro, updateUserData, countPestaneoSesion, countVistaSesion,
+             datosUltimaSesionPomodoro, cantDeteccionesFatigaPorMinutoTenSesion, ultimaVista, totalVista, top10Vista, eliminarGrupo,
+            /*nuevas*/ createNariz, ultimaNariz, totalNariz, peorSesionNariz, mejorSesionNariz, createPiel, ultimaPiel, totalPiel, peorSesionPiel, mejorSesionPiel, percentageTenSesionPiel, percentageTenSesionNariz, totalTimeNariz, totalTimePiel,
+            mejorMesNariz, mejorMesPiel, peorMesNariz, peorMesPiel, sesionesMesNariz, sesionesMesPiel}
