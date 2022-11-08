@@ -2,10 +2,31 @@
   <head>
     <title>Desk Habitum</title>
     <link rel="stylesheet" href="../cssCamFotos/css/font-awesome.min.css">
+    <style>
+      .fotoconsombra {
+        position: relative;
+        top: 0;
+        left: 0;
+      }
+      .fotowebcam {
+        position: relative;
+        top: 0;
+        left: 0;
+
+      }
+      .fotosombra {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
+      </style>
     <script src="../test_handleButtons.js"></script>
   </head>
   <body>
-      <div id="HOLA"></div>
+      <div class="fotoconsombra">
+        <div id= "webcam" class="fotowebcam"></div>
+        <img id = "sombra" class="fotosombra" src="../images/sombra448.png"/>
+      </div>
 	  <div id="takePhoto" onclick="takePhoto()">
       <i class="fa fa-camera" aria-hidden="true"></i>
     </div>
