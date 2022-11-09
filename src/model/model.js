@@ -607,7 +607,7 @@ const ultimaPostura = async (id_usuario) => {
     let query = `select cant_total_postura from sesions where id_user = ${id_usuario} order by id desc limit 1`;
     const res = await conexion.query(query)
     const result = res.rows
-    return result[0]['cant_total_piel']    
+    return result[0]['cant_total_postura']    
 }
 
 const ultimaTimePostura = async (id_usuario) => {
