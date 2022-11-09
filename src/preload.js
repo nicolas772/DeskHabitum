@@ -551,6 +551,28 @@ const sesionesMesPiel = (userId, mes, año) => {
     return model.sesionesMesPiel(userId, mes, año)
 }
 
+const createPostura = (id_usuario, id_sesion, inicio, final, total_time) => {
+    return model.createPostura(id_usuario, id_sesion, inicio, final, total_time)
+}
+
+const ultimaPostura = (id_user) => {
+    return model.ultimaPostura(id_user)
+}
+
+const ultimaTimePostura = (id_user) => {
+    return model.ultimaTimePostura(id_user)
+}
+
+const data10Postura = (id_user) => {
+    return model.data10Postura(id_user)
+}
+
+const mesPostura = (id_user, mes) => {
+    return model.mesPostura(id_user, mes)
+}
+
+
+
 
 
 
@@ -662,9 +684,15 @@ contextBridge.exposeInMainWorld("api", {
     mejorMesNariz: mejorMesNariz,
     mejorMesPiel: mejorMesPiel,
     peorMesNariz: peorMesNariz,
-    peorMesPiel: peorMesNariz,
+    peorMesPiel: peorMesPiel,
     sesionesMesPiel: sesionesMesPiel,
-    sesionesMesNariz: sesionesMesPiel
+    sesionesMesNariz: sesionesMesNariz,
+    createPostura: createPostura,
+    ultimaPostura: ultimaPostura,
+    ultimaTimePostura: ultimaTimePostura,
+    data10Postura: data10Postura,
+    mesPostura: mesPostura
+    
 })
 
 module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id, getConfig, parar_pomodoro}

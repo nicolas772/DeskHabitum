@@ -597,6 +597,45 @@ const percentageTenSesionPiel = async (userId) => {
     return percentages.reverse()
 }
 
+//QUERYS POSTURA
+const createPostura = async (id_usuario, id_sesion, inicio, final, total_time) => {
+    let query = `INSERT INTO postura (id_user, id_ses, inicio, fin, total_time) VALUES (${id_usuario}, '${id_sesion}','${inicio}', '${final}', '${total_time}')`;
+    const res = await conexion.query(query)
+}
+
+const ultimaPostura = async (id_usuario) => {
+    let query = `select cant_total_postura from sesions where id_user = ${id_usuario} order by id desc limit 1`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['cant_total_piel']    
+}
+
+const ultimaTimePostura = async (id_usuario) => {
+    let query = `select time_postura from sesions where id_user = ${id_usuario} order by id desc limit 1`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['time_postura']    
+}
+
+const data10Postura = async (id_usuario) => {
+    let query = `select time_postura, cant_total_postura from sesions where id_user = ${id_usuario} order by id desc limit 10`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result   
+}
+
+const mesPostura = async (id_usuario, mes) => {
+    let query = `select sum(cant_total_postura) as total_mes from sesions where id_user = ${id_usuario} and mes = ${mes} `;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['total_mes']      
+}
+
+
+
+
+
+
 //QUERYS CONFIG
 
 const postConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion) => {
@@ -903,5 +942,6 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
               createGrupo, getCodeGrupo,  addParticipante, quitarDelGrupo, getParticipantesGrupo, solicitudUnirseGrupo, getSolicitudesGrupo, tieneGrupo, quitarSolicitud,
             tiempoGrupo, totalesGrupo, top10Grupo, getCodeGrupoUser, peorSesionPomodoro, mejorSesionPomodoro, ultimaSesionPomodoro, contarSesionPomodoro, contarMesPomodoro, datosTotalesPomodoro, updateUserData, countPestaneoSesion, countVistaSesion,
              datosUltimaSesionPomodoro, cantDeteccionesFatigaPorMinutoTenSesion, ultimaVista, totalVista, top10Vista, eliminarGrupo,
-            /*nuevas*/ createNariz, ultimaNariz, totalNariz, peorSesionNariz, mejorSesionNariz, createPiel, ultimaPiel, totalPiel, peorSesionPiel, mejorSesionPiel, percentageTenSesionPiel, percentageTenSesionNariz, totalTimeNariz, totalTimePiel,
-            mejorMesNariz, mejorMesPiel, peorMesNariz, peorMesPiel, sesionesMesNariz, sesionesMesPiel}
+             createNariz, ultimaNariz, totalNariz, peorSesionNariz, mejorSesionNariz, createPiel, ultimaPiel, totalPiel, peorSesionPiel, mejorSesionPiel, percentageTenSesionPiel, percentageTenSesionNariz, totalTimeNariz, totalTimePiel,
+            mejorMesNariz, mejorMesPiel, peorMesNariz, peorMesPiel, sesionesMesNariz, sesionesMesPiel,
+        /** nuevas */ createPostura, ultimaPostura, ultimaTimePostura, data10Postura, mesPostura}
