@@ -4,6 +4,7 @@ const tmImage = require('@teachablemachine/image');
 const handPoseDetection = require('@tensorflow-models/hand-pose-detection');
 let camara, photoData
 let corriendo = true;
+let elem;
 
 modeloHand = handPoseDetection.SupportedModels.MediaPipeHands;
 
@@ -24,11 +25,11 @@ function magnitud(punto){
 function mano_abierta(pulgar, indice, medio, anular, meñique, muñeca){
 
 
-    coef_pulgar = 1.52
-    coef_indice = 1.48
-    coef_medio = 1.48
-    coef_anular = 1.48
-    coef_meñique = 1.38
+    coef_pulgar = 1.5
+    coef_indice = 1.47
+    coef_medio = 1.47
+    coef_anular = 1.47
+    coef_meñique = 1.36
     coef_horizontal = 1.1
     
     magnitud_pulgar = magnitud(pulgar) 
@@ -91,10 +92,16 @@ async function init_camera() {
 
     await camara.setup(); // request access to the camara
     camara.play();
+    elem = document.createElement("img");
+    elem.src = "../images/sombra448.png";
     document.getElementById("webcam").appendChild(camara.canvas);
+    
+    
+
 
     setTimeout (function(){window.requestAnimationFrame(loop)}, 5000);
     detectorHand = await handPoseDetection.createDetector(modeloHand, {runtime : 'tfjs', solutionPath: "https://cdn.jsdelivr.net/npm/@mediapipe/hands",  modelType : 'full'});
+    
 }
 
 async function loop() {
@@ -111,7 +118,7 @@ async function loop() {
 async function predict(){
 
     let posesHand;
-
+    document.getElementById("sombra").appendChild(elem);
     posesHand = await detectorHand.estimateHands(camara.canvas);
 
     if (posesHand.length == 2){
@@ -121,7 +128,7 @@ async function predict(){
         ref_tipMedio2 = {"x": 288 , "y": 68};
         ref_muñeca2 = {"x": 341 , "y": 398};
 
-        radio = 23        
+        radio = 33        
 
         //Mano 1
         tipPulgar3D = posesHand[0].keypoints3D[4]
@@ -173,8 +180,8 @@ async function predict(){
         if(tipIndice3D.z >= 0 && tipIndice2_3D.z >= 0 && 
             mano_abierta(tipPulgar3D, tipIndice3D, tipMedio3D, tipAnular3D, tipMenique3D, muñeca3D) &&
             mano_abierta(tipPulgar2_3D, tipIndice2_3D, tipMedio2_3D, tipAnular2_3D, tipMenique2_3D, muñeca2_3D) && 
-            ((pos_tip < radio && pos_muñeca < radio && pos_tip2 < radio && pos_muñeca2 < radio) || 
-            (pos_tip_invertido < radio && pos_muñeca_invertida < radio && pos_tip_invertido2 < radio && pos_muñeca_invertida2 < radio))){
+            ((pos_tip < radio && pos_muñeca < radio && pos_tip2 < radio && pos_muñeca2 <= radio) || 
+            (pos_tip_invertido < radio && pos_muñeca_invertida < radio && pos_tip_invertido2 < radio && pos_muñeca_invertida2 <= radio))){
                 takePhoto();
                 corriendo = false;
         }
