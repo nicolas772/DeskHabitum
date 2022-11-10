@@ -3,6 +3,7 @@ const {contextBridge, ipcRenderer} = require("electron");
 const tmImage = require('@teachablemachine/image');
 let camara, photoData
 
+
 async function init_camera() {
     let flip = true;
     let width = 400;
@@ -24,13 +25,9 @@ async function loop() {
     window.setTimeout(loop, 0.1)
 }
 
-function takePhoto () {
-    console.log("tomar foto")
-
-}
-
 contextBridge.exposeInMainWorld("api3", {
-    takePhoto: takePhoto
+    takePhoto: takePhoto,
+    takePhoto2: takePhoto2
 })
 
 // Load init
@@ -50,4 +47,25 @@ function takePhoto () {
     enlace.href = foto;
     enlace.click();
     //camara.play();
+}
+
+function takePhoto2 () {
+    var context = camara.canvas.getContext('2d');
+    camara.canvas.width = 400;
+    camara.canvas.height = 400;
+    context.drawImage(camara.webcam, 0, 0, 600, 400);
+    photoData = camara.canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
+    let fecha = new Date;
+    let fech = fecha.toISOString()
+    let path_file = './src/images/unhasUser/'+fech+'.png'
+    savePhoto(path_file)
+}
+
+function savePhoto (filePath) {
+    if (filePath) {
+      fs.writeFile(filePath, photoData, 'base64', (err) => {
+        if (err) alert(`There was a problem saving the photo: ${err.message}`);
+        photoData = null;
+      });
+    }
 }

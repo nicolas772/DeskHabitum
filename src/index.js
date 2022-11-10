@@ -32,7 +32,7 @@ const createWindow = () => {
     camera_win = new BrowserWindow({
       width: 600,
       height: 600,
-      //show: false,
+      show: false,
       webPreferences: {
           // nodeIntegration: true,
           // contextIsolation:true,
@@ -60,7 +60,7 @@ const createWindow = () => {
     
     pomodoro_win.loadFile('src/views/camera.html');
     pomodoro_win.webContents.openDevTools();
-    //createWindowCameraUnhas() //esta linea se debe descomentar para probar la camara de fotos de manos
+    createWindowCameraUnhas() //esta linea se debe descomentar para probar la camara de fotos de manos
 
     win.once('closed', () => {
       pomodoro_win.close()

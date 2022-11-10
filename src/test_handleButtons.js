@@ -114,5 +114,6 @@ async function eliminar_grupo(){
 }
 
 function takePhoto () {
-    window.api3.takePhoto()
+    //window.api3.takePhoto()
+    window.api3.takePhoto2()
 }
