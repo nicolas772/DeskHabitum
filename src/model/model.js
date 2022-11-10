@@ -605,7 +605,7 @@ const postConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fati
     const res = await conexion.query(query)
 }
 
-const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak, cantidadPomodoros, sonidoNotificacionGeneral, temaNotificacionMania, alertaSonoraGeneral, unhaSound, morderSound, peloSound, fatigaSound, posturaSound, pielSound, narizSound, pellizcarPiel, hurgarNariz) => {
+const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fatigaVisual, malaPostura, alertaVisual, alertaSonora, intervaloNotificacion, tiempoNotificacion, tipoNotificacion, duracionPomo, duracionShortBreak, duracionLongBreak, intervaloLongBreak, cantidadPomodoros, sonidoNotificacionGeneral, temaNotificacionMania, alertaSonoraGeneral, unhaSound, morderSound, peloSound, fatigaSound, posturaSound, pielSound, narizSound, pellizcarPiel, hurgarNariz, fotoUnha) => {
     let query = `UPDATE config SET 
     morderunha='${morderUnha}', 
     morderobjetos='${morderObjetos}', 
@@ -633,7 +633,8 @@ const updateConfig = async (id_usuario, morderUnha, morderObjetos, jalarPelo, fa
     pielsound='${pielSound}',
     narizsound='${narizSound}',
     pellizcarpiel='${pellizcarPiel}',
-    hurgarnariz='${hurgarNariz}'
+    hurgarnariz='${hurgarNariz}',
+    fotounha='${fotoUnha}'
     WHERE id_user = ${id_usuario}` ;
     const res = await conexion.query(query)
 }

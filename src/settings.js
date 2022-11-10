@@ -6,6 +6,7 @@ const fatigaVisual = document.getElementById("fatigaVisual")
 const malaPostura = document.getElementById("malaPostura")
 const pellizcarPiel = document.getElementById("pellizcarPiel")
 const hurgarNariz = document.getElementById("hurgarNariz")
+const fotoUnha = document.getElementById("fotoUnha")
 const alertaSonoraGeneral = document.getElementById("alertaSonoraGeneral")//nuevo
 const sonidoNotificacionGeneral = document.getElementById("sonidoNotificacionGeneral")
 const alertaVisual = document.getElementById("alertaVisual")
@@ -73,7 +74,8 @@ async function saveSettings(){
             pielSound.value,
             narizSound.value,
             pellizcarPiel.checked,
-            hurgarNariz.checked
+            hurgarNariz.checked,
+            fotoUnha.checked
         ]   
     }else{
         configList = [
@@ -104,7 +106,8 @@ async function saveSettings(){
             pielSound.value,
             narizSound.value,
             pellizcarPiel.checked,
-            hurgarNariz.checked
+            hurgarNariz.checked,
+            fotoUnha.checked
         ]
     }
 
@@ -149,7 +152,8 @@ async function saveSettings(){
         CONF[24],
         CONF[25],
         CONF[26],
-        CONF[27]
+        CONF[27],
+        CONF[28]
     ).then(result => {
         let resultado=result
     })
@@ -168,6 +172,7 @@ async function actualizarSettings(){
     $('#malaPostura').bootstrapToggle(config.malapostura) 
     $('#pellizcarPiel').bootstrapToggle(config.pellizcarpiel) 
     $('#hurgarNariz').bootstrapToggle(config.hurgarnariz) 
+    $('#fotoUnha').bootstrapToggle(config.fotounha) 
     $('#alertaVisual').bootstrapToggle(config.alertavisual) 
     $('#alertaSonora').bootstrapToggle(config.alertasonora)
     $('#tipoNotificacion').val(config.tiponotificacion)
