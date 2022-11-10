@@ -42,6 +42,7 @@ let intervalo_postura = 5000;
 let intervalo_nariz = 2000;
 let intervalo_pellizco = 1000;
 
+
 //Booleanos que se activan cuando se cumplen los intervalos de tiempo
 let detectado_uña = false;
 let detectado_pelo = false;
@@ -58,9 +59,17 @@ let hay_cara = false;
 
 
 //Variables para la configuración de las notificaciones
-let opcion; 
+let opcion;
+
+//Variables para notificación de estrés
+let intervalo_estres = 12000;
+let tiempo_estres = false;
+let detectado_estres = false;
+let cantidad_estres = 3;
 
 let cantidad_detecciones = 0;
+let detecciones_estres = 0;
+let configuracion_deteccion_estres = true ////////////////////////CORREGIR ESTO
 let cantidad_notificacion;
 
 let cantidad_mordidas = 0;
@@ -151,12 +160,36 @@ function Preguntar_Comiendo(){ //esta notificación siempre se muestra, ya que s
         })
         .onclick = () => CountDownComiendo()
     })
-    if (config.alertasonora == 'on'){
+    if (config_user.alertasonora == 'on'){
         let path = '../sounds/'+config_user.mordersound+'.mp3'
         let sonido = cargarSonido2(path);
         sonido.play();
     }
     
+}
+
+function Preguntar_Estres(){ 
+    Notification.requestPermission().then(function (result){
+        new Notification("¿ESTÁS ESTRESADO?", { 
+            body: "CLICKEA ESTA NOTIFICACIÓN SI TE ENCUENTRAS ESTRESADO", icon: 'https://media.istockphoto.com/photos/woman-holding-slice-of-bread-with-question-mark-sign-picture-id1166079452?k=20&m=1166079452&s=612x612&w=0&h=JJJIj2EEn-8VV2aihn3tg0-Y281p2hH-0O3GC71UO2k='
+        })
+        .onclick = () => ipcRenderer.sendSync('Estresado', "")
+    })
+    if (config_user.alertasonora == 'on'){
+        let path = '../sounds/'+config_user.sonidonotificaciongeneral+'.mp3'
+        let sonido = cargarSonido2(path);
+        sonido.play();
+    }
+    
+}
+
+function CountDownEstres() {
+    tiempo_estres = true;
+    setTimeout (function(){
+        tiempo_estres = false;
+        detectado_estres = false;
+        detecciones_estres = 0;
+    }, intervalo_estres);
 }
 
 function CountDownEntreNotificaciones() {
@@ -235,11 +268,12 @@ async function getConfig(ID_USER){
         detectado_postura = false;
         detectado_nariz = false;
         detectado_pellizco = false;
+        detectado_estres = false;
         corriendo_periodo = false;
         cantidad_mordidas = 0;
         cantidad_detecciones = 0;
+        detecciones_estres = 0;
         cantidad_pestañeos = 0;
-
 
         config_user = result[0];
         //console.log(config_user);
@@ -1742,6 +1776,7 @@ async function predict() {
             corriendo_uña = false;
             detectado_uña = false;
             fin_uña = new Date;
+            detecciones_estres++;
             
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_uña, fin_uña);
@@ -1755,6 +1790,7 @@ async function predict() {
             corriendo_pelo = false;
             detectado_pelo = false;
             fin_pelo = new Date;
+            detecciones_estres++;
             
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_pelo, fin_pelo);
@@ -1768,6 +1804,7 @@ async function predict() {
             corriendo_objeto = false;
             detectado_objeto = false;
             fin_objeto = new Date;
+            detecciones_estres++;
             
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_objeto, fin_objeto);
@@ -1781,6 +1818,7 @@ async function predict() {
             corriendo_vista = false;
             detectado_vista = false;
             fin_vista = new Date;
+            detecciones_estres++;
             
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_vista, fin_vista);
@@ -1794,6 +1832,7 @@ async function predict() {
             corriendo_nariz = false;
             detectado_nariz = false;
             fin_nariz = new Date;
+            detecciones_estres++;
 
             //@@@@@@@@@@@@@@@@@@BASE DE DATOOOOOOOOOOOOOOOOOSSSSSS
             console.log(inicio_nariz, fin_nariz);
@@ -1806,6 +1845,7 @@ async function predict() {
             corriendo_postura = false;
             detectado_postura = false;
             fin_postura = new Date;
+            detecciones_estres++;
 
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_postura, fin_postura);
@@ -1818,6 +1858,7 @@ async function predict() {
             corriendo_pellizco = false;
             detectado_pellizco = false;
             fin_pellizco = new Date;
+            detecciones_estres++;
 
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_pellizco, fin_pellizco);
@@ -1828,6 +1869,16 @@ async function predict() {
     }
 
     fecha_ahora = new Date;
+
+    if(configuracion_deteccion_estres && !tiempo_estres && !detectado_estres && detecciones_estres > 0){
+        CountDownEstres();
+        
+    }else if(configuracion_deteccion_estres && tiempo_estres && detecciones_estres >= cantidad_estres && !detectado_estres){
+        Preguntar_Estres();
+        detecciones_estres = 0;
+        detectado_estres = true;
+    }
+
     //---------------------------NOTIFICACIONES ENTRE INTERVALOS DE TIEMPO---------------------------
     if (opcion == "tiempo"){
         if (corriendo_uña && !detectado_uña){

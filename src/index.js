@@ -60,7 +60,7 @@ const createWindow = () => {
     
     pomodoro_win.loadFile('src/views/camera.html');
     pomodoro_win.webContents.openDevTools();
-    createWindowCameraUnhas() //esta linea se debe descomentar para probar la camara de fotos de manos
+    //createWindowCameraUnhas() //esta linea se debe descomentar para probar la camara de fotos de manos
 
     win.once('closed', () => {
       pomodoro_win.close()
@@ -200,6 +200,11 @@ function toLogin(){
 //Funcion para crear nueva camara desde boton "comenzar"
 ipcMain.on('get-user-id', (event, data) => {
   event.returnValue = ID_USER;
+})
+
+//Funcion cuando el usuario clickea la notificación de que está estresado
+ipcMain.on('Estresado', (event, data) => {
+  win.loadFile('src/views/Respiracion.html');
 })
 
 //Funcion para cerrar sesión y cambiar a vista de login
