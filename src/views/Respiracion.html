@@ -134,57 +134,71 @@
             </div>
         </aside>
         <!----END ASIDE---->
-        <main style="z-index:1;height: 630px;width: auto;">
+        <main style="z-index:1;height: 630px; position:absolute;margin-left:950px;">
             
-            
-            <div class="container" id="container" style="height:0px;margin-left:250px;margin-top:50px;" >
-                <div class="circle"></div>                    
-                <div class="pointer-container">
-                    <span class="pointer"></span>
-                </div>
-                <div class="gradient-circle" ></div>
-            </div>
-            <p id="text" style="margin-left:390px;margin-top:430px;font-weight: bolder;font-size: 20px;"></p>
-            
-            
-            <div style="float:left; ">
-                <label >
-                    <h2> Respiración Profunda</h2>
-                    
-                    <p> Aquí podrás personalizar los tiempos de tu respiración profunda.</p>
-                    <div class="row">
-                        <ul class="list-group" >
-                            <li class="list-group-item d-flex justify-content-between align-items-center" >
-                                Duración inhalación [s]
-                                <div >
-                                    <input id="duracionInhalacion" type="number" min="1" max="100" step="1" >
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Duración exhalación [s]
-                                <div style="margin-left:30px;">
-                                    <input id="duracionExhalacion" type="number" min="1" max="100" step="1"  >
-                                </div>
-    
-                                
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Mantener respiración [s]
-                                <div>
-                                    <input id="duracionMantener1" type="number" min="1" max="100" step="1">
-                                </div>
-                            </li>
-                        
-                            
-                            
-                        </ul>
-                        
+            <div class="mytabs">
+                <input type="radio" id="tabfree" name="mytabs" checked="checked">
+                <label for="tabfree" style="padding-right:330px;"><h1 style="margin-bottom:0;padding-bottom:0;">Respiración Profunda</h1></label>
+                <div class="tab">
+                    <div class="container" id="container" style="padding-left:450px;margin-left:290px;margin-top:50px;" >
+                        <div class="circle"></div>                    
+                        <div class="pointer-container">
+                            <span class="pointer"></span>
+                        </div>
+                        <div class="gradient-circle" ></div>
                     </div>
-                </label>
-                <div class = "div-boton-cambios">
-                    <button type='button' class="btn btn-outline-primary" style="float: right;" onclick="saveSettings()">Guardar Cambios</button>
+                    
+                    <p class = "text" id="text" style="height:0;margin-left:375px;margin-top:430px;font-weight: bolder;font-size: 30px;"></p>
+                    
+                    
                 </div>
-            </div> <!--fin div config left 50%-->
+
+                <input type="radio" id="tabsilver" name="mytabs">
+                <label for="tabsilver"><span class="material-icons-sharp">settings</span></label>
+                <div class="tab">
+                    <div style="padding-left:550px;margin-top:50px;">
+                       
+                            
+                            
+                            <p> Personaliza tus tiempos</p>
+                            <div class="row"  >
+                                <ul class="list-group" >
+                                    <li class="list-group-item d-flex justify-content-between align-items-center" >
+                                        Inhalación[s]
+                                        <div >
+                                            <input id="duracionInhalacion" type="number" min="1" max="100" step="1" >
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center" >
+                                        Exhalación[s]
+                                        <div >
+                                            <input id="duracionExhalacion" type="number" min="1" max="100" step="1" >
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Pausa [s]
+                                        <div>
+                                            <input id="duracionMantener1" type="number" min="1" max="100" step="1">
+                                        </div>
+                                    </li>
+                                
+                                    
+                                    
+                                </ul>
+                                
+                            </div>
+                        
+                        <div class = "div-boton-cambios">
+                            <button type='button' class="btn btn-outline-primary" style="float: right;" onclick="saveSettings()">Guardar Cambios</button>
+                        </div>
+                    </div> <!--fin div config left 50%-->
+                </div>
+            </div>
+
+            
+            
+            
         </main>
     </div> <!--fin div container que contiene main-->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

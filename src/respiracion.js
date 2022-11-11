@@ -8,9 +8,9 @@ const breatheTime = (totalTime / 5) * 2; //3s
 const holdTime = totalTime / 5; //1.5s
 
 */
-const totalTime = 5000;
-const breatheTime = 2000; //3s
-const holdTime = 1000; //1.5s
+const totalTime = 14000;
+const breatheTime = 7000; //3s
+const holdTime = 2000; //1.5s
 
 breathAnimation();
 
@@ -20,6 +20,7 @@ function breathAnimation() {
 
   setTimeout(() => {
     text.innerText = 'MANTÉN';
+    container.className = 'container hold';
 
     setTimeout(() => {
       text.innerText = 'EXHALA';
