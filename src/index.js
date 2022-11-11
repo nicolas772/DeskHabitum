@@ -60,7 +60,7 @@ const createWindow = () => {
     
     pomodoro_win.loadFile('src/views/camera.html');
     pomodoro_win.webContents.openDevTools();
-    createWindowCameraUnhas() //esta linea se debe descomentar para probar la camara de fotos de manos
+    //createWindowCameraUnhas() //esta linea se debe descomentar para probar la camara de fotos de manos
 
     win.once('closed', () => {
       pomodoro_win.close()

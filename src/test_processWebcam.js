@@ -405,9 +405,7 @@ function pinza_pellizco(pulgar, indice, muñeca){
     coeficiente = 12
     distancia_muñeca = 54
 
-    mg_pulgar = magnitud_2D(pulgar.x, pulgar.y)
-    mg_indice = magnitud_2D(indice.x , indice.y)
-    mg_muñeca = magnitud_2D(muñeca.x, muñeca.y)
+
     pulgar_indice = distancia_puntos(pulgar.x , pulgar.y , indice.x , indice.y )
     indice_muñeca = distancia_puntos(indice.x , indice.y , muñeca.x , muñeca.y )
     //positivo hacia cara el indice
@@ -1250,11 +1248,12 @@ async function predict() {
         horizontal = distancia_puntos(hombro_izquierdo.x , hombro_izquierdo.y , hombro_derecho.x , hombro_derecho.y )
         proporcion_nueva = vertical / horizontal
 
+        /*
         console.log("Horizontal: ", horizontal)
         console.log("Vertical: ", vertical)
         console.log("Proporcion: ", proporcion_nueva)
-
-        if(proporcion_nueva < 0.465){
+        */
+        if(proporcion_nueva < 0.48){
             if(!corriendo_postura){
                 inicio_postura = new Date;
             }
