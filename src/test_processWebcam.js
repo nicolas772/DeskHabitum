@@ -40,7 +40,7 @@ let intervalo_objeto = 2000;
 let intervalo_vista = 1500;
 let intervalo_postura = 5000;
 let intervalo_nariz = 2000;
-let intervalo_pellizco = 1000;
+let intervalo_pellizco = 850;
 
 
 //Booleanos que se activan cuando se cumplen los intervalos de tiempo
@@ -402,7 +402,7 @@ function mano_pinza(pulgar, indice, medio, muñeca){
 }
 
 function pinza_pellizco(pulgar, indice, muñeca){
-    coeficiente = 12
+    coeficiente = 13.5
     distancia_muñeca = 54
 
 
@@ -1817,7 +1817,7 @@ async function predict() {
             corriendo_vista = false;
             detectado_vista = false;
             fin_vista = new Date;
-            detecciones_estres++;
+            //detecciones_estres++;
             
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_vista, fin_vista);
@@ -1844,7 +1844,7 @@ async function predict() {
             corriendo_postura = false;
             detectado_postura = false;
             fin_postura = new Date;
-            detecciones_estres++;
+            //detecciones_estres++;
 
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_postura, fin_postura);
