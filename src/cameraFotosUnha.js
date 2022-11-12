@@ -183,7 +183,7 @@ async function predict(){
             mano_abierta(tipPulgar2_3D, tipIndice2_3D, tipMedio2_3D, tipAnular2_3D, tipMenique2_3D, muñeca2_3D) && 
             ((pos_tip < radio && pos_muñeca < radio && pos_tip2 < radio && pos_muñeca2 <= radio) || 
             (pos_tip_invertido < radio && pos_muñeca_invertida < radio && pos_tip_invertido2 < radio && pos_muñeca_invertida2 <= radio))){
-                takePhoto();
+                takePhoto2();
                 corriendo = false;
         }
     }
