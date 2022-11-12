@@ -38,7 +38,13 @@ async function stop_cam(){
         //importan los script en el html, y puedo usar las funciones de otros archivos
         //siempre y cuando esten en el orden correcto. ver https://es.stackoverflow.com/questions/353796/como-exportar-una-funcion-de-un-archivo-js-a-otro-archivo-js
         await update_dash_ultima_sesion();   
-        window.api.camaraUnhaOn()  
+        await window.api.getConfig(ID_USER).then(result => {
+            config = result[0];
+        });
+        console.log(config)
+        if(config.morderunha == "on" && config.fotounha == "on"){
+            window.api.camaraUnhaOn() 
+        }
     }   
 }
 
