@@ -234,4 +234,6 @@ function savePhoto (filePath) {
         photoData = null;
       });
     }
+    corriendo = false;
+    ipcRenderer.invoke('camara-unha-off')
 }

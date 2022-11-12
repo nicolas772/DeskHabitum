@@ -60,7 +60,7 @@ const createWindow = () => {
     
     pomodoro_win.loadFile('src/views/camera.html');
     pomodoro_win.webContents.openDevTools();
-    createWindowCameraUnhas() //esta linea se debe descomentar para probar la camara de fotos de manos
+    //createWindowCameraUnhas() //esta linea se debe descomentar para probar la camara de fotos de manos
 
     win.once('closed', () => {
       pomodoro_win.close()
@@ -214,6 +214,13 @@ ipcMain.on('cerrar-sesion', (event, data) => {
   camera_win.close()
 })
 
+ipcMain.handle('camara-unha-on', (event, data) => {
+  createWindowCameraUnhas()
+})
+
+ipcMain.handle('camara-unha-off', (event, data) => {
+  winCameraUnha.close()
+})
 //Contacto mail
 function SendIt(nombre, email, telefono, region, ciudad, atencion, motivo) {
   
@@ -268,14 +275,14 @@ ipcMain.handle('env_formulario', (event, obj) => {
 //Manejo de la funcionalidad de sacar fotos de las manos
 function createWindowCameraUnhas() {
  winCameraUnha = new BrowserWindow({
-    useContentSize: true,
+    //useContentSize: true,
     width: 800,
     height: 600,
-    resizable: false,
-    fullscreen: false,
+    //resizable: false,
+    //fullscreen: false,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation:true,
+      //nodeIntegration: true,
+      //contextIsolation:true,
       // devTools:false,
       preload:path.join(__dirname, './cameraFotosUnha.js')
        

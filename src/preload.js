@@ -595,7 +595,10 @@ const sesionesMesPiel = (userId, mes, año) => {
 }
 
 
-
+const camaraUnhaOn = () => {
+    let respuesta = ipcRenderer.invoke('camara-unha-on')
+    return respuesta
+}
 
 
 
@@ -707,7 +710,8 @@ contextBridge.exposeInMainWorld("api", {
     peorMesNariz: peorMesNariz,
     peorMesPiel: peorMesNariz,
     sesionesMesPiel: sesionesMesPiel,
-    sesionesMesNariz: sesionesMesPiel
+    sesionesMesNariz: sesionesMesPiel,
+    camaraUnhaOn: camaraUnhaOn
 })
 
 module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id, getConfig, parar_pomodoro}
