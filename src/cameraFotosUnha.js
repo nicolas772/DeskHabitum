@@ -86,7 +86,7 @@ function mano_abierta(pulgar, indice, medio, anular, meñique, muñeca){
 
 
 async function init_camera() {
-    const flip = false;
+    const flip = true;
     const width = 448;
     const height = 448;
     camara = new tmImage.Webcam(width, height, flip);
@@ -216,12 +216,12 @@ function takePhoto () {
 
 function takePhoto2 () {
     var context = camara.canvas.getContext('2d');
-    camara.canvas.width = 400;
-    camara.canvas.height = 400;
-    context.drawImage(camara.webcam, 0, 0, 600, 400);
+    camara.canvas.width = 448;
+    camara.canvas.height = 320;
+    context.drawImage(camara.webcam, 0, 0, 448, 320);
     photoData = camara.canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
     let fecha = new Date;
-    let fech = fecha.toISOString()
+    let fech = fecha.toUTCString()
     let path_file = './src/images/unhasUser/'+fech+'.png'
     savePhoto(path_file)
 }
