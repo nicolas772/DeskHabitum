@@ -8,9 +8,14 @@ const breatheTime = (totalTime / 5) * 2; //3s
 const holdTime = totalTime / 5; //1.5s
 
 */
-const totalTime = 14000;
-const breatheTime = 7000; //3s
-const holdTime = 2000; //1.5s
+/*
+const totalTime = 14000;  
+const breatheTime = 7000;  //para 7seg inhalacion 2 mantencion 5 exhalacion
+const holdTime = 2000; 
+*/
+const totalTime = 16000; 
+const breatheTime = 9000; //para 7seg inhalacion 2 mantencion 5 exhalacion (al 7seg se le suman 2seg de delay para empezar)
+const holdTime = 2000; 
 
 breathAnimation();
 

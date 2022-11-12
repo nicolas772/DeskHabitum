@@ -87,7 +87,9 @@ body {
   left: 140px;
   width: 20px;
   height: 190px;
-  animation: rotate 5s linear forwards infinite; /*animation: rotate 7.5s linear forwards infinite;*/
+ 
+  
+
   transform-origin: bottom center;
 }
 /*
@@ -105,7 +107,9 @@ body {
 .container.grow .pointer-container {
   
   background-color: red;
-  animation: rotate1 7s linear forwards infinite;
+ 
+  animation: rotate1 7s linear forwards infinite; /**/
+  animation-delay:2s;
 
 }
 
@@ -120,8 +124,20 @@ body {
   animation: rotate3 5s linear forwards infinite;
 }
 
-@keyframes rotate1 {
+@keyframes empezar{
   from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes rotate1 {
+  
+  from {
+    
     transform: rotate(0deg);
   }
 
@@ -223,5 +239,24 @@ body {
   to {
     font-size:4em;
   }
+}
+*/
+
+
+/*
+.countdown:before {
+  content: '321';
+
+  font-family:monospace;
+  display:inline-block;
+  width:1ch;
+  overflow:hidden;
+
+  animation:countdowns 3s steps(3) infinite;
+}
+
+@keyframes countdowns {
+  0% {text-indent:0}
+  100% {text-indent:-3ch;}
 }
 */
