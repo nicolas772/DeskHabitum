@@ -103,13 +103,19 @@ body {
   }
 }
 */
+/*
+.container.grow #text{
+
+
+}
+*/
 
 .container.grow .pointer-container {
   
   background-color: red;
  
   animation: rotate1 7s linear forwards infinite; /**/
-  animation-delay:2s;
+  animation-delay:3s;
 
 }
 
