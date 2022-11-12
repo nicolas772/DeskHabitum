@@ -40,7 +40,8 @@ let intervalo_objeto = 2000;
 let intervalo_vista = 1500;
 let intervalo_postura = 5000;
 let intervalo_nariz = 2000;
-let intervalo_pellizco = 1000;
+let intervalo_pellizco = 850;
+
 
 //Booleanos que se activan cuando se cumplen los intervalos de tiempo
 let detectado_uña = false;
@@ -58,9 +59,17 @@ let hay_cara = false;
 
 
 //Variables para la configuración de las notificaciones
-let opcion; 
+let opcion;
+
+//Variables para notificación de estrés
+let intervalo_estres = 12000;
+let tiempo_estres = false;
+let detectado_estres = false;
+let cantidad_estres = 3;
 
 let cantidad_detecciones = 0;
+let detecciones_estres = 0;
+let configuracion_deteccion_estres = true ////////////////////////CORREGIR ESTO
 let cantidad_notificacion;
 
 let cantidad_mordidas = 0;
@@ -94,7 +103,7 @@ let fin_uña, fin_pelo, fin_objeto, fin_vista, fin_postura, fin_nariz, fin_pelli
 let comiendo_uña, tirando_pelo, mordiendo_objeto, fatigando_vista, mala_postura, urgando_nariz, pellizcando_cara;
 
 //Variables para determinar si el usuario monitorea el progreso de sus uñas
-let capturar_manos = true; //CORREGIR
+
 let capturando_foto = false;
 
 function Periodo_Pestañeo() {
@@ -151,7 +160,7 @@ function Preguntar_Comiendo(){ //esta notificación siempre se muestra, ya que s
         })
         .onclick = () => CountDownComiendo()
     })
-    if (config.alertasonora == 'on'){
+    if (config_user.alertasonora == 'on'){
         let path = '../sounds/'+config_user.mordersound+'.mp3'
         let sonido = cargarSonido2(path);
         sonido.play();
@@ -159,20 +168,35 @@ function Preguntar_Comiendo(){ //esta notificación siempre se muestra, ya que s
     
 }
 
+function Preguntar_Estres(){ 
+    Notification.requestPermission().then(function (result){
+        new Notification("¿ESTÁS ESTRESADO?", { 
+            body: "CLICKEA ESTA NOTIFICACIÓN SI TE ENCUENTRAS ESTRESADO", icon: 'https://media.istockphoto.com/photos/woman-holding-slice-of-bread-with-question-mark-sign-picture-id1166079452?k=20&m=1166079452&s=612x612&w=0&h=JJJIj2EEn-8VV2aihn3tg0-Y281p2hH-0O3GC71UO2k='
+        })
+        .onclick = () => ipcRenderer.sendSync('Estresado', "")
+    })
+    if (config_user.alertasonora == 'on'){
+        let path = '../sounds/'+config_user.sonidonotificaciongeneral+'.mp3'
+        let sonido = cargarSonido2(path);
+        sonido.play();
+    }
+    
+}
+
+function CountDownEstres() {
+    tiempo_estres = true;
+    setTimeout (function(){
+        tiempo_estres = false;
+        detectado_estres = false;
+        detecciones_estres = 0;
+    }, intervalo_estres);
+}
+
 function CountDownEntreNotificaciones() {
     se_puede_notificar = false;
     setTimeout (function(){se_puede_notificar = true}, tiempo_entre_notificaciones);
 }
 
-function setTimeout_FotoMano() {
-    se_puede_notificar = false;
-    setTimeout (function(){
-
-        corriendo = false
-        flag = true
-
-    }, tiempo_entre_notificaciones);
-}
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -261,11 +285,12 @@ async function getConfig(ID_USER){
         detectado_postura = false;
         detectado_nariz = false;
         detectado_pellizco = false;
+        detectado_estres = false;
         corriendo_periodo = false;
         cantidad_mordidas = 0;
         cantidad_detecciones = 0;
+        detecciones_estres = 0;
         cantidad_pestañeos = 0;
-
 
         config_user = result[0];
         //console.log(config_user);
@@ -309,6 +334,17 @@ async function getConfig(ID_USER){
         }else{
             fatiga_visual = false;
         }
+        if (config_user.hurgarnariz == "on"){
+            mucofagia = true;
+        }else{
+            mucofagia = false;
+        }
+
+        if (config_user.pellizcarpiel == "on"){
+            dermatilomania = true;
+        }else{
+            dermatilomania = false;
+        }
 
 
     });  
@@ -341,13 +377,10 @@ async function camaraHandle(){ //funcion que va leyendo el archivo cameraHandle 
             await init_model()
 
         }else if (run == '0' && !flag){
-            if (!capturar_manos){
-                corriendo = false
-                flag = true
-            }else{
-                capturando_foto = true
-                setTimeout_FotoMano();
-            }
+
+            corriendo = false
+            flag = true
+
         }
     }
 }
@@ -386,32 +419,41 @@ function mano_pinza(pulgar, indice, medio, muñeca){
 }
 
 function pinza_pellizco(pulgar, indice, muñeca){
-    coeficiente = 0.055
-    distancia_muñeca = 0.1
+    coeficiente = 13.5
+    distancia_muñeca = 54
 
-    pulgar_indice = distancia_puntos3D(pulgar.x, pulgar.y, pulgar.z, indice.x, indice.y, indice.z)
-    indice_muñeca = distancia_puntos3D(indice.x, indice.y, indice.z, muñeca.x, muñeca.y, muñeca.z)
+
+    pulgar_indice = distancia_puntos(pulgar.x , pulgar.y , indice.x , indice.y )
+    indice_muñeca = distancia_puntos(indice.x , indice.y , muñeca.x , muñeca.y )
     //positivo hacia cara el indice
-
-
-    if(indice_muñeca > distancia_muñeca && pulgar_indice < coeficiente && indice.z < 0.045 ){
+    
+    
+    console.log("pulgar_indice: ", pulgar_indice)
+    console.log("indice_muñeca: ", indice_muñeca)
+    
+    
+    if(indice_muñeca > distancia_muñeca && pulgar_indice < coeficiente ){
         return true
     }
     return false
-
+    
 }
 function magnitud(punto){
     return ((punto.x) ** 2 + (punto.y) ** 2 + (punto.z) ** 2) ** 0.5
+}
+
+function magnitud_2D(punto_x, punto_y){
+    return ((punto_x) ** 2 + (punto_y) ** 2) ** 0.5
 }
 
 function mano_abierta(pulgar, indice, medio, anular, meñique, muñeca){
 
 
     coef_pulgar = 1.52
-    coef_indice = 1.72
-    coef_medio = 1.73
-    coef_anular = 1.7
-    coef_meñique = 1.55
+    coef_indice = 1.48
+    coef_medio = 1.48
+    coef_anular = 1.48
+    coef_meñique = 1.38
     coef_horizontal = 1.1
     
     magnitud_pulgar = magnitud(pulgar) 
@@ -587,7 +629,7 @@ async function predict() {
     
     
 
-    if (onicofagia || tricotilomania || fatiga_visual || mucofagia || postura || dermatilomania && !capturando_foto){
+    if (onicofagia || tricotilomania || fatiga_visual || mucofagia || postura || dermatilomania){
 
         posesBlaze = await detectorBlaze.estimatePoses(webcam.canvas);
         //https://github.com/tensorflow/tfjs-models/tree/master/pose-detection
@@ -606,7 +648,7 @@ async function predict() {
         
     }
 
-    if (fatiga_visual && !capturando_foto){
+    if (fatiga_visual){
         cara = await detectorPestañeo.estimateFaces(webcam.canvas);
     }
     
@@ -701,6 +743,7 @@ async function predict() {
         tipMenique = posesHand[0].keypoints[20]
         tipMenique3D = posesHand[0].keypoints3D[20]
 
+        muñeca = posesHand[0].keypoints[0]
         muñeca3D = posesHand[0].keypoints3D[0]
 
 
@@ -730,19 +773,14 @@ async function predict() {
             tipMenique2 = posesHand[1].keypoints[20]
             tipMenique2_3D = posesHand[1].keypoints3D[20]
 
+            muñeca2_3D = posesHand[1].keypoints3D[0]
+
             console.log(tipIndice3D.z >= 0 , tipIndice2_3D.z >= 0)
 
         }
 
-
-        if(capturando_foto && posesHand.length == 2 && tipIndice3D.z >= 0 && tipIndice2_3D.z >= 0 && mano_abierta(tipPulgar3D, tipIndice3D, tipMedio3D, tipAnular3D, tipMenique3D, muñeca3D) && mano_abierta(tipPulgar2_3D, tipIndice2_3D, tipMedio2_3D, tipAnular2_3D, tipMenique2_3D, muñeca3D)){
-            
-
-
-        }
-
 /*-----------------------------------------------SECCIÓN DE FATIGA VISUAL CON MANO----------------------------------------------*/
-        if(fatiga_visual && !capturando_foto){
+        if(fatiga_visual){
 
             radio_ojoLeft = distancia_puntos(ojoLeft_Outer.x, ojoLeft_Outer.y, ojoLeft.x, ojoLeft.y)
             radio_ojoRight = distancia_puntos(ojoRight_Outer.x, ojoRight_Outer.y, ojoRight.x, ojoRight.y)
@@ -862,7 +900,7 @@ async function predict() {
             }
         }
 /*-----------------------------------------------SECCIÓN DE ONICOFAGÍA-----------------------------------------------*/
-        if (onicofagia && !capturando_foto && !fatigando_vista){
+        if (onicofagia && !fatigando_vista){
             if (tipPulgar.y >= dipPulgar.y - 8 && tipPulgar.x <= radioXUp && tipPulgar.x >= radioXLow && tipPulgar.y >= radioYUp && tipPulgar.y <= radioYLow && tipPulgar3D.z > 0){
                 if (!corriendo_uña){
                     inicio_uña = new Date;
@@ -957,7 +995,7 @@ async function predict() {
             }
         }
 /*-----------------------------------------------SECCIÓN DE TRICOTILOMANÍA----------------------------------------------*/
-        if (tricotilomania && !capturando_foto){
+        if (tricotilomania){
 
             dist_nariz_bocaLeft = distancia_puntos(nariz.x, nariz.y, bocaLeft.x, bocaLeft.y);
             dist_nariz_bocaRight = distancia_puntos(nariz.x, nariz.y, bocaRight.x, bocaRight.y);
@@ -969,7 +1007,7 @@ async function predict() {
 
             pinza = false;
             score_estricto = 0.98
-            if(mano_pinza(tipPulgar3D, tipIndice3D, tipMedio3D, muñeca3D) || (posesHand.length == 2 && mano_pinza(tipPulgar2_3D, tipIndice2_3D, tipMedio2_3D, muñeca3D))){
+            if(mano_pinza(tipPulgar3D, tipIndice3D, tipMedio3D, muñeca3D) || (posesHand.length == 2 && mano_pinza(tipPulgar2_3D, tipIndice2_3D, tipMedio2_3D, muñeca2_3D))){
 
                 if (dist_nariz_bocaCentro < dist_nariz_bocaLeft && dist_nariz_bocaCentro < dist_nariz_bocaRight){
 
@@ -1134,7 +1172,7 @@ async function predict() {
 
 
 /*-----------------------------------------------SECCIÓN DE MUCOFAGIA-----------------------------------------------*/
-        if(mucofagia && !capturando_foto){
+        if(mucofagia){
             let radio_nariz;
 
             radio_ojoLeft = distancia_puntos(ojoLeft_Outer.x, ojoLeft_Outer.y, ojoLeft_Inner.x, ojoLeft_Inner.y)
@@ -1176,10 +1214,10 @@ async function predict() {
             }
         }
 /*-----------------------------------------------SECCIÓN DE DERMATILOMANIA-----------------------------------------------*/
-        if(dermatilomania && !tirando_pelo && !capturando_foto){
+        if(dermatilomania && !tirando_pelo){
 
             // REFERENCIA: https://imgur.com/a/Z4ykQd2
-            if(pinza_pellizco(tipPulgar3D, tipIndice3D, muñeca3D)){
+            if(pinza_pellizco(tipPulgar, tipIndice, muñeca)){
 
                 centro_elipse_x = (ojoLeft_Inner.x + ojoRight_Inner.x + nariz.x)/3
                 centro_elipse_y = (ojoLeft_Inner.y + ojoRight_Inner.y + nariz.y)/3
@@ -1209,7 +1247,7 @@ async function predict() {
 
     /*-----------------------------------------------SECCIÓN DE POSTURA-----------------------------------------------*/
 
-    if(postura && posesBlaze.length != 0 && !capturando_foto){
+    if(postura && posesBlaze.length != 0){
         hombro_izquierdo = posesBlaze[0].keypoints[11]
         hombro_derecho =  posesBlaze[0].keypoints[12]
 
@@ -1223,14 +1261,16 @@ async function predict() {
         mejilla_promedio_X = (mejilla_izquierda.x + mejilla_derecha.x) / 2.0
         mejilla_promedio_Y = (mejilla_izquierda.y + mejilla_izquierda.y) / 2.0
 
-        vertical = distancia_puntos(hombro_promedio_X, hombro_promedio_Y, mejilla_promedio_X, mejilla_promedio_Y)
-        horizontal = distancia_puntos(hombro_izquierdo.x, hombro_izquierdo.y, hombro_derecho.x, hombro_derecho.y)
-        proporcion_nueva = vertical / horizontal    
-        
-        
-        //Si se mira de frente y se comete mala postura
-        if (proporcion_nueva < 0.496){
+        vertical = distancia_puntos(hombro_promedio_X,  hombro_promedio_Y , mejilla_promedio_X , mejilla_promedio_Y )
+        horizontal = distancia_puntos(hombro_izquierdo.x , hombro_izquierdo.y , hombro_derecho.x , hombro_derecho.y )
+        proporcion_nueva = vertical / horizontal
 
+        /*
+        console.log("Horizontal: ", horizontal)
+        console.log("Vertical: ", vertical)
+        console.log("Proporcion: ", proporcion_nueva)
+        */
+        if(proporcion_nueva < 0.48){
             if(!corriendo_postura){
                 inicio_postura = new Date;
             }
@@ -1238,24 +1278,24 @@ async function predict() {
             console.log("MALA POSTURA")
             mala_postura = true;
             corriendo_postura = true;
-        
-        //Si está de perfil y se comete mala postura
-        }else if(proporcion_nueva > 0.73 && vertical < 89.5){
 
+        }else if(horizontal < 100 && vertical < 78){
             if(!corriendo_postura){
                 inicio_postura = new Date;
             }
-
+            
             console.log("MALA POSTURA")
             mala_postura = true;
             corriendo_postura = true;
 
         }
+
+ 
     }
     
 
 /*---------------------------------------------SECCIÓN DE FATIGA VISUAL CON PESTAÑEO----------------------------------------------*/
-    if(fatiga_visual && !capturando_foto){
+    if(fatiga_visual){
 
         //cara = await detectorPestañeo.estimateFaces(webcam.canvas);
 
@@ -1752,6 +1792,7 @@ async function predict() {
             corriendo_uña = false;
             detectado_uña = false;
             fin_uña = new Date;
+            detecciones_estres++;
             
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_uña, fin_uña);
@@ -1765,6 +1806,7 @@ async function predict() {
             corriendo_pelo = false;
             detectado_pelo = false;
             fin_pelo = new Date;
+            detecciones_estres++;
             
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_pelo, fin_pelo);
@@ -1778,6 +1820,7 @@ async function predict() {
             corriendo_objeto = false;
             detectado_objeto = false;
             fin_objeto = new Date;
+            detecciones_estres++;
             
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_objeto, fin_objeto);
@@ -1791,6 +1834,7 @@ async function predict() {
             corriendo_vista = false;
             detectado_vista = false;
             fin_vista = new Date;
+            //detecciones_estres++;
             
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_vista, fin_vista);
@@ -1804,6 +1848,7 @@ async function predict() {
             corriendo_nariz = false;
             detectado_nariz = false;
             fin_nariz = new Date;
+            detecciones_estres++;
 
             //@@@@@@@@@@@@@@@@@@BASE DE DATOOOOOOOOOOOOOOOOOSSSSSS
             console.log(inicio_nariz, fin_nariz);
@@ -1817,6 +1862,7 @@ async function predict() {
             corriendo_postura = false;
             detectado_postura = false;
             fin_postura = new Date;
+            //detecciones_estres++;
 
             //AQUI GUARDAR EN BASE DE DATOS
             actualizarJson('postura', inicio_postura, fin_postura)
@@ -1830,6 +1876,7 @@ async function predict() {
             corriendo_pellizco = false;
             detectado_pellizco = false;
             fin_pellizco = new Date;
+            detecciones_estres++;
 
             //AQUI GUARDAR EN BASE DE DATOS
             console.log(inicio_pellizco, fin_pellizco);
@@ -1841,6 +1888,16 @@ async function predict() {
     }
 
     fecha_ahora = new Date;
+
+    if(configuracion_deteccion_estres && !tiempo_estres && !detectado_estres && detecciones_estres > 0){
+        CountDownEstres();
+        
+    }else if(configuracion_deteccion_estres && tiempo_estres && detecciones_estres >= cantidad_estres && !detectado_estres){
+        Preguntar_Estres();
+        detecciones_estres = 0;
+        detectado_estres = true;
+    }
+
     //---------------------------NOTIFICACIONES ENTRE INTERVALOS DE TIEMPO---------------------------
     if (opcion == "tiempo"){
         if (corriendo_uña && !detectado_uña){
@@ -1910,7 +1967,7 @@ async function predict() {
                 detectado_nariz = true;
 
                 if (se_puede_notificar){
-                    NotificarNariz();
+                    NotificarNariz(config_user);
                     CountDownEntreNotificaciones();
                 }
             }
@@ -1923,7 +1980,7 @@ async function predict() {
                 detectado_postura = true;
 
                 if (se_puede_notificar){
-                    NotificarPostura();
+                    NotificarPostura(config_user);
                     CountDownEntreNotificaciones();
                 }
             }
@@ -1935,7 +1992,7 @@ async function predict() {
                 detectado_pellizco = true;
 
                 if (se_puede_notificar){
-                    NotificarPellizco();
+                    NotificarPellizco(config_user);
                     CountDownEntreNotificaciones();
                 }
             }
@@ -2028,7 +2085,7 @@ async function predict() {
                 cantidad_detecciones++;
 
                 if (cantidad_detecciones == cantidad_notificacion){
-                    NotificarNariz();
+                    NotificarNariz(config_user);
                     cantidad_detecciones = 0;
                     
                 }
@@ -2043,7 +2100,7 @@ async function predict() {
                 cantidad_detecciones++;
 
                 if (cantidad_detecciones == cantidad_notificacion){
-                    NotificarPostura();
+                    NotificarPostura(config_user);
                     cantidad_detecciones = 0;
                     
                 }
@@ -2058,7 +2115,7 @@ async function predict() {
                 cantidad_detecciones++;
 
                 if (cantidad_detecciones == cantidad_notificacion){
-                    NotificarPellizco();
+                    NotificarPellizco(config_user);
                     cantidad_detecciones = 0;
                     
                 }

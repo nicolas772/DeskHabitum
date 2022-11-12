@@ -202,6 +202,11 @@ ipcMain.on('get-user-id', (event, data) => {
   event.returnValue = ID_USER;
 })
 
+//Funcion cuando el usuario clickea la notificación de que está estresado
+ipcMain.on('Estresado', (event, data) => {
+  win.loadFile('src/views/Respiracion.html');
+})
+
 //Funcion para cerrar sesión y cambiar a vista de login
 ipcMain.on('cerrar-sesion', (event, data) => {
   loginWindow()
