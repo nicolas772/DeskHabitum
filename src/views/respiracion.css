@@ -112,22 +112,24 @@ body {
 
 .container.grow .pointer-container {
   
-  background-color: red;
+  /*background-color: red;*/
  
   animation: rotate1 7s linear forwards infinite; /**/
-  animation-delay:3s;
+  /*animation-delay:3s;*/
 
 }
 
 .container.hold .pointer-container{
-  background-color: green;
+ /* background-color: green;*/
   animation: rotate2 2s linear forwards infinite;
 }
 
 
 .container.shrink2 .pointer-container {
-  background-color: blue;
+  /*background-color: blue;*/
   animation: rotate3 5s linear forwards infinite;
+  
+  /*animation-delay:-3s;*/
 }
 
 @keyframes empezar{
