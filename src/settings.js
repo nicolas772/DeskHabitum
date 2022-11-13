@@ -22,7 +22,7 @@ const fatigaSound = document.getElementById("fatigaSound")//nuevo
 const posturaSound = document.getElementById("posturaSound")//nuevo
 const pielSound = document.getElementById("pielSound")//nuevo
 const narizSound = document.getElementById("narizSound")//nuevo
-const humanoSound = document.getElementById("humanoSound")//este no se guarda, es solo para el manejo de sonidos
+const humanoSound = document.getElementById("humanoSound")
 //configuraciones pomodoro
 const duracionPomo = document.getElementById("duracionPomo")
 const duracionShortBreak = document.getElementById("duracionShortBreak")
@@ -75,7 +75,8 @@ async function saveSettings(){
             narizSound.value,
             pellizcarPiel.checked,
             hurgarNariz.checked,
-            fotoUnha.checked
+            fotoUnha.checked,
+            humanoSound.value
         ]   
     }else{
         configList = [
@@ -107,7 +108,8 @@ async function saveSettings(){
             narizSound.value,
             pellizcarPiel.checked,
             hurgarNariz.checked,
-            fotoUnha.checked
+            fotoUnha.checked,
+            humanoSound.value
         ]
     }
 
@@ -153,7 +155,8 @@ async function saveSettings(){
         CONF[25],
         CONF[26],
         CONF[27],
-        CONF[28]
+        CONF[28],
+        CONF[29]
     ).then(result => {
         let resultado=result
     })
@@ -201,6 +204,7 @@ async function actualizarSettings(){
     $('#posturaSound').val(config.posturasound)
     $('#pielSound').val(config.pielsound)
     $('#narizSound').val(config.narizsound)
+    $('#humanoSound').val(config.humanosound)
     
     
     if(config.tiponotificacion == 'tiempo'){
