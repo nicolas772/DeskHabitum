@@ -600,7 +600,15 @@ const camaraUnhaOn = () => {
     return respuesta
 }
 
-
+const getFotosNames = () => {
+    let files = fs.readdirSync("./src/images/unhasUser")
+    let f = files.shift() //por el .DStore
+    if(files.length > 10){
+        let files_nuevo = files.slice(files.length - 10)
+        return files_nuevo
+    }
+    return files
+}
 
 
 contextBridge.exposeInMainWorld("api", {
@@ -711,7 +719,8 @@ contextBridge.exposeInMainWorld("api", {
     peorMesPiel: peorMesNariz,
     sesionesMesPiel: sesionesMesPiel,
     sesionesMesNariz: sesionesMesPiel,
-    camaraUnhaOn: camaraUnhaOn
+    camaraUnhaOn: camaraUnhaOn,
+    getFotosNames: getFotosNames
 })
 
 module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id, getConfig, parar_pomodoro}

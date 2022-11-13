@@ -221,8 +221,8 @@ function takePhoto2 () {
     context.drawImage(camara.webcam, 0, 0, 448, 320);
     photoData = camara.canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
     let fecha = new Date;
-    let fech = fecha.toUTCString()
-    let fecha_nueva = fech.replace(/:/g, "$")
+    let fech = fecha.toISOString()
+    let fecha_nueva = fech.replace(/:/g, "!")
     let path_file = './src/images/unhasUser/'+fecha_nueva+'.png'
     savePhoto(path_file)
 }
