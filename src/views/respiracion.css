@@ -27,7 +27,7 @@ body {
   /*height: 0px;
   width: 0px;*/
   position: relative;
-  transform: scale(1);
+  transform: scale(0.9);
 }
 
 .circle {
@@ -132,15 +132,7 @@ body {
   /*animation-delay:-3s;*/
 }
 
-@keyframes empezar{
-  from {
-    transform: rotate(0deg);
-  }
 
-  to {
-    transform: rotate(0deg);
-  }
-}
 
 @keyframes rotate1 {
   
@@ -185,6 +177,8 @@ body {
   }
 }
 */
+
+
 .container.hold {
   animation: hold 2s linear forwards; /*  grow 3s linear forwards;*/
 }
