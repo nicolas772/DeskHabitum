@@ -135,7 +135,10 @@
         </aside>
         <!----END ASIDE---->
         <main>
-            
+            <div class="mytabs">
+                <input type="radio" id="tabfree" name="mytabs" checked="checked">
+                <label for="tabfree">Configuraciones</label>
+                <div class="tab">
             <label><h1 style="margin-top:10px;margin-bottom:0px;">Configuraciones</h1>
                 <br/>
                 <h2 style="margin-bottom:0px;"> Detección automática</h2>
@@ -190,6 +193,10 @@
                     
                 </div>
             </label>
+        </div>
+        <input type="radio" id="tabsilver" name="mytabs">
+            <label for="tabsilver">Notificaciones</label>
+            <div class="tab">
             <label style="visibility: hidden"><div class="col py-1">........</div> </label>
             <label>
                 <h2 style="margin-bottom:0px;"> Notificaciones</h2>
@@ -486,6 +493,10 @@
                     
                 </div>
             </label>
+        </div>
+        <input type="radio" id="tabgold" name="mytabs">
+            <label for="tabgold">Equipos</label>
+            <div class="tab">
             <label style="visibility: hidden"><div class="col py-1">........</div> </label>
            
             
@@ -518,63 +529,7 @@
                             </div>
                         </label>
                     </div>
-                    <div style="width:50%; float:right; ">
-                        <label >
-                            <h2> Pomodoro</h2>
-                            
-                            <p> Aquí podrás personalizar tu Pomodoro.</p>
-                            <div class="row">
-                                <ul class="list-group" >
-                                    <li class="list-group-item d-flex justify-content-between align-items-center" >
-                                        Duración pomodoro [min]
-                                        <div >
-                                            <input id="duracionPomo" type="number" min="1" max="100" step="1" >
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Duración break corto [min]
-                                        <div style="margin-left:30px;">
-                                            <input id="duracionShortBreak" type="number" min="1" max="100" step="1"  >
-                                        </div>
-          
-                                        
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Duración break largo [min]
-                                        <div>
-                                            <input id="duracionLongBreak" type="number" min="1" max="100" step="1">
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Intervalo para break largo 
-                                        <div>
-                                            <input id="intervaloLongBreak" type="number" min="1" max="100" step="1">
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Cantidad de Pomodoros
-                                        <div>
-                                            <input id="cantidadPomodoros" type="number" min="1" max="100" step="1">
-                                        </div>
-                                    </li>
-                                    
-                                    <!--<li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <label class="mr-sm-2" for="inlineFormCustomSelect">Intervalo de Notificacion</label>
-                                        <select class="custom-select mr-sm-2" id="intervaloNotificacion">
-                                            <option selected>Choose...</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
-                                    </li>-->
-                                </ul>
-                                
-                            </div>
-                        </label>
-                        <div class = "div-boton-cambios">
-                        <button type='button' class="btn btn-outline-primary" style="float: right;" onclick="saveSettings()">Guardar Cambios</button>
-                        </div>
-                    </div>
+                    
                 </div>
                 <div id="unido_a_equipo" >
                     <div style="margin-top:20px; width:45%; float:left;">
@@ -598,62 +553,7 @@
             
                         </label>
                     </div>
-                    <div style="width:50%; float:right; ">
-                        <label >
-                            <h2> Pomodoro</h2>
-                            
-                            <p> Aquí podrás personalizar tu Pomodoro.</p>
-                            <div class="row">
-                                <ul class="list-group" >
-                                    <li class="list-group-item d-flex justify-content-between align-items-center" >
-                                        Duración pomodoro [min]
-                                        <div >
-                                            <input id="duracionPomo1" type="number" min="1" max="100" step="1" >
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Duración break corto [min]
-                                        <div style="margin-left:30px;">
-                                            <input id="duracionShortBreak1" type="number" min="1" max="100" step="1"  >
-                                        </div>
-                               
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Duración break largo [min]
-                                        <div>
-                                            <input id="duracionLongBreak1" type="number" min="1" max="100" step="1">
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Intervalo para break largo 
-                                        <div>
-                                            <input id="intervaloLongBreak1" type="number" min="1" max="100" step="1">
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Cantidad de Pomodoros
-                                        <div>
-                                            <input id="cantidadPomodoros1" type="number" min="1" max="100" step="1">
-                                        </div>
-                                    </li>
-                                    
-                                    <!--<li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <label class="mr-sm-2" for="inlineFormCustomSelect">Intervalo de Notificacion</label>
-                                        <select class="custom-select mr-sm-2" id="intervaloNotificacion">
-                                            <option selected>Choose...</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
-                                    </li>-->
-                                </ul>
-                                
-                            </div>
-                        </label>
-                        <div class = "div-boton-cambios">
-                        <button type='button' class="btn btn-outline-primary" style="float: right;" onclick="saveSettings()">Guardar Cambios</button>
-                        </div>
-                    </div>
+                    
                 </div>
                 
                 
@@ -661,9 +561,94 @@
 
 
             </div>
-
-
-
+        </div>
+        <input type="radio" id="tablast" name="mytabs">
+        <label for="tablast">Fotos evolución</label>
+        <div class="tab">
+            <div style="margin-top:20px; width:45%; float:left; " >
+                <label >
+                    <h2 style="margin-bottom:5px; "> Fotos evolución</h2>
+                    
+                    <p style="margin-bottom:5px;"> Aquí podrás activar la opción de sacar fotos periodicas de tus uñas para monitorear tu progreso.</p>
+                    <div class="row">
+                        <ul class="list-group">
+                            
+                            
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Activar
+                                <div class ="botoncito">
+                                    <input type="checkbox" id="morderUnha" checked data-toggle="toggle" data-onstyle="primary" data-size="small">
+                                </div>
+                            </li>
+                        
+                        </ul>
+                        
+                    </div>
+                    
+                </label>
+            </div>
+        </div>
+        <input type="radio" id="tablast2" name="mytabs">
+        <label for="tablast2">Pomodoro</label>
+        <div class="tab">
+            <div style="width:50%; float:left; ">
+                <label >
+                    <h2> Pomodoro</h2>
+                    
+                    <p> Aquí podrás personalizar tu Pomodoro.</p>
+                    <div class="row">
+                        <ul class="list-group" >
+                            <li class="list-group-item d-flex justify-content-between align-items-center" >
+                                Duración pomodoro [min]
+                                <div >
+                                    <input id="duracionPomo1" type="number" min="1" max="100" step="1" >
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Duración break corto [min]
+                                <div style="margin-left:30px;">
+                                    <input id="duracionShortBreak1" type="number" min="1" max="100" step="1"  >
+                                </div>
+                       
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Duración break largo [min]
+                                <div>
+                                    <input id="duracionLongBreak1" type="number" min="1" max="100" step="1">
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Intervalo para break largo 
+                                <div>
+                                    <input id="intervaloLongBreak1" type="number" min="1" max="100" step="1">
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Cantidad de Pomodoros
+                                <div>
+                                    <input id="cantidadPomodoros1" type="number" min="1" max="100" step="1">
+                                </div>
+                            </li>
+                            
+                            <!--<li class="list-group-item d-flex justify-content-between align-items-center">
+                                <label class="mr-sm-2" for="inlineFormCustomSelect">Intervalo de Notificacion</label>
+                                <select class="custom-select mr-sm-2" id="intervaloNotificacion">
+                                    <option selected>Choose...</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </li>-->
+                        </ul>
+                        
+                    </div>
+                </label>
+                <div class = "div-boton-cambios">
+                <button type='button' class="btn btn-outline-primary" style="float: right;" onclick="saveSettings()">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+        </div>
         </main>
     </div>
     <script src="../navbar.js"></script>
