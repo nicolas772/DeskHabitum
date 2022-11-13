@@ -1,8 +1,9 @@
 const fs = require('fs');
+const crud = require('./model/model.js')
 const {contextBridge, ipcRenderer} = require("electron");
 const tmImage = require('@teachablemachine/image');
 const handPoseDetection = require('@tensorflow-models/hand-pose-detection');
-let camara, photoData, config
+let camara, photoData, config_user
 let corriendo = true;
 let elem;
 modeloHand = handPoseDetection.SupportedModels.MediaPipeHands;
@@ -237,15 +238,14 @@ async function savePhoto (filePath) {
       });
     }
     corriendo = false;
-    ipcRenderer.invoke('camara-unha-off')
+    ID_USER = get_user_id()
+    await crud.getConfig(ID_USER).then(result => {
+        config_user = result[0];
+    })
+    ipcRenderer.invoke('camara-unha-off', config_user)
 }
 
-const cargarSonido = function (fuente) {
-    const sonido = document.createElement("audio");
-    sonido.src = fuente;
-    sonido.setAttribute("preload", "auto");
-    sonido.setAttribute("controls", "none");
-    sonido.style.display = "none"; // <-- oculto
-    document.body.appendChild(sonido);
-    return sonido;
-};
+function get_user_id(){
+    let respuesta = ipcRenderer.sendSync('get-user-id', "")
+    return respuesta   
+}

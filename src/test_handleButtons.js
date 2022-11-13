@@ -122,5 +122,5 @@ async function eliminar_grupo(){
 
 function takePhoto () {
     //window.api3.takePhoto()
-    window.api3.takePhoto2()
+    window.api3.takePhoto2() //le envio estos parametros para que index.js sepa que sonido ejecutar
 }

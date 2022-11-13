@@ -225,13 +225,10 @@ ipcMain.handle('camara-unha-off', (event, data) => {
     body: 'La fotografía de tus manos se guardo exitosamente.',
     silent: true
   }).show()
-  /*if (config.alertasonorageneral == 'on'){
-    let path = '../sounds/'+config.sonidonotificaciongeneral+'.mp3'
-    let sonido = cargarSonido(path);
-    sonido.play();
-  }*/
-  
-  sound.play("src/sounds/sound2.mp3");
+  if (data.alertasonorageneral == 'on'){
+    let path = "src/sounds/"+data.sonidonotificaciongeneral+".mp3"
+    sound.play(path);
+  }
 })
 
 //Contacto mail
