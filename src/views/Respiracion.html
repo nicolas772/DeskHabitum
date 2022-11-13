@@ -134,25 +134,73 @@
             </div>
         </aside>
         <!----END ASIDE---->
-        <main style="z-index:1;height: 600px;">
-            <h1 style="margin-bottom:50px;"> Respiración profunda</h1>
+        <main style="z-index:1;height: 630px; position:absolute;margin-left:950px;">
             
-            <div class="container" id="container" style="height:0px;margin-left:250px;margin-top:100px;" >
-                <div class="circle"></div>
-            
-                <p id="text"></p>
-            
-                <div class="pointer-container">
-                    <span class="pointer"></span>
+            <div class="mytabs">
+                <input type="radio" id="tabfree" name="mytabs" checked="checked">
+                <label for="tabfree" style="padding-right:491px;"><h1 style="margin-bottom:0;padding-bottom:0;">Respiración Profunda</h1></label>
+                <div class="tab" >
+                    <div style="width:50%;float:left;" >
+                        <div class="container" id="container"  style="padding-left:450px;margin-left:290px;margin-top:20px;"> <!--style="padding-left:450px;margin-left:290px;margin-top:50px;"-->
+                            <div class="circle"></div>                    
+                            <div class="pointer-container" style="left:-128px;">
+                                <span class="pointer"></span>
+                            </div>
+                            <!--<div class="countdown"></div>-->
+                            <div class="gradient-circle" style="left:-280px;"></div>
+                        </div>
+                        <p class = "text" id="text" style="height:0;margin-left:175px;margin-top:305px;font-weight: bolder;font-size: 20px;"></p>
+                        <div class = "div-boton-cambios">
+                            <button type='button' class="btn btn-outline-primary" style="float: right;" ><span class="glyphicon glyphicon-play"></span> Play</button> <!--onclick="saveSettings()"-->
+                        </div> <!--onclick="start_pomodoro()"-->
+                    </div>
+                    <div style="margin-top:30px;height:400px;width:40%;float:right;">
+                       
+                    
+                        <p style="margin-bottom:5px;"> Personaliza tus tiempos</p>
+                        <div class="row"  >
+                            <ul class="list-group" >
+                                <li class="list-group-item d-flex justify-content-between align-items-center" >
+                                    Inhalación[s]
+                                    <div >
+                                        <input id="duracionInhalacion" type="number" min="1" max="100" step="1" >
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center" >
+                                    Exhalación[s]
+                                    <div >
+                                        <input id="duracionExhalacion" type="number" min="1" max="100" step="1" >
+                                    </div>
+                                </li>
+                                
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Pausa [s]
+                                    <div>
+                                        <input id="duracionMantener1" type="number" min="1" max="100" step="1">
+                                    </div>
+                                </li>
+                            
+                                
+                                
+                            </ul>
+                            
+                        </div>
+                    
+                        <div class = "div-boton-cambios">
+                            <button type='button' class="btn btn-outline-primary" style="float: right;" >Guardar Cambios</button> <!--onclick="saveSettings()"-->
+                        </div>
+                    </div> <!--fin div config left 50%-->
+                    
                 </div>
-            
-                <div class="gradient-circle" ></div>
+                
+                
             </div>
-            
-            
 
+            
+            
+            
         </main>
-    </div>
+    </div> <!--fin div container que contiene main-->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../navbar.js"></script>
     <!--<script src="../profile.js"></script>-->

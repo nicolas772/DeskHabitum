@@ -19,7 +19,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/solid.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/svg-with-js.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href = "./perfil.css">
+    <link rel="stylesheet" href = "./respiracion.css">
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
@@ -92,10 +92,9 @@
                             <h3>Contacto Profesional</h3>
                         </a>
                     </div>
-
                     <div class="item">
                         <a class ="sub-btn active">
-                            <span class="material-icons-sharp"><i class="fas fa-dice-d6"></i><i class="fas fa-angle-right dropdown fa-sm" ></i></span>
+                            <span class="material-icons-sharp"><i class="fas fa-dice-d6"></i><i class="fas fa-angle-right dropdown fa-sm"  ></i></span>
                             <h3>Herramientas</h3>
                         </a>
                         <div class = "sub-menu">
@@ -117,7 +116,6 @@
 
                         </div>
                     </div>
-                    
                     <div class="item">
                     <a href = "Settings.html">
                         <span class="material-icons-sharp">settings</span>
@@ -136,47 +134,79 @@
             </div>
         </aside>
         <!----END ASIDE---->
-        <main style="z-index:1">
-            <h1> Tu evolución</h1>
-            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img
-                      src="image.jpg"
-                      class="d-block w-100"
-                      alt="..."
-                    />
-                  </div>
-                  <div class="carousel-item">
-                    <img
-                      src="image2.jpg"
-                      class="d-block w-100"
-                      alt="..."
-                    />
-                  </div>
-                  <div class="carousel-item">
-                    <img
-                      src="image.jpg"
-                      class="d-block w-100"
-                      alt="..."
-                    />
-                  </div>
+        <main style="z-index:1;height: 630px; position:absolute;margin-left:950px;">
+            
+            <div class="mytabs">
+                <input type="radio" id="tabfree" name="mytabs" checked="checked">
+                <label for="tabfree" style="padding-right:330px;"><h1 style="margin-bottom:0;padding-bottom:0;">Respiración Profunda</h1></label>
+                <div class="tab" >
+                    <div class="container" id="container" style="padding-left:450px;margin-left:290px;margin-top:50px;" >
+                        <div class="circle"></div>                    
+                        <div class="pointer-container">
+                            <span class="pointer"></span>
+                        </div>
+                        <!--<div class="countdown"></div>-->
+                        <div class="gradient-circle" ></div>
+                       
+
+                    </div>
+
+                    <p class = "text" id="text" style="height:0;margin-left:375px;margin-top:430px;font-weight: bolder;font-size: 30px;"></p>
+
+
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Siguiente</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Anterior</span>
-                </button>
-              </div>
+
+                <input type="radio" id="tabsilver" name="mytabs">
+                <label for="tabsilver"><span class="material-icons-sharp">settings</span></label>
+                <div class="tab">
+                    <div style="padding-left:550px;margin-top:50px;height:400px;">
+                       
+                    
+                            <p> Personaliza tus tiempos</p>
+                            <div class="row"  >
+                                <ul class="list-group" >
+                                    <li class="list-group-item d-flex justify-content-between align-items-center" >
+                                        Inhalación[s]
+                                        <div >
+                                            <input id="duracionInhalacion" type="number" min="1" max="100" step="1" >
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center" >
+                                        Exhalación[s]
+                                        <div >
+                                            <input id="duracionExhalacion" type="number" min="1" max="100" step="1" >
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Pausa [s]
+                                        <div>
+                                            <input id="duracionMantener1" type="number" min="1" max="100" step="1">
+                                        </div>
+                                    </li>
+                                
+                                    
+                                    
+                                </ul>
+                                
+                            </div>
+                        
+                        <div class = "div-boton-cambios">
+                            <button type='button' class="btn btn-outline-primary" style="float: right;" onclick="saveSettings()">Guardar Cambios</button>
+                        </div>
+                    </div> <!--fin div config left 50%-->
+                </div>
+            </div>
+
+            
+            
+            
         </main>
-    </div>
-    
+    </div> <!--fin div container que contiene main-->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../navbar.js"></script>
-    <script src="../profile.js"></script>    
+    <!--<script src="../profile.js"></script>-->
+    <script src="../respiracion.js"></script>
     <!--<script src="../renderWebcam.js"></script>-->
     <script type="text/javascript">
         $(document).ready(function(){
@@ -191,11 +221,4 @@
         });
     </script>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
-  <!--<script src="script.js"></script>-->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"
-  ></script>
 </html>
