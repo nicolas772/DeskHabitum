@@ -22,7 +22,7 @@ const holdTime = 2000;
 
 
 
-breathAnimation();
+//breathAnimation();
 
 function breathAnimation() {
   text.innerText = 'INHALA';
