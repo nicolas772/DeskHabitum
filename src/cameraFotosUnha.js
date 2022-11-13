@@ -2,12 +2,14 @@ const fs = require('fs');
 const {contextBridge, ipcRenderer} = require("electron");
 const tmImage = require('@teachablemachine/image');
 const handPoseDetection = require('@tensorflow-models/hand-pose-detection');
-let camara, photoData
+let camara, photoData, config
 let corriendo = true;
 let elem;
-
 modeloHand = handPoseDetection.SupportedModels.MediaPipeHands;
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 function distancia_puntos3D(x1, y1, z1, x2, y2, z2){
     return ((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2) ** 0.5
@@ -227,7 +229,7 @@ function takePhoto2 () {
     savePhoto(path_file)
 }
 
-function savePhoto (filePath) {
+async function savePhoto (filePath) {
     if (filePath) {
       fs.writeFile(filePath, photoData, 'base64', (err) => {
         if (err) alert(`There was a problem saving the photo: ${err.message}`);
@@ -237,3 +239,13 @@ function savePhoto (filePath) {
     corriendo = false;
     ipcRenderer.invoke('camara-unha-off')
 }
+
+const cargarSonido = function (fuente) {
+    const sonido = document.createElement("audio");
+    sonido.src = fuente;
+    sonido.setAttribute("preload", "auto");
+    sonido.setAttribute("controls", "none");
+    sonido.style.display = "none"; // <-- oculto
+    document.body.appendChild(sonido);
+    return sonido;
+};

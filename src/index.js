@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain, Notification, MessageChannelMain} = require
 const path = require('path')
 const model = require('./model/model.js')
 var nodemailer = require("nodemailer");
-
+const sound = require("sound-play");
 
 //model.eliminarGrupo("hXhix7Ornk").then(r => console.log());
 
@@ -220,7 +220,20 @@ ipcMain.handle('camara-unha-on', (event, data) => {
 
 ipcMain.handle('camara-unha-off', (event, data) => {
   winCameraUnha.close()
+  new Notification({
+    title:"Fotografía Guardada",
+    body: 'La fotografía de tus manos se guardo exitosamente.',
+    silent: true
+  }).show()
+  /*if (config.alertasonorageneral == 'on'){
+    let path = '../sounds/'+config.sonidonotificaciongeneral+'.mp3'
+    let sonido = cargarSonido(path);
+    sonido.play();
+  }*/
+  
+  sound.play("src/sounds/sound2.mp3");
 })
+
 //Contacto mail
 function SendIt(nombre, email, telefono, region, ciudad, atencion, motivo) {
   
