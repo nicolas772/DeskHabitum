@@ -1,5 +1,25 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
+:root {
+  --circulo-resp: conic-gradient(
+    #55b7a4 0%,
+    #4ca493 50%,
+    #fff 50%,
+    #fff 64%,
+    #336d62 64%,
+    #2a5b52 100%
+  );
+  --breath: 7s;
+  --hold: 2s;
+  --release: 5s;
+  --rotate1_from: rotate(0deg);
+  --rotate1_to: rotate(180deg);
+  --rotate2_from: rotate(180deg);
+  --rotate2_to: rotate(232deg);
+  --rotate3_from: rotate(232deg);
+  --rotate3_to: rotate(360deg);
+}
+
 /*
 * {
   box-sizing: border-box;
@@ -54,14 +74,7 @@ body {
 
 
 .gradient-circle {
-  background: conic-gradient(
-    #55b7a4 0%,
-    #4ca493 50%,
-    #fff 50%,
-    #fff 64%,
-    #336d62 64%,
-    #2a5b52 100%
-  );
+  background: var(--circulo-resp);
   
   height: 320px;
   width: 320px;
@@ -114,20 +127,20 @@ body {
   
   /*background-color: red;*/
  
-  animation: rotate1 7s linear forwards infinite; /**/
+  animation: rotate1 var(--breath) linear forwards; /**/
   /*animation-delay:3s;*/
 
 }
 
 .container.hold .pointer-container{
  /* background-color: green;*/
-  animation: rotate2 2s linear forwards infinite;
+  animation: rotate2 var(--hold) linear forwards ;
 }
 
 
 .container.shrink2 .pointer-container {
   /*background-color: blue;*/
-  animation: rotate3 5s linear forwards infinite;
+  animation: rotate3 var(--release) linear forwards ;
   
   /*animation-delay:-3s;*/
 }
@@ -138,31 +151,31 @@ body {
   
   from {
     
-    transform: rotate(0deg);
+    transform: var(--rotate1_from);
   }
 
   to {
-    transform: rotate(180deg);
+    transform: var(--rotate1_to);
   }
 }
 
 @keyframes rotate2 {
   from {
-    transform: rotate(180deg);
+    transform: var(--rotate2_from);
   }
 
   to {
-    transform: rotate(232deg);
+    transform: var(--rotate2_to);
   }
 }
 
 @keyframes rotate3 {
   from {
-    transform: rotate(232deg);
+    transform: var(--rotate3_from);
   }
 
   to {
-    transform: rotate(360deg);
+    transform: var(--rotate3_to);
   }
 }
 
@@ -175,90 +188,5 @@ body {
   to {
     transform: rotate(360deg);
   }
-}
-*/
-
-
-.container.hold {
-  animation: hold 2s linear forwards; /*  grow 3s linear forwards;*/
-}
-
-@keyframes hold {
-  from {
-    transform: scale(0.9); /*1*/
-  }
-
-  to {
-    transform: scale(0.9);/*1.2*/
-  }
-}
-
-
-
-.container.grow {
-  animation: grow 2s linear forwards; /*  grow 3s linear forwards;*/
-}
-
-@keyframes grow {
-  from {
-    transform: scale(0.9); /*1*/
-  }
-
-  to {
-    transform: scale(0.9);/*1.2*/
-  }
-}
-
-.container.shrink2 {
-  animation: shrink2 2s linear forwards;  /* shrink2  grow 3s linear forwards;*/
-}
-
-
-@keyframes shrink2 {
-  from {
-    transform: scale(0.9);  /*1.2*/
-  }
-
-  to {
-    transform: scale(0.9); /*1*/
-  }
-}
-
-
-
-/*
-.text {
-  position: absolute;
-  
-  animation: rotate2 2s linear forwards infinite;
-}
-
-@keyframes rotate2 {
-  from {
-    font-size:2em;
-  }
-
-  to {
-    font-size:4em;
-  }
-}
-*/
-
-
-/*
-.countdown:before {
-  content: '321';
-
-  font-family:monospace;
-  display:inline-block;
-  width:1ch;
-  overflow:hidden;
-
-  animation:countdowns 3s steps(3) infinite;
-}
-
-@keyframes countdowns {
-  0% {text-indent:0}
-  100% {text-indent:-3ch;}
 }
 */
