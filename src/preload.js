@@ -575,8 +575,13 @@ const allPostura = (id_user) => {
     return model.allPostura(id_user)
 }
 
+const ultimaTimeNariz = (id_user) => {
+    return model.ultimaTimeNariz(id_user)
+}
 
-
+const ultimaTimePiel = (id_user) => {
+    return model.ultimaTimePiel(id_user)
+}
 
 
 
@@ -696,7 +701,9 @@ contextBridge.exposeInMainWorld("api", {
     ultimaTimePostura: ultimaTimePostura,
     data10Postura: data10Postura,
     mesPostura: mesPostura,
-    allPostura: allPostura
+    allPostura: allPostura,
+    ultimaTimeNariz: ultimaTimeNariz,
+    ultimaTimePiel, ultimaTimePiel
     
 })
 

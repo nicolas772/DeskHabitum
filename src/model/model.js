@@ -492,6 +492,13 @@ const ultimaNariz = async (id_usuario) => {
     return result[0]['cant_total_nariz']    
 }
 
+const ultimaTimeNariz = async (id_usuario) => {
+    let query = `select time_nariz from sesions where id_user = ${id_usuario} order by id desc limit 1`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['time_nariz']    
+}
+
 const totalNariz = async (id_usuario) => {
     let query = `select sum(cant_total_nariz) as total_nariz from sesions where id_user = ${id_usuario}`;
     const res = await conexion.query(query)
@@ -549,6 +556,12 @@ const ultimaPiel = async (id_usuario) => {
     const res = await conexion.query(query)
     const result = res.rows
     return result[0]['cant_total_piel']    
+}
+const ultimaTimePiel = async (id_usuario) => {
+    let query = `select time_piel from sesions where id_user = ${id_usuario} order by id desc limit 1`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['time_piel']    
 }
 
 const totalPiel = async (id_usuario) => {
@@ -951,4 +964,4 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
              datosUltimaSesionPomodoro, cantDeteccionesFatigaPorMinutoTenSesion, ultimaVista, totalVista, top10Vista, eliminarGrupo,
              createNariz, ultimaNariz, totalNariz, peorSesionNariz, mejorSesionNariz, createPiel, ultimaPiel, totalPiel, peorSesionPiel, mejorSesionPiel, percentageTenSesionPiel, percentageTenSesionNariz, totalTimeNariz, totalTimePiel,
             mejorMesNariz, mejorMesPiel, peorMesNariz, peorMesPiel, sesionesMesNariz, sesionesMesPiel,
-        /** nuevas */ createPostura, ultimaPostura, ultimaTimePostura, data10Postura, mesPostura, allPostura}
+        /** nuevas */ createPostura, ultimaPostura, ultimaTimePostura, data10Postura, mesPostura, allPostura,ultimaTimeNariz, ultimaTimePiel}
