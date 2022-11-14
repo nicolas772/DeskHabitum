@@ -185,7 +185,7 @@ function breathAnimation() {
       var downloadTimer3 = setInterval(function(){
         timeleftexhal -= 1;
         text.innerText = 'EXHALA ' + timeleftexhal + " s";
-        if(timeleftexhal <= 0){
+        if(timeleftexhal <= 1){
           clearInterval(downloadTimer3);
         } 
       }, 1000);
