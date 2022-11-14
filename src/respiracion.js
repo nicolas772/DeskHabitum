@@ -4,6 +4,7 @@ const container = document.getElementById('container');
 const text = document.getElementById('text');
 const start = document.getElementById('start-res');
 const end = document.getElementById('end-res');
+const gradiant = document.getElementById('grad-circle');
 
 var r = document.querySelector(':root');
 
@@ -11,7 +12,7 @@ var totalTime = 14000;
 var breatheTime = 7000; //para 10seg inhalacion 2 mantencion 5 exhalacion (al 7seg se le suman 3seg si agrego delaydelay para empezar)
 var holdTime = 2000; 
 
-
+var serecargo=0;
 /*------INICIO Musica */
 let now_playing = document.querySelector('.now-playing');
 let track_art = document.querySelector('.track-art');
@@ -194,10 +195,13 @@ function setUpdate(){
 /*------FIN MUSICA */
 
 window.onload=function(){
+  //gradiant.className += " loaded";
+
   if(localStorage.getItem('inha1')==null){
     totalTime = 14000; 
     breatheTime = 7000; //para 10seg inhalacion 2 mantencion 5 exhalacion (al 7seg se le suman 3seg si agrego delaydelay para empezar)
     holdTime = 2000; 
+    empezo=1;
     localStorage.setItem("inha1", 7);
     localStorage.setItem("exha1", 5);
     localStorage.setItem("mant1", 2);
@@ -251,6 +255,12 @@ window.onload=function(){
     r.style.setProperty('--rotate3_from',`rotate(${localStorage.getItem('grado2')}deg)`);
     r.style.setProperty('--rotate3_to',`rotate(360deg)`);
 
+    if(localStorage.getItem("empezo")==1){
+      
+      breathAnimation();
+    } 
+    
+
   }
   
   
@@ -260,6 +270,8 @@ window.onload=function(){
 
 
 function changeBreath(){
+  
+  localStorage.setItem("empezo", 1);
   var inhalacion = document.getElementById('duracionInhalacion').value;
   var exhalacion = document.getElementById('duracionExhalacion').value;
   var mantener = document.getElementById('duracionMantener1').value;
@@ -379,12 +391,14 @@ function breathAnimation() {
 }
 
 function endbreathAnimation(){
+  localStorage.setItem("empezo", 0);
   window.location.reload();
   
 }
 
 
 function tecnica_square(){
+  localStorage.setItem("empezo", 1);
   document.getElementById('duracionInhalacion').value = 4;
   document.getElementById('duracionExhalacion').value= 4;
   mantener = document.getElementById('duracionMantener1').value=4;
@@ -442,11 +456,13 @@ function tecnica_square(){
   r.style.setProperty('--rotate3_to',`rotate(360deg)`);
 
   window.location.reload();
+  //breathAnimation();
 
 
 }
 
 function tecnica_pranayama(){
+  localStorage.setItem("empezo", 1);
   document.getElementById('duracionInhalacion').value = 7;
   document.getElementById('duracionExhalacion').value= 8;
   mantener = document.getElementById('duracionMantener1').value=4;
@@ -509,6 +525,7 @@ function tecnica_pranayama(){
 }
 
 function tecnica_ujjayi(){
+  localStorage.setItem("empezo", 1);
   document.getElementById('duracionInhalacion').value = 7;
   document.getElementById('duracionExhalacion').value= 7;
   mantener = document.getElementById('duracionMantener1').value=0;
@@ -572,9 +589,7 @@ function tecnica_ujjayi(){
 
 
 
-
-
-
+$('grad-circle').fadeIn('slow');
 
 
 window.onbeforeunload = () => {
@@ -590,6 +605,10 @@ window.onbeforeunload = () => {
   localStorage.setItem("porcent2",localStorage.getItem("porcent2"));
   localStorage.setItem("grado1",localStorage.getItem("grado1"));
   localStorage.setItem("grado2",localStorage.getItem("grado2"));
+  localStorage.setItem("empezo",localStorage.getItem("empezo"));
+  //breathAnimation();
+
+
   //localStorage.removeItem("inha1");//para probar primera vez que el usuario usa app, es decir con localstorage vacio.
   /*sessionStorage.clear();*/
 }

@@ -43,7 +43,27 @@ const chart_postura = new Chart(ctx_p, {
   label:'sesiones',
   type: 'bubble',
   data: data,
-  options: {},
+  options: {
+    layout: {
+      padding: 10
+  },
+    scales: {
+      x: {
+        title: {
+          color: 'gray',
+          display: true,
+          text: 'NÚMERO DE SESIÓN'
+        }
+      },
+      y:{
+        title: {
+          color: 'gray',
+          display: true,
+          text: 'MOMENTO DE DETECCIÓN [min]'
+        }
+      }
+    }
+  },
   yaxis:{
     decimalsInFloat: false,
   }
@@ -77,11 +97,28 @@ const config_posmes = new Chart(ctx_pmes,{
   type: 'bar',
   data: data_posmes,
   options: {
+    layout: {
+      padding: 10
+  },
     scales: {
-      y: {
-        beginAtZero: true
+      x: {
+        title: {
+          color: 'gray',
+          display: true,
+          text: 'MES'
+        }
+      },
+      y:{
+        beginAtZero: true,
+        title: {
+          
+          color: 'gray',
+          display: true,
+          text: 'CANTIDAD DE DETECCIONES'
+        }
       }
     }
+    
   },
 });
 
