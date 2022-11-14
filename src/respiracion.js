@@ -6,20 +6,76 @@ const start = document.getElementById('start-res');
 
 var r = document.querySelector(':root');
 
-/*
-const totalTime = 7500;
-const breatheTime = (totalTime / 5) * 2; //3s
-const holdTime = totalTime / 5; //1.5s
-
-*/
-/*
-const totalTime = 14000;  
-const breatheTime = 7000;  //para 7seg inhalacion 2 mantencion 5 exhalacion
-const holdTime = 2000; 
-*/
 var totalTime = 14000; 
 var breatheTime = 7000; //para 10seg inhalacion 2 mantencion 5 exhalacion (al 7seg se le suman 3seg si agrego delaydelay para empezar)
 var holdTime = 2000; 
+
+
+
+
+window.onload=function(){
+  if(localStorage.getItem('inha1')==null){
+    totalTime = 14000; 
+    breatheTime = 7000; //para 10seg inhalacion 2 mantencion 5 exhalacion (al 7seg se le suman 3seg si agrego delaydelay para empezar)
+    holdTime = 2000; 
+    localStorage.setItem("inha1", 7);
+    localStorage.setItem("exha1", 5);
+    localStorage.setItem("mant1", 2);
+    document.getElementById('duracionInhalacion').value = localStorage.getItem('inha1');
+    document.getElementById('duracionExhalacion').value = localStorage.getItem('exha1') ;
+    document.getElementById('duracionMantener1').value = localStorage.getItem('mant1');
+
+
+    r.style.setProperty('--breath', localStorage.getItem('inha1') + 's');
+    r.style.setProperty('--release', localStorage.getItem('exha1') + 's');
+    r.style.setProperty('--hold', localStorage.getItem('mant1') + 's');
+
+    localStorage.setItem("porcent1", 50);
+    localStorage.setItem("porcent2", 64);
+    localStorage.setItem("grado1", 180);
+    localStorage.setItem("grado2", 232);
+
+
+    r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${localStorage.getItem('porcent1')}%,#fff ${localStorage.getItem('porcent1')}%,#fff ${localStorage.getItem('porcent2')}%,#336d62 ${localStorage.getItem('porcent2')}%,#2a5b52 100%)`) 
+  
+
+    r.style.setProperty('--rotate1_from',`rotate(0deg)`);
+    r.style.setProperty('--rotate1_to',`rotate(${localStorage.getItem('grado1')}deg)`);
+    r.style.setProperty('--rotate2_from',`rotate(${localStorage.getItem('grado1')}deg)`);
+    r.style.setProperty('--rotate2_to',`rotate(${localStorage.getItem('grado2')}deg)`);
+    r.style.setProperty('--rotate3_from',`rotate(${localStorage.getItem('grado2')}deg)`);
+    r.style.setProperty('--rotate3_to',`rotate(360deg)`);
+
+
+  }
+  else{
+    document.getElementById('duracionInhalacion').value = localStorage.getItem('inha1');
+    document.getElementById('duracionExhalacion').value = localStorage.getItem('exha1') ;
+    document.getElementById('duracionMantener1').value = localStorage.getItem('mant1');
+    totalTime = localStorage.getItem('totalTime'); 
+    breatheTime =localStorage.getItem('breatheTime'); //para 10seg inhalacion 2 mantencion 5 exhalacion (al 7seg se le suman 3seg si agrego delaydelay para empezar)
+    holdTime = localStorage.getItem('holdTime'); 
+
+    r.style.setProperty('--breath', localStorage.getItem('inha1') + 's');
+    r.style.setProperty('--release', localStorage.getItem('exha1') + 's');
+    r.style.setProperty('--hold', localStorage.getItem('mant1') + 's');
+
+
+    r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${localStorage.getItem('porcent1')}%,#fff ${localStorage.getItem('porcent1')}%,#fff ${localStorage.getItem('porcent2')}%,#336d62 ${localStorage.getItem('porcent2')}%,#2a5b52 100%)`) 
+  
+
+    r.style.setProperty('--rotate1_from',`rotate(0deg)`);
+    r.style.setProperty('--rotate1_to',`rotate(${localStorage.getItem('grado1')}deg)`);
+    r.style.setProperty('--rotate2_from',`rotate(${localStorage.getItem('grado1')}deg)`);
+    r.style.setProperty('--rotate2_to',`rotate(${localStorage.getItem('grado2')}deg)`);
+    r.style.setProperty('--rotate3_from',`rotate(${localStorage.getItem('grado2')}deg)`);
+    r.style.setProperty('--rotate3_to',`rotate(360deg)`);
+
+  }
+  
+  
+
+}
 
 
 
@@ -27,16 +83,24 @@ function changeBreath(){
   var inhalacion = document.getElementById('duracionInhalacion').value;
   var exhalacion = document.getElementById('duracionExhalacion').value;
   var mantener = document.getElementById('duracionMantener1').value;
-  var total = parseInt(inhalacion)+parseInt(exhalacion)+parseInt(mantener);
+  localStorage.setItem("inha1", inhalacion);
+  localStorage.setItem("exha1", exhalacion);
+  localStorage.setItem("mant1", mantener);
 
- 
-  
+  var total = parseInt(inhalacion)+parseInt(exhalacion)+parseInt(mantener);
+  localStorage.setItem("total",total);
+
 
   breatheTime = parseInt(inhalacion)*1000;
   totalTime = parseInt(total)*1000;
   holdTime = parseInt(mantener)*1000;
-  exhalTime= parseInt(exhalacion)*1000;
+  //exhalTime= parseInt(exhalacion)*1000;
   
+  localStorage.setItem("breatheTime",breatheTime);
+  localStorage.setItem("totalTime",totalTime);
+  localStorage.setItem("holdTime",holdTime);
+  //localStorage.setItem("exhalTime",exhalTime);
+
 
 
  /* r.style.setProperty('--rotate1_to', "rotate(36deg)")*/
@@ -52,9 +116,11 @@ function changeBreath(){
   var grado1 = porcent1*360/100;
   var grado2 = porcent2*360/100;
 
-  console.log(totalTime);
-  console.log(breatheTime);
-  console.log(holdTime);
+  localStorage.setItem("porcent1",porcent1);
+  localStorage.setItem("porcent2",porcent2);
+  localStorage.setItem("grado1",grado1);
+  localStorage.setItem("grado2",grado2);
+  
 
   r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#fff ${porcent1}%,#fff ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
   
@@ -66,28 +132,12 @@ function changeBreath(){
   r.style.setProperty('--rotate3_from',`rotate(${grado2}deg)`);
   r.style.setProperty('--rotate3_to',`rotate(360deg)`);
 
-
-
-
-/*
-  --rotate1_from: rotate(0deg);
-  --rotate1_to: rotate(180deg);
-  --rotate2_from: rotate(180deg);
-  --rotate2_to: rotate(232deg);
-  --rotate3_from: rotate(232deg);
-  --rotate3_to: rotate(360deg);
-*/
-
+  window.location.reload();
 }
 
 
-
-var empezo=0;
-/*start.addEventListener("click",breathAnimation());*/
-
-/*breathAnimation();*/
-
 function breathAnimation() {
+  
   text.innerText = 'INHALA';
   container.className = 'container grow';
   
@@ -105,3 +155,25 @@ function breathAnimation() {
   /*Footer*/
 }
 
+function endbreathAnimation(){
+  window.location.reload();
+  
+}
+
+
+window.onbeforeunload = () => {
+  
+  
+  localStorage.setItem("inha1", localStorage.getItem('inha1'));
+  localStorage.setItem("exha1", localStorage.getItem('exha1'));
+  localStorage.setItem("mant1", localStorage.getItem('mant1'));
+  localStorage.setItem("breatheTime",localStorage.getItem('breatheTime'));
+  localStorage.setItem("totalTime",localStorage.getItem('totalTime'));
+  localStorage.setItem("holdTime",localStorage.getItem('holdTime'));
+  localStorage.setItem("porcent1",localStorage.getItem("porcent1"));
+  localStorage.setItem("porcent2",localStorage.getItem("porcent2"));
+  localStorage.setItem("grado1",localStorage.getItem("grado1"));
+  localStorage.setItem("grado2",localStorage.getItem("grado2"));
+  //localStorage.removeItem("inha1");//para probar primera vez que el usuario usa app.
+  /*sessionStorage.clear();*/
+}

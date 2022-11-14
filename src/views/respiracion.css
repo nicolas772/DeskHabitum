@@ -47,7 +47,7 @@ body {
   /*height: 0px;
   width: 0px;*/
   position: relative;
-  transform: scale(0.9);
+  transform: scale(1);
 }
 
 .circle {
