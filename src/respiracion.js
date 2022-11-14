@@ -138,19 +138,61 @@ function changeBreath(){
 
 
 function breathAnimation() {
+
+  
+  
+  
+  
+  console.log(timeleftinhal);
+
+
   
   text.innerText = 'INHALA';
   container.className = 'container grow';
   document.getElementById("end-res").style.display = "block";
   document.getElementById("start-res").style.display = "none";
+
+  var timeleftinhal=(breatheTime/1000);
+  var downloadTimer1 = setInterval(function(){
+    timeleftinhal -= 1;
+    document.getElementById("countdown").innerHTML = timeleftinhal + " seconds remaining";
+    if(timeleftinhal <= 0){
+      clearInterval(downloadTimer1);
+    } 
+  }, 1000);
+
   
   setTimeout(() => {
     text.innerText = 'MANTÉN';
     container.className = 'container hold';
 
+    
+    var timelefthold=holdTime/1000;
+    var downloadTimer2 = setInterval(function(){
+      timelefthold -= 1;
+      document.getElementById("countdown").innerHTML = timelefthold + " seconds remaining";
+      if(timelefthold <= 0){
+        clearInterval(downloadTimer2);
+      } 
+    }, 1000);
+    
+
     setTimeout(() => {
       text.innerText = 'EXHALA';
       container.className = 'container shrink2';
+
+      var timeleftexhal=(totalTime-breatheTime-holdTime)/1000;
+      var downloadTimer3 = setInterval(function(){
+        timeleftexhal -= 1;
+        document.getElementById("countdown").innerHTML = timeleftexhal + " seconds remaining";
+        if(timeleftexhal <= 0){
+          clearInterval(downloadTimer3);
+        } 
+      }, 1000);
+
+      
+
+
     }, holdTime);
   }, breatheTime);
 
@@ -177,6 +219,6 @@ window.onbeforeunload = () => {
   localStorage.setItem("porcent2",localStorage.getItem("porcent2"));
   localStorage.setItem("grado1",localStorage.getItem("grado1"));
   localStorage.setItem("grado2",localStorage.getItem("grado2"));
-  //localStorage.removeItem("inha1");//para probar primera vez que el usuario usa app.
+  //localStorage.removeItem("inha1");//para probar primera vez que el usuario usa app, es decir con localstorage vacio.
   /*sessionStorage.clear();*/
 }
