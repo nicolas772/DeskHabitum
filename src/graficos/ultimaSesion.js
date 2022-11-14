@@ -121,7 +121,7 @@ async function update_dash_ultima_sesion() {
           width:500,
         type: 'donut',
       },
-      labels: ['Tiempo Onicofagia', 'Tiempo Tricotilomanía', 'Tiempo Morder objetos', 'Tiempo Rinotilexomania', 'Tiempo dematilomania', 'Tiempo Óptimo'],
+      labels: ['Tiempo Onicofagia', 'Tiempo Tricotilomanía', 'Tiempo Morder objetos', 'Tiempo Rinotilexomanía', 'Tiempo Dematilomanía', 'Tiempo Óptimo'],
       responsive: [{
         breakpoint: 480,
         options: {
