@@ -3,6 +3,7 @@ let ID_USER = window.api.get_user_id("")
 const container = document.getElementById('container');
 const text = document.getElementById('text');
 const start = document.getElementById('start-res');
+const end = document.getElementById('end-res');
 
 var r = document.querySelector(':root');
 
@@ -140,6 +141,8 @@ function breathAnimation() {
   
   text.innerText = 'INHALA';
   container.className = 'container grow';
+  document.getElementById("end-res").style.display = "block";
+  document.getElementById("start-res").style.display = "none";
   
   setTimeout(() => {
     text.innerText = 'MANTÉN';
