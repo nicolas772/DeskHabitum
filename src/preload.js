@@ -594,6 +594,37 @@ const sesionesMesPiel = (userId, mes, año) => {
     return model.sesionesMesPiel(userId, mes, año)
 }
 
+const createPostura = (id_usuario, id_sesion, inicio, final, total_time) => {
+    return model.createPostura(id_usuario, id_sesion, inicio, final, total_time)
+}
+
+const ultimaPostura = (id_user) => {
+    return model.ultimaPostura(id_user)
+}
+
+const ultimaTimePostura = (id_user) => {
+    return model.ultimaTimePostura(id_user)
+}
+
+const data10Postura = (id_user) => {
+    return model.data10Postura(id_user)
+}
+
+const mesPostura = (id_user, mes) => {
+    return model.mesPostura(id_user, mes)
+}
+
+const allPostura = (id_user) => {
+    return model.allPostura(id_user)
+}
+
+const ultimaTimeNariz = (id_user) => {
+    return model.ultimaTimeNariz(id_user)
+}
+
+const ultimaTimePiel = (id_user) => {
+    return model.ultimaTimePiel(id_user)
+}
 
 const camaraUnhaOn = () => {
     let respuesta = ipcRenderer.invoke('camara-unha-on')
@@ -716,11 +747,20 @@ contextBridge.exposeInMainWorld("api", {
     mejorMesNariz: mejorMesNariz,
     mejorMesPiel: mejorMesPiel,
     peorMesNariz: peorMesNariz,
-    peorMesPiel: peorMesNariz,
+    peorMesPiel: peorMesPiel,
     sesionesMesPiel: sesionesMesPiel,
-    sesionesMesNariz: sesionesMesPiel,
     camaraUnhaOn: camaraUnhaOn,
-    getFotosNames: getFotosNames
+    getFotosNames: getFotosNames,
+    sesionesMesNariz: sesionesMesNariz,
+    createPostura: createPostura,
+    ultimaPostura: ultimaPostura,
+    ultimaTimePostura: ultimaTimePostura,
+    data10Postura: data10Postura,
+    mesPostura: mesPostura,
+    allPostura: allPostura,
+    ultimaTimeNariz: ultimaTimeNariz,
+    ultimaTimePiel, ultimaTimePiel
+    
 })
 
 module.exports = {iniciar_camara, cerrar_camara, createSesion, insertManias, obtenerTotal, fecha_inicio_sesion, leerCameraHandle, get_user_id, getConfig, parar_pomodoro}

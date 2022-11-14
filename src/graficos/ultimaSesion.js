@@ -1,7 +1,7 @@
 //ID_USER = 2
 id_Usuario = window.api.get_user_id("")
-let id_Sesion, duracion, manias, duraciontotal, duracionunas, duracionpelo, duracionobjetos, id_lastSesion;
-let postura = "10 veces";
+let id_Sesion, duracion, manias, duraciontotal, duracionunas, duracionpelo, duracionobjetos, duracionpiel, duracionnariz, id_lastSesion;
+let postura = "";
 let visual = "Sí"
 let pestaneoCount
 async function update_dash_ultima_sesion() {
@@ -35,10 +35,25 @@ async function update_dash_ultima_sesion() {
     await window.api.countMorderSesion(id_lastSesion).then(result => {
       manias += result;
     });
+
+    await window.api.ultimaNariz(id_Usuario).then(result => {
+      manias += parseInt(result);
+    });
+
+    await window.api.ultimaPiel(id_Usuario).then(result => {
+      manias += parseInt(result);
+    });
+
+
+
     document.getElementById("Card-Manias").innerHTML = manias
 
     //HTML: index , indicador: # detecciones mala postura
     //hardcodeado
+    await window.api.ultimaPostura(id_Usuario).then(result => {
+      postura = result.toString() + " Veces";
+    });
+
     document.getElementById("Card-Postura").innerHTML = postura
 
     //HTML: index , indicador: detección fatiga visual
@@ -89,19 +104,24 @@ async function update_dash_ultima_sesion() {
     }
     //hardcodeado
 
-    
+    await window.api.ultimaTimePiel(id_Usuario).then(result => {
+      duracionpiel = parseInt(result)
+    });
+    await window.api.ultimaTimeNariz(id_Usuario).then(result => {
+      duracionnariz = parseInt(result)
+    });
     //duracionpelo = 2;
     //duracionobjetos = 2;
-    duraciontotal = duraciontotal - duracionobjetos - duracionpelo - duracionunas
+    duraciontotal = duraciontotal - duracionobjetos - duracionpelo - duracionunas - duracionnariz - duracionpiel
 
     var dataHabitosUltimaSesion = {
-        series: [duracionunas,duracionpelo,duracionobjetos,duraciontotal],
+        series: [duracionunas,duracionpelo,duracionobjetos, duracionnariz, duracionpiel, duraciontotal],
         chart: {
           height:300,
           width:500,
         type: 'donut',
       },
-      labels: ['Tiempo Onicofagia', 'Tiempo Tricotilomanía', 'Tiempo Morder objetos', 'Tiempo Óptimo'],
+      labels: ['Tiempo Onicofagia', 'Tiempo Tricotilomanía', 'Tiempo Morder objetos', 'Tiempo Rinotilexomania', 'Tiempo dematilomania', 'Tiempo Óptimo'],
       responsive: [{
         breakpoint: 480,
         options: {
