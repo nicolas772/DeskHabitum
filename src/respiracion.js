@@ -155,7 +155,7 @@ function breathAnimation() {
   var timeleftinhal=(breatheTime/1000);
   var downloadTimer1 = setInterval(function(){
     timeleftinhal -= 1;
-    text.innerText = 'INHALA ' + timeleftinhal + " s";
+    text.innerText = 'INHALA ' + " ... " + timeleftinhal + " s";
     if(timeleftinhal <= 0){
       clearInterval(downloadTimer1);
     } 
@@ -170,7 +170,7 @@ function breathAnimation() {
     var timelefthold=holdTime/1000;
     var downloadTimer2 = setInterval(function(){
       timelefthold -= 1;
-      text.innerText = 'MANTÉN '+ timelefthold + " s";
+      text.innerText = 'MANTÉN '+ ' ... '+timelefthold + " s";
       if(timelefthold <= 0){
         clearInterval(downloadTimer2);
       } 
@@ -184,7 +184,7 @@ function breathAnimation() {
       var timeleftexhal=(totalTime-breatheTime-holdTime)/1000;
       var downloadTimer3 = setInterval(function(){
         timeleftexhal -= 1;
-        text.innerText = 'EXHALA ' + timeleftexhal + " s";
+        text.innerText = 'EXHALA '+ " ... " + timeleftexhal + " s";
         if(timeleftexhal <= 1){
           clearInterval(downloadTimer3);
         } 
@@ -206,6 +206,199 @@ function endbreathAnimation(){
 }
 
 
+function tecnica_square(){
+  document.getElementById('duracionInhalacion').value = 4;
+  document.getElementById('duracionExhalacion').value= 4;
+  mantener = document.getElementById('duracionMantener1').value=4;
+
+  var inhalacion = document.getElementById('duracionInhalacion').value;
+  var exhalacion = document.getElementById('duracionExhalacion').value;
+  var mantener = document.getElementById('duracionMantener1').value;
+  localStorage.setItem("inha1", inhalacion);
+  localStorage.setItem("exha1", exhalacion);
+  localStorage.setItem("mant1", mantener);
+
+  var total = parseInt(inhalacion)+parseInt(exhalacion)+parseInt(mantener);
+  localStorage.setItem("total",total);
+
+
+  breatheTime = parseInt(inhalacion)*1000;
+  totalTime = parseInt(total)*1000;
+  holdTime = parseInt(mantener)*1000;
+  //exhalTime= parseInt(exhalacion)*1000;
+  
+  localStorage.setItem("breatheTime",breatheTime);
+  localStorage.setItem("totalTime",totalTime);
+  localStorage.setItem("holdTime",holdTime);
+  //localStorage.setItem("exhalTime",exhalTime);
+
+
+
+ /* r.style.setProperty('--rotate1_to', "rotate(36deg)")*/
+  r.style.setProperty('--breath', inhalacion + 's');
+  r.style.setProperty('--release', exhalacion + 's');
+  r.style.setProperty('--hold', mantener + 's');
+ 
+
+  var porcent1 = (breatheTime/totalTime)*100;
+  var porcent2 = porcent1 + ((holdTime/totalTime)*100);
+  /*var porcent3 = porcent2 + ((exhalTime/totalTime)*100);*/
+
+  var grado1 = porcent1*360/100;
+  var grado2 = porcent2*360/100;
+
+  localStorage.setItem("porcent1",porcent1);
+  localStorage.setItem("porcent2",porcent2);
+  localStorage.setItem("grado1",grado1);
+  localStorage.setItem("grado2",grado2);
+  
+
+  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#fff ${porcent1}%,#fff ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
+  
+
+  r.style.setProperty('--rotate1_from',`rotate(0deg)`);
+  r.style.setProperty('--rotate1_to',`rotate(${grado1}deg)`);
+  r.style.setProperty('--rotate2_from',`rotate(${grado1}deg)`);
+  r.style.setProperty('--rotate2_to',`rotate(${grado2}deg)`);
+  r.style.setProperty('--rotate3_from',`rotate(${grado2}deg)`);
+  r.style.setProperty('--rotate3_to',`rotate(360deg)`);
+
+  window.location.reload();
+
+
+}
+
+function tecnica_pranayama(){
+  document.getElementById('duracionInhalacion').value = 7;
+  document.getElementById('duracionExhalacion').value= 8;
+  mantener = document.getElementById('duracionMantener1').value=4;
+
+  var inhalacion = document.getElementById('duracionInhalacion').value;
+  var exhalacion = document.getElementById('duracionExhalacion').value;
+  var mantener = document.getElementById('duracionMantener1').value;
+  localStorage.setItem("inha1", inhalacion);
+  localStorage.setItem("exha1", exhalacion);
+  localStorage.setItem("mant1", mantener);
+
+  var total = parseInt(inhalacion)+parseInt(exhalacion)+parseInt(mantener);
+  localStorage.setItem("total",total);
+
+
+  breatheTime = parseInt(inhalacion)*1000;
+  totalTime = parseInt(total)*1000;
+  holdTime = parseInt(mantener)*1000;
+  //exhalTime= parseInt(exhalacion)*1000;
+  
+  localStorage.setItem("breatheTime",breatheTime);
+  localStorage.setItem("totalTime",totalTime);
+  localStorage.setItem("holdTime",holdTime);
+  //localStorage.setItem("exhalTime",exhalTime);
+
+
+
+ /* r.style.setProperty('--rotate1_to', "rotate(36deg)")*/
+  r.style.setProperty('--breath', inhalacion + 's');
+  r.style.setProperty('--release', exhalacion + 's');
+  r.style.setProperty('--hold', mantener + 's');
+ 
+
+  var porcent1 = (breatheTime/totalTime)*100;
+  var porcent2 = porcent1 + ((holdTime/totalTime)*100);
+  /*var porcent3 = porcent2 + ((exhalTime/totalTime)*100);*/
+
+  var grado1 = porcent1*360/100;
+  var grado2 = porcent2*360/100;
+
+  localStorage.setItem("porcent1",porcent1);
+  localStorage.setItem("porcent2",porcent2);
+  localStorage.setItem("grado1",grado1);
+  localStorage.setItem("grado2",grado2);
+  
+
+  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#fff ${porcent1}%,#fff ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
+  
+
+  r.style.setProperty('--rotate1_from',`rotate(0deg)`);
+  r.style.setProperty('--rotate1_to',`rotate(${grado1}deg)`);
+  r.style.setProperty('--rotate2_from',`rotate(${grado1}deg)`);
+  r.style.setProperty('--rotate2_to',`rotate(${grado2}deg)`);
+  r.style.setProperty('--rotate3_from',`rotate(${grado2}deg)`);
+  r.style.setProperty('--rotate3_to',`rotate(360deg)`);
+
+  window.location.reload();
+
+
+}
+
+function tecnica_ujjayi(){
+  document.getElementById('duracionInhalacion').value = 7;
+  document.getElementById('duracionExhalacion').value= 7;
+  mantener = document.getElementById('duracionMantener1').value=0;
+
+  var inhalacion = document.getElementById('duracionInhalacion').value;
+  var exhalacion = document.getElementById('duracionExhalacion').value;
+  var mantener = document.getElementById('duracionMantener1').value;
+  localStorage.setItem("inha1", inhalacion);
+  localStorage.setItem("exha1", exhalacion);
+  localStorage.setItem("mant1", mantener);
+
+  var total = parseInt(inhalacion)+parseInt(exhalacion)+parseInt(mantener);
+  localStorage.setItem("total",total);
+
+
+  breatheTime = parseInt(inhalacion)*1000;
+  totalTime = parseInt(total)*1000;
+  holdTime = parseInt(mantener)*1000;
+  //exhalTime= parseInt(exhalacion)*1000;
+  
+  localStorage.setItem("breatheTime",breatheTime);
+  localStorage.setItem("totalTime",totalTime);
+  localStorage.setItem("holdTime",holdTime);
+  //localStorage.setItem("exhalTime",exhalTime);
+
+
+
+ /* r.style.setProperty('--rotate1_to', "rotate(36deg)")*/
+  r.style.setProperty('--breath', inhalacion + 's');
+  r.style.setProperty('--release', exhalacion + 's');
+  r.style.setProperty('--hold', mantener + 's');
+ 
+
+  var porcent1 = (breatheTime/totalTime)*100;
+  var porcent2 = porcent1 + ((holdTime/totalTime)*100);
+  /*var porcent3 = porcent2 + ((exhalTime/totalTime)*100);*/
+
+  var grado1 = porcent1*360/100;
+  var grado2 = porcent2*360/100;
+
+  localStorage.setItem("porcent1",porcent1);
+  localStorage.setItem("porcent2",porcent2);
+  localStorage.setItem("grado1",grado1);
+  localStorage.setItem("grado2",grado2);
+  
+
+  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#fff ${porcent1}%,#fff ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
+  
+
+  r.style.setProperty('--rotate1_from',`rotate(0deg)`);
+  r.style.setProperty('--rotate1_to',`rotate(${grado1}deg)`);
+  r.style.setProperty('--rotate2_from',`rotate(${grado1}deg)`);
+  r.style.setProperty('--rotate2_to',`rotate(${grado2}deg)`);
+  r.style.setProperty('--rotate3_from',`rotate(${grado2}deg)`);
+  r.style.setProperty('--rotate3_to',`rotate(360deg)`);
+
+  window.location.reload();
+
+
+}
+
+
+
+
+
+
+
+
 window.onbeforeunload = () => {
   
   
@@ -222,3 +415,4 @@ window.onbeforeunload = () => {
   //localStorage.removeItem("inha1");//para probar primera vez que el usuario usa app, es decir con localstorage vacio.
   /*sessionStorage.clear();*/
 }
+

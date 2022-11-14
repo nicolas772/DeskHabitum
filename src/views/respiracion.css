@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 :root {
+
   --circulo-resp: conic-gradient(
     #55b7a4 0%,
     #4ca493 50%,
@@ -190,3 +191,22 @@ body {
   }
 }
 */
+
+
+
+/*eleccion tecnica*/
+
+#boton_respiracion_square:focus {
+  background:white;
+  box-shadow:transparent;
+}
+
+#boton_respiracion_pranayama:focus {
+  background:white;
+  box-shadow:transparent;
+}
+
+#boton_respiracion_ujjayi:focus {
+  background:white;
+  box-shadow:transparent;
+}
