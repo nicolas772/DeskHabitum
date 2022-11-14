@@ -44,12 +44,21 @@ const chart_postura = new Chart(ctx_p, {
   type: 'bubble',
   data: data,
   options: {
+    plugins: {
+      legend: {
+        padding:20,
+        position: "top",
+        align: "left"
+    }
+  }
+,
     layout: {
       padding: 10
   },
     scales: {
       x: {
         title: {
+          padding:10,
           color: 'gray',
           display: true,
           text: 'NÚMERO DE SESIÓN'
@@ -57,6 +66,7 @@ const chart_postura = new Chart(ctx_p, {
       },
       y:{
         title: {
+          padding:10,
           color: 'gray',
           display: true,
           text: 'MOMENTO DE DETECCIÓN [min]'
@@ -103,6 +113,7 @@ const config_posmes = new Chart(ctx_pmes,{
     scales: {
       x: {
         title: {
+          padding:10,
           color: 'gray',
           display: true,
           text: 'MES'
@@ -111,7 +122,7 @@ const config_posmes = new Chart(ctx_pmes,{
       y:{
         beginAtZero: true,
         title: {
-          
+          padding:10,
           color: 'gray',
           display: true,
           text: 'CANTIDAD DE DETECCIONES'
