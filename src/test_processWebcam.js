@@ -1,4 +1,6 @@
 //Librerias de IA
+
+const preload = require("./preload.js")
 const tmImage = require('@teachablemachine/image');
 const tf = require('@tensorflow/tfjs')
 const handPoseDetection = require('@tensorflow-models/hand-pose-detection');
@@ -40,7 +42,7 @@ let intervalo_objeto = 2000;
 let intervalo_vista = 1500;
 let intervalo_postura = 5000;
 let intervalo_nariz = 2000;
-let intervalo_pellizco = 850;
+let intervalo_pellizco = 780;
 
 
 //Booleanos que se activan cuando se cumplen los intervalos de tiempo
@@ -65,7 +67,7 @@ let opcion;
 let intervalo_estres = 12000;
 let tiempo_estres = false;
 let detectado_estres = false;
-let cantidad_estres = 3;
+let cantidad_estres = 1;
 
 let cantidad_detecciones = 0;
 let detecciones_estres = 0;
@@ -168,12 +170,13 @@ function Preguntar_Comiendo(){ //esta notificación siempre se muestra, ya que s
     
 }
 
+
 function Preguntar_Estres(){ 
     Notification.requestPermission().then(function (result){
         new Notification("¿ESTÁS ESTRESADO?", { 
             body: "CLICKEA ESTA NOTIFICACIÓN SI TE ENCUENTRAS ESTRESADO", icon: 'https://media.istockphoto.com/photos/woman-holding-slice-of-bread-with-question-mark-sign-picture-id1166079452?k=20&m=1166079452&s=612x612&w=0&h=JJJIj2EEn-8VV2aihn3tg0-Y281p2hH-0O3GC71UO2k='
         })
-        .onclick = () => ipcRenderer.sendSync('Estresado', "")
+        .onclick = () => redirigir()
     })
     if (config_user.alertasonora == 'on'){
         let path = '../sounds/'+config_user.sonidonotificaciongeneral+'.mp3'
@@ -182,6 +185,35 @@ function Preguntar_Estres(){
     }
     
 }
+async function redirigir(){
+    corriendo = false;
+    flag = true;
+    
+
+    let ID = await preload.get_user_id("")
+    let ID_USER = ID.toString()
+    
+    //calculo de totales por mania
+    let [total_unhas, total_pelo, total_objeto, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo]  = preload.obtenerTotal()
+
+    //creo sesion en BD
+    let inicio_sesion = preload.fecha_inicio_sesion()
+    let fin_sesion = new Date()
+    total =  Math.trunc((fin_sesion - inicio_sesion)/1000) //lo pasa de milisegundos a segundos
+    let ini_sesion = inicio_sesion.toISOString()
+    let fini_sesion = fin_sesion.toISOString()
+    let mes_sesion = fin_sesion.getMonth() + 1
+    let anno_sesion = fin_sesion.getFullYear()
+    await preload.createSesion(ID_USER, ini_sesion, fini_sesion, total, total_unhas, total_pelo, total_objeto, total_vista, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, mes_sesion, anno_sesion, "no"); 
+    //console.log("paso insert sesion")
+    //inserto manias en BD
+
+    await preload.insertManias(ID_USER)
+
+    await sleep(300);
+    ipcRenderer.sendSync('Estresado', "");
+}
+
 
 function CountDownEstres() {
     tiempo_estres = true;
@@ -206,6 +238,8 @@ function get_user_id(){
     let respuesta = ipcRenderer.sendSync('get-user-id', "")
     return respuesta   
 }
+
+
 
 function actualizarJson(tipo, inicio, fin){
     let ini = inicio.toISOString()

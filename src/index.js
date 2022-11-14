@@ -66,6 +66,46 @@ const createWindow = () => {
       pomodoro_win.close()
       camera_win.close()
     })
+
+    ipcMain.on('Estresado', (event, data) => {
+      win.loadFile('src/views/Respiracion.html');
+      pomodoro_win.close();
+      camera_win.close();
+
+      camera_win = new BrowserWindow({
+        width: 600,
+        height: 600,
+        //show: false,
+        webPreferences: {
+            // nodeIntegration: true,
+            // contextIsolation:true,
+            //devTools:true,
+            preload:path.join(__dirname, 'test_processWebcam.js')
+            
+        }
+      })
+      camera_win.loadFile('src/views/camera.html');
+      camera_win.webContents.openDevTools();
+  
+  
+      pomodoro_win = new BrowserWindow({
+        width: 600,
+        height: 600,
+        show: false,
+        webPreferences: {
+            // nodeIntegration: true,
+            // contextIsolation:true,
+            //devTools:true,
+            preload:path.join(__dirname, 'pomodoro.js')
+            
+        }
+      })
+      
+      pomodoro_win.loadFile('src/views/camera.html');
+      pomodoro_win.webContents.openDevTools();
+
+
+    })
 }
 
 
@@ -202,10 +242,6 @@ ipcMain.on('get-user-id', (event, data) => {
   event.returnValue = ID_USER;
 })
 
-//Funcion cuando el usuario clickea la notificación de que está estresado
-ipcMain.on('Estresado', (event, data) => {
-  win.loadFile('src/views/Respiracion.html');
-})
 
 //Funcion para cerrar sesión y cambiar a vista de login
 ipcMain.on('cerrar-sesion', (event, data) => {
