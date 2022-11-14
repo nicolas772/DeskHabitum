@@ -155,7 +155,7 @@ function breathAnimation() {
   var timeleftinhal=(breatheTime/1000);
   var downloadTimer1 = setInterval(function(){
     timeleftinhal -= 1;
-    document.getElementById("countdown").innerHTML = timeleftinhal + " seconds remaining";
+    text.innerText = 'INHALA ' + timeleftinhal + " s";
     if(timeleftinhal <= 0){
       clearInterval(downloadTimer1);
     } 
@@ -170,7 +170,7 @@ function breathAnimation() {
     var timelefthold=holdTime/1000;
     var downloadTimer2 = setInterval(function(){
       timelefthold -= 1;
-      document.getElementById("countdown").innerHTML = timelefthold + " seconds remaining";
+      text.innerText = 'MANTÉN '+ timelefthold + " s";
       if(timelefthold <= 0){
         clearInterval(downloadTimer2);
       } 
@@ -184,7 +184,7 @@ function breathAnimation() {
       var timeleftexhal=(totalTime-breatheTime-holdTime)/1000;
       var downloadTimer3 = setInterval(function(){
         timeleftexhal -= 1;
-        document.getElementById("countdown").innerHTML = timeleftexhal + " seconds remaining";
+        text.innerText = 'EXHALA ' + timeleftexhal + " s";
         if(timeleftexhal <= 0){
           clearInterval(downloadTimer3);
         } 
