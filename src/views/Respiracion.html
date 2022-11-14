@@ -181,20 +181,20 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center" >
                                     Inhalación[s]
                                     <div >
-                                        <input id="duracionInhalacion" type="number" min="1" max="15" step="1"  onchange="changeBreath()">
+                                        <input id="duracionInhalacion" type="number" min="1" max="15" step="1"  onchange="changeBreath()" style="border: 1px solid gray;text-align: right;">
                                     </div>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center" >
                                     Exhalación[s]
                                     <div >
-                                        <input id="duracionExhalacion" type="number" min="1" max="15" step="1" onchange="changeBreath()">
+                                        <input id="duracionExhalacion" type="number" min="1" max="15" step="1" onchange="changeBreath()" style="border: 1px solid gray;text-align: right;">
                                     </div>
                                 </li>
                                 
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <li class="list-group-item d-flex justify-content-between align-items-center" >
                                     Pausa [s]
                                     <div>
-                                        <input id="duracionMantener1" type="number" min="1" max="15" step="1" onchange="changeBreath()">
+                                        <input id="duracionMantener1" type="number" min="1" max="15" step="1" onchange="changeBreath()" style="border: 1px solid gray;text-align: right;">
                                     </div>
                                 </li>
                             </ul>
@@ -210,7 +210,7 @@
                                     <div class="now-playing" style="display:none;">PLAYING x OF y</div>
                                     <div class="track-art" style="display:none;"></div>
                                     <div class="track-name">Track Name</div>
-                                    <div class="track-artist">Track Artist</div>
+                                    <div class="track-artist" style="padding-top:10px;">Track Artist</div>
                                 </div>
                      
                                 <div class="slider_container">
@@ -226,7 +226,7 @@
                                 </div>
                      
                                 <div class="buttons" style="margin-bottom:0;">
-                                    <div class="random-track" onclick="randomTrack()">
+                                    <div class="random-track" onclick="randomTrack()" style="visibility:hidden;">
                                         <i class="fas fa-random fa-2x" title="random"></i>
                                     </div>
                                     <div class="prev-track" onclick="prevTrack()">

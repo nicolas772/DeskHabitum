@@ -38,27 +38,27 @@ let updateTimer;
 const music_list = [
     {
         img : 'images/stay.png',
-        name : 'Stay',
-        artist : 'The Kid LAROI, Justin Bieber',
-        music : 'music/stay.mp3'
+        name : '',
+        artist : 'Endless (piano) by PrabajithK',
+        music : 'music/endless.mp3'
     },
     {
         img : 'images/fallingdown.jpg',
-        name : 'Falling Down',
-        artist : 'Wid Cards',
-        music : 'music/fallingdown.mp3'
+        name : '',
+        artist : 'Sonidos de meditación',
+        music : 'music/meditation-sounds.mp3'
     },
     {
         img : 'images/faded.png',
-        name : 'Faded',
-        artist : 'Alan Walker',
-        music : 'music/Faded.mp3'
+        name : '',
+        artist : 'Música de meditación',
+        music : 'music/relaxing-music-vol1.mp3'
     },
     {
         img : 'images/ratherbe.jpg',
-        name : 'Rather Be',
-        artist : 'Clean Bandit',
-        music : 'music/Rather Be.mp3'
+        name : '',
+        artist : 'Musica de relajación',
+        music : 'music/relaxing-music.mp3'
     }
 ];
 
