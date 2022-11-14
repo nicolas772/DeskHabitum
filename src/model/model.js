@@ -631,6 +631,13 @@ const mesPostura = async (id_usuario, mes) => {
     return result[0]['total_mes']      
 }
 
+const allPostura = async (id_usuario) => {
+    let query = `select sum(cant_total_postura) as total from sesions where id_user = ${id_usuario}`;
+    const res = await conexion.query(query)
+    const result = res.rows
+    return result[0]['total']      
+}
+
 
 
 
@@ -944,4 +951,4 @@ module.exports = { getUsuarios , createUser, getUserData, createSesion, getSesio
              datosUltimaSesionPomodoro, cantDeteccionesFatigaPorMinutoTenSesion, ultimaVista, totalVista, top10Vista, eliminarGrupo,
              createNariz, ultimaNariz, totalNariz, peorSesionNariz, mejorSesionNariz, createPiel, ultimaPiel, totalPiel, peorSesionPiel, mejorSesionPiel, percentageTenSesionPiel, percentageTenSesionNariz, totalTimeNariz, totalTimePiel,
             mejorMesNariz, mejorMesPiel, peorMesNariz, peorMesPiel, sesionesMesNariz, sesionesMesPiel,
-        /** nuevas */ createPostura, ultimaPostura, ultimaTimePostura, data10Postura, mesPostura}
+        /** nuevas */ createPostura, ultimaPostura, ultimaTimePostura, data10Postura, mesPostura, allPostura}

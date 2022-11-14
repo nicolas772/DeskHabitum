@@ -1,7 +1,7 @@
 //ID_USER = 2
 id_Usuario = window.api.get_user_id("")
 let id_Sesion, duracion, manias, duraciontotal, duracionunas, duracionpelo, duracionobjetos, id_lastSesion;
-let postura = "10 veces";
+let postura = "";
 let visual = "Sí"
 let pestaneoCount
 async function update_dash_ultima_sesion() {
@@ -39,6 +39,10 @@ async function update_dash_ultima_sesion() {
 
     //HTML: index , indicador: # detecciones mala postura
     //hardcodeado
+    await window.api.ultimaPostura(id_Usuario).then(result => {
+      postura = result.toString() + " Veces";
+    });
+
     document.getElementById("Card-Postura").innerHTML = postura
 
     //HTML: index , indicador: detección fatiga visual
