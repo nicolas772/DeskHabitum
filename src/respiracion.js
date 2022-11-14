@@ -143,11 +143,10 @@ function breathAnimation() {
   
   
   
-  console.log(timeleftinhal);
 
 
   
-  text.innerText = 'INHALA';
+  text.innerText = 'INHALA' + " ... " + (breatheTime/1000) + " s";
   container.className = 'container grow';
   document.getElementById("end-res").style.display = "block";
   document.getElementById("start-res").style.display = "none";
@@ -163,7 +162,7 @@ function breathAnimation() {
 
   
   setTimeout(() => {
-    text.innerText = 'MANTÉN';
+    text.innerText = 'MANTÉN' +" ... "+ (holdTime/1000) + " s";
     container.className = 'container hold';
 
     
@@ -178,7 +177,7 @@ function breathAnimation() {
     
 
     setTimeout(() => {
-      text.innerText = 'EXHALA';
+      text.innerText = 'EXHALA' + " ... "+((totalTime-breatheTime-holdTime)/1000) + " s";
       container.className = 'container shrink2';
 
       var timeleftexhal=(totalTime-breatheTime-holdTime)/1000;

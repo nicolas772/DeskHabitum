@@ -138,8 +138,8 @@
             
             <div class="mytabs">
                 <input type="radio" id="tabfree" name="mytabs" checked="checked">
-                <label for="tabfree" style="padding-right:491px;"><h1 style="margin-bottom:0;padding-bottom:0;">Respiración Profunda</h1></label>
-                <div class="tab" >
+                <label for="tabfree" style="padding-right:491px;padding-bottom:0px;"><h1 style="margin-bottom:0;padding-bottom:0;">Respiración Profunda</h1></label>
+                <div class="tab" style="padding-top:0px;" >
                     <div style="width:50%;float:left;" >
                         <div class="container" id="container"  style="padding-left:450px;margin-left:340px;margin-top:70px;"> <!--style="padding-left:450px;margin-left:290px;margin-top:50px;"-->
                             <div class="circle"></div>                    
@@ -153,7 +153,7 @@
                         
                         
                         <div class = "div-boton-cambios">
-                            <button id="start-res" type='button' class="btn btn-outline-primary" style="float: left;margin-left:173px;margin-top:20px;" onclick="breathAnimation()" >Empezar</button> <!--onclick="saveSettings()"-->
+                            <button id="start-res" type='button' class="btn btn-outline-primary" style="float: left;margin-left:175px;margin-top:20px;" onclick="breathAnimation()" >Empezar</button> <!--onclick="saveSettings()"-->
                         </div> <!--onclick="start_pomodoro()"-->
                         <div class = "div-boton-cambios">
                             <button id="end-res" type='button' class="btn btn-outline-primary" style="float: left;display:none;margin-left:173px;margin-top:20px;" onclick="endbreathAnimation()" >Terminar</button> <!--onclick="saveSettings()"-->
@@ -161,6 +161,10 @@
                         
                     </div>
                     <div style="margin-top:30px;height:400px;width:40%;float:right;">
+                        
+
+
+
                         <p style="margin-bottom:10px;"> Elige técnica de respiración:</p>
                         <button id='boton_respiracion_square' type='button' class="btn btn-outline-primary" onclick="tecnica_square()" style="color:#005b52; border-color:#005b52;border-width:2px;margin-left:25px;" onmouseover="this.style.backgroundColor='#005b52';this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='#005b52';" >Cuadrada</button>
                         <button id='boton_respiracion_pranayama' type='button' class="btn btn-outline-primary" onclick="tecnica_pranayama()" style="color:#005b52; border-color:#005b52;border-width:2px;" onmouseover="this.style.backgroundColor='#005b52';this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='#005b52';" >Pranayama</button>
@@ -171,7 +175,7 @@
                         
                          
                     
-                        <p style="margin-bottom:10px;margin-top:15px;"> Personaliza tus tiempos</p>
+                        <p style="margin-bottom:10px;margin-top:15px;"> Personaliza tus tiempos:</p>
                         <div class="row"  >
                             <ul class="list-group" >
                                 <li class="list-group-item d-flex justify-content-between align-items-center" >
@@ -193,12 +197,12 @@
                                         <input id="duracionMantener1" type="number" min="1" max="15" step="1" onchange="changeBreath()">
                                     </div>
                                 </li>
-                            
-                                
-                                
                             </ul>
                             
                         </div>
+                        <p style="margin-bottom:10px;margin-top:15px;"> Escucha música:</p>
+                        <div class="row"  >
+                        </div> 
                     
                         
                         
