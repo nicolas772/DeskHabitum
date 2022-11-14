@@ -42,7 +42,7 @@ let intervalo_objeto = 2000;
 let intervalo_vista = 1500;
 let intervalo_postura = 5000;
 let intervalo_nariz = 2000;
-let intervalo_pellizco = 780;
+let intervalo_pellizco = 1200;
 
 
 //Booleanos que se activan cuando se cumplen los intervalos de tiempo
@@ -444,10 +444,10 @@ function pinza_pellizco(pulgar, indice, muñeca){
     indice_muñeca = distancia_puntos(indice.x , indice.y , muñeca.x , muñeca.y )
     //positivo hacia cara el indice
     
-    
+    /*
     console.log("pulgar_indice: ", pulgar_indice)
     console.log("indice_muñeca: ", indice_muñeca)
-    
+    */
     
     if(indice_muñeca > distancia_muñeca && pulgar_indice < coeficiente ){
         return true
@@ -493,13 +493,14 @@ function mano_abierta(pulgar, indice, medio, anular, meñique, muñeca){
     pulgar_meñique = distancia_puntos3D(pulgar.x / magnitud_pulgar, pulgar.y / magnitud_pulgar, pulgar.z / magnitud_pulgar, meñique.x / magnitud_meñique, meñique.y / magnitud_meñique, meñique.z / magnitud_meñique)
 
     
+    /*
     console.log("pulgar_muñeca:",pulgar_muñeca)
     console.log("indice_muñeca:", indice_muñeca)
     console.log("medio_muñeca:", medio_muñeca)
     console.log("anular_muñeca:", anular_muñeca)
     console.log("meñique_muñeca:", meñique_muñeca)
     console.log("pulgar_meñique:", pulgar_meñique) 
-
+    */
 
     if (pulgar_muñeca >= coef_pulgar && indice_muñeca >= coef_indice && medio_muñeca >= coef_medio && anular_muñeca >= coef_anular && meñique_muñeca >= coef_meñique && pulgar_meñique >= coef_horizontal){
 
@@ -1234,31 +1235,64 @@ async function predict() {
         if(dermatilomania && !tirando_pelo){
 
             // REFERENCIA: https://imgur.com/a/Z4ykQd2
-            if(pinza_pellizco(tipPulgar, tipIndice, muñeca)){
 
-                centro_elipse_x = (ojoLeft_Inner.x + ojoRight_Inner.x + nariz.x)/3
-                centro_elipse_y = (ojoLeft_Inner.y + ojoRight_Inner.y + nariz.y)/3
+            if (posesHand.length == 2){
+                if(pinza_pellizco(tipPulgar, tipIndice, muñeca) && tipIndice3D.z < 0.015 && tipIndice2_3D.z < 0.015){
 
-                beta = distancia_puntos(bocaLeft.x, bocaLeft.y, bocaRight.x, bocaRight.y)
-                alfa = distancia_puntos(orejaLeft.x, orejaLeft.y, orejaRight.x, orejaRight.y)
+                    centro_elipse_x = (ojoLeft_Inner.x + ojoRight_Inner.x + nariz.x)/3
+                    centro_elipse_y = (ojoLeft_Inner.y + ojoRight_Inner.y + nariz.y)/3
+    
+                    beta = distancia_puntos(bocaLeft.x, bocaLeft.y, bocaRight.x, bocaRight.y)
+                    alfa = distancia_puntos(orejaLeft.x, orejaLeft.y, orejaRight.x, orejaRight.y)
+    
+                    b = (bocaLeft.y + bocaRight.y) / 2 - (ojoLeft_Inner.y + ojoRight_Inner.y) / 2 + 3 * beta
+    
+                    x = tipIndice.x - centro_elipse_x
+                    y = tipIndice.y - centro_elipse_y
+    
+                    if ( x**2 / alfa ** 2 + y ** 2 / b ** 2 <= 1 ){
+    
+                        if (!corriendo_pellizco){
+                            inicio_pellizco = new Date;
+                        }
+    
+                        pellizcando_cara = true;
+                        corriendo_pellizco = true;
+                        
+                        console.log("DERMATILOMANIA")
+                    }     
+                }
+                
 
-                b = (bocaLeft.y + bocaRight.y) / 2 - (ojoLeft_Inner.y + ojoRight_Inner.y) / 2 + 3 * beta
+            }else if(posesHand.length == 1){
+                if(pinza_pellizco(tipPulgar, tipIndice, muñeca) && tipIndice3D.z < 0.015 ){
 
-                x = tipIndice.x - centro_elipse_x
-                y = tipIndice.y - centro_elipse_y
+                    centro_elipse_x = (ojoLeft_Inner.x + ojoRight_Inner.x + nariz.x)/3
+                    centro_elipse_y = (ojoLeft_Inner.y + ojoRight_Inner.y + nariz.y)/3
+    
+                    beta = distancia_puntos(bocaLeft.x, bocaLeft.y, bocaRight.x, bocaRight.y)
+                    alfa = distancia_puntos(orejaLeft.x, orejaLeft.y, orejaRight.x, orejaRight.y)
+    
+                    b = (bocaLeft.y + bocaRight.y) / 2 - (ojoLeft_Inner.y + ojoRight_Inner.y) / 2 + 3 * beta
+    
+                    x = tipIndice.x - centro_elipse_x
+                    y = tipIndice.y - centro_elipse_y
+    
+                    if ( x**2 / alfa ** 2 + y ** 2 / b ** 2 <= 1 ){
+    
+                        if (!corriendo_pellizco){
+                            inicio_pellizco = new Date;
+                        }
+    
+                        pellizcando_cara = true;
+                        corriendo_pellizco = true;
+                        
+                        console.log("DERMATILOMANIA")
+                    }     
+                }
+            }
+            
 
-                if ( x**2 / alfa ** 2 + y ** 2 / b ** 2 <= 1 ){
-
-                    if (!corriendo_pellizco){
-                        inicio_pellizco = new Date;
-                    }
-
-                    pellizcando_cara = true;
-                    corriendo_pellizco = true;
-                    
-                    console.log("DERMATILOMANIA")
-                }     
-            }   
         }
     }
 
@@ -1282,12 +1316,7 @@ async function predict() {
         horizontal = distancia_puntos(hombro_izquierdo.x , hombro_izquierdo.y , hombro_derecho.x , hombro_derecho.y )
         proporcion_nueva = vertical / horizontal
 
-        /*
-        console.log("Horizontal: ", horizontal)
-        console.log("Vertical: ", vertical)
-        console.log("Proporcion: ", proporcion_nueva)
-        */
-        if(proporcion_nueva < 0.48){
+        if(proporcion_nueva < 0.445){
             if(!corriendo_postura){
                 inicio_postura = new Date;
             }
