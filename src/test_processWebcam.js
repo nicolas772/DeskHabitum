@@ -1235,7 +1235,7 @@ async function predict() {
         if(dermatilomania && !tirando_pelo){
 
             // REFERENCIA: https://imgur.com/a/Z4ykQd2
-            coeficiente_mano = 0.04
+            coeficiente_mano = 0.045
             if (posesHand.length == 2){
                 if(pinza_pellizco(tipPulgar, tipIndice, muñeca) && tipIndice3D.z < coeficiente_mano && tipIndice2_3D.z < coeficiente_mano){
 
