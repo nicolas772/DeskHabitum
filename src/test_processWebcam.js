@@ -1235,9 +1235,9 @@ async function predict() {
         if(dermatilomania && !tirando_pelo){
 
             // REFERENCIA: https://imgur.com/a/Z4ykQd2
-
+            coeficiente_mano = 0.045
             if (posesHand.length == 2){
-                if(pinza_pellizco(tipPulgar, tipIndice, muñeca) && tipIndice3D.z < 0.015 && tipIndice2_3D.z < 0.015){
+                if(pinza_pellizco(tipPulgar, tipIndice, muñeca) && tipIndice3D.z < coeficiente_mano && tipIndice2_3D.z < coeficiente_mano){
 
                     centro_elipse_x = (ojoLeft_Inner.x + ojoRight_Inner.x + nariz.x)/3
                     centro_elipse_y = (ojoLeft_Inner.y + ojoRight_Inner.y + nariz.y)/3
@@ -1265,7 +1265,7 @@ async function predict() {
                 
 
             }else if(posesHand.length == 1){
-                if(pinza_pellizco(tipPulgar, tipIndice, muñeca) && tipIndice3D.z < 0.015 ){
+                if(pinza_pellizco(tipPulgar, tipIndice, muñeca) && tipIndice3D.z < coeficiente_mano ){
 
                     centro_elipse_x = (ojoLeft_Inner.x + ojoRight_Inner.x + nariz.x)/3
                     centro_elipse_y = (ojoLeft_Inner.y + ojoRight_Inner.y + nariz.y)/3
