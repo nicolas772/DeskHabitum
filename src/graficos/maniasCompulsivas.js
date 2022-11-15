@@ -98,7 +98,7 @@ async function update_dash_general() {
         width: 380,
         type: 'pie',
       },
-      labels: ['Onicofagia', 'Tricotilomanía', 'Manía Mordiendo Objetos', 'Rinotilexomanía', 'Dermatilomanía'],
+      labels: ['Onicofagia', 'Tricotilomanía', 'Manía Morder Objetos', 'Rinotilexomanía', 'Dermatilomanía'],
       responsive: [{
         breakpoint: 480,
         options: {
@@ -152,11 +152,11 @@ async function update_dash_general() {
             data: pelos_10_sesiones
           },
           {
-            name: 'Manía Mordiendo Objetos',
+            name: 'Manía Morder Objetos',
             data: objetos_10_sesiones
           },
           {
-            name: 'Dermantilomanía',
+            name: 'Dermatilomanía',
             data: piel_10_sesiones
           },
           {
@@ -197,6 +197,14 @@ async function update_dash_general() {
         },
         xaxis: {
           categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+          title:{
+            text:"NÚMERO DE SESIÓN",
+            display:true,
+            offsetY:85,
+            style:{
+              color:"gray"
+            }
+          }
         },
         yaxis:{
           decimalsInFloat: 0,

@@ -51,11 +51,10 @@ async function update_fatiga_visual(){
       categories: ["1", "2", "3", "4", "5", "6", "7","8", "9", "10"] ,
       title:{
         text:"NÚMERO DE SESIÓN",
-        color:"rgba(0, 91, 82, 1)",
         display:true,
         offsetY:90,
         style:{
-          color:"rgba(0, 91, 82, 1)"
+          color:"gray"
         }
         
         //cssClass:"padding-top:20px;",
@@ -69,7 +68,7 @@ async function update_fatiga_visual(){
         display:true,
         offsetX:-5,
         style:{
-          color:"rgba(0, 91, 82, 1)"
+          color:"gray"
         }
         
        
