@@ -321,11 +321,12 @@ ipcMain.handle('env_formulario', (event, obj) => {
 //Manejo de la funcionalidad de sacar fotos de las manos
 function createWindowCameraUnhas() {
  winCameraUnha = new BrowserWindow({
-    //useContentSize: true,
-    width: 800,
-    height: 600,
-    //resizable: false,
-    //fullscreen: false,
+    useContentSize: true,
+    width: 464,
+    height: 464,
+    autoHideMenuBar: true,
+    frame: false,
+    //fullscreen: true,
     webPreferences: {
       //nodeIntegration: true,
       //contextIsolation:true,

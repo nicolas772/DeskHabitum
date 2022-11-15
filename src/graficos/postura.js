@@ -101,13 +101,25 @@ async function update_dash_postura() {
   };
 
   await window.api.mesPostura(ID_USER,mes_anterior_anterior).then(result => {
-    total_mes_anterior_anterior = parseInt(result)
+    if (result==null) {
+      total_mes_anterior_anterior = 0
+    }else{
+      total_mes_anterior_anterior = parseInt(result)
+    }
   });
   await window.api.mesPostura(ID_USER,mes_anterior).then(result => {
-    total_mes_anterior = parseInt(result)
+    if (result==null) {
+      total_mes_anterior = 0
+    }else{
+      total_mes_anterior = parseInt(result)
+    }
   });
   await window.api.mesPostura(ID_USER,mes_actual).then(result => {
-    total_mes_actual = parseInt(result)
+    if (result==null) {
+      total_mes_actual = 0
+    }else{
+      total_mes_actual = parseInt(result)
+    }
   });
 
   document.getElementById("mes-ant-ant-postura").innerHTML = monthNames[mes_anterior_anterior-1]
