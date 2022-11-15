@@ -121,7 +121,8 @@ async function update_dash_ultima_sesion() {
           width:500,
         type: 'donut',
       },
-      labels: ['Tiempo Onicofagia', 'Tiempo Tricotilomanía', 'Tiempo Morder objetos', 'Tiempo Rinotilexomanía', 'Tiempo Dematilomanía', 'Tiempo Óptimo'],
+      labels: ['Tiempo Onicofagia', 'Tiempo Tricotilomanía', 'Tiempo Morder objetos', 'Tiempo Rinotilexomanía', 'Tiempo Dermatilomanía', 'Tiempo Óptimo'],
+      colors: ["#F9A3A4", "#00E396", "#FEB019", "#FF4560", "#775DD0","#008FFB"],
       responsive: [{
         breakpoint: 480,
         options: {
