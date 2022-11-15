@@ -7,31 +7,35 @@ function actualizarCarousel(){
     for(let i=0; i< fotos.length; i++){
         if (i==0){
             let carouselItem = document.createElement('div');
-            carouselItem.className = "carousel-item active";            
-            carouselItem.style.height ="400px";
-            carouselItem.style.overflow ="hidden";
-            carouselItem.style.width ="100%";
+            carouselItem.className = "carousel-item active";                          
             let img = document.createElement('img');
             img.className = "d-block w-100";
             img.src = "../images/unhasUser/"+fotos[i]
-            img.alt = "..."
-            img.style.width = "100%";
-            img.style.overflow ="hidden";
+            img.alt = "..."           
             carouselItem.appendChild(img)
+            let d = document.createElement('div');
+            d.className="carousel-caption d-none d-md-block";
+            let h = document.createElement('h5');
+            let texto = document.createTextNode("Foto del 10.10.2022")
+            h.appendChild(texto);
+            d.appendChild(h);
+            carouselItem.appendChild(d);
             carousel.appendChild(carouselItem)
         }else {
             let carouselItem = document.createElement('div');
-            carouselItem.className = "carousel-item";            
-            carouselItem.style.height ="400px";
-            carouselItem.style.overflow ="hidden";
-            carouselItem.style.width ="100%";
+            carouselItem.className = "carousel-item";                   
             let img = document.createElement('img');
             img.className = "d-block w-100";
             img.src = "../images/unhasUser/"+fotos[i]
-            img.alt = "..."
-            img.style.width = "100%";
-            img.style.overflow ="hidden";
+            img.alt = "..."            
             carouselItem.appendChild(img)
+            let d = document.createElement('div');
+            d.className="carousel-caption d-none d-md-block";
+            let h = document.createElement('h5');
+            let texto = document.createTextNode("Foto del 10.10.2022")
+            h.appendChild(texto);
+            d.appendChild(h);
+            carouselItem.appendChild(d);
             carousel.appendChild(carouselItem)
         }
         
