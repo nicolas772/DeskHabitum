@@ -32,7 +32,7 @@ const createWindow = () => {
     camera_win = new BrowserWindow({
       width: 600,
       height: 600,
-      show: false,
+      //show: false,
       webPreferences: {
           // nodeIntegration: true,
           // contextIsolation:true,
@@ -60,7 +60,7 @@ const createWindow = () => {
     
     pomodoro_win.loadFile('src/views/camera.html');
     pomodoro_win.webContents.openDevTools();
-    //createWindowCameraUnhas() //esta linea se debe descomentar para probar la camara de fotos de manos
+    createWindowCameraUnhas() //esta linea se debe descomentar para probar la camara de fotos de manos
 
     win.once('closed', () => {
       pomodoro_win.close()
@@ -321,11 +321,12 @@ ipcMain.handle('env_formulario', (event, obj) => {
 //Manejo de la funcionalidad de sacar fotos de las manos
 function createWindowCameraUnhas() {
  winCameraUnha = new BrowserWindow({
-    //useContentSize: true,
-    width: 800,
-    height: 600,
-    //resizable: false,
-    //fullscreen: false,
+    useContentSize: true,
+    width: 464,
+    height: 464,
+    autoHideMenuBar: true,
+    frame: false,
+    //fullscreen: true,
     webPreferences: {
       //nodeIntegration: true,
       //contextIsolation:true,
