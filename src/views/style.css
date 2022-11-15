@@ -567,7 +567,7 @@ body.shrink .message-count{
 }
 .mytabs label {
     padding: 12px;
-    background: #e2e2e2;
+    
     font-weight: bold;
     cursor:pointer;
     margin-right: 2px;
