@@ -36,7 +36,7 @@ async function update_dash_postura() {
   //---------------GRAFICO-----------
   const data = {
     datasets: [{
-      label: 'Tiempos de mala postura detectados',
+      label: 'Tiempo de mala postura detectado',
       data: [{
         x: 1,  //DEJAR ESTE DATO PARA ESTABLECER EL ALTO (Y), QUE (X)
         y: 60,
@@ -96,7 +96,7 @@ async function update_dash_postura() {
         y: 5,
         r: 0
       }],
-      backgroundColor: 'rgb(255, 99, 132)'
+      backgroundColor: 'rgb(58, 198, 143)'
     }]
   };
 
@@ -124,9 +124,36 @@ async function update_dash_postura() {
     label:'sesiones',
     type: 'bubble',
     data: data,
-    options: {},
+    options: {
+      plugins:{
+        legend:{
+          color:'green',
+          backgroundColor:'green'
+        }
+      },
+      scales:{
+
+        x:{
+          title:{
+            color:"rgba(0, 91, 82, 1)",
+            display:true,
+            text:"NÚMERO DE SESIÓN",
+            padding:5
+          }
+        },
+        y:{
+          title:{
+            padding:10,
+            color:"rgba(0, 91, 82, 1)",
+            display:true,
+            text:"MOMENTO DE DETECCIÓN [min]"
+          }
+        }
+      }
+      
+    },
     yaxis:{
-      decimalsInFloat: false,
+      decimalsInFloat: 0,
     }
   });
 
@@ -137,7 +164,7 @@ async function update_dash_postura() {
   const data_posmes = {
     labels: labels,
     datasets: [{
-      label: 'My First Dataset',
+      label: 'Cantidad de detecciones',
       data: [total_mes_anterior_anterior, total_mes_anterior, total_mes_actual],
       backgroundColor: [
         
@@ -153,19 +180,39 @@ async function update_dash_postura() {
       ],
       borderWidth: 1
     }]
+    
   };
 
   const ctx_pmes = document.getElementById('chart_posturames').getContext('2d');
   const config_posmes = new Chart(ctx_pmes,{
     type: 'bar',
     data: data_posmes,
+    yaxis:{
+      decimalsInFloat: 0,
+    },
     options: {
       scales: {
-        y: {
-          beginAtZero: true
+        x:{
+          title:{
+            color:"rgba(0, 91, 82, 1)",
+            display:true,
+            text:"MES"
+          }
+        },
+        y:{
+          title:{
+            beginAtZero: true,
+            color:"rgba(0, 91, 82, 1)",
+            display:true,
+            text:"CANTIDAD DE DETECCIONES",
+            fontStyle:'bold',
+            padding:10,
+            decimalsInFloat:0
+          }
         }
       }
-    },
+    }
+    
   });
 
 }
