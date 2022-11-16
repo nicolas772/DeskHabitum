@@ -274,7 +274,7 @@ async function update_dash_general() {
         },
         labels: ['Tiempo Onicofagia', 'Tiempo Óptimo'],
         responsive: [{
-          breakpoint: 480,
+          breakpoint: 380,
           options: {
             chart: {
               width: 400
@@ -525,6 +525,8 @@ async function update_dash_general() {
               title:{
                 color:"gray",
                 display:true,
+                font:{
+                  weight:'bold'},
                 text:"SESIÓN",
                 padding:10
               }
@@ -535,6 +537,8 @@ async function update_dash_general() {
                 padding:20,
                 color:"gray",
                 display:true,
+                font:{
+                  weight:'bold'},
                 text:"NÚMERO DE DETECCIONES"
               }
             }
@@ -815,6 +819,8 @@ async function update_dash_general() {
               title:{
                 color:"gray",
                 display:true,
+                font:{
+                  weight:'bold'},
                 text:"SESIÓN",
                 padding:10
               }
@@ -825,6 +831,8 @@ async function update_dash_general() {
                 padding:20,
                 color:"gray",
                 display:true,
+                font:{
+                  weight:'bold'},
                 text:"CANTIDAD DE DETECCIONES"
               }
             }
@@ -1064,6 +1072,8 @@ async function update_dash_general() {
                     color:"gray",
                     display:true,
                     text:"SESIÓN",
+                    font:{
+                      weight:'bold'},
                     padding:10
                   }
                 },
@@ -1072,6 +1082,8 @@ async function update_dash_general() {
                   title:{
                     padding:20,
                     color:"gray",
+                    font:{
+                      weight:'bold'},
                     display:true,
                     text:"CANTIDAD DE DETECCIONES"
                   }
@@ -1362,6 +1374,8 @@ async function update_dash_general() {
                   title:{
                     color:"gray",
                     display:true,
+                    font:{
+                      weight:'bold'},
                     text:"SESIÓN",
                     padding:10
                   }
@@ -1371,6 +1385,8 @@ async function update_dash_general() {
                   title:{
                     padding:20,
                     color:"gray",
+                    font:{
+                      weight:'bold'},
                     display:true,
                     text:"CANTIDAD DE DETECCIONES"
                   }

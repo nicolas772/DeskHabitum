@@ -147,8 +147,10 @@ async function update_dash_postura() {
 
         x:{
           title:{
-            color:"rgba(0, 91, 82, 1)",
+            color:"gray",
             display:true,
+            font:{
+              weight:'bold'},
             text:"NÚMERO DE SESIÓN",
             padding:5
           }
@@ -156,7 +158,10 @@ async function update_dash_postura() {
         y:{
           title:{
             padding:10,
-            color:"rgba(0, 91, 82, 1)",
+            font:{
+              weight:'bold'},
+            
+            color:"gray",
             display:true,
             text:"MOMENTO DE DETECCIÓN [min]"
           }
@@ -206,18 +211,21 @@ async function update_dash_postura() {
       scales: {
         x:{
           title:{
-            color:"rgba(0, 91, 82, 1)",
+            color:"gray",
             display:true,
+            font:{
+              weight:'bold'},
             text:"MES"
           }
         },
         y:{
           title:{
             beginAtZero: true,
-            color:"rgba(0, 91, 82, 1)",
+            color:"gray",
             display:true,
             text:"CANTIDAD DE DETECCIONES",
-            fontStyle:'bold',
+            font:{
+              weight:'bold'},
             padding:10,
             decimalsInFloat:0
           }
