@@ -210,7 +210,7 @@ async function update_dash_general() {
           title:{
             text:"%TIEMPO CON MANÍA",
             display:true,
-            offsetX:-5,
+            offsetX:-3,
             style:{
               color:"gray",
               
@@ -334,7 +334,7 @@ async function update_dash_general() {
           title:{
             text:"%TIEMPO CON MANÍA",
             display:true,
-            offsetX:-5,
+            offsetX:-3,
             style:{
               color:"gray"
             }
@@ -439,7 +439,7 @@ async function update_dash_general() {
         title:{
           text:"%TIEMPO CON MANÍA",
           display:true,
-          offsetX:-5,
+          offsetX:-3,
           style:{
             color:"gray"
           }
@@ -603,7 +603,7 @@ async function update_dash_general() {
       title:{
         text:"NÚMERO DE SESIÓN",
         display:true,
-        offsetY:100,
+        offsetY:110,
         style:{
           color:"gray"
         }
@@ -615,7 +615,7 @@ async function update_dash_general() {
       title:{
         text:"NÚMERO DE DETECCIONES",
         display:true,
-        offsetX:-5,
+        offsetX:-3,
         style:{
           color:"gray"
         }
@@ -729,7 +729,7 @@ async function update_dash_general() {
         title:{
           text:"%TIEMPO CON MANÍA",
           display:true,
-          offsetX:-5,
+          offsetX:-3,
           style:{
             color:"gray"
           }
@@ -891,7 +891,7 @@ async function update_dash_general() {
       title:{
         text:"NÚMERO DE SESIÓN",
         display:true,
-        offsetY:100,
+        offsetY:110,
         style:{
           color:"gray"
         }
@@ -903,7 +903,7 @@ async function update_dash_general() {
       title:{
         text:"NÚMERO DE DETECCIONES",
         display:true,
-        offsetX:-5,
+        offsetX:-3,
         style:{
           color:"gray"
         }
@@ -1020,7 +1020,7 @@ async function update_dash_general() {
         title:{
           text:"%TIEMPO CON MANÍA",
           display:true,
-          offsetX:-5,
+          offsetX:-3,
           style:{
             color:"gray"
           }
@@ -1166,7 +1166,7 @@ async function update_dash_general() {
       title:{
         text:"NÚMERO DE SESIÓN",
         display:true,
-        offsetY:100,
+        offsetY:110,
         style:{
           color:"gray"
         }
@@ -1178,7 +1178,7 @@ async function update_dash_general() {
       title:{
         text:"NÚMERO DE DETECCIONES",
         display:true,
-        offsetX:-5,
+        offsetX:-3,
         style:{
           color:"gray"
         }
@@ -1319,7 +1319,7 @@ async function update_dash_general() {
         title:{
           text:"%TIEMPO CON MANÍA",
           display:true,
-          offsetX:-5,
+          offsetX:-3,
           style:{
             color:"gray"
           }
@@ -1465,7 +1465,7 @@ async function update_dash_general() {
       title:{
         text:"NÚMERO DE SESIÓN",
         display:true,
-        offsetY:100,
+        offsetY:110,
         style:{
           color:"gray"
         }
@@ -1477,7 +1477,7 @@ async function update_dash_general() {
       title:{
         text:"NÚMERO DE DETECCIONES",
         display:true,
-        offsetX:-5,
+        offsetX:-3,
         style:{
           color:"gray"
         }
