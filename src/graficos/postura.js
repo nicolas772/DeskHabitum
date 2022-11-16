@@ -26,6 +26,7 @@ async function update_dash_postura() {
   top_10_mes_postura.reverse()
   time_10_mes_postura.reverse()
 
+
   document.getElementById("total-ultima-postura").innerHTML = total_ultima_postura;
   document.getElementById("tiempo-ultima-postura").innerHTML = tiempo_ultima_postura;
   document.getElementById("tiempo-mes-postura").innerHTML = time_10_mes_postura.reduce((partialSum, a) => partialSum + a, 0);
@@ -36,60 +37,60 @@ async function update_dash_postura() {
   //---------------GRAFICO-----------
   const data = {
     datasets: [{
-      label: 'Tiempo de mala postura detectado',
+      label: 'Tiempo de mala postura detectado (ancho)',
       data: [{
         x: 1,  //DEJAR ESTE DATO PARA ESTABLECER EL ALTO (Y), QUE (X)
-        y: 60,
+        y: 10,
         r: 0
       },
       {
         x: 1,  //hay que sumar 1 a la sesión para que no quede en eje y
-        y: time_10_mes_postura[0], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[0] //tiempo en minutos que estuvo con mala postura
+        y: top_10_mes_postura[0], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[0] //tiempo en minutos que estuvo con mala postura
       }, 
       {
         x: 2,  //hay que sumar 1 a la sesión para que no quede en eje y
-        y: time_10_mes_postura[1], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[1] //tiempo en minutos que estuvo con mala postura
+        y: top_10_mes_postura[1], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[1] //tiempo en minutos que estuvo con mala postura
       }, 
       {
         x: 3,  //hay que sumar 1 a la sesión para que no quede en eje y
-        y: time_10_mes_postura[2], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[2]  //tiempo en minutos que estuvo con mala postura
+        y: top_10_mes_postura[2], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[2]  //tiempo en minutos que estuvo con mala postura
       }, {
         x: 4,
-        y: time_10_mes_postura[3], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[3] 
+        y: top_10_mes_postura[3], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[3] 
       },
       {
         x: 5,
-        y: time_10_mes_postura[4], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[4] 
+        y: top_10_mes_postura[4], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[4] 
       },
       {
         x: 6,
-        y: time_10_mes_postura[5], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[5] 
+        y: top_10_mes_postura[5], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[5] 
       },
       {
         x: 7,
-        y: time_10_mes_postura[6], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[6] 
+        y: top_10_mes_postura[6], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[6] 
       },
       {
         x: 8,
-        y: time_10_mes_postura[7], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[7] 
+        y: top_10_mes_postura[7], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[7] 
       },
       {
         x: 9,
-        y: time_10_mes_postura[8], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[8] 
+        y: top_10_mes_postura[8], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[8] 
       },
       {
         x: 10,
-        y: time_10_mes_postura[9], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[9]
+        y: top_10_mes_postura[9], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[9]
       },
       {
         x: 11,  //DEJAR ESTE DATO PARA ESTABLECER EL ANCHO DE LAS 10 SESIONES 
@@ -163,7 +164,7 @@ async function update_dash_postura() {
             
             color:"gray",
             display:true,
-            text:"MOMENTO DE DETECCIÓN [min]"
+            text:"CANTIDAD DE DETECCIONES"
           }
         }
       }
