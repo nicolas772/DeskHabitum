@@ -64,10 +64,10 @@ let hay_cara = false;
 let opcion;
 
 //Variables para notificación de estrés
-let intervalo_estres = 12000;
+let intervalo_estres = 20000;
 let tiempo_estres = false;
 let detectado_estres = false;
-let cantidad_estres = 1;
+let cantidad_estres = 4;
 
 let cantidad_detecciones = 0;
 let detecciones_estres = 0;
@@ -211,7 +211,7 @@ async function redirigir(){
     await preload.insertManias(ID_USER)
 
     await sleep(300);
-    ipcRenderer.sendSync('Estresado', "");
+    ipcRenderer.invoke('Estresado', "");
 }
 
 
@@ -1333,7 +1333,7 @@ async function predict() {
         horizontal = distancia_puntos(hombro_izquierdo.x , hombro_izquierdo.y , hombro_derecho.x , hombro_derecho.y )
         proporcion_nueva = vertical / horizontal
 
-        if(proporcion_nueva < 0.445){
+        if(proporcion_nueva < 0.465){
             if(!corriendo_postura){
                 inicio_postura = new Date;
             }
