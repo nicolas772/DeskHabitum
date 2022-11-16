@@ -132,7 +132,7 @@ async function predict(){
         ref_tipMedio2 = {"x": 288 , "y": 68};
         ref_muñeca2 = {"x": 341 , "y": 398};
 
-        radio = 50        
+        radio = 42        
 
         //Mano 1
         tipPulgar3D = posesHand[0].keypoints3D[4]
