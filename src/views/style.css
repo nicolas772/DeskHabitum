@@ -1000,3 +1000,14 @@ body.shrink .message-count{
     --bs-btn-disabled-bg: transparent;
     --bs-gradient: none;
 }
+
+.toggle-on.btn-sm {
+    padding-right: 20px;
+    top: -7px;
+}
+
+.toggle-off.btn-sm {
+    padding-right: 20px;
+    padding-left:11px !important;
+    top: -7px !important;
+}
