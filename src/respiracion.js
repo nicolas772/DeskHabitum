@@ -220,7 +220,7 @@ window.onload=function(){
     localStorage.setItem("grado2", 232);
 
 
-    r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${localStorage.getItem('porcent1')}%,#fff ${localStorage.getItem('porcent1')}%,#fff ${localStorage.getItem('porcent2')}%,#336d62 ${localStorage.getItem('porcent2')}%,#2a5b52 100%)`) 
+    r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${localStorage.getItem('porcent1')}%,#89e5ba ${localStorage.getItem('porcent1')}%,#89e5ba ${localStorage.getItem('porcent2')}%,#336d62 ${localStorage.getItem('porcent2')}%,#2a5b52 100%)`) 
   
 
     r.style.setProperty('--rotate1_from',`rotate(0deg)`);
@@ -245,7 +245,7 @@ window.onload=function(){
     r.style.setProperty('--hold', localStorage.getItem('mant1') + 's');
 
 
-    r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${localStorage.getItem('porcent1')}%,#fff ${localStorage.getItem('porcent1')}%,#fff ${localStorage.getItem('porcent2')}%,#336d62 ${localStorage.getItem('porcent2')}%,#2a5b52 100%)`) 
+    r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${localStorage.getItem('porcent1')}%,#89e5ba ${localStorage.getItem('porcent1')}%,#89e5ba ${localStorage.getItem('porcent2')}%,#336d62 ${localStorage.getItem('porcent2')}%,#2a5b52 100%)`) 
   
 
     r.style.setProperty('--rotate1_from',`rotate(0deg)`);
@@ -271,7 +271,7 @@ window.onload=function(){
 
 function changeBreath(){
   
-  localStorage.setItem("empezo", 1);
+  localStorage.setItem("empezo", 0);
   var inhalacion = document.getElementById('duracionInhalacion').value;
   var exhalacion = document.getElementById('duracionExhalacion').value;
   var mantener = document.getElementById('duracionMantener1').value;
@@ -327,7 +327,7 @@ function changeBreath(){
   localStorage.setItem("grado2",grado2);
   
 
-  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#fff ${porcent1}%,#fff ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
+  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#89e5ba ${porcent1}%,#89e5ba ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
   
 
   r.style.setProperty('--rotate1_from',`rotate(0deg)`);
@@ -458,7 +458,7 @@ function tecnica_square(){
   localStorage.setItem("grado2",grado2);
   
 
-  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#fff ${porcent1}%,#fff ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
+  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#89e5ba ${porcent1}%,#89e5ba ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
   
 
   r.style.setProperty('--rotate1_from',`rotate(0deg)`);
@@ -522,7 +522,7 @@ function tecnica_pranayama(){
   localStorage.setItem("grado2",grado2);
   
 
-  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#fff ${porcent1}%,#fff ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
+  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#89e5ba ${porcent1}%,#89e5ba ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
   
 
   r.style.setProperty('--rotate1_from',`rotate(0deg)`);
@@ -585,7 +585,7 @@ function tecnica_ujjayi(){
   localStorage.setItem("grado2",grado2);
   
 
-  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#fff ${porcent1}%,#fff ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
+  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#89e5ba ${porcent1}%,#89e5ba ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
   
 
   r.style.setProperty('--rotate1_from',`rotate(0deg)`);
