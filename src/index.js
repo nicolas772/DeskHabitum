@@ -67,7 +67,7 @@ const createWindow = () => {
       camera_win.close()
     })
 
-    ipcMain.on('Estresado', (event, data) => {
+    ipcMain.handle('Estresado', (event, data) => {
       win.loadFile('src/views/Respiracion.html');
       pomodoro_win.close();
       camera_win.close();
