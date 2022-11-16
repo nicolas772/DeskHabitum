@@ -28,7 +28,12 @@ function actualizarCarousel(){
             let h = document.createElement('h5');
             h.style.color = "black";
             h.style.fontWeight = "bold";
-            let texto = document.createTextNode("Foto del 10.10.2022")
+            let aux_name = fotos[i]
+            let fecha_foto = aux_name.replace(/!/g, ":").slice(0,-4)
+            let x = new Date(fecha_foto)
+            let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            let y = x.toLocaleDateString(undefined, options)
+            let texto = document.createTextNode("Foto tomada el "+y)
             h.appendChild(texto);            
             cardb.appendChild(h);
             card1.appendChild(cardb);
@@ -57,7 +62,12 @@ function actualizarCarousel(){
             let h = document.createElement('h5');
             h.style.color = "black";
             h.style.fontWeight = "bold";
-            let texto = document.createTextNode("Foto del 10.10.2022")
+            let aux_name = fotos[i]
+            let fecha_foto = aux_name.replace(/!/g, ":").slice(0,-4)
+            let x = new Date(fecha_foto)
+            let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            let y = x.toLocaleDateString(undefined, options)
+            let texto = document.createTextNode("Foto tomada el")
             h.appendChild(texto);            
             cardb.appendChild(h);
             card1.appendChild(cardb);
