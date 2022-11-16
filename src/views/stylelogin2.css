@@ -131,7 +131,7 @@ h1 {
     left: 0;
     display: block;
     /*background-image: url("https://deskhabitum.feriadesoftware.cl/images/banner-light1-1.jpg");*/
-    background: #89e5ba;
+    background: linear-gradient(to right,#3aaf88,#89e5ba);
     width: 100%;
     height: 100%;
   }

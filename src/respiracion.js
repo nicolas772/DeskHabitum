@@ -37,29 +37,30 @@ let isRandom = false;
 let updateTimer;
 
 const music_list = [
+
     {
-        img : 'images/stay.png',
-        name : '',
-        artist : 'Endless (piano) by PrabajithK',
-        music : 'music/endless.mp3'
+      img : 'images/faded.png',
+      name : '',
+      artist : 'Música de meditación',
+      music : 'music/relaxing-music-vol1.mp3'
     },
     {
-        img : 'images/fallingdown.jpg',
-        name : '',
-        artist : 'Sonidos de meditación',
-        music : 'music/meditation-sounds.mp3'
+      img : 'images/fallingdown.jpg',
+      name : '',
+      artist : 'Sonidos de meditación',
+      music : 'music/meditation-sounds.mp3'
     },
     {
-        img : 'images/faded.png',
-        name : '',
-        artist : 'Música de meditación',
-        music : 'music/relaxing-music-vol1.mp3'
+      img : 'images/stay.png',
+      name : '',
+      artist : 'Endless (piano) by PrabajithK',
+      music : 'music/endless.mp3'
     },
     {
-        img : 'images/ratherbe.jpg',
-        name : '',
-        artist : 'Musica de relajación',
-        music : 'music/relaxing-music.mp3'
+      img : 'images/ratherbe.jpg',
+      name : '',
+      artist : 'Musica de relajación',
+      music : 'music/relaxing-music.mp3'
     }
 ];
 
