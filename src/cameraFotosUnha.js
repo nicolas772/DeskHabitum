@@ -28,11 +28,11 @@ function magnitud(punto){
 function mano_abierta(pulgar, indice, medio, anular, meñique, muñeca){
 
 
-    coef_pulgar = 1.5
-    coef_indice = 1.47
-    coef_medio = 1.47
-    coef_anular = 1.47
-    coef_meñique = 1.36
+    coef_pulgar = 1.4
+    coef_indice = 1.4
+    coef_medio = 1.4
+    coef_anular = 1.4
+    coef_meñique = 1.35
     coef_horizontal = 1.1
     
     magnitud_pulgar = magnitud(pulgar) 
@@ -132,7 +132,7 @@ async function predict(){
         ref_tipMedio2 = {"x": 288 , "y": 68};
         ref_muñeca2 = {"x": 341 , "y": 398};
 
-        radio = 38        
+        radio = 50        
 
         //Mano 1
         tipPulgar3D = posesHand[0].keypoints3D[4]
