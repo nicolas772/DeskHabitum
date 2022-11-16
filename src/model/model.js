@@ -125,59 +125,59 @@ const percentageTenSesionUnhas = async (userId) => {
 //select sum(total_time) from (select * from sesions where EXTRACT(month from inicio) = '1' and id_user = '2') as subq where EXTRACT(year from inicio) = '2030'
 
 const sesionesMesUnha = async (userId, mes, año) => {
-    let query = `select cant_total_unnas from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año}`;
+    let query = `select cant_total_unnas from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año} order by id desc limit 20`;
     const res = await conexion.query(query)
     const result = res.rows
     var totales_sesiones = [] 
     result.forEach(element => {
         totales_sesiones.push(parseInt(element['cant_total_unnas']))
     });
-    return totales_sesiones
+    return totales_sesiones.reverse()
 }
 
 const sesionesMesMorder = async (userId, mes, año) => {
-    let query = `select cant_total_morder from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año}`;
+    let query = `select cant_total_morder from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año} order by id desc limit 20`;
     const res = await conexion.query(query)
     const result = res.rows
     var totales_sesiones = [] 
     result.forEach(element => {
         totales_sesiones.push(parseInt(element['cant_total_morder']))
     });
-    return totales_sesiones
+    return totales_sesiones.reverse()
 }
 
 
 const sesionesMesPelo = async (userId, mes, año) => {
-    let query = `select cant_total_pelo from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año}`;
+    let query = `select cant_total_pelo from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año} order by id desc limit 20`;
     const res = await conexion.query(query)
     const result = res.rows
     var totales_sesiones = [] 
     result.forEach(element => {
         totales_sesiones.push(parseInt(element['cant_total_pelo']))
     });
-    return totales_sesiones
+    return totales_sesiones.reverse()
 }
 
 const sesionesMesNariz = async (userId, mes, año) => {
-    let query = `select cant_total_nariz from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año}`;
+    let query = `select cant_total_nariz from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año} order by id desc limit 20`;
     const res = await conexion.query(query)
     const result = res.rows
     var totales_sesiones = [] 
     result.forEach(element => {
         totales_sesiones.push(parseInt(element['cant_total_nariz']))
     });
-    return totales_sesiones
+    return totales_sesiones.reverse()
 }
 
 const sesionesMesPiel = async (userId, mes, año) => {
-    let query = `select cant_total_piel from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año}`;
+    let query = `select cant_total_piel from (select * from sesions where EXTRACT(month from inicio) = ${mes} and id_user = ${userId}) as subq where EXTRACT(year from inicio) = ${año} order by id desc limit 20`;
     const res = await conexion.query(query)
     const result = res.rows
     var totales_sesiones = [] 
     result.forEach(element => {
         totales_sesiones.push(parseInt(element['cant_total_piel']))
     });
-    return totales_sesiones
+    return totales_sesiones.reverse()
 }
 
 
