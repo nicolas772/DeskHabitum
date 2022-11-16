@@ -19,7 +19,7 @@ function actualizarCarousel(){
             let card1 = document.createElement('div');
             card1.className = "card text-center";
             card1.style.width = "10rem";
-            card1.style.height = "2rem";
+            card1.style.height = "3rem";
             card1.style.position = "absolute";
             card1.style.left = "50%";
             card1.style.transform = "translate(-50%,0)";
@@ -29,7 +29,7 @@ function actualizarCarousel(){
             h.style.color = "black";
             h.style.fontWeight = "bold";
             let texto = document.createTextNode("Foto del 10.10.2022")
-            h.appendChild(texto);
+            h.appendChild(texto);            
             cardb.appendChild(h);
             card1.appendChild(cardb);
             d.appendChild(card1);
@@ -48,18 +48,17 @@ function actualizarCarousel(){
             let card1 = document.createElement('div');
             card1.className = "card text-center";
             card1.style.width = "10rem";
-            card1.style.height = "2rem";
+            card1.style.height = "3rem";
             card1.style.position = "absolute";
             card1.style.left = "50%";
-            card1.style.transform = "translate(-50%,0)";
+            card1.style.transform = "translate(-50%,-30%)";
             let cardb = document.createElement('div');
             cardb.className = "card-body";
             let h = document.createElement('h5');
             h.style.color = "black";
             h.style.fontWeight = "bold";
             let texto = document.createTextNode("Foto del 10.10.2022")
-            h.appendChild(texto);
-            d.appendChild(h);
+            h.appendChild(texto);            
             cardb.appendChild(h);
             card1.appendChild(cardb);
             d.appendChild(card1);
