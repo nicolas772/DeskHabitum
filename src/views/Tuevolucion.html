@@ -5,6 +5,11 @@
     <meta http-equiv = "X-UA-Compatible" content = "IE=edge">
     <meta name="viewport" content="width=device-width", initial-scale="1.0">
     <title>Desk Habitum</title>
+    <!-- MDB -->
+    <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.js"
+    ></script>
     <!-- Material CDN --->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
@@ -141,40 +146,58 @@
             <br/>            
             <p style="margin-bottom:1rem; font-size:1.2rem;"> Aquí podrás ver las últimas 10 fotos de tus uñas para chequear tu progreso.</p>
             <div class="row" style="width:448px; height:320px; margin:auto;">
-                
-            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                <div id="carouselDiv" class="carousel-inner">
-                  <!--<div class="carousel-item active">
-                    <img
-                      id="img1"
-                      class="d-block w-100"
-                      alt="..."
-                    />
-                  </div>
-                  <div class="carousel-item">
-                    <img
-                      id="img2"
-                      class="d-block w-100"
-                      alt="..."
-                    />
-                  </div>
-                  <div class="carousel-item">
-                    <img
-                      id="img3"
-                      class="d-block w-100"
-                      alt="..."
-                    />
-                  </div>-->
+            <!-- Carousel wrapper -->
+            <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-mdb-ride="carousel">
+                <!-- Slides -->
+                <div id="carouselDiv" class="carousel-inner mb-5">
+                <!--<div class="carousel-item active">
+                    <img src="../images/fabian.png" class="d-block w-100" alt="..." />
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Anterior</span>
+                <div class="carousel-item">
+                    <img src="../images/logo1.png" class="d-block w-100"
+                    alt="..." />
+                </div>
+                <div class="carousel-item">
+                    <img src="../images/perfil.png" class="d-block w-100" alt="..." />
+                </div>-->
+                </div>
+                <!-- Slides -->
+            
+                <!-- Controls -->
+                <button class="carousel-control-prev" type="button" data-mdb-target="#carouselExampleIndicators"
+                data-mdb-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Siguiente</span>
+                <button class="carousel-control-next" type="button" data-mdb-target="#carouselExampleIndicators"
+                data-mdb-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
                 </button>
-              </div>
+                <!-- Controls -->
+            
+                <!-- Thumbnails -->
+                <div id="thumbnails" class="carousel-indicators" style="margin-bottom: -20px;">
+                <!--<button type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1" style="width: 100px;">
+                    <img class="d-block w-100"
+                    src="../images/fabian.png" class="img-fluid" />
+                </button>
+                <button type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="1"
+                    aria-label="Slide 2" style="width: 100px;">
+                    <img class="d-block w-100"
+                    src="../images/logo1.png" class="img-fluid" />
+                </button>
+                <button type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="2"
+                    aria-label="Slide 3" style="width: 100px;">
+                    <img class="d-block w-100"
+                    src="../images/perfil.png" class="img-fluid" />
+                </button>-->
+                </div>
+                <!-- Thumbnails -->
+            </div>
+            <!-- Carousel wrapper -->    
+            
             
             </div>
         </main>
@@ -182,8 +205,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../navbar.js"></script>
-    <script src="../Tuevolucion.js"></script>    
-    <!--<script src="../renderWebcam.js"></script>-->
+    <script src="../Tuevolucion.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('.sub-btn').click(function(){
