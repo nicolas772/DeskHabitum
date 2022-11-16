@@ -130,6 +130,8 @@ function playpauseTrack(){
 function playTrack(){
     curr_track.play();
     isPlaying = true;
+    localStorage.setItem('isPlaying',true);
+
     track_art.classList.add('rotate');
     wave.classList.add('loader');
     playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
@@ -137,6 +139,7 @@ function playTrack(){
 function pauseTrack(){
     curr_track.pause();
     isPlaying = false;
+    localStorage.setItem('isPlaying',false);
     track_art.classList.remove('rotate');
     wave.classList.remove('loader');
     playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';
@@ -195,6 +198,10 @@ function setUpdate(){
 /*------FIN MUSICA */
 
 window.onload=function(){
+  console.log(localStorage.getItem('isPlaying'));
+  if(localStorage.getItem('isPlaying')=="true"){
+    playTrack();
+  }
   //gradiant.className += " loaded";
 
   if(localStorage.getItem('inha1')==null){
@@ -607,7 +614,8 @@ $('grad-circle').fadeIn('slow');
 
 window.onbeforeunload = () => {
   
-  
+  localStorage.setItem("isPlaying", isPlaying);
+  //console.log(localStorage.getItem('isPlaying'));
   localStorage.setItem("inha1", localStorage.getItem('inha1'));
   localStorage.setItem("exha1", localStorage.getItem('exha1'));
   localStorage.setItem("mant1", localStorage.getItem('mant1'));
