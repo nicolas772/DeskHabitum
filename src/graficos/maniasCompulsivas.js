@@ -607,7 +607,7 @@ async function update_dash_general() {
       title:{
         text:"NÚMERO DE SESIÓN",
         display:true,
-        offsetY:110,
+        offsetY:85,
         style:{
           color:"gray"
         }
@@ -899,7 +899,7 @@ async function update_dash_general() {
       title:{
         text:"NÚMERO DE SESIÓN",
         display:true,
-        offsetY:110,
+        offsetY:85,
         style:{
           color:"gray"
         }
@@ -1178,7 +1178,7 @@ async function update_dash_general() {
       title:{
         text:"NÚMERO DE SESIÓN",
         display:true,
-        offsetY:110,
+        offsetY:85,
         style:{
           color:"gray"
         }
@@ -1481,7 +1481,7 @@ async function update_dash_general() {
       title:{
         text:"NÚMERO DE SESIÓN",
         display:true,
-        offsetY:110,
+        offsetY:85,
         style:{
           color:"gray"
         }
