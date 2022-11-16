@@ -51,10 +51,10 @@ function actualizarThumb(){
             let buttonThumb = document.createElement('button');
             buttonThumb.type = "button"
             buttonThumb.setAttribute("data-mdb-target", "#carouselExampleIndicators");
-            buttonThumb.setAttribute("data-mdb-slide-to", i);
+            buttonThumb.setAttribute("data-mdb-slide-to", i.toString());
             buttonThumb.setAttribute("class", "active") //esta no va despues
             buttonThumb.setAttribute("aria-current", "true")
-            let aria_label = "Slide "+i.toString()
+            let aria_label = "Slide "+(i+1).toString()
             buttonThumb.setAttribute("aria-label", aria_label)
             buttonThumb.setAttribute("style", "width: 100px;")
             let img2 = document.createElement('img');
@@ -68,10 +68,8 @@ function actualizarThumb(){
             let buttonThumb = document.createElement('button');
             buttonThumb.type = "button"
             buttonThumb.setAttribute("data-mdb-target", "#carouselExampleIndicators");
-            buttonThumb.setAttribute("data-mdb-slide-to", i);
-            //buttonThumb.setAttribute("class", "active") //esta no va despues
-            buttonThumb.setAttribute("aria-current", "true")
-            let aria_label = "Slide "+i.toString()
+            buttonThumb.setAttribute("data-mdb-slide-to", i.toString());              
+            let aria_label = "Slide "+(i+1).toString()
             buttonThumb.setAttribute("aria-label", aria_label)
             buttonThumb.setAttribute("style", "width: 100px;")
             let img2 = document.createElement('img');
