@@ -16,10 +16,23 @@ function actualizarCarousel(){
             carouselItem.appendChild(img)
             let d = document.createElement('div');
             d.className="carousel-caption d-none d-md-block";
+            let card1 = document.createElement('div');
+            card1.className = "card text-center";
+            card1.style.width = "10rem";
+            card1.style.height = "2rem";
+            card1.style.position = "absolute";
+            card1.style.left = "50%";
+            card1.style.transform = "translate(-50%,0)";
+            let cardb = document.createElement('div');
+            cardb.className = "card-body";
             let h = document.createElement('h5');
+            h.style.color = "black";
+            h.style.fontWeight = "bold";
             let texto = document.createTextNode("Foto del 10.10.2022")
             h.appendChild(texto);
-            d.appendChild(h);
+            cardb.appendChild(h);
+            card1.appendChild(cardb);
+            d.appendChild(card1);
             carouselItem.appendChild(d);
             carousel.appendChild(carouselItem)
         }else {
@@ -32,10 +45,24 @@ function actualizarCarousel(){
             carouselItem.appendChild(img)
             let d = document.createElement('div');
             d.className="carousel-caption d-none d-md-block";
+            let card1 = document.createElement('div');
+            card1.className = "card text-center";
+            card1.style.width = "10rem";
+            card1.style.height = "2rem";
+            card1.style.position = "absolute";
+            card1.style.left = "50%";
+            card1.style.transform = "translate(-50%,0)";
+            let cardb = document.createElement('div');
+            cardb.className = "card-body";
             let h = document.createElement('h5');
+            h.style.color = "black";
+            h.style.fontWeight = "bold";
             let texto = document.createTextNode("Foto del 10.10.2022")
             h.appendChild(texto);
             d.appendChild(h);
+            cardb.appendChild(h);
+            card1.appendChild(cardb);
+            d.appendChild(card1);
             carouselItem.appendChild(d);
             carousel.appendChild(carouselItem)
         }
