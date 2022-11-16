@@ -30,10 +30,9 @@ function actualizarCarousel(){
             h.style.fontWeight = "bold";
             let aux_name = fotos[i]
             let fecha_foto = aux_name.replace(/!/g, ":").slice(0,-4)
-            let x = new Date(fecha_foto)
-            let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            let y = x.toLocaleDateString(undefined, options)
-            let texto = document.createTextNode("Foto tomada el "+y)
+            let x = new Date(fecha_foto)           
+            let y = x.toLocaleDateString()
+            let texto = document.createTextNode(y)
             h.appendChild(texto);            
             cardb.appendChild(h);
             card1.appendChild(cardb);
@@ -65,9 +64,8 @@ function actualizarCarousel(){
             let aux_name = fotos[i]
             let fecha_foto = aux_name.replace(/!/g, ":").slice(0,-4)
             let x = new Date(fecha_foto)
-            let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            let y = x.toLocaleDateString(undefined, options)
-            let texto = document.createTextNode("Foto tomada el")
+            let y = x.toLocaleDateString()
+            let texto = document.createTextNode(y)
             h.appendChild(texto);            
             cardb.appendChild(h);
             card1.appendChild(cardb);
