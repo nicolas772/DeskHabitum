@@ -80,7 +80,7 @@ async function NotificarPelo(config){
             body: NOTIFICATION_BODY_PELO, icon: 'https://i.pinimg.com/236x/1c/dc/c7/1cdcc71b23ec73fc874f448ec985f88a.jpg'
         })
     })*/
-    await doNotify('mania', config, NOTIFICATION_BODY_PELO, 'https://i.pinimg.com/236x/1c/dc/c7/1cdcc71b23ec73fc874f448ec985f88a.jpg', 'pelo')
+    await doNotify('mania', config, NOTIFICATION_BODY_PELO, 'https://img.bekiapadres.com/articulos/portada/85000/85663.jpg', 'pelo')
 }
 
 async function NotificarObjeto(config){
@@ -98,7 +98,7 @@ async function NotificarPestañeo(config){
             body: NOTIFICATION_BODY_PESTAÑEO, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
         })
     })*/
-    await doNotify('mania', config, NOTIFICATION_BODY_PESTAÑEO, 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg', 'fatiga')
+    await doNotify('mania', config, NOTIFICATION_BODY_PESTAÑEO, 'https://coopervision.es/sites/coopervision.es/files/top-digital-eye-fatigue.jpg', 'fatiga')
 }
 
 
@@ -108,7 +108,7 @@ async function NotificarVisual(config){
             body: NOTIFICATION_BODY_VISUAL, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
         })
     })*/
-    await doNotify('mania', config, NOTIFICATION_BODY_VISUAL, 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg', 'fatiga')
+    await doNotify('mania', config, NOTIFICATION_BODY_VISUAL, 'https://coopervision.es/sites/coopervision.es/files/top-digital-eye-fatigue.jpg', 'fatiga')
 }
 
 async function NotificarPostura(config){
@@ -117,7 +117,7 @@ async function NotificarPostura(config){
             body: NOTIFICATION_BODY_POSTURA, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
         })
     })*/
-    await doNotify('mania', config, NOTIFICATION_BODY_POSTURA, 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg', 'postura')
+    await doNotify('mania', config, NOTIFICATION_BODY_POSTURA, 'https://osteo4u.co.uk/wp-content/uploads/2019/07/B3-posture-featured.jpg', 'postura')
 }
 
 async function NotificarPellizco(config){
@@ -126,7 +126,7 @@ async function NotificarPellizco(config){
             body: NOTIFICATION_BODY_PELLIZCO, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
         })
     })*/
-    await doNotify('mania', config, NOTIFICATION_BODY_PELLIZCO, 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg', 'piel')
+    await doNotify('mania', config, NOTIFICATION_BODY_PELLIZCO, 'https://www.clikisalud.net/wp-content/uploads/2020/01/dermatilomania-pellizcarse-piel.jpg', 'piel')
 }
 
 async function NotificarNariz(config){
@@ -135,7 +135,7 @@ async function NotificarNariz(config){
             body: NOTIFICATION_BODY_NARIZ, icon: 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg'
         })
     })*/
-    await doNotify('mania', config, NOTIFICATION_BODY_NARIZ, 'https://img.favpng.com/22/11/8/meditation-yoga-series-lotus-position-asana-png-favpng-pm1qsy0QY8Y4QPXgTaQqUCvUJ.jpg', 'nariz')
+    await doNotify('mania', config, NOTIFICATION_BODY_NARIZ, 'https://statics-cuidateplus.marca.com/cms/styles/noticia_destacada_linea/azblob/dedo-nariz.jpg', 'nariz')
 }
 
 async function CamaraCargada(config){

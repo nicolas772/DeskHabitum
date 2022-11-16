@@ -4,10 +4,13 @@ let id_Sesion;
 var unha_ultima_sesion = 0;
 var pelo_ultima_sesion = 0;
 var morder_ultima_sesion = 0;
+var piel_ultima_sesion = 0;
+var nariz_ultima_sesion = 0;
 
 var total_pelo = 0;
 var total_morder = 0;
 var total_unha = 0;
+
 
 var pelos_10_sesiones = [];
 var unhas_10_sesiones = [];
@@ -18,6 +21,7 @@ var nariz_10_sesiones = []
 var tiempo_unha = 0
 var tiempo_nariz = 0
 var tiempo_piel = 0
+var tiempo_trico=0;
 var tiempo_optimo = 0
 
 let ultima_ses_trico, total_trico;
@@ -49,9 +53,17 @@ async function update_dash_general() {
       morder_ultima_sesion = result;
     });
 
+    await window.api.totalPiel(ID_USER).then(result => {
+      piel_ultima_sesion = parseInt(result);
+    });
+
+    await window.api.totalNariz(ID_USER).then(result => {
+      nariz_ultima_sesion = parseInt(result);
+    });
+
     //agregar pelo y morder
 
-    document.getElementById("deteccionesUltimaSesion").innerHTML= unha_ultima_sesion + pelo_ultima_sesion + morder_ultima_sesion;
+    document.getElementById("deteccionesUltimaSesion").innerHTML= unha_ultima_sesion + pelo_ultima_sesion + morder_ultima_sesion +piel_ultima_sesion+nariz_ultima_sesion;
 
 
     //Html: dashboard, dato: Cantidad detecciones totales
@@ -66,21 +78,27 @@ async function update_dash_general() {
     await window.api.allSesionsPelo(ID_USER).then(result => {
       total_pelo = result;
     });
+    await window.api.totalNariz(ID_USER).then(result => {
+      total_nariz = parseInt(result);
+    })
+    await window.api.totalPiel(ID_USER).then(result => {
+      total_piel = parseInt(result);
+    })
 
 
     //agregar pelo y morder
 
-    document.getElementById("deteccionesTotales").innerHTML = total_unha + total_pelo + total_morder;
+    document.getElementById("deteccionesTotales").innerHTML = total_unha + total_pelo + total_morder + total_nariz + total_piel;
 
     //html: dashboard, dato: Porcentage de distraccion total
 
     var dataDistraccionTotal = {
-        series: [total_unha, total_pelo, total_morder],
+        series: [total_unha, total_pelo, total_morder, total_nariz, total_piel],
         chart: {
         width: 380,
         type: 'pie',
       },
-      labels: ['Onicofagia', 'Tricotilomanía', 'Manía Mordiendo Objetos'],
+      labels: ['Onicofagia', 'Tricotilomanía', 'Manía Mordiendo Objetos', 'Rinotilexomanía', 'Dermatilomanía'],
       responsive: [{
         breakpoint: 480,
         options: {
@@ -112,6 +130,10 @@ async function update_dash_general() {
         objetos_10_sesiones = result;
       });
 
+      await window.api.percentageTenSesionPiel(ID_USER).then(result => {
+        piel_10_sesiones = result;
+      })
+
       //ARREGLAR EN EL FUTURO
       for (var i = 0; i < 10; i++) {
         if (unhas_10_sesiones[i] > 100){
@@ -132,7 +154,16 @@ async function update_dash_general() {
           {
             name: 'Manía Mordiendo Objetos',
             data: objetos_10_sesiones
+          },
+          {
+            name: 'Dermantilomanía',
+            data: piel_10_sesiones
+          },
+          {
+            name: 'Rinotilexomanía',
+            data: nariz_10_sesiones
           }
+
         ],
         chart: {
           height: 240,
@@ -145,7 +176,7 @@ async function update_dash_general() {
           enabled: false
         },
         stroke: {
-          width: [5, 7, 5],
+          width: [5, 7, 5, 5, 5],
           curve: 'straight',
           dashArray: [0, 8, 5]
         },
@@ -302,7 +333,7 @@ async function update_dash_general() {
     //Html: dashboard, pestana: Onicofagia, dato: Cantidad detecciones totales
     document.getElementById("total-detecciones-trico").innerHTML = total_trico;
 
-    var tiempo_trico;
+
     await window.api.totalTimePelo(ID_USER).then(result => {
       console.log(result)
       tiempo_trico = result
@@ -734,9 +765,7 @@ async function update_dash_general() {
     await window.api.ultimaNariz(ID_USER).then(result => {
       ultima_ses_nariz = result;
     })
-    await window.api.totalNariz(ID_USER).then(result => {
-      total_nariz = result;
-    })
+
     await window.api.peorSesionNariz(ID_USER).then(result => {
       peor_ses_nariz = result;
     })
@@ -970,18 +999,14 @@ async function update_dash_general() {
     await window.api.ultimaPiel(ID_USER).then(result => {
       ultima_ses_piel = result;
     })
-    await window.api.totalPiel(ID_USER).then(result => {
-      total_piel = result;
-    })
+
     await window.api.peorSesionPiel(ID_USER).then(result => {
       peor_ses_piel = result;
     })
     await window.api.mejorSesionPiel(ID_USER).then(result => {
       mejor_ses_piel= result;
     })
-    await window.api.percentageTenSesionPiel(ID_USER).then(result => {
-      piel_10_sesiones = result;
-    })
+
     await window.api.totalTimePiel(ID_USER).then(result => {
       if(parseInt(result)>0) {
         tiempo_piel = result;

@@ -17,6 +17,9 @@ async function stop_cam(){
         let ID_USER = ID.toString()
         window.api.cerrar_camara("")
 
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ IMPORTANTE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        // SI CAMBIA EL SIGUIENTE CODIGO, FAVOR COPIARLO EN test_processWebcam.js en la función "redirigir", pero cambiar el "window.api" por "preload"
+        
         //calculo de totales por mania
         let [total_unhas, total_pelo, total_objeto, total_vista, total_postura, total_pellizco, total_nariz, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, cant_tot_postura, cant_tot_pellizco, cant_tot_nariz]  = window.api.obtenerTotal()
 

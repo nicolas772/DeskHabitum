@@ -44,46 +44,51 @@ function actualizarCarousel(){
 
 }
 
-function actualizarThumbnails(){
+function actualizarThumb(){
     let fotos = window.api.getFotosNames()
     for(let i=0; i< fotos.length; i++){
         if (i==0){
-            let boton = document.createElement('button');
-            boton.type = "button";
-            boton.data.mdb.target = "#carouselExampleControls";                
-            boton.data.mdb.slide.to = toString(i);  
-            boton.className = "active";
-            boton.ariaCurrent = True;    
-            boton.ariaLabel = "Slide " + toString(i+1);
-            boton.style.width = '100px';                 
-            let img = document.createElement('img');
-            img.className = "img-fluid";
-            img.src = "../images/unhasUser/"+fotos[i]
-            img.alt = "..."
-            boton.appendChild(img);
-            thumbnails.appendChild(boton);
-        }
-        else{
-            let boton = document.createElement('button');
-            boton.type = "button";
-            boton.data.mdb.target = "#carouselExampleControls";                              
-            boton.data.mdb.slide.to = toString(i);              
-            boton.ariaLabel = "Slide " + toString(i+1);        
-            boton.style.width = '100px';          
-            let img = document.createElement('img');
-            img.className = "img-fluid";
-            img.src = "../images/unhasUser/"+fotos[i]
-            img.alt = "..."
-            boton.appendChild(img);
-            thumbnails.appendChild(boton);
-        }
+            let buttonThumb = document.createElement('button');
+            buttonThumb.type = "button"
+            buttonThumb.setAttribute("data-mdb-target", "#carouselExampleIndicators");
+            buttonThumb.setAttribute("data-mdb-slide-to", i);
+            buttonThumb.setAttribute("class", "active") //esta no va despues
+            buttonThumb.setAttribute("aria-current", "true")
+            let aria_label = "Slide "+i.toString()
+            buttonThumb.setAttribute("aria-label", aria_label)
+            buttonThumb.setAttribute("style", "width: 100px;")
+            let img2 = document.createElement('img');
+            img2.className = "d-block w-100";
+            img2.setAttribute("class", "img-fluid")
+            img2.src = "../images/unhasUser/"+fotos[i]
+            buttonThumb.appendChild(img2)
+            thumbnails.appendChild(buttonThumb)
 
+        }else {
+            let buttonThumb = document.createElement('button');
+            buttonThumb.type = "button"
+            buttonThumb.setAttribute("data-mdb-target", "#carouselExampleIndicators");
+            buttonThumb.setAttribute("data-mdb-slide-to", i);
+            //buttonThumb.setAttribute("class", "active") //esta no va despues
+            buttonThumb.setAttribute("aria-current", "true")
+            let aria_label = "Slide "+i.toString()
+            buttonThumb.setAttribute("aria-label", aria_label)
+            buttonThumb.setAttribute("style", "width: 100px;")
+            let img2 = document.createElement('img');
+            img2.className = "d-block w-100";
+            img2.setAttribute("class", "img-fluid")
+            img2.src = "../images/unhasUser/"+fotos[i]
+            buttonThumb.appendChild(img2)
+            thumbnails.appendChild(buttonThumb)
+        }
+        
     }
+
 }
 
 function init4(){
     actualizarCarousel();
-    actualizarThumbnails();
+    actualizarThumb()
     actualizarNavbar();
 }
 

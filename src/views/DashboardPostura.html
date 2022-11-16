@@ -158,7 +158,7 @@
                                     <div class="card"  style="width: 20rem; margin:1.5rem;">
                                         <div class="card-body" style="padding:0.4rem">
                                             <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de correcciones</h4>
-                                            <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;">2</h1>
+                                            <h1 style="font-size:1rem;text-align:center; margin-bottom: 0;" id="total-ultima-postura">2</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -166,7 +166,7 @@
                                     <div class="card" style="width: 20rem; margin:1.5rem;">
                                         <div class="card-body" style="padding:0.4rem">
                                             <h4 class="card-title" style="text-align:center; text-decoration:underline">Tiempo con mala postura</h4>
-                                            <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">27<span> minutos</span></h1>
+                                            <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;" id="tiempo-ultima-postura">27<span> minutos</span></h1>
     
                                         </div>
                                     </div>
@@ -178,7 +178,7 @@
                                     <div class="card" style="width: 20rem; margin:1.5rem;">
                                         <div class="card-body" style="padding:0.4rem">
                                             <h4 class="card-title" style="text-align:center; text-decoration:underline">Cantidad de detecciones totales</h4>
-                                            <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">33</h1>
+                                            <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;" id="total-mes-postura">33</h1>
     
                                         </div>
                                     </div>
@@ -187,7 +187,7 @@
                                     <div class="card" style="width: 20rem; margin:1.5rem;">
                                         <div class="card-body" style="padding:0.4rem">
                                             <h4 class="card-title" style="text-align:center; text-decoration:underline">Tiempo con mala postura </h4>
-                                            <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;">93<span> minutos</span></h1>
+                                            <h1 style="font-size:1rem; text-align:center; margin-bottom: 0;" id="tiempo-mes-postura">93<span> minutos</span></h1>
     
                                         </div>
                                     </div>
@@ -197,10 +197,10 @@
                         
 
 
-                        <div class="row">
+                        <div class="row" style="padding-bottom:10px;">
                             <h1 style="font-size:1rem; margin-top:0.3rem"> Detecciones últimas 10 sesiones</h1>
-                            <div style="height:340px;width:340px;margin-left:200px;">
-                                <canvas id="chart_postura" width="100" height="100"></canvas>
+                            <div style="height:350px;width:350px;margin-left:230px;">
+                                <canvas id="chart_postura" width="400" height="400" "></canvas>
                             </div>
                             
                             <!--<div id="chart_postura" style="margin:auto; padding:1rem"></div>-->
@@ -212,7 +212,7 @@
                         
                         <div class="row" style="padding-top:10px;">
                             <div style="width:33%; float:left">
-                                <h4 style="font-size:14px;"><span>Septiembre</span></h4>
+                                <h4 style="font-size:14px;" id="mes-ant-ant-postura"><span></span></h4>
                                 <div class="card">
                                     <div class="card-header p-3 pt-2">
                                       <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
@@ -220,7 +220,7 @@
                                       </div>
                                       <div class="text-end pt-1">
                                         <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
-                                        <h4 class="mb-0" id="peor_ses_trico">5</h4>
+                                        <h4 class="mb-0" id="total-mes-ant-ant-postura">5</h4>
                                       </div>
                                     </div>
                                                                         
@@ -229,7 +229,7 @@
                             <div style="width: 66%;float:right">
                                 <div class="row">
                                     <div style="width:50%; float:left">
-                                        <h4><span>Octubre</span></h4>
+                                        <h4 id="mes-ant-postura"><span></span></h4>
                                         <div class="card">
                                             <div class="card-header p-3 pt-2">
                                               <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
@@ -237,14 +237,14 @@
                                               </div>
                                               <div class="text-end pt-1">
                                                 <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
-                                                <h4 class="mb-0" id="ult_ses_trico">2</h4>
+                                                <h4 class="mb-0" id="total-mes-ant-postura">2</h4>
                                               </div>
                                             </div>                                           
                                             
                                           </div>
                                     </div>
                                     <div style="width: 50%;float:right">
-                                        <h4><span>Noviembre</span></h4>
+                                        <h4 id="mes-act-postura"><span></span></h4>
                                         <div class="card">
                                             <div class="card-header p-3 pt-2">
                                               <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
@@ -252,7 +252,7 @@
                                               </div>
                                               <div class="text-end pt-1">
                                                 <p class="text-sm mb-0 text-capitalize">Cantidad de detecciones</p>
-                                                <h4 class="mb-0" id="mejor_ses_trico">3</h4>
+                                                <h4 class="mb-0" id="total-mes-act-postura">3</h4>
                                               </div>
                                             </div>                                           
                                             
@@ -263,7 +263,8 @@
 
 
                         </div>
-                        <div style="height:400px;width:400px;margin-left:200px;padding-top:30px;">
+                        <h1 style="font-size:1rem; margin-top:0.3rem;padding-top:20px;">Detecciones últimos 3 meses </h1>
+                        <div style="height:400px;width:400px;margin-left:200px;">
                             <canvas id="chart_posturames" width="100" height="100"></canvas>
                         </div>
                         

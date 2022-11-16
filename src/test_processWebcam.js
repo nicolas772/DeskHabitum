@@ -1,4 +1,6 @@
 //Librerias de IA
+
+const preload = require("./preload.js")
 const tmImage = require('@teachablemachine/image');
 const tf = require('@tensorflow/tfjs')
 const handPoseDetection = require('@tensorflow-models/hand-pose-detection');
@@ -40,7 +42,7 @@ let intervalo_objeto = 2000;
 let intervalo_vista = 1500;
 let intervalo_postura = 5000;
 let intervalo_nariz = 2000;
-let intervalo_pellizco = 850;
+let intervalo_pellizco = 1200;
 
 
 //Booleanos que se activan cuando se cumplen los intervalos de tiempo
@@ -65,7 +67,7 @@ let opcion;
 let intervalo_estres = 12000;
 let tiempo_estres = false;
 let detectado_estres = false;
-let cantidad_estres = 3;
+let cantidad_estres = 1;
 
 let cantidad_detecciones = 0;
 let detecciones_estres = 0;
@@ -168,12 +170,13 @@ function Preguntar_Comiendo(){ //esta notificación siempre se muestra, ya que s
     
 }
 
+
 function Preguntar_Estres(){ 
     Notification.requestPermission().then(function (result){
         new Notification("¿ESTÁS ESTRESADO?", { 
             body: "CLICKEA ESTA NOTIFICACIÓN SI TE ENCUENTRAS ESTRESADO", icon: 'https://media.istockphoto.com/photos/woman-holding-slice-of-bread-with-question-mark-sign-picture-id1166079452?k=20&m=1166079452&s=612x612&w=0&h=JJJIj2EEn-8VV2aihn3tg0-Y281p2hH-0O3GC71UO2k='
         })
-        .onclick = () => ipcRenderer.sendSync('Estresado', "")
+        .onclick = () => redirigir()
     })
     if (config_user.alertasonora == 'on'){
         let path = '../sounds/'+config_user.sonidonotificaciongeneral+'.mp3'
@@ -182,6 +185,35 @@ function Preguntar_Estres(){
     }
     
 }
+async function redirigir(){
+    corriendo = false;
+    flag = true;
+    
+
+    let ID = await preload.get_user_id("")
+    let ID_USER = ID.toString()
+    
+    //calculo de totales por mania
+    let [total_unhas, total_pelo, total_objeto, total_vista, total_postura, total_pellizco, total_nariz, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, cant_tot_postura, cant_tot_pellizco, cant_tot_nariz]  = preload.obtenerTotal()
+
+    //creo sesion en BD
+    let inicio_sesion = preload.fecha_inicio_sesion()
+    let fin_sesion = new Date()
+    total =  Math.trunc((fin_sesion - inicio_sesion)/1000) //lo pasa de milisegundos a segundos
+    let ini_sesion = inicio_sesion.toISOString()
+    let fini_sesion = fin_sesion.toISOString()
+    let mes_sesion = fin_sesion.getMonth() + 1
+    let anno_sesion = fin_sesion.getFullYear()
+    await preload.createSesion(ID_USER, ini_sesion, fini_sesion, total, total_unhas, total_pelo, total_objeto, total_vista, total_postura, total_pellizco, total_nariz, cant_tot_unha, cant_tot_pelo, cant_tot_objeto, cant_tot_vista, cant_tot_pestaneo, cant_tot_postura, cant_tot_pellizco, cant_tot_nariz, mes_sesion, anno_sesion, "no"); 
+    //console.log("paso insert sesion")
+    //inserto manias en BD
+
+    await preload.insertManias(ID_USER)
+
+    await sleep(300);
+    ipcRenderer.sendSync('Estresado', "");
+}
+
 
 function CountDownEstres() {
     tiempo_estres = true;
@@ -206,6 +238,8 @@ function get_user_id(){
     let respuesta = ipcRenderer.sendSync('get-user-id', "")
     return respuesta   
 }
+
+
 
 function actualizarJson(tipo, inicio, fin){
     let ini = inicio.toISOString()
@@ -427,10 +461,10 @@ function pinza_pellizco(pulgar, indice, muñeca){
     indice_muñeca = distancia_puntos(indice.x , indice.y , muñeca.x , muñeca.y )
     //positivo hacia cara el indice
     
-    
+    /*
     console.log("pulgar_indice: ", pulgar_indice)
     console.log("indice_muñeca: ", indice_muñeca)
-    
+    */
     
     if(indice_muñeca > distancia_muñeca && pulgar_indice < coeficiente ){
         return true
@@ -476,13 +510,14 @@ function mano_abierta(pulgar, indice, medio, anular, meñique, muñeca){
     pulgar_meñique = distancia_puntos3D(pulgar.x / magnitud_pulgar, pulgar.y / magnitud_pulgar, pulgar.z / magnitud_pulgar, meñique.x / magnitud_meñique, meñique.y / magnitud_meñique, meñique.z / magnitud_meñique)
 
     
+    /*
     console.log("pulgar_muñeca:",pulgar_muñeca)
     console.log("indice_muñeca:", indice_muñeca)
     console.log("medio_muñeca:", medio_muñeca)
     console.log("anular_muñeca:", anular_muñeca)
     console.log("meñique_muñeca:", meñique_muñeca)
     console.log("pulgar_meñique:", pulgar_meñique) 
-
+    */
 
     if (pulgar_muñeca >= coef_pulgar && indice_muñeca >= coef_indice && medio_muñeca >= coef_medio && anular_muñeca >= coef_anular && meñique_muñeca >= coef_meñique && pulgar_meñique >= coef_horizontal){
 
@@ -1217,31 +1252,64 @@ async function predict() {
         if(dermatilomania && !tirando_pelo){
 
             // REFERENCIA: https://imgur.com/a/Z4ykQd2
-            if(pinza_pellizco(tipPulgar, tipIndice, muñeca)){
+            coeficiente_mano = 0.045
+            if (posesHand.length == 2){
+                if(pinza_pellizco(tipPulgar, tipIndice, muñeca) && tipIndice3D.z < coeficiente_mano && tipIndice2_3D.z < coeficiente_mano){
 
-                centro_elipse_x = (ojoLeft_Inner.x + ojoRight_Inner.x + nariz.x)/3
-                centro_elipse_y = (ojoLeft_Inner.y + ojoRight_Inner.y + nariz.y)/3
+                    centro_elipse_x = (ojoLeft_Inner.x + ojoRight_Inner.x + nariz.x)/3
+                    centro_elipse_y = (ojoLeft_Inner.y + ojoRight_Inner.y + nariz.y)/3
+    
+                    beta = distancia_puntos(bocaLeft.x, bocaLeft.y, bocaRight.x, bocaRight.y)
+                    alfa = distancia_puntos(orejaLeft.x, orejaLeft.y, orejaRight.x, orejaRight.y)
+    
+                    b = (bocaLeft.y + bocaRight.y) / 2 - (ojoLeft_Inner.y + ojoRight_Inner.y) / 2 + 3 * beta
+    
+                    x = tipIndice.x - centro_elipse_x
+                    y = tipIndice.y - centro_elipse_y
+    
+                    if ( x**2 / alfa ** 2 + y ** 2 / b ** 2 <= 1 ){
+    
+                        if (!corriendo_pellizco){
+                            inicio_pellizco = new Date;
+                        }
+    
+                        pellizcando_cara = true;
+                        corriendo_pellizco = true;
+                        
+                        console.log("DERMATILOMANIA")
+                    }     
+                }
+                
 
-                beta = distancia_puntos(bocaLeft.x, bocaLeft.y, bocaRight.x, bocaRight.y)
-                alfa = distancia_puntos(orejaLeft.x, orejaLeft.y, orejaRight.x, orejaRight.y)
+            }else if(posesHand.length == 1){
+                if(pinza_pellizco(tipPulgar, tipIndice, muñeca) && tipIndice3D.z < coeficiente_mano ){
 
-                b = (bocaLeft.y + bocaRight.y) / 2 - (ojoLeft_Inner.y + ojoRight_Inner.y) / 2 + 3 * beta
+                    centro_elipse_x = (ojoLeft_Inner.x + ojoRight_Inner.x + nariz.x)/3
+                    centro_elipse_y = (ojoLeft_Inner.y + ojoRight_Inner.y + nariz.y)/3
+    
+                    beta = distancia_puntos(bocaLeft.x, bocaLeft.y, bocaRight.x, bocaRight.y)
+                    alfa = distancia_puntos(orejaLeft.x, orejaLeft.y, orejaRight.x, orejaRight.y)
+    
+                    b = (bocaLeft.y + bocaRight.y) / 2 - (ojoLeft_Inner.y + ojoRight_Inner.y) / 2 + 3 * beta
+    
+                    x = tipIndice.x - centro_elipse_x
+                    y = tipIndice.y - centro_elipse_y
+    
+                    if ( x**2 / alfa ** 2 + y ** 2 / b ** 2 <= 1 ){
+    
+                        if (!corriendo_pellizco){
+                            inicio_pellizco = new Date;
+                        }
+    
+                        pellizcando_cara = true;
+                        corriendo_pellizco = true;
+                        
+                        console.log("DERMATILOMANIA")
+                    }     
+                }
+            }
+            
 
-                x = tipIndice.x - centro_elipse_x
-                y = tipIndice.y - centro_elipse_y
-
-                if ( x**2 / alfa ** 2 + y ** 2 / b ** 2 <= 1 ){
-
-                    if (!corriendo_pellizco){
-                        inicio_pellizco = new Date;
-                    }
-
-                    pellizcando_cara = true;
-                    corriendo_pellizco = true;
-                    
-                    console.log("DERMATILOMANIA")
-                }     
-            }   
         }
     }
 
@@ -1265,12 +1333,7 @@ async function predict() {
         horizontal = distancia_puntos(hombro_izquierdo.x , hombro_izquierdo.y , hombro_derecho.x , hombro_derecho.y )
         proporcion_nueva = vertical / horizontal
 
-        /*
-        console.log("Horizontal: ", horizontal)
-        console.log("Vertical: ", vertical)
-        console.log("Proporcion: ", proporcion_nueva)
-        */
-        if(proporcion_nueva < 0.48){
+        if(proporcion_nueva < 0.445){
             if(!corriendo_postura){
                 inicio_postura = new Date;
             }
