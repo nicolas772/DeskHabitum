@@ -130,6 +130,8 @@ function playpauseTrack(){
 function playTrack(){
     curr_track.play();
     isPlaying = true;
+    localStorage.setItem('isPlaying',true);
+
     track_art.classList.add('rotate');
     wave.classList.add('loader');
     playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
@@ -137,6 +139,7 @@ function playTrack(){
 function pauseTrack(){
     curr_track.pause();
     isPlaying = false;
+    localStorage.setItem('isPlaying',false);
     track_art.classList.remove('rotate');
     wave.classList.remove('loader');
     playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';
@@ -195,6 +198,10 @@ function setUpdate(){
 /*------FIN MUSICA */
 
 window.onload=function(){
+  console.log(localStorage.getItem('isPlaying'));
+  if(localStorage.getItem('isPlaying')=="true"){
+    playTrack();
+  }
   //gradiant.className += " loaded";
 
   if(localStorage.getItem('inha1')==null){
@@ -220,7 +227,7 @@ window.onload=function(){
     localStorage.setItem("grado2", 232);
 
 
-    r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${localStorage.getItem('porcent1')}%,#fff ${localStorage.getItem('porcent1')}%,#fff ${localStorage.getItem('porcent2')}%,#336d62 ${localStorage.getItem('porcent2')}%,#2a5b52 100%)`) 
+    r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${localStorage.getItem('porcent1')}%,#89e5ba ${localStorage.getItem('porcent1')}%,#89e5ba ${localStorage.getItem('porcent2')}%,#336d62 ${localStorage.getItem('porcent2')}%,#2a5b52 100%)`) 
   
 
     r.style.setProperty('--rotate1_from',`rotate(0deg)`);
@@ -245,7 +252,7 @@ window.onload=function(){
     r.style.setProperty('--hold', localStorage.getItem('mant1') + 's');
 
 
-    r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${localStorage.getItem('porcent1')}%,#fff ${localStorage.getItem('porcent1')}%,#fff ${localStorage.getItem('porcent2')}%,#336d62 ${localStorage.getItem('porcent2')}%,#2a5b52 100%)`) 
+    r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${localStorage.getItem('porcent1')}%,#89e5ba ${localStorage.getItem('porcent1')}%,#89e5ba ${localStorage.getItem('porcent2')}%,#336d62 ${localStorage.getItem('porcent2')}%,#2a5b52 100%)`) 
   
 
     r.style.setProperty('--rotate1_from',`rotate(0deg)`);
@@ -271,10 +278,23 @@ window.onload=function(){
 
 function changeBreath(){
   
-  localStorage.setItem("empezo", 1);
+  localStorage.setItem("empezo", 0);
   var inhalacion = document.getElementById('duracionInhalacion').value;
   var exhalacion = document.getElementById('duracionExhalacion').value;
   var mantener = document.getElementById('duracionMantener1').value;
+  var check = [inhalacion, exhalacion, mantener]
+  for (let index = 0; index < check.length; index++) {
+    if (parseInt(check[index])>15) {
+      check[index] = "15"
+    } else if (parseInt(check[index])<1) {
+      check[index] = "1"
+    }
+    
+  }
+  inhalacion = check[0]
+  exhalacion = check[1]
+  mantener = check[2]   
+
   localStorage.setItem("inha1", inhalacion);
   localStorage.setItem("exha1", exhalacion);
   localStorage.setItem("mant1", mantener);
@@ -314,7 +334,7 @@ function changeBreath(){
   localStorage.setItem("grado2",grado2);
   
 
-  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#fff ${porcent1}%,#fff ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
+  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#89e5ba ${porcent1}%,#89e5ba ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
   
 
   r.style.setProperty('--rotate1_from',`rotate(0deg)`);
@@ -398,7 +418,7 @@ function endbreathAnimation(){
 
 
 function tecnica_square(){
-  localStorage.setItem("empezo", 1);
+  localStorage.setItem("empezo", 0);
   document.getElementById('duracionInhalacion').value = 4;
   document.getElementById('duracionExhalacion').value= 4;
   mantener = document.getElementById('duracionMantener1').value=4;
@@ -445,7 +465,7 @@ function tecnica_square(){
   localStorage.setItem("grado2",grado2);
   
 
-  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#fff ${porcent1}%,#fff ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
+  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#89e5ba ${porcent1}%,#89e5ba ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
   
 
   r.style.setProperty('--rotate1_from',`rotate(0deg)`);
@@ -462,7 +482,7 @@ function tecnica_square(){
 }
 
 function tecnica_pranayama(){
-  localStorage.setItem("empezo", 1);
+  localStorage.setItem("empezo", 0);
   document.getElementById('duracionInhalacion').value = 7;
   document.getElementById('duracionExhalacion').value= 8;
   mantener = document.getElementById('duracionMantener1').value=4;
@@ -509,7 +529,7 @@ function tecnica_pranayama(){
   localStorage.setItem("grado2",grado2);
   
 
-  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#fff ${porcent1}%,#fff ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
+  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#89e5ba ${porcent1}%,#89e5ba ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
   
 
   r.style.setProperty('--rotate1_from',`rotate(0deg)`);
@@ -525,7 +545,7 @@ function tecnica_pranayama(){
 }
 
 function tecnica_ujjayi(){
-  localStorage.setItem("empezo", 1);
+  localStorage.setItem("empezo", 0);
   document.getElementById('duracionInhalacion').value = 7;
   document.getElementById('duracionExhalacion').value= 7;
   mantener = document.getElementById('duracionMantener1').value=0;
@@ -572,7 +592,7 @@ function tecnica_ujjayi(){
   localStorage.setItem("grado2",grado2);
   
 
-  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#fff ${porcent1}%,#fff ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
+  r.style.setProperty('--circulo-resp', `conic-gradient(#55b7a4 0%,#4ca493 ${porcent1}%,#89e5ba ${porcent1}%,#89e5ba ${porcent2}%,#336d62 ${porcent2}%,#2a5b52 100%)`) 
   
 
   r.style.setProperty('--rotate1_from',`rotate(0deg)`);
@@ -594,7 +614,8 @@ $('grad-circle').fadeIn('slow');
 
 window.onbeforeunload = () => {
   
-  
+  localStorage.setItem("isPlaying", isPlaying);
+  //console.log(localStorage.getItem('isPlaying'));
   localStorage.setItem("inha1", localStorage.getItem('inha1'));
   localStorage.setItem("exha1", localStorage.getItem('exha1'));
   localStorage.setItem("mant1", localStorage.getItem('mant1'));

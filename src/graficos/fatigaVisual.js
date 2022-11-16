@@ -46,11 +46,35 @@ async function update_fatiga_visual(){
     stroke: {
       curve: 'smooth'
     },
+    
     xaxis: {          
-      categories: ["1", "2", "3", "4", "5", "6", "7","8", "9", "10"]    
+      categories: ["1", "2", "3", "4", "5", "6", "7","8", "9", "10"] ,
+      title:{
+        text:"NÚMERO DE SESIÓN",
+        display:true,
+        offsetY:90,
+        style:{
+          color:"gray"
+        }
+        
+        //cssClass:"padding-top:20px;",
+      }
+        
     },
     yaxis: [{
       decimalsInFloat: 0,
+      title:{
+        text:"PESTAÑEO PROMEDIO POR HORA",
+        display:true,
+        offsetX:-5,
+        style:{
+          color:"gray"
+        }
+        
+       
+        
+        //cssClass:"color:green",
+      }
     }],
     
     annotations: {

@@ -98,7 +98,7 @@ async function update_dash_general() {
         width: 380,
         type: 'pie',
       },
-      labels: ['Onicofagia', 'Tricotilomanía', 'Manía Mordiendo Objetos', 'Rinotilexomanía', 'Dermatilomanía'],
+      labels: ['Onicofagia', 'Tricotilomanía', 'Manía Morder Objetos', 'Rinotilexomanía', 'Dermatilomanía'],
       responsive: [{
         breakpoint: 480,
         options: {
@@ -152,11 +152,11 @@ async function update_dash_general() {
             data: pelos_10_sesiones
           },
           {
-            name: 'Manía Mordiendo Objetos',
+            name: 'Manía Morder Objetos',
             data: objetos_10_sesiones
           },
           {
-            name: 'Dermantilomanía',
+            name: 'Dermatilomanía',
             data: piel_10_sesiones
           },
           {
@@ -196,9 +196,26 @@ async function update_dash_general() {
           }
         },
         xaxis: {
-          categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+          categories: ['1','2', '3', '4', '5', '6', '7', '8', '9', '10'],
+          title:{
+            text:"NÚMERO DE SESIÓN",
+            display:true,
+            offsetY:85,
+            style:{
+              color:"gray"
+            }
+          }
         },
         yaxis:{
+          title:{
+            text:"%TIEMPO CON MANÍA",
+            display:true,
+            offsetX:-3,
+            style:{
+              color:"gray",
+              
+            }
+           },
           decimalsInFloat: 0,
         },
         tooltip: {
@@ -257,7 +274,7 @@ async function update_dash_general() {
         },
         labels: ['Tiempo Onicofagia', 'Tiempo Óptimo'],
         responsive: [{
-          breakpoint: 480,
+          breakpoint: 380,
           options: {
             chart: {
               width: 400
@@ -302,10 +319,26 @@ async function update_dash_general() {
           },
         },
         xaxis: {
-          categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+          categories: ['1','2', '3', '4', '5', '6', '7', '8', '9', '10'],
+          title:{
+            text:"NÚMERO DE SESIÓN",
+            display:true,
+            offsetY:90,
+            style:{
+              color:"gray"
+            }
+          }
         },
         yaxis:{
           decimalsInFloat: 0,
+          title:{
+            text:"%TIEMPO CON MANÍA",
+            display:true,
+            offsetX:-3,
+            style:{
+              color:"gray"
+            }
+           }
         }
       };
     
@@ -391,10 +424,26 @@ async function update_dash_general() {
         },
       },
       xaxis: {
-        categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+        categories: ['1','2', '3', '4', '5', '6', '7', '8', '9', '10'],
+        title:{
+          text:"NÚMERO DE SESIÓN",
+          display:true,
+          offsetY:90,
+          style:{
+            color:"gray"
+          }
+        }
       },
       yaxis:{
         decimalsInFloat: 0,
+        title:{
+          text:"%TIEMPO CON MANÍA",
+          display:true,
+          offsetX:-3,
+          style:{
+            color:"gray"
+          }
+         }
       }
     };
     
@@ -467,7 +516,36 @@ async function update_dash_general() {
                 ],
                 borderWidth: 1
             }]
+        },
+        options: {
+      
+          scales:{
+    
+            x:{
+              title:{
+                color:"gray",
+                display:true,
+                font:{
+                  weight:'bold'},
+                text:"SESIÓN",
+                padding:10
+              }
+            },
+    
+            y:{
+              title:{
+                padding:20,
+                color:"gray",
+                display:true,
+                font:{
+                  weight:'bold'},
+                text:"NÚMERO DE DETECCIONES"
+              }
+            }
+          }
+          
         }
+
        
     });
 
@@ -526,7 +604,31 @@ async function update_dash_general() {
     },
     xaxis: {
       categories: categories_pelo,
+      title:{
+        text:"NÚMERO DE SESIÓN",
+        display:true,
+        offsetY:110,
+        style:{
+          color:"gray"
+        }
+      }
     },
+    yaxis: [{
+      decimalsInFloat: 0,
+
+      title:{
+        text:"NÚMERO DE DETECCIONES",
+        display:true,
+        offsetX:-3,
+        style:{
+          color:"gray"
+        }
+       }
+       
+        
+        //cssClass:"color:green",
+      
+    }],
     
     grid: {
       borderColor: '#f1f1f1',
@@ -616,10 +718,27 @@ async function update_dash_general() {
         },
       },
       xaxis: {
-        categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+        categories: ['1','2', '3', '4', '5', '6', '7', '8', '9', '10'],
+        title:{
+          text:"NÚMERO DE SESIÓN",
+          display:true,
+          offsetY:90,
+          style:{
+            color:"gray"
+          }
+        }
       },
       yaxis:{
         decimalsInFloat: 0,
+        title:{
+          text:"%TIEMPO CON MANÍA",
+          display:true,
+          offsetX:-3,
+          style:{
+            color:"gray"
+          }
+         }
+  
       }
     };
     
@@ -691,6 +810,34 @@ async function update_dash_general() {
                 ],
                 borderWidth: 1
             }]
+        },
+        options: {
+      
+          scales:{
+    
+            x:{
+              title:{
+                color:"gray",
+                display:true,
+                font:{
+                  weight:'bold'},
+                text:"SESIÓN",
+                padding:10
+              }
+            },
+    
+            y:{
+              title:{
+                padding:20,
+                color:"gray",
+                display:true,
+                font:{
+                  weight:'bold'},
+                text:"CANTIDAD DE DETECCIONES"
+              }
+            }
+          }
+          
         }
        
     });
@@ -749,8 +896,31 @@ async function update_dash_general() {
     },
     xaxis: {
       categories: categories_obj,
+      title:{
+        text:"NÚMERO DE SESIÓN",
+        display:true,
+        offsetY:110,
+        style:{
+          color:"gray"
+        }
+      }
     },
+    yaxis: [{
+      decimalsInFloat: 0,
 
+      title:{
+        text:"NÚMERO DE DETECCIONES",
+        display:true,
+        offsetX:-3,
+        style:{
+          color:"gray"
+        }
+       }
+       
+        
+        //cssClass:"color:green",
+      
+    }],
     
     grid: {
       borderColor: '#f1f1f1',
@@ -843,10 +1013,26 @@ async function update_dash_general() {
         },
       },
       xaxis: {
-        categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+        categories: ['1','2', '3', '4', '5', '6', '7', '8', '9', '10'],
+        title:{
+          text:"NÚMERO DE SESIÓN",
+          display:true,
+          offsetY:90,
+          style:{
+            color:"gray"
+          }
+        }
       },
       yaxis:{
         decimalsInFloat: 0,
+        title:{
+          text:"%TIEMPO CON MANÍA",
+          display:true,
+          offsetX:-3,
+          style:{
+            color:"gray"
+          }
+         }
       }
     };
 
@@ -876,6 +1062,34 @@ async function update_dash_general() {
                       decimalsInFloat: 0,
                     }
                 }]
+            },
+            options: {
+      
+              scales:{
+        
+                x:{
+                  title:{
+                    color:"gray",
+                    display:true,
+                    text:"SESIÓN",
+                    font:{
+                      weight:'bold'},
+                    padding:10
+                  }
+                },
+        
+                y:{
+                  title:{
+                    padding:20,
+                    color:"gray",
+                    font:{
+                      weight:'bold'},
+                    display:true,
+                    text:"CANTIDAD DE DETECCIONES"
+                  }
+                }
+              }
+              
             }
           
         });
@@ -945,7 +1159,7 @@ async function update_dash_general() {
       dashArray: [0, 8, 5]
     },
     title: {
-      text: 'Page Statistics',
+      text: 'Cantidad de detecciones por sesión',
       align: 'left'
     },
     legend: {
@@ -961,7 +1175,33 @@ async function update_dash_general() {
     },
     xaxis: {
       categories: categories_nariz,
+      title:{
+        text:"NÚMERO DE SESIÓN",
+        display:true,
+        offsetY:110,
+        style:{
+          color:"gray"
+        }
+      }
     },
+    yaxis: [{
+      decimalsInFloat: 0,
+
+      title:{
+        text:"NÚMERO DE DETECCIONES",
+        display:true,
+        offsetX:-3,
+        style:{
+          color:"gray"
+        }
+       }
+       
+        
+        //cssClass:"color:green",
+      
+    }],
+
+
     tooltip: {
       y: [
         {
@@ -1076,10 +1316,26 @@ async function update_dash_general() {
         },
       },
       xaxis: {
-        categories: ['Sesión 1','Sesión 2', 'Sesión 3', 'Sesión 4', 'Sesión 5', 'Sesión 6', 'Sesión 7', 'Sesión 8', 'Sesión 9', 'Sesión 10'],
+        categories: ['1','2', '3', '4', '5', '6', '7', '8', '9', '10'],
+        title:{
+          text:"NÚMERO DE SESIÓN",
+          display:true,
+          offsetY:90,
+          style:{
+            color:"gray"
+          }
+        }
       },
       yaxis:{
         decimalsInFloat: 0,
+        title:{
+          text:"%TIEMPO CON MANÍA",
+          display:true,
+          offsetX:-3,
+          style:{
+            color:"gray"
+          }
+         }
       }
     };
 
@@ -1109,6 +1365,34 @@ async function update_dash_general() {
                       decimalsInFloat: false,
                     }
                 }]
+            },
+            options: {
+      
+              scales:{
+        
+                x:{
+                  title:{
+                    color:"gray",
+                    display:true,
+                    font:{
+                      weight:'bold'},
+                    text:"SESIÓN",
+                    padding:10
+                  }
+                },
+        
+                y:{
+                  title:{
+                    padding:20,
+                    color:"gray",
+                    font:{
+                      weight:'bold'},
+                    display:true,
+                    text:"CANTIDAD DE DETECCIONES"
+                  }
+                }
+              }
+              
             }
           
         });
@@ -1178,7 +1462,7 @@ async function update_dash_general() {
       dashArray: [0, 8, 5]
     },
     title: {
-      text: 'Page Statistics',
+      text: 'Cantidad de detecciones por sesión',
       align: 'left'
     },
     legend: {
@@ -1194,7 +1478,31 @@ async function update_dash_general() {
     },
     xaxis: {
       categories: categories_piel,
+      title:{
+        text:"NÚMERO DE SESIÓN",
+        display:true,
+        offsetY:110,
+        style:{
+          color:"gray"
+        }
+      }
     },
+    yaxis: [{
+      decimalsInFloat: 0,
+
+      title:{
+        text:"NÚMERO DE DETECCIONES",
+        display:true,
+        offsetX:-3,
+        style:{
+          color:"gray"
+        }
+       }
+       
+        
+        //cssClass:"color:green",
+      
+    }],
     tooltip: {
       y: [
         {

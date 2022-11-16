@@ -26,6 +26,7 @@ async function update_dash_postura() {
   top_10_mes_postura.reverse()
   time_10_mes_postura.reverse()
 
+
   document.getElementById("total-ultima-postura").innerHTML = total_ultima_postura;
   document.getElementById("tiempo-ultima-postura").innerHTML = tiempo_ultima_postura;
   document.getElementById("tiempo-mes-postura").innerHTML = time_10_mes_postura.reduce((partialSum, a) => partialSum + a, 0);
@@ -36,78 +37,90 @@ async function update_dash_postura() {
   //---------------GRAFICO-----------
   const data = {
     datasets: [{
-      label: 'Tiempos de mala postura detectados',
+      label: 'Tiempo de mala postura detectado (ancho)',
       data: [{
         x: 1,  //DEJAR ESTE DATO PARA ESTABLECER EL ALTO (Y), QUE (X)
-        y: 60,
+        y: 10,
         r: 0
       },
       {
         x: 1,  //hay que sumar 1 a la sesión para que no quede en eje y
-        y: time_10_mes_postura[0], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[0] //tiempo en minutos que estuvo con mala postura
+        y: top_10_mes_postura[0], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[0] //tiempo en minutos que estuvo con mala postura
       }, 
       {
         x: 2,  //hay que sumar 1 a la sesión para que no quede en eje y
-        y: time_10_mes_postura[1], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[1] //tiempo en minutos que estuvo con mala postura
+        y: top_10_mes_postura[1], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[1] //tiempo en minutos que estuvo con mala postura
       }, 
       {
         x: 3,  //hay que sumar 1 a la sesión para que no quede en eje y
-        y: time_10_mes_postura[2], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[2]  //tiempo en minutos que estuvo con mala postura
+        y: top_10_mes_postura[2], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[2]  //tiempo en minutos que estuvo con mala postura
       }, {
         x: 4,
-        y: time_10_mes_postura[3], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[3] 
+        y: top_10_mes_postura[3], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[3] 
       },
       {
         x: 5,
-        y: time_10_mes_postura[4], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[4] 
+        y: top_10_mes_postura[4], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[4] 
       },
       {
         x: 6,
-        y: time_10_mes_postura[5], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[5] 
+        y: top_10_mes_postura[5], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[5] 
       },
       {
         x: 7,
-        y: time_10_mes_postura[6], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[6] 
+        y: top_10_mes_postura[6], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[6] 
       },
       {
         x: 8,
-        y: time_10_mes_postura[7], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[7] 
+        y: top_10_mes_postura[7], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[7] 
       },
       {
         x: 9,
-        y: time_10_mes_postura[8], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[8] 
+        y: top_10_mes_postura[8], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[8] 
       },
       {
         x: 10,
-        y: time_10_mes_postura[9], //minuto de la sesion en la que se detecto la mala postura
-        r: top_10_mes_postura[9]
+        y: top_10_mes_postura[9], //minuto de la sesion en la que se detecto la mala postura
+        r: time_10_mes_postura[9]
       },
       {
         x: 11,  //DEJAR ESTE DATO PARA ESTABLECER EL ANCHO DE LAS 10 SESIONES 
         y: 5,
         r: 0
       }],
-      backgroundColor: 'rgb(255, 99, 132)'
+      backgroundColor: 'rgb(58, 198, 143)'
     }]
   };
 
   await window.api.mesPostura(ID_USER,mes_anterior_anterior).then(result => {
-    total_mes_anterior_anterior = parseInt(result)
+    if (result==null) {
+      total_mes_anterior_anterior = 0
+    }else{
+      total_mes_anterior_anterior = parseInt(result)
+    }
   });
   await window.api.mesPostura(ID_USER,mes_anterior).then(result => {
-    total_mes_anterior = parseInt(result)
+    if (result==null) {
+      total_mes_anterior = 0
+    }else{
+      total_mes_anterior = parseInt(result)
+    }
   });
   await window.api.mesPostura(ID_USER,mes_actual).then(result => {
-    total_mes_actual = parseInt(result)
+    if (result==null) {
+      total_mes_actual = 0
+    }else{
+      total_mes_actual = parseInt(result)
+    }
   });
 
   document.getElementById("mes-ant-ant-postura").innerHTML = monthNames[mes_anterior_anterior-1]
@@ -124,9 +137,41 @@ async function update_dash_postura() {
     label:'sesiones',
     type: 'bubble',
     data: data,
-    options: {},
+    options: {
+      plugins:{
+        legend:{
+          color:'green',
+          backgroundColor:'green'
+        }
+      },
+      scales:{
+
+        x:{
+          title:{
+            color:"gray",
+            display:true,
+            font:{
+              weight:'bold'},
+            text:"NÚMERO DE SESIÓN",
+            padding:5
+          }
+        },
+        y:{
+          title:{
+            padding:10,
+            font:{
+              weight:'bold'},
+            
+            color:"gray",
+            display:true,
+            text:"CANTIDAD DE DETECCIONES"
+          }
+        }
+      }
+      
+    },
     yaxis:{
-      decimalsInFloat: false,
+      decimalsInFloat: 0,
     }
   });
 
@@ -137,7 +182,7 @@ async function update_dash_postura() {
   const data_posmes = {
     labels: labels,
     datasets: [{
-      label: 'My First Dataset',
+      label: 'Cantidad de detecciones',
       data: [total_mes_anterior_anterior, total_mes_anterior, total_mes_actual],
       backgroundColor: [
         
@@ -153,19 +198,42 @@ async function update_dash_postura() {
       ],
       borderWidth: 1
     }]
+    
   };
 
   const ctx_pmes = document.getElementById('chart_posturames').getContext('2d');
   const config_posmes = new Chart(ctx_pmes,{
     type: 'bar',
     data: data_posmes,
+    yaxis:{
+      decimalsInFloat: 0,
+    },
     options: {
       scales: {
-        y: {
-          beginAtZero: true
+        x:{
+          title:{
+            color:"gray",
+            display:true,
+            font:{
+              weight:'bold'},
+            text:"MES"
+          }
+        },
+        y:{
+          title:{
+            beginAtZero: true,
+            color:"gray",
+            display:true,
+            text:"CANTIDAD DE DETECCIONES",
+            font:{
+              weight:'bold'},
+            padding:10,
+            decimalsInFloat:0
+          }
         }
       }
-    },
+    }
+    
   });
 
 }
