@@ -64,51 +64,55 @@ const createWindow = () => {
 
     win.once('closed', () => {
       pomodoro_win.close()
-      camera_win.close()
+      try{
+        camera_win.close()
+      }catch{
+        console.log("No existe camera_win?")
+      }
     })
 
-    ipcMain.handle('Estresado', (event, data) => {
-      win.loadFile('src/views/Respiracion.html');
-      pomodoro_win.close();
-      camera_win.close();
-
-      camera_win = new BrowserWindow({
-        width: 600,
-        height: 600,
-        show: false,
-        webPreferences: {
-            // nodeIntegration: true,
-            // contextIsolation:true,
-            //devTools:true,
-            preload:path.join(__dirname, 'test_processWebcam.js')
-            
-        }
-      })
-      camera_win.loadFile('src/views/camera.html');
-      camera_win.webContents.openDevTools();
-  
-  
-      pomodoro_win = new BrowserWindow({
-        width: 600,
-        height: 600,
-        show: false,
-        webPreferences: {
-            // nodeIntegration: true,
-            // contextIsolation:true,
-            //devTools:true,
-            preload:path.join(__dirname, 'pomodoro.js')
-            
-        }
-      })
-      
-      pomodoro_win.loadFile('src/views/camera.html');
-      pomodoro_win.webContents.openDevTools();
-
-
-    })
 }
 
+ipcMain.handle('Estresado', (event, data) => {
+  win.loadFile('src/views/Respiracion.html');
+  pomodoro_win.close();
+  camera_win.close();
 
+  camera_win = new BrowserWindow({
+    width: 600,
+    height: 600,
+    show: false,
+    webPreferences: {
+        // nodeIntegration: true,
+        // contextIsolation:true,
+        //devTools:true,
+        preload:path.join(__dirname, 'test_processWebcam.js')
+        
+    }
+  })
+  
+  camera_win.loadFile('src/views/camera.html');
+  camera_win.webContents.openDevTools();
+
+
+  pomodoro_win = new BrowserWindow({
+    width: 600,
+    height: 600,
+    show: false,
+    webPreferences: {
+        // nodeIntegration: true,
+        // contextIsolation:true,
+        //devTools:true,
+        preload:path.join(__dirname, 'pomodoro.js')
+        
+    }
+  })
+  
+  pomodoro_win.loadFile('src/views/camera.html');
+  pomodoro_win.webContents.openDevTools();
+
+
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -148,6 +152,7 @@ function loginWindow () {
 ipcMain.handle('login', (event, obj) => {
   validatelogin(obj)
 });
+
 
 function validatelogin(obj) {
   const { email, password } = obj 
