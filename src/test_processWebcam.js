@@ -36,7 +36,7 @@ let corriendo = false;
 let camara_cargada = false;
 
 //Intervalo de tiempo antes de mandar notificación por cada mal habito y consolidar la detección
-let intervalo_uña = 2000;
+let intervalo_uña = 1000;
 let intervalo_pelo = 500;
 let intervalo_objeto = 2000;
 let intervalo_vista = 1500;
