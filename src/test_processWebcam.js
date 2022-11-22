@@ -80,7 +80,7 @@ let comiendo = false;
 let tiempo_comiendo = 600000;
 
 let cantidad_pestañeos = 0;
-let tiempo_periodo = 1000000; //en milisegundos
+let tiempo_periodo = 3600000; //en milisegundos
 let frec_normal_pestañeo = 2; // Sin concentrar vista: 20 pestañeos por min / Leyendo: 14 pestañeos por min -> 2 pestañeos por 10 seg
 let corriendo_periodo = false; 
 
@@ -1207,7 +1207,7 @@ async function predict() {
 
 
 /*-----------------------------------------------SECCIÓN DE MUCOFAGIA-----------------------------------------------*/
-        if(mucofagia){
+        if(mucofagia && !corriendo_uña && posesHand.length != 0){
             let radio_nariz;
 
             radio_ojoLeft = distancia_puntos(ojoLeft_Outer.x, ojoLeft_Outer.y, ojoLeft_Inner.x, ojoLeft_Inner.y)
@@ -1249,7 +1249,7 @@ async function predict() {
             }
         }
 /*-----------------------------------------------SECCIÓN DE DERMATILOMANIA-----------------------------------------------*/
-        if(dermatilomania && !tirando_pelo){
+        if(dermatilomania && !tirando_pelo && !corriendo_uña && posesHand.length != 0){
 
             // REFERENCIA: https://imgur.com/a/Z4ykQd2
             coeficiente_mano = 0.045
@@ -1333,7 +1333,7 @@ async function predict() {
         horizontal = distancia_puntos(hombro_izquierdo.x , hombro_izquierdo.y , hombro_derecho.x , hombro_derecho.y )
         proporcion_nueva = vertical / horizontal
 
-        if(proporcion_nueva < 0.465){
+        if(proporcion_nueva < 0.48){
             if(!corriendo_postura){
                 inicio_postura = new Date;
             }
@@ -1476,7 +1476,7 @@ async function predict() {
 
     }
 
-    if(morder_objetos && !comiendo && !comiendo_uña){
+    if(morder_objetos && !comiendo && !comiendo_uña && !urgando_nariz && !pellizcando_cara){
         tf.engine().startScope()   // Liberar tensores que no se ocupan
         tensor = tf.image.resizeBilinear(tf.browser.fromPixels(webcam.canvas), [224, 224]).div(255.0).expandDims(0);
         modelo = await model.executeAsync(tensor).then(predictions=> { 
@@ -1510,7 +1510,7 @@ async function predict() {
             score_clase4 = scores_data[3];
             score_clase5 = scores_data[4];
 
-            coef = 0.61
+            coef = 0.52
             
             //Si se detecta al menos una clase, entrar aquí
             if (clase1 != -1){
